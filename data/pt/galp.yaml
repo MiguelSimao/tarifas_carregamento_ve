@@ -1,0 +1,14 @@
+providers:
+- name: Galp
+  plans:
+  - name: AD-HOC
+    country_code: PT
+    payment_methods:
+      - ADHOC_BANK_CARD
+    networks:
+    - network_id: GLPP
+      tariffs:
+      - type: DC
+        tiers:
+        - min: 180
+          price: 0.8

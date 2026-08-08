@@ -1,0 +1,12 @@
+providers:
+- name: Prio
+  country_code: PT
+  payment_methods:
+    - ADHOC_BANK_CARD
+  plans:
+  - name: AD-HOC
+    networks:
+    - network_id: PRIO
+      tariffs:
+      - type: DC
+        price: 0.7

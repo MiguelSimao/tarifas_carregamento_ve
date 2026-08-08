@@ -1,0 +1,16 @@
+providers:
+- name: Moeve
+  plans:
+  - name: AD-HOC
+    country_code: PT
+    payment_methods:
+      - ADHOC_BANK_CARD
+    networks:
+    - network_id: CEPS
+      tariffs:
+      - type: DC
+        price: 0.55
+    - network_id: PROP
+      tariffs:
+      - type: DC
+        price: 0.55

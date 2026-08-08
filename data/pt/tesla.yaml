@@ -1,0 +1,477 @@
+_templates:
+
+  tesla_matosinhos: &tesla_matosinhos
+    network_id: TESLA
+    display_name: Matosinhos
+    included_locations:
+    - MATOSINHOSSUPERCHARGER-1
+    - MATOSINHOSSUPERCHARGER-2
+    - MATOSINHOSSUPERCHARGER-3
+    - MATOSINHOSSUPERCHARGER-4
+    - MATOSINHOSSUPERCHARGER-5
+
+  tesla_ribeira_de_pena: &tesla_ribeira_de_pena
+    network_id: TESLA
+    display_name: Ribeira de Pena
+    included_locations:
+    - VILAREALSUPERCHARGER-1
+    - VILAREALSUPERCHARGER-2
+    - VILAREALSUPERCHARGER-3
+
+  tesla_guarda: &tesla_guarda
+    network_id: TESLA
+    display_name: Guarda
+    included_locations:
+    - GUARDAPTSUPERCHARGER-1
+    - GUARDAPTSUPERCHARGER-2
+    - GUARDAPTSUPERCHARGER-3
+    - GUARDAPTSUPERCHARGER-4
+
+  tesla_castelo_branco: &tesla_castelo_branco
+    network_id: TESLA
+    display_name: Castelo Branco
+    included_locations:
+    - 14181-1
+    - 14181-2
+
+  tesla_mealhada: &tesla_mealhada
+    network_id: TESLA
+    display_name: Mealhada
+    included_locations:
+    - MEALHADASUPERCHARGER-1
+    - MEALHADASUPERCHARGER-2
+    - MEALHADASUPERCHARGER-3
+    - MEALHADASUPERCHARGER-4
+    - MEALHADASUPERCHARGER-5
+    - MEALHADASUPERCHARGER-6
+    - MEALHADASUPERCHARGER-7
+    - MEALHADASUPERCHARGER-8
+    - MEALHADASUPERCHARGER-9
+    - MEALHADASUPERCHARGER-10
+
+  tesla_fatima: &tesla_fatima
+    network_id: TESLA
+    display_name: Fatima
+    included_locations:
+    - FATIMASELFSERVELOCATION-1
+    - FATIMASELFSERVELOCATION-2
+    - FATIMASELFSERVELOCATION-3
+    - FATIMASELFSERVELOCATION-4
+    - FATIMASELFSERVELOCATION-5
+    - FATIMASELFSERVELOCATION-6
+    - FATIMASELFSERVELOCATION-7
+    - FATIMASELFSERVELOCATION-8
+
+  tesla_alcacer: &tesla_alcacer
+    network_id: TESLA
+    display_name: Alcacer
+    included_locations:
+    - ALCACERDOSALSUPERCHARGER-1
+    - ALCACERDOSALSUPERCHARGER-2
+    - ALCACERDOSALSUPERCHARGER-3
+    - ALCACERDOSALSUPERCHARGER-4
+    - ALCACERDOSALSUPERCHARGER-5
+    - ALCACERDOSALSUPERCHARGER-6
+    - ALCACERDOSALSUPERCHARGER-7
+    - ALCACERDOSALSUPERCHARGER-8
+
+  tesla_montemor_o_novo: &tesla_montemor_o_novo
+    network_id: TESLA
+    display_name: Montemor o Novo
+    included_locations:
+    - MONTEMORONOVOSUPERCHARGER-1
+    - MONTEMORONOVOSUPERCHARGER-2
+    - MONTEMORONOVOSUPERCHARGER-3
+    - MONTEMORONOVOSUPERCHARGER-4
+
+  tesla_loule: &tesla_loule
+    network_id: TESLA
+    display_name: Loulé
+    included_locations:
+    - LOULESUPERCHARGER-1
+    - LOULESUPERCHARGER-2
+    - LOULESUPERCHARGER-3
+    - LOULESUPERCHARGER-4
+    - LOULESUPERCHARGER-5
+    - LOULESUPERCHARGER-6
+
+  tesla_alcantarilha: &tesla_alcantarilha
+    network_id: TESLA
+    display_name: Alcantarilha
+    included_locations:
+    - ALCANTARILHASUPERCHARGER-13945542774
+    - ALCANTARILHASUPERCHARGER-13945542775
+    - ALCANTARILHASUPERCHARGER-13945542776
+    - ALCANTARILHASUPERCHARGER-13945542777
+    - ALCANTARILHASUPERCHARGER-13945542778
+    - ALCANTARILHASUPERCHARGER-13945542779
+    - ALCANTARILHASUPERCHARGER-13945542780
+    - ALCANTARILHASUPERCHARGER-13945542781
+    - ALCANTARILHASUPERCHARGER-5
+    - ALCANTARILHASUPERCHARGER-6
+    - ALCANTARILHASUPERCHARGER-7
+
+  # 00
+  time_00_04: &time_00_04
+    time_restrictions:
+    - start_time: "00:00"
+      end_time: "04:00"
+  time_00_08: &time_00_08
+    time_restrictions:
+    - start_time: "00:00"
+      end_time: "08:00"
+  time_00_09: &time_00_09
+    time_restrictions:
+    - start_time: "00:00"
+      end_time: "09:00"
+  # 04
+  time_04_09: &time_04_09
+    time_restrictions:
+    - start_time: "04:00"
+      end_time: "09:00"
+  time_04_08: &time_04_08
+    time_restrictions:
+    - start_time: "04:00"
+      end_time: "08:00"
+  # 08
+  time_08_12: &time_08_12
+    time_restrictions:
+    - start_time: "08:00"
+      end_time: "12:00"
+  time_08_22: &time_08_22
+    time_restrictions:
+    - start_time: "08:00"
+      end_time: "22:00"
+  # 09
+  time_09_13: &time_09_13
+    time_restrictions:
+    - start_time: "09:00"
+      end_time: "13:00"
+  time_09_15: &time_09_15
+    time_restrictions:
+    - start_time: "09:00"
+      end_time: "15:00"
+  time_09_18: &time_09_18
+    time_restrictions:
+    - start_time: "09:00"
+      end_time: "18:00"
+  # 10
+  time_10_22: &time_10_22
+    time_restrictions:
+    - start_time: "10:00"
+      end_time: "22:00"
+  # 12
+  time_12_20: &time_12_20
+    time_restrictions:
+    - start_time: "12:00"
+      end_time: "20:00"
+  time_12_22: &time_12_22
+    time_restrictions:
+    - start_time: "12:00"
+      end_time: "22:00"
+  # 13
+  time_13_18: &time_13_18
+    time_restrictions:
+    - start_time: "13:00"
+      end_time: "18:00"
+  # 15
+  time_15_20: &time_15_20
+    time_restrictions:
+    - start_time: "15:00"
+      end_time: "20:00"
+  # 18
+  time_18_22: &time_18_22
+    time_restrictions:
+    - start_time: "18:00"
+      end_time: "22:00"
+  # 20
+  time_20_00: &time_20_00
+    time_restrictions:
+    - start_time: "20:00"
+      end_time: "00:00"
+  # 22
+  time_22_04: &time_22_04
+    time_restrictions:
+    - start_time: "22:00"
+      end_time: "04:00"
+  time_22_08: &time_22_08
+    time_restrictions:
+    - start_time: "22:00"
+      end_time: "08:00"
+  time_22_09: &time_22_09
+    time_restrictions:
+    - start_time: "22:00"
+      end_time: "09:00"
+  time_22_10: &time_22_10
+    time_restrictions:
+    - start_time: "22:00"
+      end_time: "10:00"
+  time_22_18: &time_22_18
+    time_restrictions:
+    - start_time: "22:00"
+      end_time: "18:00"
+
+
+providers:
+
+- name: Tesla
+  plans:
+  - name: Non-Member
+    country_code: PT
+    payment_methods:
+      - ADHOC_BANK_CARD
+      - RFID_CARD
+      - APP
+    networks:
+
+    # MATOSINHOS NON_MEMBER
+    - <<: *tesla_matosinhos
+      tariffs:
+      - type: DC
+        price: 0.40
+
+    # RIBEIRA_DE_PENA NON_MEMBER
+    - <<: *tesla_ribeira_de_pena
+      tariffs:
+      - type: DC
+        price: 0.43
+
+    # GUARDA NON_MEMBER
+    - <<: *tesla_guarda
+      tariffs:
+      - type: DC
+        price: 0.37
+        <<: *time_00_09
+      - type: DC
+        price: 0.51
+        <<: *time_09_15
+      - type: DC
+        price: 0.62
+        <<: *time_15_20
+      - type: DC
+        price: 0.51
+        <<: *time_20_00
+
+    # CASTELO_BRANCO NON_MEMBER
+    - <<: *tesla_castelo_branco
+      tariffs:
+      - type: DC
+        <<: *time_10_22
+        price: 0.49
+      - type: DC
+        <<: *time_22_10
+        price: 0.33
+
+    # MEALHADA NON_MEMBER
+    - <<: *tesla_mealhada
+      tariffs:
+      - type: DC
+        price: 0.24
+        <<: *time_22_08
+      - type: DC
+        price: 0.39
+        <<: *time_08_12
+      - type: DC
+        price: 0.47
+        <<: *time_12_22
+
+    # FATIMA NON_MEMBER
+    - <<: *tesla_fatima
+      tariffs:
+      - type: DC
+        price: 0.25
+        <<: *time_22_08
+      - type: DC
+        price: 0.58
+        <<: *time_08_22
+
+    # ALCACER NON_MEMBER
+    - <<: *tesla_alcacer
+      tariffs:
+      - type: DC
+        price: 0.38
+        <<: *time_22_18
+      - type: DC
+        price: 0.46
+        <<: *time_18_22
+
+    # MONTEMOR_O_NOVO NON_MEMBER
+    - <<: *tesla_montemor_o_novo
+      tariffs:
+      - type: DC
+        <<: *time_22_18
+        price: 0.40
+      - type: DC
+        <<: *time_18_22
+        price: 0.47
+
+    # LOULÉ NON_MEMBER
+    - <<: *tesla_loule
+      tariffs:
+      - type: DC
+        price: 0.34
+        <<: *time_22_09
+      - type: DC
+        price: 0.70
+        <<: *time_09_13
+      - type: DC
+        price: 0.77
+        <<: *time_13_18
+      - type: DC
+        price: 0.70
+        <<: *time_18_22
+
+    # ALCANTARILHA NON_MEMBER
+    - <<: *tesla_alcantarilha
+      tariffs:
+      - type: DC
+        price: 0.38
+        <<: *time_00_04
+      - type: DC
+        price: 0.34
+        <<: *time_04_08
+      - type: DC
+        price: 0.48
+        <<: *time_08_12
+      - type: DC
+        price: 0.66
+        <<: *time_12_20
+      - type: DC
+        price: 0.58
+        <<: *time_20_00
+
+  - name: Member
+    cost: 12.0
+    months: 1
+    country_code: PT
+    payment_methods:
+      - APP
+    networks:
+    # MATOSINHOS MEMBER
+    - <<: *tesla_matosinhos
+      tariffs:
+      - type: DC
+        price: 0.32
+
+    # RIBEIRA_DE_PENA MEMBER
+    - <<: *tesla_ribeira_de_pena
+      tariffs:
+      - type: DC
+        price: 0.34
+
+    # GUARDA MEMBER
+    - <<: *tesla_guarda
+      tariffs:
+      - type: DC
+        price: 0.26
+        <<: *time_00_09
+      - type: DC
+        price: 0.37
+        <<: *time_09_15
+      - type: DC
+        price: 0.44
+        <<: *time_15_20
+      - type: DC
+        price: 0.37
+        <<: *time_20_00
+
+    # CASTELO_BRANCO MEMBER
+    - <<: *tesla_castelo_branco
+      tariffs:
+      - type: DC
+        <<: *time_10_22
+        price: 0.35
+      - type: DC
+        <<: *time_22_10
+        price: 0.24
+
+    # MEALHADA MEMBER
+    - <<: *tesla_mealhada
+      tariffs:
+      - type: DC
+        price: 0.18
+        <<: *time_22_08
+      - type: DC
+        price: 0.29
+        <<: *time_08_12
+      - type: DC
+        price: 0.35
+        <<: *time_12_22
+
+    # FATIMA MEMBER
+    - <<: *tesla_fatima
+      tariffs:
+      - type: DC
+        price: 0.18
+        <<: *time_22_08
+      - type: DC
+        price: 0.41
+        <<: *time_08_22
+
+    # ALCACER MEMBER
+    - <<: *tesla_alcacer
+      tariffs:
+      - type: DC
+        price: 0.28
+        <<: *time_22_18
+      - type: DC
+        price: 0.33
+        <<: *time_18_22
+
+    # MONTEMOR_O_NOVO MEMBER
+    - <<: *tesla_montemor_o_novo
+      tariffs:
+      - type: DC
+        <<: *time_22_18
+        price: 0.28
+      - type: DC
+        <<: *time_18_22
+        price: 0.33
+
+    # LOULÉ MEMBER
+    - <<: *tesla_loule
+      tariffs:
+      - type: DC
+        price: 0.21
+        <<: *time_22_09
+      - type: DC
+        price: 0.44
+        <<: *time_09_13
+      - type: DC
+        price: 0.48
+        <<: *time_13_18
+      - type: DC
+        price: 0.44
+        <<: *time_18_22
+
+    # ALCANTARILHA MEMBER
+    - <<: *tesla_alcantarilha
+      tariffs:
+      - type: DC
+        price: 0.24
+        <<: *time_00_04
+      - type: DC
+        price: 0.21
+        <<: *time_04_08
+      - type: DC
+        price: 0.30
+        <<: *time_08_12
+      - type: DC
+        price: 0.41
+        <<: *time_12_20
+      - type: DC
+        price: 0.36
+        <<: *time_20_00
+
+
+  - name: MultiPass
+    country_code: PT
+    payment_methods:
+      - APP
+      - RFID_CARD
+    networks:
+    - network_id: IONY
+      display_name: Ionity
+      tariffs:
+      - type: DC
+        price: 0.58

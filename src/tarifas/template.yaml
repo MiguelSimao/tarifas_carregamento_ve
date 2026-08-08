@@ -1,0 +1,96 @@
+# EV Charging Tariffs Template
+# This file defines the structure for operator charging tariffs.
+# You can split these definitions into multiple files (e.g., one file per operator).
+
+providers:
+  - name: "ProviderName" # e.g., "Electroverse"
+    plans:
+      - name: "PlanName" # e.g., "Base"
+        country_code: "PT" # ISO 3166-1 alpha-2 country code
+        # Validity period
+        start_date: "2024-01-01" # Date when the tariff plan starts (YYYY-MM-DD)
+        end_date: "2024-12-31" # Date when the tariff plan ends (YYYY-MM-DD)
+        # Subscription cost (if applicable)
+        cost: 0.0       # Monthly or yearly subscription cost. Defaults to 0.0 if omitted.
+        months: 1       # Number of months the subscription cost covers. Defaults to 1 if omitted.
+        payment_methods:
+          - ADHOC
+          - ADHOC_BANK_CARD
+          - RFID_CARD
+          - APP
+        cashback: 0.0   # Cashback amount per kWh (if applicable). Defaults to 0.0 if omitted.
+
+        networks:
+        - network_id: "NetworkName" # e.g., "MOBIE"
+          display_name: "Network Display Name"
+          included_cpos:  # Omit or set to empty list if all CPOs in the network are included
+            - "CPO001" # List of CPO IDs included in this plan (optional)
+          excluded_cpos:
+            - "CPO003" # List of CPO IDs excluded from this plan (optional)
+          included_locations:
+            - "LOC-00001" # List of location IDs included in this plan (optional)
+          excluded_locations:
+            - "LOC-00002" # List of location IDs excluded from this plan (optional)
+
+          tariffs:
+            # Simple tariff: One price for all charging speeds of a given current type
+            - type: AC # AC or DC
+              price: 0.40 # Price amount
+              unit: energy # Pricing unit. Default is 'energy' (per kWh). Other options: 'time' (per minute), 'flat' (per session), 'parking' (per minute)
+              time_restrictions: # Optional time-based restrictions for this tariff
+                - start_time: "08:00" # Start time for this tariff (HH:MM, 24-hour format)
+                  end_time: "20:00"   # End time for this tariff (HH:MM, 24-hour format)
+                  days_of_week:       # Days of the week when this tariff applies (1=Monday, 7=Sunday)
+                    - 6
+                    - 7
+
+            # Tiered tariff: Different prices based on the charger's max power
+            - type: DC
+              tiers:
+                - max: 50     # For chargers up to 50 kW (exclusive, 49.99 kW and below)
+                  price: 0.58
+                  unit: energy
+                - min: 50     # For chargers from 50 kW (inclusive)
+                  max: 150    # to 150 kW (exclusive, 149.99 kW and below)
+                  price: 0.68
+                  unit: energy
+                - min: 150    # For chargers above or equal to 150 kW
+                  price: 0.75
+                  unit: energy
+
+            # Example of multiple pricing components (e.g., energy + flat fee)
+            - type: DC
+              price: 0.50
+              unit: flat # Flat fee applied once per session
+
+      - name: "CPO_SavingsPlan"
+        cost: 10.0      # Subscription cost for this plan
+        months: 1       # Duration of the subscription cost (e.g., 1 month)
+        networks:
+        - network_id: "CPO001" # e.g., "MOBIE"
+          display_name: "CPO Display Name"
+
+          tariffs:
+            - type: AC
+              price: 0.30
+            - type: DC
+              tiers:
+                - max: 50
+                  price: 0.30
+                - min: 50
+                  price: 0.50
+
+
+  # Example with another operator
+  - name: "Tesla"
+    plans:
+      - name: "Subscrição 12€/mês"
+        cost: 12.0
+        period: "month"
+        networks:
+          - network_id: "TESLA"
+            display_name: "Tesla Supercharger"
+            tariffs:
+              - type: DC
+                min: 120 # Starts at 120 kW
+                price: 0.35

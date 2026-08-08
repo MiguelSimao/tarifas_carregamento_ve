@@ -1,0 +1,41 @@
+providers:
+
+- name: High Green Power OPC
+  plans:
+  - name: Base
+    country_code: PT
+    payment_methods:
+    - APP
+    - ADHOC
+    networks:
+    - network_id: HGP
+      display_name: 'HGP ADHOC 0.40'
+      included_locations:
+      - "13953057827"  # eurosol leiria
+      - "13953057828"  # eurosol leiria
+      - "13953033496"  # atlantico apartamentos portimao
+      - "13953033497"  # atlantico apartamentos portimao
+      - "13885763033"  # robinson tavira
+      - "13885763040"  # robinson tavira
+      tariffs:
+      - type: AC
+        price: 0.40
+
+    - network_id: HGP
+      display_name: 'HGP ADHOC 0.35'
+      included_locations:
+      - "13885824285"  # occidental faro
+      - "13885824286"  # occidental faro
+      - "13885824289"  # occidental faro
+      tariffs:
+      - type: AC
+        price: 0.35
+
+    - network_id: HGP
+      display_name: 'HGP ADHOC 0.45'
+      included_locations:
+      - "13953039796"  # monte rei tavira
+      - "13953039798"  # monte rei tavira
+      tariffs:
+      - type: AC
+        price: 0.45

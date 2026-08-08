@@ -1,0 +1,24 @@
+providers:
+- name: Elli
+  plans:
+  - name: Base
+    country_code: PT
+    networks:
+    - network_id: MOBIE
+      excluded_cpos:
+      - IONY
+      tariffs:
+      - type: DC
+        tiers:
+        - max: 51
+          price: 0.41
+        - min: 51
+          max: 151
+          price: 0.54
+        - min: 151
+          price: 0.63
+
+    - network_id: IONY
+      tariffs:
+      - type: DC
+        price: 0.79

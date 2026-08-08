@@ -1,0 +1,13 @@
+providers:
+- name: Zunder
+  plans:
+  - name: Base
+    country_code: PT
+    payment_methods:
+      - APP
+      - ADHOC_BANK_CARD
+    networks:
+    - network_id: ZUN
+      tariffs:
+      - type: DC
+        price: 0.59

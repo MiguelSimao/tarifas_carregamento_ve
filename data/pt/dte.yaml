@@ -1,0 +1,13 @@
+providers:
+- name: Enable Mobility
+  plans:
+  - name: AD-HOC
+    country_code: PT
+    payment_methods:
+    - ADHOC_BANK_CARD
+
+    networks:
+    - network_id: DTEI
+      tariffs:
+      - type: DC
+        price: 0.71

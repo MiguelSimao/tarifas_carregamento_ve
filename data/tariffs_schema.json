@@ -1,0 +1,450 @@
+{
+  "$defs": {
+    "Network": {
+      "properties": {
+        "network_id": {
+          "title": "Network Id",
+          "type": "string"
+        },
+        "display_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Display Name"
+        },
+        "included_cpos": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Included Cpos"
+        },
+        "excluded_cpos": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Excluded Cpos"
+        },
+        "included_locations": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Included Locations"
+        },
+        "excluded_locations": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Excluded Locations"
+        },
+        "tariffs": {
+          "items": {
+            "$ref": "#/$defs/Tariff"
+          },
+          "title": "Tariffs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "network_id",
+        "tariffs"
+      ],
+      "title": "Network",
+      "type": "object"
+    },
+    "Plan": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "country_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Country Code"
+        },
+        "start_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start Date"
+        },
+        "end_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End Date"
+        },
+        "cost": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cost"
+        },
+        "months": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Months"
+        },
+        "period": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Period"
+        },
+        "payment_methods": {
+          "anyOf": [
+            {
+              "items": {
+                "enum": [
+                  "ADHOC",
+                  "ADHOC_BANK_CARD",
+                  "RFID_CARD",
+                  "APP"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Payment Methods"
+        },
+        "cashback": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cashback"
+        },
+        "networks": {
+          "items": {
+            "$ref": "#/$defs/Network"
+          },
+          "title": "Networks",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "networks"
+      ],
+      "title": "Plan",
+      "type": "object"
+    },
+    "Provider": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "plans": {
+          "items": {
+            "$ref": "#/$defs/Plan"
+          },
+          "title": "Plans",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "plans"
+      ],
+      "title": "Provider",
+      "type": "object"
+    },
+    "Tariff": {
+      "properties": {
+        "type": {
+          "anyOf": [
+            {
+              "enum": [
+                "AC",
+                "DC"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Type"
+        },
+        "price": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Price"
+        },
+        "unit": {
+          "default": "energy",
+          "enum": [
+            "energy",
+            "time",
+            "flat",
+            "parking"
+          ],
+          "title": "Unit",
+          "type": "string"
+        },
+        "min": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Min"
+        },
+        "max": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max"
+        },
+        "tiers": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/TariffTier"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tiers"
+        },
+        "time_restrictions": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/TimeRestriction"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Time Restrictions"
+        }
+      },
+      "title": "Tariff",
+      "type": "object"
+    },
+    "TariffTier": {
+      "properties": {
+        "min": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Min"
+        },
+        "max": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max"
+        },
+        "price": {
+          "title": "Price",
+          "type": "number"
+        },
+        "unit": {
+          "default": "energy",
+          "enum": [
+            "energy",
+            "time",
+            "flat",
+            "parking"
+          ],
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "price"
+      ],
+      "title": "TariffTier",
+      "type": "object"
+    },
+    "TimeRestriction": {
+      "properties": {
+        "start_time": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start Time"
+        },
+        "end_time": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End Time"
+        },
+        "days_of_week": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Days Of Week"
+        }
+      },
+      "title": "TimeRestriction",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "providers": {
+      "items": {
+        "$ref": "#/$defs/Provider"
+      },
+      "title": "Providers",
+      "type": "array"
+    }
+  },
+  "required": [
+    "providers"
+  ],
+  "title": "TariffDocument",
+  "type": "object"
+}

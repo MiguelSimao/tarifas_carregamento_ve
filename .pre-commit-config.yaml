@@ -1,0 +1,34 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.6.0
+  hooks:
+  - id: trailing-whitespace
+  - id: end-of-file-fixer
+  - id: check-yaml
+
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.6.0
+  hooks:
+  - id: ruff-check
+    types_or: [ python, pyi ]
+    args: [ --fix ]
+  - id: ruff-format
+    types_or: [ python, pyi ]
+
+- repo: local
+  hooks:
+  - id: validate-tariff-yaml
+    name: Validate Tariff YAML
+    description: Validate the structure and content of tariff YAML files using Pydantic schema.
+    language: system
+    entry: uv run tariffs-validate
+    files: ^data/.+\.yaml$
+    types: [ yaml ]
+  - id: compile-tariff-yaml
+    name: Compile Tariff YAML
+    description: Compile individual tariff YAML files into data/tariffs_master.json.
+    language: system
+    entry: uv run tariffs-compile -o data/tariffs_master.json
+    pass_filenames: false
+    files: ^data/.+\.yaml$
+    types: [ yaml ]

@@ -1,0 +1,46 @@
+name: Validate and Compile EV Tariffs
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-and-compile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: uv sync
+
+      - name: Run Tests
+        run: uv run pytest
+
+      - name: Validate Tariff YAML Files
+        run: uv run tariffs-validate
+
+      - name: Generate JSON Schema
+        run: uv run tariffs-generate-schema -o data/tariffs_schema.json
+
+      - name: Compile Master JSON Dataset
+        run: uv run tariffs-compile -i data -o data/tariffs_master.json
+
+      - name: Upload Master Compiled JSON Dataset Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: master-tariffs-dataset
+          path: data/tariffs_master.json

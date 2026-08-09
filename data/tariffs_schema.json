@@ -1,5 +1,15 @@
 {
   "$defs": {
+    "DimensionType": {
+      "enum": [
+        "energy",
+        "time",
+        "flat",
+        "parking"
+      ],
+      "title": "DimensionType",
+      "type": "string"
+    },
     "Network": {
       "properties": {
         "network_id": {
@@ -17,6 +27,18 @@
           ],
           "default": null,
           "title": "Display Name"
+        },
+        "cashback": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cashback"
         },
         "included_cpos": {
           "anyOf": [
@@ -92,6 +114,16 @@
       ],
       "title": "Network",
       "type": "object"
+    },
+    "PaymentMethod": {
+      "enum": [
+        "ADHOC",
+        "ADHOC_BANK_CARD",
+        "RFID_CARD",
+        "APP"
+      ],
+      "title": "PaymentMethod",
+      "type": "string"
     },
     "Plan": {
       "properties": {
@@ -175,13 +207,7 @@
           "anyOf": [
             {
               "items": {
-                "enum": [
-                  "ADHOC",
-                  "ADHOC_BANK_CARD",
-                  "RFID_CARD",
-                  "APP"
-                ],
-                "type": "string"
+                "$ref": "#/$defs/PaymentMethod"
               },
               "type": "array"
             },
@@ -191,18 +217,6 @@
           ],
           "default": null,
           "title": "Payment Methods"
-        },
-        "cashback": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Cashback"
         },
         "networks": {
           "items": {
@@ -271,15 +285,8 @@
           "title": "Price"
         },
         "unit": {
-          "default": "energy",
-          "enum": [
-            "energy",
-            "time",
-            "flat",
-            "parking"
-          ],
-          "title": "Unit",
-          "type": "string"
+          "$ref": "#/$defs/DimensionType",
+          "default": "energy"
         },
         "min": {
           "anyOf": [
@@ -304,6 +311,19 @@
           ],
           "default": null,
           "title": "Max"
+        },
+        "start_after": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Threshold offset / grace period in minutes before the fee applies",
+          "title": "Start After"
         },
         "tiers": {
           "anyOf": [
@@ -370,15 +390,28 @@
           "type": "number"
         },
         "unit": {
-          "default": "energy",
-          "enum": [
-            "energy",
-            "time",
-            "flat",
-            "parking"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DimensionType"
+            },
+            {
+              "type": "null"
+            }
           ],
-          "title": "Unit",
-          "type": "string"
+          "default": null
+        },
+        "start_after": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Threshold offset / grace period in minutes before the fee applies",
+          "title": "Start After"
         }
       },
       "required": [

@@ -3,8 +3,8 @@ import os
 
 import yaml
 
-from tarifas.compile import main as compile_main
-from tarifas.validate import _validate_file
+from tariffs.compile import main as compile_main
+from tariffs.validate import _validate_file
 
 
 def test_pt_tariff_files_valid():

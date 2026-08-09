@@ -4,8 +4,10 @@ import pytest
 import yaml
 from pydantic import ValidationError
 
-from tarifas.model import (
+from tariffs.model import (
+    DimensionType,
     Network,
+    PaymentMethod,
     Plan,
     Provider,
     Tariff,
@@ -18,7 +20,7 @@ from tarifas.model import (
 def test_template_yaml_validates():
     """Ensure that the template.yaml file perfectly matches the model schema."""
     template_path = os.path.join(
-        os.path.dirname(__file__), "..", "src", "tarifas", "template.yaml"
+        os.path.dirname(__file__), "..", "src", "tariffs", "template.yaml"
     )
     assert os.path.exists(template_path), "Template file missing"
 
@@ -31,12 +33,12 @@ def test_template_yaml_validates():
     # Basic structural assertions
     assert len(doc.providers) > 0
 
-    # Locate a specific plan and verify newly added fields like cashback
+    # Locate a specific plan and network to verify newly added fields like cashback
     plan_base = next(p for p in doc.providers[0].plans if p.name == "PlanName")
-    assert plan_base.cashback == 0.0
 
-    # Locate a network to verify locations and time restrictions
+    # Locate a network to verify cashback, locations and time restrictions
     mobie_network = next(n for n in plan_base.networks if n.network_id == "NetworkName")
+    assert mobie_network.cashback == 0.0
     assert "LOC-00001" in mobie_network.included_locations
     assert "LOC-00002" in mobie_network.excluded_locations
 
@@ -76,6 +78,18 @@ def test_tariff_with_tiers():
     assert len(t.tiers) == 2
 
 
+def test_tariff_thresholded_fee():
+    """Tariff with thresholded fee (start_after) is valid."""
+    t = Tariff(type="AC", price=0.20, unit="parking", start_after=60)
+    assert t.price == 0.20
+    assert t.unit == "parking"
+    assert t.start_after == 60.0
+
+    tier = TariffTier(price=0.25, unit="parking", start_after=45)
+    assert tier.start_after == 45.0
+
+
+
 def test_time_restrictions_model():
     """Test the TimeRestriction model instantiation."""
     tr = TimeRestriction(start_time="08:00", end_time="20:00", days_of_week=[6, 7])
@@ -96,14 +110,14 @@ def test_network_locations():
     assert n.excluded_locations == ["LOC-02"]
 
 
-def test_plan_cashback():
-    """Test cashback field on a Plan."""
-    p = Plan(
-        name="Cashback Plan",
+def test_network_cashback():
+    """Test cashback field on a Network."""
+    n = Network(
+        network_id="Test",
         cashback=0.05,
-        networks=[Network(network_id="Test", tariffs=[Tariff(price=0.5)])],
+        tariffs=[Tariff(price=0.5)],
     )
-    assert p.cashback == 0.05
+    assert n.cashback == 0.05
 
 
 def test_tariff_serialization_includes_default_unit():
@@ -146,3 +160,52 @@ def test_tariff_serialization_includes_default_unit():
     plan = parsed["providers"][0]["plans"][0]
     assert "cost" not in plan
     assert "min" not in tariff_1
+
+
+def test_dimension_type_and_payment_method_enums():
+    """Verify DimensionType and PaymentMethod enum validation and values."""
+    assert DimensionType.ENERGY == "energy"
+    assert DimensionType.TIME == "time"
+    assert DimensionType.FLAT == "flat"
+    assert DimensionType.PARKING == "parking"
+
+    assert PaymentMethod.APP == "APP"
+
+    plan = Plan(name="TestPlan", payment_methods=["APP", "RFID_CARD"], networks=[])
+    assert plan.payment_methods == [PaymentMethod.APP, PaymentMethod.RFID_CARD]
+
+    t = Tariff(price=0.5, unit="parking")
+    assert t.unit == DimensionType.PARKING
+
+
+def test_tariff_property_propagation_to_tiers():
+    """Ensure unit and start_after propagate from parent Tariff to child TariffTiers."""
+    t = Tariff(
+        type="DC",
+        unit="time",
+        start_after=90,
+        tiers=[
+            TariffTier(max=100.0, price=0.20),
+            TariffTier(min=100.0, price=0.25, start_after=60),
+        ],
+    )
+
+    assert t.tiers[0].unit == DimensionType.TIME
+    assert t.tiers[0].start_after == 90
+
+    # Tier 2 explicitly overrode start_after to 60, but inherited unit="time"
+    assert t.tiers[1].unit == DimensionType.TIME
+    assert t.tiers[1].start_after == 60
+
+
+def test_tariff_cannot_have_price_and_tiers():
+    """Ensure specifying both price and tiers raises a ValidationError."""
+    with pytest.raises(
+        ValidationError, match='Cannot specify both "price" and "tiers" in a tariff'
+    ):
+        Tariff(
+            price=0.50,
+            tiers=[TariffTier(price=0.50)],
+        )
+
+

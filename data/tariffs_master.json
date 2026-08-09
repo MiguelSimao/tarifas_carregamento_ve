@@ -12,6 +12,21 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "cashback": 0.2,
+              "excluded_cpos": [
+                "ATLA"
+              ],
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.49,
+                  "unit": "energy"
+                }
+              ]
+            },
+            {
+              "network_id": "ATLA",
+              "cashback": 0.5,
               "tariffs": [
                 {
                   "type": "DC",
@@ -371,20 +386,45 @@
                   "unit": "energy",
                   "tiers": [
                     {
-                      "max": 101.0,
+                      "max": 100.0,
                       "price": 0.46,
                       "unit": "energy"
                     },
                     {
-                      "min": 101.0,
-                      "max": 181.0,
+                      "min": 100.0,
+                      "max": 200.0,
                       "price": 0.52,
                       "unit": "energy"
                     },
                     {
-                      "min": 181.0,
+                      "min": 200.0,
                       "price": 0.58,
                       "unit": "energy"
+                    }
+                  ]
+                },
+                {
+                  "type": "DC",
+                  "unit": "time",
+                  "tiers": [
+                    {
+                      "max": 100.0,
+                      "price": 0.2,
+                      "unit": "time",
+                      "start_after": 120.0
+                    },
+                    {
+                      "min": 100.0,
+                      "max": 200.0,
+                      "price": 0.2,
+                      "unit": "time",
+                      "start_after": 90.0
+                    },
+                    {
+                      "min": 200.0,
+                      "price": 0.2,
+                      "unit": "time",
+                      "start_after": 60.0
                     }
                   ]
                 }
@@ -556,6 +596,35 @@
                 {
                   "type": "DC",
                   "price": 0.55,
+                  "unit": "energy"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "App",
+          "country_code": "PT",
+          "payment_methods": [
+            "APP"
+          ],
+          "networks": [
+            {
+              "network_id": "CEPS",
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.5,
+                  "unit": "energy"
+                }
+              ]
+            },
+            {
+              "network_id": "PROP",
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.5,
                   "unit": "energy"
                 }
               ]

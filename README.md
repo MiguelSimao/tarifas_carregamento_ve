@@ -10,6 +10,19 @@ Este repositório contém a definição de tarifários de CPOs (Charge Point Ope
 
 ---
 
+## Arquitetura & Decisão de Design (DSL vs. OCPI)
+
+O modelo de dados deste repositório foi desenhado como uma **DSL (Domain Specific Language) de alto nível** focada em **planos e tarifários comerciais B2C** de eMSPs e CPOs.
+
+### Porque não usar a especificação OCPI pura?
+
+- **Scope Comercial vs. Ponto de Carga**: OCPI (Open Charge Point Interface) é um protocolo B2B otimizado para tarifas por ponto de carga. Em contrapartida, os tarifários eMSP aplicam-se a **grupos de pontos de carregamento / redes integradas**, com regras como subscrições mensais, cashbacks, filtros de inclusão/exclusão de CPOs e variações por método de pagamento (`APP`, `RFID_CARD`, `ADHOC`).
+- **Escrita Declarativa Humana**: A estrutura declarativa em YAML foi desenhada para ser intuitiva, concisa e fácil de manter, evitando a verbosidade do OCPI sem perder a capacidade de expressar regras complexas.
+
+Apesar de ser uma DSL de alto nível, o modelo mantém **compatibilidade concetual com OCPI**.
+
+---
+
 ## Estrutura do Repositório
 
 ```text

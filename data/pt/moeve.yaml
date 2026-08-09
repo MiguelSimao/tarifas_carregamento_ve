@@ -14,3 +14,16 @@ providers:
       tariffs:
       - type: DC
         price: 0.55
+  - name: App
+    country_code: PT
+    payment_methods:
+      - APP
+    networks:
+    - network_id: CEPS
+      tariffs:
+      - type: DC
+        price: 0.50
+    - network_id: PROP
+      tariffs:
+      - type: DC
+        price: 0.50

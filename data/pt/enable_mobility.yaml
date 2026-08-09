@@ -11,10 +11,24 @@ providers:
       tariffs:
       - type: DC
         tiers:
-        - max: 101
+        - max: 100
           price: 0.46
-        - min: 101
-          max: 181
+        - min: 100
+          max: 200
           price: 0.52
-        - min: 181
+        - min: 200
           price: 0.58
+
+      - type: DC
+        unit: time
+        tiers:
+        - max: 100
+          price: 0.2
+          start_after: 120
+        - min: 100
+          max: 200
+          price: 0.2
+          start_after: 90
+        - min: 200
+          price: 0.2
+          start_after: 60

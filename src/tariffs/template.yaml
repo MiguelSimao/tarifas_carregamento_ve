@@ -18,11 +18,11 @@ providers:
           - ADHOC_BANK_CARD
           - RFID_CARD
           - APP
-        cashback: 0.0   # Cashback amount per kWh (if applicable). Defaults to 0.0 if omitted.
 
         networks:
         - network_id: "NetworkName" # e.g., "MOBIE"
           display_name: "Network Display Name"
+          cashback: 0.0   # Cashback percent (if applicable). Defaults to 0.0 if omitted.
           included_cpos:  # Omit or set to empty list if all CPOs in the network are included
             - "CPO001" # List of CPO IDs included in this plan (optional)
           excluded_cpos:
@@ -62,6 +62,13 @@ providers:
             - type: DC
               price: 0.50
               unit: flat # Flat fee applied once per session
+
+            # Example of thresholded fee (e.g., idle fee of 0.20€/min after 60 minutes)
+            - type: AC
+              price: 0.20
+              unit: parking # Idle/parking fee unit (per minute)
+              start_after: 60 # Applies after 60 minutes
+
 
       - name: "CPO_SavingsPlan"
         cost: 10.0      # Subscription cost for this plan

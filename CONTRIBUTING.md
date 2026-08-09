@@ -12,8 +12,8 @@ Agradecemos o seu interesse em contribuir para o dataset de tarifas de carregame
    ```
 
 2. **Consulte o modelo de referência**:
-   - Utilize o ficheiro `src/tarifas/template.yaml` como guia estrutural.
-   - O ficheiro inclui comentários explicativos sobre cada campo (ex: `price`, `unit`, `tiers`, `time_restrictions`, `cashback`).
+   - Utilize o ficheiro `src/tariffs/template.yaml` como guia estrutural.
+   - O ficheiro inclui comentários explicativos sobre cada campo (ex: `price`, `unit`, `start_after`, `tiers`, `time_restrictions`, `cashback`).
 
 3. **Crie ou edite o ficheiro YAML na diretoria do respetivo país**:
    - Para Portugal: `data/pt/<nome_operador>.yaml`
@@ -40,3 +40,5 @@ Agradecemos o seu interesse em contribuir para o dataset de tarifas de carregame
 - Todo o tarifário deve ter pelo menos um `provider` e um `plan`.
 - Cada `tariff` dentro de uma `network` deve definir `price` OU `tiers`.
 - As unidades suportadas (`unit`) são: `energy` (€/kWh), `time` (€/min), `flat` (€/carregamento) ou `parking` (€/min).
+- Tarifas condicionadas a um limite de tempo ou consumo (ex: taxa de inatividade após 60 min) utilizam o campo opcional `start_after` (ex: `unit: parking`, `start_after: 60`).
+

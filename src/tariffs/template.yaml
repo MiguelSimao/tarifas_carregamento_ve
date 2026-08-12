@@ -4,9 +4,22 @@
 
 providers:
   - name: "ProviderName" # e.g., "Electroverse"
+    url: "https://www.provider.com"
+    app_url:
+      web: "https://app.provider.com"
+      android: "https://play.google.com/store/apps/details?id=com.provider.app"
+      ios: "https://apps.apple.com/app/id123456789"
     plans:
       - name: "PlanName" # e.g., "Base"
         country_code: "PT" # ISO 3166-1 alpha-2 country code
+        includes_vat: true # Whether VAT (IVA) is included in tariff prices
+        contract_conditions:
+          - APP_ACTIVATION
+        notes:
+          - language: "pt"
+            text: "Desconto válido para carregamentos na rede nacional."
+          - language: "en"
+            text: "Discount valid for charging in the national network."
         # Validity period
         start_date: "2024-01-01" # Date when the tariff plan starts (YYYY-MM-DD)
         end_date: "2024-12-31" # Date when the tariff plan ends (YYYY-MM-DD)

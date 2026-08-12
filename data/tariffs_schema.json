@@ -1,5 +1,61 @@
 {
   "$defs": {
+    "AppUrl": {
+      "properties": {
+        "web": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Web"
+        },
+        "android": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Android"
+        },
+        "ios": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ios"
+        }
+      },
+      "title": "AppUrl",
+      "type": "object"
+    },
+    "ContractCondition": {
+      "enum": [
+        "ENERGY_AT_HOME",
+        "PARTNERSHIP",
+        "APP_ACTIVATION",
+        "CARD_ACTIVATION",
+        "DIRECT_DEBIT",
+        "ELECTRONIC_INVOICE",
+        "LOYALTY_PROGRAM",
+        "EV_OWNERSHIP"
+      ],
+      "title": "ContractCondition",
+      "type": "string"
+    },
     "DimensionType": {
       "enum": [
         "energy",
@@ -9,6 +65,24 @@
       ],
       "title": "DimensionType",
       "type": "string"
+    },
+    "DisplayText": {
+      "properties": {
+        "language": {
+          "title": "Language",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "language",
+        "text"
+      ],
+      "title": "DisplayText",
+      "type": "object"
     },
     "Network": {
       "properties": {
@@ -239,6 +313,19 @@
           "default": null,
           "title": "Cycle"
         },
+        "includes_vat": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Whether VAT (IVA) is included in the plan prices",
+          "title": "Includes Vat"
+        },
         "includes_tar": {
           "anyOf": [
             {
@@ -311,17 +398,37 @@
           "default": null,
           "title": "Renewable Energy"
         },
-        "conditions": {
+        "contract_conditions": {
           "anyOf": [
             {
-              "type": "string"
+              "items": {
+                "$ref": "#/$defs/ContractCondition"
+              },
+              "type": "array"
             },
             {
               "type": "null"
             }
           ],
           "default": null,
-          "title": "Conditions"
+          "description": "Collection of contract conditions required for the plan",
+          "title": "Contract Conditions"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/DisplayText"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Collection of notes for the plan in various languages",
+          "title": "Notes"
         },
         "networks": {
           "items": {
@@ -355,6 +462,18 @@
           ],
           "default": null,
           "title": "Url"
+        },
+        "app_url": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AppUrl"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provider application URLs (web, android, ios)"
         },
         "updated_at": {
           "anyOf": [
@@ -421,6 +540,18 @@
         "egme_connection": {
           "title": "Egme Connection",
           "type": "number"
+        },
+        "vat": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vat"
         }
       },
       "required": [
@@ -458,12 +589,7 @@
           "type": "string"
         },
         "cycle": {
-          "enum": [
-            "diario",
-            "semanal"
-          ],
-          "title": "Cycle",
-          "type": "string"
+          "$ref": "#/$defs/TariffCycle"
         },
         "rates": {
           "items": {
@@ -596,6 +722,14 @@
       },
       "title": "Tariff",
       "type": "object"
+    },
+    "TariffCycle": {
+      "enum": [
+        "diario",
+        "semanal"
+      ],
+      "title": "TariffCycle",
+      "type": "string"
     },
     "TariffPeriod": {
       "enum": [

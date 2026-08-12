@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Literal
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import AliasChoices, BaseModel, Field, field_validator, model_validator
 
 
 from .regulated_fees import RegulatedFees, TariffPeriod
@@ -19,6 +19,41 @@ class PaymentMethod(str, Enum):
     ADHOC_BANK_CARD = "ADHOC_BANK_CARD"
     RFID_CARD = "RFID_CARD"
     APP = "APP"
+
+
+class ContractCondition(str, Enum):
+    ENERGY_AT_HOME = "ENERGY_AT_HOME"
+    PARTNERSHIP = "PARTNERSHIP"
+    APP_ACTIVATION = "APP_ACTIVATION"
+    CARD_ACTIVATION = "CARD_ACTIVATION"
+    DIRECT_DEBIT = "DIRECT_DEBIT"
+    ELECTRONIC_INVOICE = "ELECTRONIC_INVOICE"
+    LOYALTY_PROGRAM = "LOYALTY_PROGRAM"
+    EV_OWNERSHIP = "EV_OWNERSHIP"
+
+
+class AppType(str, Enum):
+    WEB = "web"
+    ANDROID = "android"
+    IOS = "ios"
+
+
+class AppUrl(BaseModel):
+    web: str | None = None
+    android: str | None = None
+    ios: str | None = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def parse_str_or_dict(cls, value):
+        if isinstance(value, str):
+            return {"web": value}
+        return value
+
+
+class DisplayText(BaseModel):
+    language: str
+    text: str
 
 
 class TimeRestriction(BaseModel):
@@ -92,19 +127,46 @@ class Plan(BaseModel):
     period: str | None = None
     payment_methods: list[PaymentMethod] | None = None
     cycle: Literal["diario", "semanal"] | None = None
+    includes_vat: bool | None = Field(
+        default=None,
+        validation_alias=AliasChoices("includes_vat", "vat_included"),
+        description="Whether VAT (IVA) is included in the plan prices",
+    )
     includes_tar: bool | None = None
     includes_iec: bool | None = None
     includes_egme: bool | None = None
     activation_fee: float | None = None
     opc_commission_pct: float | None = None
     renewable_energy: bool | None = None
-    conditions: str | None = None
+    contract_conditions: list[ContractCondition] | None = Field(
+        default=None,
+        validation_alias=AliasChoices("contract_conditions", "conditions"),
+        description="Collection of contract conditions required for the plan",
+    )
+    notes: list[DisplayText] | None = Field(
+        default=None,
+        description="Collection of notes for the plan in various languages",
+    )
     networks: list[Network]
+
+    @field_validator("notes", mode="before")
+    @classmethod
+    def parse_notes(cls, v):
+        if isinstance(v, str):
+            return [{"language": "pt", "text": v}]
+        if isinstance(v, dict):
+            return [v]
+        return v
 
 
 class Provider(BaseModel):
     name: str
     url: str | None = None
+    app_url: AppUrl | None = Field(
+        default=None,
+        validation_alias=AliasChoices("app_url", "app_urls"),
+        description="Provider application URLs (web, android, ios)",
+    )
     updated_at: str | None = None
     plans: list[Plan]
 

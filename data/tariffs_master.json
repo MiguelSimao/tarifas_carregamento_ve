@@ -1680,7 +1680,8 @@
         }
       ],
       "iec": 0.001,
-      "egme_connection": 0.0276
+      "egme_connection": 0.0276,
+      "vat": 0.23
     }
   ]
 }

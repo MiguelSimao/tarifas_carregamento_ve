@@ -38,6 +38,7 @@ class RegulatedFees(BaseModel):
     tar_variants: list[TarVariant]
     iec: float  # Electricity special tax (€/kWh)
     egme_connection: float  # EGME/MobiE connection fee
+    vat: float | None = None  # VAT rate (e.g. 0.23 for 23%)
 
 
 class RegulatedFeesDocument(BaseModel):

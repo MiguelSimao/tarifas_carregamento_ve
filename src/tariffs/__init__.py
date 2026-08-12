@@ -1,7 +1,11 @@
 """tarifas: EV Charging Tariffs dataset validation and compilation package."""
 
 from .model import (
+    AppType,
+    AppUrl,
     Connector,
+    ContractCondition,
+    DisplayText,
     Location,
     Network,
     Plan,
@@ -20,7 +24,11 @@ from .regulated_fees import (
 )
 
 __all__ = [
+    "AppType",
+    "AppUrl",
     "Connector",
+    "ContractCondition",
+    "DisplayText",
     "Location",
     "Network",
     "Plan",

@@ -5,7 +5,10 @@ import yaml
 from pydantic import ValidationError
 
 from tariffs.model import (
+    AppUrl,
+    ContractCondition,
     DimensionType,
+    DisplayText,
     Network,
     PaymentMethod,
     Plan,
@@ -33,8 +36,19 @@ def test_template_yaml_validates():
     # Basic structural assertions
     assert len(doc.providers) > 0
 
-    # Locate a specific plan and network to verify newly added fields like cashback
-    plan_base = next(p for p in doc.providers[0].plans if p.name == "PlanName")
+    provider = doc.providers[0]
+    assert provider.app_url is not None
+    assert provider.app_url.web == "https://app.provider.com"
+    assert provider.app_url.android == "https://play.google.com/store/apps/details?id=com.provider.app"
+    assert provider.app_url.ios == "https://apps.apple.com/app/id123456789"
+
+    # Locate a specific plan and network to verify newly added fields
+    plan_base = next(p for p in provider.plans if p.name == "PlanName")
+    assert plan_base.includes_vat is True
+    assert plan_base.contract_conditions == [ContractCondition.APP_ACTIVATION]
+    assert plan_base.notes is not None
+    assert plan_base.notes[0].language == "pt"
+    assert plan_base.notes[0].text == "Desconto válido para carregamentos na rede nacional."
 
     # Locate a network to verify cashback, locations and time restrictions
     mobie_network = next(n for n in plan_base.networks if n.network_id == "NetworkName")
@@ -277,6 +291,81 @@ def test_regulated_fees_model():
     )
     assert len(doc.regulated_fees) == 1
     assert doc.regulated_fees[0].tar_variants[0].rates[0].rate == 0.01
+
+
+def test_provider_app_url():
+    """Test app_url options (web, android, ios) on Provider."""
+    prov = Provider(
+        name="TestProv",
+        app_url=AppUrl(
+            web="https://web.app",
+            android="https://play.google.com/store/apps/details?id=com.app",
+            ios="https://apps.apple.com/app/id123",
+        ),
+        plans=[],
+    )
+    assert prov.app_url.web == "https://web.app"
+    assert prov.app_url.android == "https://play.google.com/store/apps/details?id=com.app"
+    assert prov.app_url.ios == "https://apps.apple.com/app/id123"
+
+    # Test string parsing
+    prov_str = Provider(name="TestStr", app_url="https://simple.web.app", plans=[])
+    assert prov_str.app_url.web == "https://simple.web.app"
+    assert prov_str.app_url.android is None
+    assert prov_str.app_url.ios is None
+
+
+def test_plan_contract_conditions():
+    """Test contract_conditions enum collection on Plan."""
+    plan = Plan(
+        name="ContractPlan",
+        contract_conditions=[
+            ContractCondition.ENERGY_AT_HOME,
+            ContractCondition.PARTNERSHIP,
+            ContractCondition.APP_ACTIVATION,
+        ],
+        networks=[],
+    )
+    assert len(plan.contract_conditions) == 3
+    assert ContractCondition.ENERGY_AT_HOME in plan.contract_conditions
+    assert ContractCondition.PARTNERSHIP in plan.contract_conditions
+    assert ContractCondition.APP_ACTIVATION in plan.contract_conditions
+
+    # Test alias support with strings
+    plan_alias = Plan(
+        name="AliasPlan",
+        conditions=["ENERGY_AT_HOME", "APP_ACTIVATION"],
+        networks=[],
+    )
+    assert plan_alias.contract_conditions == [
+        ContractCondition.ENERGY_AT_HOME,
+        ContractCondition.APP_ACTIVATION,
+    ]
+
+
+def test_plan_notes():
+    """Test notes field with DisplayText objects on Plan."""
+    plan = Plan(
+        name="NotesPlan",
+        notes=[
+            DisplayText(language="pt", text="Nota em português"),
+            DisplayText(language="en", text="Note in English"),
+        ],
+        networks=[],
+    )
+    assert len(plan.notes) == 2
+    assert plan.notes[0].language == "pt"
+    assert plan.notes[0].text == "Nota em português"
+    assert plan.notes[1].language == "en"
+    assert plan.notes[1].text == "Note in English"
+
+    # Test string parsing fallback
+    plan_str = Plan(name="StrNotesPlan", notes="Nota simples", networks=[])
+    assert len(plan_str.notes) == 1
+    assert plan_str.notes[0].language == "pt"
+    assert plan_str.notes[0].text == "Nota simples"
+
+
 
 
 

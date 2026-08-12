@@ -22,3 +22,4 @@ regulated_fees:
       rate: 0.0000
   iec: 0.0010
   egme_connection: 0.0276
+  vat: 0.23

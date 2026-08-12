@@ -20,6 +20,7 @@ from .regulated_fees import (
     RegulatedFeesDocument,
     TarPeriodRate,
     TariffPeriod,
+    TariffSchedule,
     TarVariant,
 )
 
@@ -39,6 +40,7 @@ __all__ = [
     "Tariff",
     "TariffDocument",
     "TariffPeriod",
+    "TariffSchedule",
     "TariffTier",
     "TarVariant",
     "TimeRestriction",

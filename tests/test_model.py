@@ -366,6 +366,22 @@ def test_plan_notes():
     assert plan_str.notes[0].text == "Nota simples"
 
 
+def test_schedule_field_on_plan_and_tar_variant():
+    """Test schedule field on Plan and TarVariant."""
+    from tariffs.regulated_fees import TarPeriodRate, TarVariant, TariffPeriod
+
+    plan = Plan(name="TestBYOEPlan", byoe=True, schedule="2H", networks=[])
+    assert plan.schedule == "2H"
+
+    variant = TarVariant(
+        voltage_level="BT",
+        schedule="3H",
+        rates=[TarPeriodRate(period=TariffPeriod.PONTA, rate=0.28)],
+    )
+    assert variant.schedule == "3H"
+
+
+
 
 
 

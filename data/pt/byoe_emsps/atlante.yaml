@@ -7,6 +7,7 @@ providers:
     country_code: PT
     start_date: "2026-01-01"
     cycle: semanal
+    schedule: "2H"
     includes_egme: false
     includes_iec: false
     includes_tar: false

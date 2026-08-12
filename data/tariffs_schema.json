@@ -313,6 +313,18 @@
           "default": null,
           "title": "Cycle"
         },
+        "schedule": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TariffSchedule"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Tariff schedule, e.g. '2H' (Bi-hor\u00e1rio), '3H' (Tri-hor\u00e1rio)"
+        },
         "includes_vat": {
           "anyOf": [
             {
@@ -582,14 +594,34 @@
       "type": "object"
     },
     "TarVariant": {
-      "description": "TAR rates for a specific voltage level and cycle.",
+      "description": "TAR rates for a specific voltage level, schedule (2H/3H/simples), and cycle.",
       "properties": {
         "voltage_level": {
           "title": "Voltage Level",
           "type": "string"
         },
+        "schedule": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TariffSchedule"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Tariff schedule, e.g. '2H' (Bi-hor\u00e1rio), '3H' (Tri-hor\u00e1rio)"
+        },
         "cycle": {
-          "$ref": "#/$defs/TariffCycle"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TariffCycle"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "rates": {
           "items": {
@@ -601,7 +633,6 @@
       },
       "required": [
         "voltage_level",
-        "cycle",
         "rates"
       ],
       "title": "TarVariant",
@@ -738,6 +769,14 @@
         "vazio"
       ],
       "title": "TariffPeriod",
+      "type": "string"
+    },
+    "TariffSchedule": {
+      "enum": [
+        "2H",
+        "3H"
+      ],
+      "title": "TariffSchedule",
       "type": "string"
     },
     "TariffTier": {

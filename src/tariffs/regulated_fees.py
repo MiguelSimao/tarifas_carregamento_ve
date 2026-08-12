@@ -1,6 +1,6 @@
 from enum import Enum
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class TariffPeriod(str, Enum):
@@ -14,6 +14,11 @@ class TariffCycle(str, Enum):
     SEMANAL = "semanal"
 
 
+class TariffSchedule(str, Enum):
+    BIHORARIO = "2H"
+    TRIHORARIO = "3H"
+
+
 class TarPeriodRate(BaseModel):
     """TAR rate for one time-of-use period."""
 
@@ -22,10 +27,14 @@ class TarPeriodRate(BaseModel):
 
 
 class TarVariant(BaseModel):
-    """TAR rates for a specific voltage level and cycle."""
+    """TAR rates for a specific voltage level, schedule (2H/3H/simples), and cycle."""
 
-    voltage_level: str  # e.g., "BTE", "BTN", "MT"
-    cycle: TariffCycle
+    voltage_level: str  # e.g., "BTE", "BTN", "MT", "BT"
+    schedule: TariffSchedule | None = Field(
+        default=None,
+        description="Tariff schedule, e.g. '2H' (Bi-horário), '3H' (Tri-horário)",
+    )
+    cycle: TariffCycle | None = None
     rates: list[TarPeriodRate]
 
 

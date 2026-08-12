@@ -4,7 +4,7 @@ from typing import Literal
 from pydantic import AliasChoices, BaseModel, Field, field_validator, model_validator
 
 
-from .regulated_fees import RegulatedFees, TariffPeriod
+from .regulated_fees import RegulatedFees, TariffPeriod, TariffSchedule
 
 
 class DimensionType(str, Enum):
@@ -127,6 +127,10 @@ class Plan(BaseModel):
     period: str | None = None
     payment_methods: list[PaymentMethod] | None = None
     cycle: Literal["diario", "semanal"] | None = None
+    schedule: TariffSchedule | None = Field(
+        default=None,
+        description="Tariff schedule, e.g. '2H' (Bi-horário), '3H' (Tri-horário)",
+    )
     includes_vat: bool | None = Field(
         default=None,
         validation_alias=AliasChoices("includes_vat", "vat_included"),

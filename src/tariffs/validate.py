@@ -13,6 +13,7 @@ from .regulated_fees import RegulatedFeesDocument
 def _cross_validate_tariff_doc(doc: TariffDocument, file_path: str):
     byoe_plan_fields = [
         "cycle",
+        "schedule",
         "includes_tar",
         "includes_iec",
         "includes_egme",

@@ -5,6 +5,7 @@
       "plans": [
         {
           "name": "Base",
+          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "APP"
@@ -39,6 +40,7 @@
         },
         {
           "name": "AD-HOC",
+          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "ADHOC_BANK_CARD"
@@ -76,10 +78,50 @@
       ]
     },
     {
+      "name": "ACP Electric",
+      "url": "https://www.acp.pt/eletricos/app-e-cartao-acp-electric/para-socios-e-nao-socios",
+      "plans": [
+        {
+          "name": "CEME Bi-Horário",
+          "byoe": true,
+          "country_code": "PT",
+          "start_date": "2026-07-01",
+          "payment_methods": [
+            "RFID_CARD",
+            "APP"
+          ],
+          "cycle": "diario",
+          "includes_tar": false,
+          "includes_iec": false,
+          "includes_egme": true,
+          "activation_fee": 0.15,
+          "renewable_energy": true,
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "tariffs": [
+                {
+                  "price": 0.169,
+                  "unit": "energy",
+                  "tou_period": "cheias"
+                },
+                {
+                  "price": 0.169,
+                  "unit": "energy",
+                  "tou_period": "vazio"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Continente",
       "plans": [
         {
           "name": "Base",
+          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "APP"
@@ -120,6 +162,7 @@
       "plans": [
         {
           "name": "AD-HOC",
+          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "ADHOC_BANK_CARD"
@@ -136,243 +179,10 @@
               ]
             }
           ]
-        }
-      ]
-    },
-    {
-      "name": "Electromaps",
-      "plans": [
-        {
-          "name": "Base",
-          "country_code": "PT",
-          "payment_methods": [
-            "APP"
-          ],
-          "networks": [
-            {
-              "network_id": "FCTO",
-              "tariffs": [
-                {
-                  "type": "DC",
-                  "unit": "energy",
-                  "tiers": [
-                    {
-                      "max": 51.0,
-                      "price": 0.66,
-                      "unit": "energy"
-                    },
-                    {
-                      "min": 51.0,
-                      "price": 0.83,
-                      "unit": "energy"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Electroverse",
-      "plans": [
-        {
-          "name": "Base",
-          "country_code": "PT",
-          "networks": [
-            {
-              "network_id": "MOBIE",
-              "excluded_cpos": [
-                "IONY"
-              ],
-              "tariffs": [
-                {
-                  "price": 0.3,
-                  "unit": "flat"
-                },
-                {
-                  "type": "AC",
-                  "unit": "energy",
-                  "tiers": [
-                    {
-                      "max": 23.0,
-                      "price": 0.4,
-                      "unit": "energy"
-                    },
-                    {
-                      "min": 23.0,
-                      "price": 0.58,
-                      "unit": "energy"
-                    }
-                  ]
-                },
-                {
-                  "type": "DC",
-                  "unit": "energy",
-                  "tiers": [
-                    {
-                      "max": 51.0,
-                      "price": 0.58,
-                      "unit": "energy"
-                    },
-                    {
-                      "min": 51.0,
-                      "max": 151.0,
-                      "price": 0.68,
-                      "unit": "energy"
-                    },
-                    {
-                      "min": 151.0,
-                      "price": 0.75,
-                      "unit": "energy"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "network_id": "IONY",
-              "tariffs": [
-                {
-                  "type": "DC",
-                  "price": 0.3,
-                  "unit": "flat"
-                },
-                {
-                  "type": "DC",
-                  "price": 0.64,
-                  "unit": "energy"
-                }
-              ]
-            }
-          ]
         },
-        {
-          "name": "Ionity Subscription",
-          "country_code": "PT",
-          "cost": 12.0,
-          "months": 1,
-          "networks": [
-            {
-              "network_id": "IONY",
-              "tariffs": [
-                {
-                  "type": "DC",
-                  "price": 0.3,
-                  "unit": "flat"
-                },
-                {
-                  "type": "DC",
-                  "price": 0.4,
-                  "unit": "energy"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "Powerdot Subscription",
-          "country_code": "PT",
-          "cost": 2.0,
-          "months": 1,
-          "networks": [
-            {
-              "network_id": "HORZ",
-              "tariffs": [
-                {
-                  "price": 0.3,
-                  "unit": "flat"
-                },
-                {
-                  "type": "AC",
-                  "price": 0.3,
-                  "unit": "energy"
-                },
-                {
-                  "type": "DC",
-                  "unit": "energy",
-                  "tiers": [
-                    {
-                      "max": 51.0,
-                      "price": 0.44,
-                      "unit": "energy"
-                    },
-                    {
-                      "min": 51.0,
-                      "max": 151.0,
-                      "price": 0.51,
-                      "unit": "energy"
-                    },
-                    {
-                      "min": 151.0,
-                      "price": 0.56,
-                      "unit": "energy"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Elli",
-      "plans": [
-        {
-          "name": "Base",
-          "country_code": "PT",
-          "networks": [
-            {
-              "network_id": "MOBIE",
-              "excluded_cpos": [
-                "IONY"
-              ],
-              "tariffs": [
-                {
-                  "type": "DC",
-                  "unit": "energy",
-                  "tiers": [
-                    {
-                      "max": 51.0,
-                      "price": 0.41,
-                      "unit": "energy"
-                    },
-                    {
-                      "min": 51.0,
-                      "max": 151.0,
-                      "price": 0.54,
-                      "unit": "energy"
-                    },
-                    {
-                      "min": 151.0,
-                      "price": 0.63,
-                      "unit": "energy"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "network_id": "IONY",
-              "tariffs": [
-                {
-                  "type": "DC",
-                  "price": 0.79,
-                  "unit": "energy"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Enable Mobility",
-      "plans": [
         {
           "name": "AD-HOC",
+          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "ADHOC_BANK_CARD"
@@ -435,10 +245,245 @@
       ]
     },
     {
+      "name": "Electromaps",
+      "plans": [
+        {
+          "name": "Base",
+          "byoe": false,
+          "country_code": "PT",
+          "payment_methods": [
+            "APP"
+          ],
+          "networks": [
+            {
+              "network_id": "FCTO",
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 51.0,
+                      "price": 0.66,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 51.0,
+                      "price": 0.83,
+                      "unit": "energy"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Electroverse",
+      "plans": [
+        {
+          "name": "Base",
+          "byoe": false,
+          "country_code": "PT",
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "excluded_cpos": [
+                "IONY"
+              ],
+              "tariffs": [
+                {
+                  "price": 0.3,
+                  "unit": "flat"
+                },
+                {
+                  "type": "AC",
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 23.0,
+                      "price": 0.42,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 23.0,
+                      "price": 0.58,
+                      "unit": "energy"
+                    }
+                  ]
+                },
+                {
+                  "type": "DC",
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 51.0,
+                      "price": 0.58,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 51.0,
+                      "max": 151.0,
+                      "price": 0.68,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 151.0,
+                      "price": 0.75,
+                      "unit": "energy"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "IONY",
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.3,
+                  "unit": "flat"
+                },
+                {
+                  "type": "DC",
+                  "price": 0.69,
+                  "unit": "energy"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ionity Subscription",
+          "byoe": false,
+          "country_code": "PT",
+          "cost": 12.0,
+          "months": 1,
+          "networks": [
+            {
+              "network_id": "IONY",
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.3,
+                  "unit": "flat"
+                },
+                {
+                  "type": "DC",
+                  "price": 0.35,
+                  "unit": "energy"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Powerdot Subscription",
+          "byoe": false,
+          "country_code": "PT",
+          "cost": 2.0,
+          "months": 1,
+          "networks": [
+            {
+              "network_id": "HORZ",
+              "tariffs": [
+                {
+                  "price": 0.3,
+                  "unit": "flat"
+                },
+                {
+                  "type": "AC",
+                  "price": 0.3,
+                  "unit": "energy"
+                },
+                {
+                  "type": "DC",
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 51.0,
+                      "price": 0.44,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 51.0,
+                      "max": 151.0,
+                      "price": 0.51,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 151.0,
+                      "price": 0.56,
+                      "unit": "energy"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Elli",
+      "plans": [
+        {
+          "name": "Base",
+          "byoe": false,
+          "country_code": "PT",
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "excluded_cpos": [
+                "IONY"
+              ],
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 51.0,
+                      "price": 0.41,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 51.0,
+                      "max": 151.0,
+                      "price": 0.54,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 151.0,
+                      "price": 0.63,
+                      "unit": "energy"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "IONY",
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.79,
+                  "unit": "energy"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Galp",
       "plans": [
         {
           "name": "AD-HOC",
+          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "ADHOC_BANK_CARD"
@@ -469,6 +514,7 @@
       "plans": [
         {
           "name": "Base",
+          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "APP",
@@ -534,6 +580,7 @@
       "plans": [
         {
           "name": "AD-HOC",
+          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "ADHOC_BANK_CARD"
@@ -575,6 +622,7 @@
       "plans": [
         {
           "name": "AD-HOC",
+          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "ADHOC_BANK_CARD"
@@ -604,6 +652,7 @@
         },
         {
           "name": "App",
+          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "APP"
@@ -638,6 +687,7 @@
       "plans": [
         {
           "name": "AD-HOC",
+          "byoe": false,
           "networks": [
             {
               "network_id": "PRIO",
@@ -658,6 +708,7 @@
       "plans": [
         {
           "name": "Non-Member",
+          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "ADHOC_BANK_CARD",
@@ -1084,6 +1135,7 @@
         },
         {
           "name": "Member",
+          "byoe": false,
           "country_code": "PT",
           "cost": 12.0,
           "months": 1,
@@ -1510,6 +1562,7 @@
         },
         {
           "name": "MultiPass",
+          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "APP",
@@ -1536,6 +1589,7 @@
       "plans": [
         {
           "name": "Wenea (Confirmar App)",
+          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "APP"
@@ -1561,6 +1615,7 @@
       "plans": [
         {
           "name": "Base",
+          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "APP",
@@ -1580,6 +1635,52 @@
           ]
         }
       ]
+    }
+  ],
+  "regulated_fees": [
+    {
+      "country_code": "PT",
+      "effective_date": "2026-01-01",
+      "tar_variants": [
+        {
+          "voltage_level": "BT",
+          "cycle": "diario",
+          "rates": [
+            {
+              "period": "ponta",
+              "rate": 0.0
+            },
+            {
+              "period": "cheias",
+              "rate": 0.0
+            },
+            {
+              "period": "vazio",
+              "rate": 0.0
+            }
+          ]
+        },
+        {
+          "voltage_level": "MT",
+          "cycle": "diario",
+          "rates": [
+            {
+              "period": "ponta",
+              "rate": 0.0
+            },
+            {
+              "period": "cheias",
+              "rate": 0.0
+            },
+            {
+              "period": "vazio",
+              "rate": 0.0
+            }
+          ]
+        }
+      ],
+      "iec": 0.001,
+      "egme_connection": 0.0276
     }
   ]
 }

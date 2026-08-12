@@ -4,6 +4,9 @@ from typing import Literal
 from pydantic import BaseModel, Field, model_validator
 
 
+from .regulated_fees import RegulatedFees, TariffPeriod
+
+
 class DimensionType(str, Enum):
     ENERGY = "energy"
     TIME = "time"
@@ -47,6 +50,7 @@ class Tariff(BaseModel):
     )
     tiers: list[TariffTier] | None = None
     time_restrictions: list[TimeRestriction] | None = None
+    tou_period: TariffPeriod | None = None
 
     @model_validator(mode="after")
     def validate_and_propagate_tariff(self) -> "Tariff":
@@ -79,6 +83,7 @@ class Network(BaseModel):
 
 class Plan(BaseModel):
     name: str
+    byoe: bool = False
     country_code: str | None = None
     start_date: str | None = None
     end_date: str | None = None
@@ -86,16 +91,27 @@ class Plan(BaseModel):
     months: int | None = None
     period: str | None = None
     payment_methods: list[PaymentMethod] | None = None
+    cycle: Literal["diario", "semanal"] | None = None
+    includes_tar: bool | None = None
+    includes_iec: bool | None = None
+    includes_egme: bool | None = None
+    activation_fee: float | None = None
+    opc_commission_pct: float | None = None
+    renewable_energy: bool | None = None
+    conditions: str | None = None
     networks: list[Network]
 
 
 class Provider(BaseModel):
     name: str
+    url: str | None = None
+    updated_at: str | None = None
     plans: list[Plan]
 
 
 class TariffDocument(BaseModel):
     providers: list[Provider]
+    regulated_fees: list[RegulatedFees] | None = None
 
 
 class Connector(BaseModel):

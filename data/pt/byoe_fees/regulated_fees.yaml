@@ -1,0 +1,24 @@
+regulated_fees:
+- country_code: PT
+  effective_date: "2026-01-01"
+  tar_variants:
+  - voltage_level: BT
+    cycle: diario
+    rates:
+    - period: ponta
+      rate: 0.0000
+    - period: cheias
+      rate: 0.0000
+    - period: vazio
+      rate: 0.0000
+  - voltage_level: MT
+    cycle: diario
+    rates:
+    - period: ponta
+      rate: 0.0000
+    - period: cheias
+      rate: 0.0000
+    - period: vazio
+      rate: 0.0000
+  iec: 0.0010
+  egme_connection: 0.0276

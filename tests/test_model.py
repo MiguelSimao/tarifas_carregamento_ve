@@ -209,3 +209,74 @@ def test_tariff_cannot_have_price_and_tiers():
         )
 
 
+def test_byoe_provider_and_plan_fields():
+    """Test BYOE plan fields validation."""
+    from tariffs.model import TariffPeriod
+
+    provider = Provider(
+        name="ACP Electric",
+        url="https://www.acp.pt",
+        updated_at="2026-08-08",
+        plans=[
+            Plan(
+                name="2H",
+                byoe=True,
+                cycle="diario",
+                includes_egme=True,
+                includes_iec=False,
+                includes_tar=False,
+                activation_fee=0.15,
+                renewable_energy=True,
+                networks=[
+                    Network(
+                        network_id="MOBIE",
+                        tariffs=[
+                            Tariff(price=0.169, tou_period=TariffPeriod.CHEIAS),
+                            Tariff(price=0.169, tou_period=TariffPeriod.VAZIO),
+                        ],
+                    )
+                ],
+            )
+        ],
+    )
+    assert provider.plans[0].byoe is True
+    assert provider.plans[0].cycle == "diario"
+    assert provider.plans[0].includes_egme is True
+    assert provider.plans[0].networks[0].tariffs[0].tou_period == "cheias"
+
+
+def test_regulated_fees_model():
+    """Test RegulatedFees and RegulatedFeesDocument models."""
+    from tariffs.regulated_fees import (
+        RegulatedFees,
+        RegulatedFeesDocument,
+        TarPeriodRate,
+        TariffPeriod,
+        TarVariant,
+    )
+
+    doc = RegulatedFeesDocument(
+        regulated_fees=[
+            RegulatedFees(
+                country_code="PT",
+                effective_date="2025-01-01",
+                tar_variants=[
+                    TarVariant(
+                        voltage_level="BTE",
+                        cycle="diario",
+                        rates=[
+                            TarPeriodRate(period=TariffPeriod.PONTA, rate=0.01),
+                            TarPeriodRate(period=TariffPeriod.CHEIAS, rate=0.005),
+                        ],
+                    )
+                ],
+                iec=0.001,
+                egme_connection=0.0276,
+            )
+        ]
+    )
+    assert len(doc.regulated_fees) == 1
+    assert doc.regulated_fees[0].tar_variants[0].rates[0].rate == 0.01
+
+
+

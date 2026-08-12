@@ -101,3 +101,32 @@ providers:
               - type: DC
                 min: 120 # Starts at 120 kW
                 price: 0.35
+
+  # Example of a Bring Your Own Energy (BYOE) CEME Provider
+  - name: "ACP Electric"
+    url: "https://www.acp.pt/eletricos/app-e-cartao-acp-electric/para-socios-e-nao-socios"
+    updated_at: "2026-08-08"
+    plans:
+      - name: "2H"
+        byoe: true
+        country_code: "PT"
+        start_date: "2026-07-01"
+        cycle: "diario"
+        includes_egme: true
+        includes_iec: false
+        includes_tar: false
+        renewable_energy: true
+        activation_fee: 0.15
+        payment_methods:
+          - RFID_CARD
+          - APP
+        networks:
+          - network_id: "MOBIE"
+            tariffs:
+              - unit: energy
+                tou_period: cheias
+                price: 0.1690
+              - unit: energy
+                tou_period: vazio
+                price: 0.1690
+

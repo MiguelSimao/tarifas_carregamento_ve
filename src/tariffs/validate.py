@@ -7,6 +7,27 @@ import yaml
 from pydantic import ValidationError
 
 from .model import TariffDocument
+from .regulated_fees import RegulatedFeesDocument
+
+
+def _cross_validate_tariff_doc(doc: TariffDocument, file_path: str):
+    byoe_plan_fields = [
+        "cycle",
+        "includes_tar",
+        "includes_iec",
+        "includes_egme",
+        "activation_fee",
+        "opc_commission_pct",
+        "renewable_energy",
+    ]
+    for provider in doc.providers:
+        for plan in provider.plans:
+            if not plan.byoe:
+                for field_name in byoe_plan_fields:
+                    if getattr(plan, field_name) is not None:
+                        raise ValueError(
+                            f"Standard (non-BYOE) plan '{plan.name}' in provider '{provider.name}' cannot set BYOE field '{field_name}'"
+                        )
 
 
 def _validate_file(file_path: str) -> bool:
@@ -14,8 +35,15 @@ def _validate_file(file_path: str) -> bool:
         with open(file_path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f)
 
-        # Load and validate using Pydantic
-        TariffDocument.model_validate(data)
+        if not isinstance(data, dict):
+            print(f"[ERROR] {file_path}: YAML content must be a dictionary")
+            return False
+
+        if "regulated_fees" in data:
+            RegulatedFeesDocument.model_validate(data)
+        else:
+            doc = TariffDocument.model_validate(data)
+            _cross_validate_tariff_doc(doc, file_path)
 
         print(f"[OK] {file_path}: Valid")
         return True

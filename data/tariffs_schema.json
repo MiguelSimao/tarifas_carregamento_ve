@@ -131,6 +131,11 @@
           "title": "Name",
           "type": "string"
         },
+        "byoe": {
+          "default": false,
+          "title": "Byoe",
+          "type": "boolean"
+        },
         "country_code": {
           "anyOf": [
             {
@@ -218,6 +223,106 @@
           "default": null,
           "title": "Payment Methods"
         },
+        "cycle": {
+          "anyOf": [
+            {
+              "enum": [
+                "diario",
+                "semanal"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cycle"
+        },
+        "includes_tar": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Includes Tar"
+        },
+        "includes_iec": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Includes Iec"
+        },
+        "includes_egme": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Includes Egme"
+        },
+        "activation_fee": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Activation Fee"
+        },
+        "opc_commission_pct": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Opc Commission Pct"
+        },
+        "renewable_energy": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Renewable Energy"
+        },
+        "conditions": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Conditions"
+        },
         "networks": {
           "items": {
             "$ref": "#/$defs/Network"
@@ -239,6 +344,30 @@
           "title": "Name",
           "type": "string"
         },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        },
+        "updated_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Updated At"
+        },
         "plans": {
           "items": {
             "$ref": "#/$defs/Plan"
@@ -252,6 +381,104 @@
         "plans"
       ],
       "title": "Provider",
+      "type": "object"
+    },
+    "RegulatedFees": {
+      "description": "A dated set of regulated fees.",
+      "properties": {
+        "country_code": {
+          "default": "PT",
+          "title": "Country Code",
+          "type": "string"
+        },
+        "effective_date": {
+          "title": "Effective Date",
+          "type": "string"
+        },
+        "end_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End Date"
+        },
+        "tar_variants": {
+          "items": {
+            "$ref": "#/$defs/TarVariant"
+          },
+          "title": "Tar Variants",
+          "type": "array"
+        },
+        "iec": {
+          "title": "Iec",
+          "type": "number"
+        },
+        "egme_connection": {
+          "title": "Egme Connection",
+          "type": "number"
+        }
+      },
+      "required": [
+        "effective_date",
+        "tar_variants",
+        "iec",
+        "egme_connection"
+      ],
+      "title": "RegulatedFees",
+      "type": "object"
+    },
+    "TarPeriodRate": {
+      "description": "TAR rate for one time-of-use period.",
+      "properties": {
+        "period": {
+          "$ref": "#/$defs/TariffPeriod"
+        },
+        "rate": {
+          "title": "Rate",
+          "type": "number"
+        }
+      },
+      "required": [
+        "period",
+        "rate"
+      ],
+      "title": "TarPeriodRate",
+      "type": "object"
+    },
+    "TarVariant": {
+      "description": "TAR rates for a specific voltage level and cycle.",
+      "properties": {
+        "voltage_level": {
+          "title": "Voltage Level",
+          "type": "string"
+        },
+        "cycle": {
+          "enum": [
+            "diario",
+            "semanal"
+          ],
+          "title": "Cycle",
+          "type": "string"
+        },
+        "rates": {
+          "items": {
+            "$ref": "#/$defs/TarPeriodRate"
+          },
+          "title": "Rates",
+          "type": "array"
+        }
+      },
+      "required": [
+        "voltage_level",
+        "cycle",
+        "rates"
+      ],
+      "title": "TarVariant",
       "type": "object"
     },
     "Tariff": {
@@ -354,10 +581,30 @@
           ],
           "default": null,
           "title": "Time Restrictions"
+        },
+        "tou_period": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TariffPeriod"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         }
       },
       "title": "Tariff",
       "type": "object"
+    },
+    "TariffPeriod": {
+      "enum": [
+        "ponta",
+        "cheias",
+        "vazio"
+      ],
+      "title": "TariffPeriod",
+      "type": "string"
     },
     "TariffTier": {
       "properties": {
@@ -473,6 +720,21 @@
       },
       "title": "Providers",
       "type": "array"
+    },
+    "regulated_fees": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/RegulatedFees"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Regulated Fees"
     }
   },
   "required": [

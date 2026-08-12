@@ -2,6 +2,7 @@
   "providers": [
     {
       "name": "Atlante",
+      "updated_at": "2026-01-03",
       "plans": [
         {
           "name": "Base",
@@ -74,15 +75,51 @@
               ]
             }
           ]
+        },
+        {
+          "name": "Atlante CEME",
+          "byoe": true,
+          "country_code": "PT",
+          "start_date": "2026-01-01",
+          "payment_methods": [
+            "RFID_CARD",
+            "APP"
+          ],
+          "cycle": "semanal",
+          "includes_tar": false,
+          "includes_iec": false,
+          "includes_egme": false,
+          "activation_fee": 0.0,
+          "renewable_energy": false,
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "tariffs": [
+                {
+                  "price": 0.0976,
+                  "unit": "energy",
+                  "max": 43.0,
+                  "tou_period": "cheias"
+                },
+                {
+                  "price": 0.0976,
+                  "unit": "energy",
+                  "max": 43.0,
+                  "tou_period": "vazio"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "name": "ACP Electric",
       "url": "https://www.acp.pt/eletricos/app-e-cartao-acp-electric/para-socios-e-nao-socios",
+      "updated_at": "2026-08-08",
       "plans": [
         {
-          "name": "CEME Bi-Horário",
+          "name": "ACP Electric Base",
           "byoe": true,
           "country_code": "PT",
           "start_date": "2026-07-01",
@@ -107,6 +144,48 @@
                 },
                 {
                   "price": 0.169,
+                  "unit": "energy",
+                  "tou_period": "vazio"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ACP Electric Sócio",
+          "byoe": true,
+          "country_code": "PT",
+          "start_date": "2026-07-01",
+          "payment_methods": [
+            "RFID_CARD",
+            "APP"
+          ],
+          "cycle": "diario",
+          "includes_tar": false,
+          "includes_iec": false,
+          "includes_egme": true,
+          "activation_fee": 0.15,
+          "renewable_energy": true,
+          "contract_conditions": [
+            "PARTNERSHIP"
+          ],
+          "notes": [
+            {
+              "language": "pt",
+              "text": "Associado ACP"
+            }
+          ],
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "tariffs": [
+                {
+                  "price": 0.1506,
+                  "unit": "energy",
+                  "tou_period": "cheias"
+                },
+                {
+                  "price": 0.1506,
                   "unit": "energy",
                   "tou_period": "vazio"
                 }

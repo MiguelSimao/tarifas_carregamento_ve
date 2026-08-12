@@ -27,3 +27,5 @@ packages = ["src/tariffs"]
 tariffs-validate = "tariffs.validate:main"
 tariffs-compile = "tariffs.compile:main"
 tariffs-generate-schema = "tariffs.generate_schema:main"
+update-cpos = "scripts.update_cpos:fetch_cpos"
+

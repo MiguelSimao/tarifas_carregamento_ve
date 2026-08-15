@@ -77,7 +77,7 @@
           ]
         },
         {
-          "name": "Atlante CEME",
+          "name": "CEME",
           "byoe": true,
           "country_code": "PT",
           "start_date": "2026-01-01",
@@ -120,7 +120,7 @@
       "updated_at": "2026-08-08",
       "plans": [
         {
-          "name": "ACP Electric Base",
+          "name": "CEME Base",
           "byoe": true,
           "country_code": "PT",
           "start_date": "2026-07-01",
@@ -154,10 +154,12 @@
           ]
         },
         {
-          "name": "ACP Electric Sócio",
+          "name": "CEME Sócio",
           "byoe": true,
           "country_code": "PT",
           "start_date": "2026-07-01",
+          "cost": 4.9,
+          "months": 1,
           "payment_methods": [
             "RFID_CARD",
             "APP"

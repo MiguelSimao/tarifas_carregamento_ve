@@ -4,7 +4,7 @@ providers:
   updated_at: "2026-08-08"
   plans:
 
-  - name: "ACP Electric Base"
+  - name: "CEME Base"
     byoe: true
     country_code: PT
     start_date: "2026-07-01"
@@ -28,7 +28,7 @@ providers:
         tou_period: vazio
         price: 0.1690
 
-  - name: "ACP Electric Sócio"
+  - name: "CEME Sócio"
     byoe: true
     country_code: PT
     start_date: "2026-07-01"
@@ -41,6 +41,8 @@ providers:
     activation_fee: 0.15
     contract_conditions:
     - PARTNERSHIP
+    cost: 4.90
+    months: 1
     notes:
     - language: pt
       text: Associado ACP

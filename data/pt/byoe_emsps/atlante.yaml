@@ -2,7 +2,7 @@ providers:
 - name: Atlante
   updated_at: "2026-01-03"
   plans:
-  - name: "Atlante CEME"
+  - name: "CEME"
     byoe: true
     country_code: PT
     start_date: "2026-01-01"

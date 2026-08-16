@@ -154,7 +154,8 @@ class ByoeConfig(BaseModel):
     opc_commission_pct: float | None = None
     renewable_energy: bool | None = None
 
-    # TOU rate prices
+    # TOU / single rate prices
+    all_day: float | None = None
     vazio: float | None = None
     cheias: float | None = None
     fora_vazio: float | None = None
@@ -176,6 +177,21 @@ class ByoeConfig(BaseModel):
                 if self.fora_vazio is None:
                     self.fora_vazio = self.cheias
                 self.cheias = None
+        elif self.schedule == TariffSchedule.SIMPLES:
+            if self.ponta is not None:
+                raise ValueError("Schedule '1H' does not support 'ponta' rate.")
+            if self.vazio is not None and self.cheias is not None and self.vazio != self.cheias:
+                raise ValueError("Schedule '1H' requires a single rate (use 'all_day').")
+            if self.all_day is None:
+                if self.fora_vazio is not None:
+                    self.all_day = self.fora_vazio
+                elif self.cheias is not None:
+                    self.all_day = self.cheias
+                elif self.vazio is not None:
+                    self.all_day = self.vazio
+            self.cheias = None
+            self.vazio = None
+            self.fora_vazio = None
         return self
 
 

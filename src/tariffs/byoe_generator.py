@@ -43,7 +43,8 @@ def expand_byoe_plan(
 
     # Check if BYOE rates are provided or tariffs need generating
     has_byoe_rates = (
-        plan.byoe.vazio is not None
+        plan.byoe.all_day is not None
+        or plan.byoe.vazio is not None
         or plan.byoe.cheias is not None
         or plan.byoe.fora_vazio is not None
         or plan.byoe.ponta is not None
@@ -88,69 +89,106 @@ def expand_byoe_plan(
             )
         )
 
-    # 2. TOU energy rates
+    # 3. CEME energy rates
     schedule = plan.byoe.schedule
-    rates_map: dict[TariffPeriod, float] = {}
-
-    if schedule == TariffSchedule.BIHORARIO:
-        if plan.byoe.vazio is not None:
-            rates_map[TariffPeriod.VAZIO] = plan.byoe.vazio
-        fora_vazio_rate = (
-            plan.byoe.fora_vazio
-            if plan.byoe.fora_vazio is not None
-            else plan.byoe.cheias
-        )
-        if fora_vazio_rate is not None:
-            rates_map[TariffPeriod.FORA_VAZIO] = fora_vazio_rate
-    elif schedule == TariffSchedule.TRIHORARIO:
-        if plan.byoe.vazio is not None:
-            rates_map[TariffPeriod.VAZIO] = plan.byoe.vazio
-        if plan.byoe.cheias is not None:
-            rates_map[TariffPeriod.CHEIAS] = plan.byoe.cheias
-        if plan.byoe.ponta is not None:
-            rates_map[TariffPeriod.PONTA] = plan.byoe.ponta
-    else:
-        # Fallback / Single rate
-        if plan.byoe.vazio is not None:
-            rates_map[TariffPeriod.VAZIO] = plan.byoe.vazio
-        if plan.byoe.fora_vazio is not None:
-            rates_map[TariffPeriod.FORA_VAZIO] = plan.byoe.fora_vazio
-        elif plan.byoe.cheias is not None:
-            rates_map[TariffPeriod.CHEIAS] = plan.byoe.cheias
-
     iec_add = 0.0 if plan.byoe.includes_iec else reg_fees.iec
 
-    for variant in reg_fees.tar_variants:
-        if schedule is not None and variant.schedule is not None and variant.schedule != schedule:
-            continue
-        if plan.byoe.cycle is not None and variant.cycle is not None and variant.cycle != plan.byoe.cycle:
-            continue
-
-        voltage_level = MobieVoltageLevel(variant.voltage_level)
-
-        for rate_item in variant.rates:
-            period = rate_item.period
-            if schedule == TariffSchedule.BIHORARIO and period == TariffPeriod.CHEIAS:
-                period = TariffPeriod.FORA_VAZIO
-
-            base_rate = rates_map.get(period)
-            if base_rate is None:
-                continue
-
-            tar_add = 0.0 if plan.byoe.includes_tar else rate_item.rate
-            total_price = round(base_rate + tar_add + iec_add, 4)
-
+    if schedule == TariffSchedule.SIMPLES:
+        single_rate = plan.byoe.all_day
+        if single_rate is None:
+            single_rate = (
+                plan.byoe.fora_vazio
+                if plan.byoe.fora_vazio is not None
+                else (plan.byoe.cheias if plan.byoe.cheias is not None else plan.byoe.vazio)
+            )
+        if single_rate is not None:
             generated_tariffs.append(
                 Tariff(
                     type=plan.byoe.power_type,
-                    price=total_price,
+                    price=round(single_rate + iec_add, 4),
                     unit=DimensionType.ENERGY,
-                    mobie_voltage_level=voltage_level,
-                    tou_period=period,
+                    mobie_fee_type=MobieFeeType.CEME,
                 )
             )
+    else:
+        rates_map: dict[TariffPeriod, float] = {}
 
-    # 3. Attach generated tariffs to network
+        if schedule == TariffSchedule.BIHORARIO:
+            if plan.byoe.vazio is not None:
+                rates_map[TariffPeriod.VAZIO] = plan.byoe.vazio
+            fora_vazio_rate = (
+                plan.byoe.fora_vazio
+                if plan.byoe.fora_vazio is not None
+                else plan.byoe.cheias
+            )
+            if fora_vazio_rate is not None:
+                rates_map[TariffPeriod.FORA_VAZIO] = fora_vazio_rate
+        elif schedule == TariffSchedule.TRIHORARIO:
+            if plan.byoe.vazio is not None:
+                rates_map[TariffPeriod.VAZIO] = plan.byoe.vazio
+            if plan.byoe.cheias is not None:
+                rates_map[TariffPeriod.CHEIAS] = plan.byoe.cheias
+            if plan.byoe.ponta is not None:
+                rates_map[TariffPeriod.PONTA] = plan.byoe.ponta
+        else:
+            # Fallback / Single rate
+            if plan.byoe.vazio is not None:
+                rates_map[TariffPeriod.VAZIO] = plan.byoe.vazio
+            if plan.byoe.fora_vazio is not None:
+                rates_map[TariffPeriod.FORA_VAZIO] = plan.byoe.fora_vazio
+            elif plan.byoe.cheias is not None:
+                rates_map[TariffPeriod.CHEIAS] = plan.byoe.cheias
+
+        if rates_map:
+            unique_rates = set(rates_map.values())
+            if len(unique_rates) == 1:
+                rate = next(iter(unique_rates))
+                generated_tariffs.append(
+                    Tariff(
+                        type=plan.byoe.power_type,
+                        price=round(rate + iec_add, 4),
+                        unit=DimensionType.ENERGY,
+                        mobie_fee_type=MobieFeeType.CEME,
+                    )
+                )
+            else:
+                for period, rate in rates_map.items():
+                    generated_tariffs.append(
+                        Tariff(
+                            type=plan.byoe.power_type,
+                            price=round(rate + iec_add, 4),
+                            unit=DimensionType.ENERGY,
+                            mobie_fee_type=MobieFeeType.CEME,
+                            tou_period=period,
+                        )
+                    )
+
+    # 4. TAR regulated energy fees (if not included in BYOE plan)
+    if not plan.byoe.includes_tar:
+        for variant in reg_fees.tar_variants:
+            if schedule is not None and variant.schedule is not None and variant.schedule != schedule:
+                continue
+            if plan.byoe.cycle is not None and variant.cycle is not None and variant.cycle != plan.byoe.cycle:
+                continue
+
+            voltage_level = MobieVoltageLevel(variant.voltage_level)
+
+            for rate_item in variant.rates:
+                period = rate_item.period
+                if schedule == TariffSchedule.BIHORARIO and period == TariffPeriod.CHEIAS:
+                    period = TariffPeriod.FORA_VAZIO
+
+                generated_tariffs.append(
+                    Tariff(
+                        price=round(rate_item.rate, 4),
+                        unit=DimensionType.ENERGY,
+                        mobie_fee_type=MobieFeeType.TAR,
+                        mobie_voltage_level=voltage_level,
+                        tou_period=period,
+                    )
+                )
+
+    # 5. Attach generated tariffs to network
     if plan.networks:
         # Find MOBIE network or use first
         mobie_net = next((n for n in plan.networks if n.network_id == "MOBIE"), plan.networks[0])

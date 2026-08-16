@@ -28,7 +28,17 @@ def _cross_validate_tariff_doc(doc: TariffDocument, file_path: str):
                     )
                 has_network_tariffs = any(len(net.tariffs) > 0 for net in plan.networks)
                 if not has_network_tariffs and plan.byoe:
-                    if plan.byoe.schedule == TariffSchedule.BIHORARIO:
+                    if plan.byoe.schedule == TariffSchedule.SIMPLES:
+                        if (
+                            plan.byoe.all_day is None
+                            and plan.byoe.vazio is None
+                            and plan.byoe.cheias is None
+                            and plan.byoe.fora_vazio is None
+                        ):
+                            raise ValueError(
+                                f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '1H' requires 'all_day' rate in 'byoe:' block."
+                            )
+                    elif plan.byoe.schedule == TariffSchedule.BIHORARIO:
                         if plan.byoe.vazio is None or (
                             plan.byoe.fora_vazio is None and plan.byoe.cheias is None
                         ):

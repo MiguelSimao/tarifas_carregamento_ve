@@ -156,6 +156,18 @@
           "default": null,
           "title": "Renewable Energy"
         },
+        "all_day": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "All Day"
+        },
         "vazio": {
           "anyOf": [
             {
@@ -906,6 +918,7 @@
     },
     "TariffSchedule": {
       "enum": [
+        "1H",
         "2H",
         "3H"
       ],

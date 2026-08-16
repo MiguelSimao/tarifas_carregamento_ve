@@ -588,6 +588,42 @@ def test_byoe_rates_and_start_date_validation():
     assert byoe_3h.cheias == 0.18
     assert byoe_3h.vazio == 0.12
 
+    # 1H rejecting ponta
+    with pytest.raises(ValidationError, match="Schedule '1H' does not support 'ponta' rate"):
+        ByoeConfig(
+            schedule=TariffSchedule.SIMPLES,
+            ponta=0.25,
+            all_day=0.20,
+        )
+
+    # 1H rejecting conflicting different rates
+    with pytest.raises(ValidationError, match="Schedule '1H' requires a single rate"):
+        ByoeConfig(
+            schedule=TariffSchedule.SIMPLES,
+            cheias=0.2678,
+            vazio=0.2000,
+        )
+
+    # 1H accepting all_day directly
+    byoe_1h = ByoeConfig(
+        start_date="2026-07-01",
+        schedule=TariffSchedule.SIMPLES,
+        all_day=0.2678,
+    )
+    assert byoe_1h.schedule == TariffSchedule.SIMPLES
+    assert byoe_1h.all_day == 0.2678
+
+    # 1H auto-normalizing equal cheias/vazio to all_day
+    byoe_1h_norm = ByoeConfig(
+        start_date="2026-07-01",
+        schedule=TariffSchedule.SIMPLES,
+        cheias=0.2678,
+        vazio=0.2678,
+    )
+    assert byoe_1h_norm.all_day == 0.2678
+    assert byoe_1h_norm.cheias is None
+    assert byoe_1h_norm.vazio is None
+
 
 def test_byoe_plan_expansion():
     """Test expanding a BYOE plan into concrete network tariffs."""
@@ -643,23 +679,63 @@ def test_byoe_plan_expansion():
     expanded = expand_byoe_plan(plan, regulated_fees)
     assert len(expanded.networks) == 1
     tariffs = expanded.networks[0].tariffs
-    # 1 flat fee + 4 energy rates (2 for MT, 2 for BT)
-    assert len(tariffs) == 5
+    # 1 flat fee + 1 CEME energy rate (no tou_period since rates are equal) + 4 TAR energy rates (2 for MT, 2 for BT)
+    assert len(tariffs) == 6
 
     flat = next(t for t in tariffs if t.unit == "flat")
     assert flat.price == 0.15
     assert flat.mobie_fee_type is None
 
-    bt_fora_vazio = next(
-        t for t in tariffs if t.mobie_voltage_level == MobieVoltageLevel.BT and t.tou_period == TariffPeriod.FORA_VAZIO
-    )
-    # 0.1690 (base) + 0.1192 (TAR BT) + 0.0010 (IEC) = 0.2892
-    assert bt_fora_vazio.price == 0.2892
-    assert bt_fora_vazio.type == "AC"
-
-    # Test plan with includes_egme=False generating EGME fee
     from tariffs.model import MobieFeeType
 
+    # CEME energy tariff (0.1690 base + 0.0010 IEC = 0.1700)
+    ceme_tariff = next(t for t in tariffs if t.mobie_fee_type == MobieFeeType.CEME)
+    assert ceme_tariff.price == 0.1700
+    assert ceme_tariff.type == "AC"
+    assert ceme_tariff.tou_period is None  # no TOU constraint since all rates are identical
+
+    # TAR energy tariffs
+    bt_fora_vazio = next(
+        t for t in tariffs if t.mobie_fee_type == MobieFeeType.TAR and t.mobie_voltage_level == MobieVoltageLevel.BT and t.tou_period == TariffPeriod.FORA_VAZIO
+    )
+    assert bt_fora_vazio.price == 0.1192
+
+    bt_vazio = next(
+        t for t in tariffs if t.mobie_fee_type == MobieFeeType.TAR and t.mobie_voltage_level == MobieVoltageLevel.BT and t.tou_period == TariffPeriod.VAZIO
+    )
+    assert bt_vazio.price == 0.0266
+
+    # Test plan with differing TOU rates (vazio != fora_vazio) -> CEME tariffs should keep tou_period
+    plan_differing_rates = Plan(
+        name="Different Rates CEME",
+        country_code="PT",
+        byoe=ByoeConfig(
+            start_date="2026-07-01",
+            power_type="AC",
+            cycle="diario",
+            schedule="2H",
+            includes_egme=True,
+            includes_iec=True,
+            includes_tar=False,
+            cheias=0.2000,
+            vazio=0.1000,
+        ),
+        networks=[Network(network_id="MOBIE")],
+    )
+    expanded_diff = expand_byoe_plan(plan_differing_rates, regulated_fees)
+    tariffs_diff = expanded_diff.networks[0].tariffs
+    # 2 CEME rates + 4 TAR rates = 6
+    assert len(tariffs_diff) == 6
+    ceme_vazio = next(
+        t for t in tariffs_diff if t.mobie_fee_type == MobieFeeType.CEME and t.tou_period == TariffPeriod.VAZIO
+    )
+    assert ceme_vazio.price == 0.1000
+    ceme_fora_vazio = next(
+        t for t in tariffs_diff if t.mobie_fee_type == MobieFeeType.CEME and t.tou_period == TariffPeriod.FORA_VAZIO
+    )
+    assert ceme_fora_vazio.price == 0.2000
+
+    # Test plan with includes_egme=False generating EGME fee
     plan_no_egme = Plan(
         name="Atlante CEME",
         country_code="PT",
@@ -679,9 +755,10 @@ def test_byoe_plan_expansion():
     )
     expanded_no_egme = expand_byoe_plan(plan_no_egme, regulated_fees)
     tariffs_no_egme = expanded_no_egme.networks[0].tariffs
-    # 1 EGME flat fee + 4 energy rates
-    assert len(tariffs_no_egme) == 5
+    # 1 EGME flat fee + 1 CEME energy rate + 4 TAR energy rates = 6
+    assert len(tariffs_no_egme) == 6
     egme_fee = next(t for t in tariffs_no_egme if t.mobie_fee_type == MobieFeeType.EGME)
     assert egme_fee.price == 0.1088
     assert egme_fee.unit == "flat"
+
 

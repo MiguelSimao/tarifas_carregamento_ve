@@ -1,8 +1,3 @@
----
-name: Python Instructions
-description: Customized instructions for python projects
-trigger: "always on"
----
 
 # Python Execution Guidelines
 

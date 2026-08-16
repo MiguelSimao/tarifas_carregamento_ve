@@ -16,6 +16,7 @@ class TariffCycle(str, Enum):
 
 
 class TariffSchedule(str, Enum):
+    SIMPLES = "1H"
     BIHORARIO = "2H"
     TRIHORARIO = "3H"
 

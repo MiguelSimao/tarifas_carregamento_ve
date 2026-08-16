@@ -1,0 +1,21 @@
+providers:
+- name: EDP
+  url: https://www.edp.pt/particulares/servicos/mobilidade-eletrica/carregar-fora-de-casa/
+  updated_at: "2026-08-08"
+  plans:
+  - name: "CEME"
+    country_code: PT
+    byoe:
+      start_date: "2026-07-01"
+      schedule: "1H"
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      all_day: 0.2678
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE

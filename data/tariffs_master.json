@@ -105,29 +105,35 @@
                 },
                 {
                   "type": "AC",
-                  "price": 0.1798,
+                  "price": 0.0986,
                   "unit": "energy",
+                  "mobie_fee_type": "CEME"
+                },
+                {
+                  "price": 0.0812,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "MT",
                   "tou_period": "fora_vazio"
                 },
                 {
-                  "type": "AC",
-                  "price": 0.1143,
+                  "price": 0.0157,
                   "unit": "energy",
+                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "MT",
                   "tou_period": "vazio"
                 },
                 {
-                  "type": "AC",
-                  "price": 0.2178,
+                  "price": 0.1192,
                   "unit": "energy",
+                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
                   "tou_period": "fora_vazio"
                 },
                 {
-                  "type": "AC",
-                  "price": 0.1252,
+                  "price": 0.0266,
                   "unit": "energy",
+                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
                   "tou_period": "vazio"
                 }
@@ -170,26 +176,35 @@
                   "unit": "flat"
                 },
                 {
-                  "price": 0.2512,
+                  "price": 0.17,
                   "unit": "energy",
+                  "mobie_fee_type": "CEME"
+                },
+                {
+                  "price": 0.0812,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "MT",
                   "tou_period": "fora_vazio"
                 },
                 {
-                  "price": 0.1857,
+                  "price": 0.0157,
                   "unit": "energy",
+                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "MT",
                   "tou_period": "vazio"
                 },
                 {
-                  "price": 0.2892,
+                  "price": 0.1192,
                   "unit": "energy",
+                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
                   "tou_period": "fora_vazio"
                 },
                 {
-                  "price": 0.1966,
+                  "price": 0.0266,
                   "unit": "energy",
+                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
                   "tou_period": "vazio"
                 }
@@ -236,28 +251,79 @@
                   "unit": "flat"
                 },
                 {
-                  "price": 0.2328,
+                  "price": 0.1516,
                   "unit": "energy",
+                  "mobie_fee_type": "CEME"
+                },
+                {
+                  "price": 0.0812,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "MT",
                   "tou_period": "fora_vazio"
                 },
                 {
-                  "price": 0.1673,
+                  "price": 0.0157,
                   "unit": "energy",
+                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "MT",
                   "tou_period": "vazio"
                 },
                 {
-                  "price": 0.2708,
+                  "price": 0.1192,
                   "unit": "energy",
+                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
                   "tou_period": "fora_vazio"
                 },
                 {
-                  "price": 0.1782,
+                  "price": 0.0266,
                   "unit": "energy",
+                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
                   "tou_period": "vazio"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "EDP",
+      "url": "https://www.edp.pt/particulares/servicos/mobilidade-eletrica/carregar-fora-de-casa/",
+      "updated_at": "2026-08-08",
+      "plans": [
+        {
+          "name": "CEME",
+          "country_code": "PT",
+          "payment_methods": [
+            "RFID_CARD",
+            "APP"
+          ],
+          "byoe": {
+            "start_date": "2026-07-01",
+            "schedule": "1H",
+            "includes_tar": true,
+            "includes_iec": false,
+            "includes_egme": false,
+            "activation_fee": 0.0,
+            "renewable_energy": true,
+            "all_day": 0.2678
+          },
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME"
+                },
+                {
+                  "price": 0.2688,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME"
                 }
               ]
             }

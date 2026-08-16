@@ -3,7 +3,6 @@ from typing import Literal
 
 from pydantic import AliasChoices, BaseModel, Field, field_validator, model_validator
 
-
 from .regulated_fees import RegulatedFees, TariffPeriod, TariffSchedule
 
 
@@ -87,6 +86,13 @@ class Tariff(BaseModel):
     time_restrictions: list[TimeRestriction] | None = None
     tou_period: TariffPeriod | None = None
 
+    @field_validator("tou_period", mode="before")
+    @classmethod
+    def parse_tou_period(cls, v):
+        if isinstance(v, str):
+            return v.lower()
+        return v
+
     @model_validator(mode="after")
     def validate_and_propagate_tariff(self) -> "Tariff":
         if self.price is None and self.tiers is None:
@@ -161,6 +167,25 @@ class Plan(BaseModel):
         if isinstance(v, dict):
             return [v]
         return v
+
+    @model_validator(mode="after")
+    def validate_schedule_tariffs(self) -> "Plan":
+        if self.schedule == TariffSchedule.BIHORARIO:
+            for network in self.networks or []:
+                for tariff in network.tariffs or []:
+                    if tariff.tou_period is not None:
+                        if tariff.tou_period == TariffPeriod.CHEIAS:
+                            tariff.tou_period = TariffPeriod.FORA_VAZIO
+                        elif tariff.tou_period not in (
+                            TariffPeriod.VAZIO,
+                            TariffPeriod.FORA_VAZIO,
+                        ):
+                            raise ValueError(
+                                f"Invalid tou_period '{tariff.tou_period.value}' for schedule '2H'. "
+                                f"Allowed periods are '{TariffPeriod.VAZIO.value}' and '{TariffPeriod.FORA_VAZIO.value}' "
+                                f"(or '{TariffPeriod.CHEIAS.value}' mapped to '{TariffPeriod.FORA_VAZIO.value}')."
+                            )
+        return self
 
 
 class Provider(BaseModel):

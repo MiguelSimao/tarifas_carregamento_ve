@@ -1,3 +1,4 @@
+import glob
 import json
 import os
 
@@ -5,9 +6,6 @@ import yaml
 
 from tariffs.compile import main as compile_main
 from tariffs.validate import _validate_file
-
-
-import glob
 
 
 def test_pt_tariff_files_valid():
@@ -59,6 +57,7 @@ def test_compilation_output(tmp_path):
 def test_provider_merging_and_conflict_detection(tmp_path):
     """Test merging plans for the same provider across files and conflict detection."""
     import sys
+
     import pytest
 
     dir_path = tmp_path / "yaml_dir"
@@ -76,7 +75,9 @@ def test_provider_merging_and_conflict_detection(tmp_path):
                             {
                                 "name": "PlanA",
                                 "byoe": False,
-                                "networks": [{"network_id": "NET1", "tariffs": [{"price": 0.3}]}],
+                                "networks": [
+                                    {"network_id": "NET1", "tariffs": [{"price": 0.3}]}
+                                ],
                             }
                         ],
                     }
@@ -99,7 +100,9 @@ def test_provider_merging_and_conflict_detection(tmp_path):
                                 "byoe": True,
                                 "cycle": "diario",
                                 "includes_tar": False,
-                                "networks": [{"network_id": "NET1", "tariffs": [{"price": 0.2}]}],
+                                "networks": [
+                                    {"network_id": "NET1", "tariffs": [{"price": 0.2}]}
+                                ],
                             }
                         ],
                     }
@@ -139,7 +142,9 @@ def test_provider_merging_and_conflict_detection(tmp_path):
                         "plans": [
                             {
                                 "name": "PlanC",
-                                "networks": [{"network_id": "NET1", "tariffs": [{"price": 0.4}]}],
+                                "networks": [
+                                    {"network_id": "NET1", "tariffs": [{"price": 0.4}]}
+                                ],
                             }
                         ],
                     }
@@ -154,4 +159,3 @@ def test_provider_merging_and_conflict_detection(tmp_path):
             compile_main()
     finally:
         sys.argv = orig_argv
-

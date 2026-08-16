@@ -39,7 +39,10 @@ def test_template_yaml_validates():
     provider = doc.providers[0]
     assert provider.app_url is not None
     assert provider.app_url.web == "https://app.provider.com"
-    assert provider.app_url.android == "https://play.google.com/store/apps/details?id=com.provider.app"
+    assert (
+        provider.app_url.android
+        == "https://play.google.com/store/apps/details?id=com.provider.app"
+    )
     assert provider.app_url.ios == "https://apps.apple.com/app/id123456789"
 
     # Locate a specific plan and network to verify newly added fields
@@ -48,7 +51,10 @@ def test_template_yaml_validates():
     assert plan_base.contract_conditions == [ContractCondition.APP_ACTIVATION]
     assert plan_base.notes is not None
     assert plan_base.notes[0].language == "pt"
-    assert plan_base.notes[0].text == "Desconto válido para carregamentos na rede nacional."
+    assert (
+        plan_base.notes[0].text
+        == "Desconto válido para carregamentos na rede nacional."
+    )
 
     # Locate a network to verify cashback, locations and time restrictions
     mobie_network = next(n for n in plan_base.networks if n.network_id == "NetworkName")
@@ -101,7 +107,6 @@ def test_tariff_thresholded_fee():
 
     tier = TariffTier(price=0.25, unit="parking", start_after=45)
     assert tier.start_after == 45.0
-
 
 
 def test_time_restrictions_model():
@@ -264,8 +269,8 @@ def test_regulated_fees_model():
     from tariffs.regulated_fees import (
         RegulatedFees,
         RegulatedFeesDocument,
-        TarPeriodRate,
         TariffPeriod,
+        TarPeriodRate,
         TarVariant,
     )
 
@@ -305,7 +310,9 @@ def test_provider_app_url():
         plans=[],
     )
     assert prov.app_url.web == "https://web.app"
-    assert prov.app_url.android == "https://play.google.com/store/apps/details?id=com.app"
+    assert (
+        prov.app_url.android == "https://play.google.com/store/apps/details?id=com.app"
+    )
     assert prov.app_url.ios == "https://apps.apple.com/app/id123"
 
     # Test string parsing
@@ -368,7 +375,7 @@ def test_plan_notes():
 
 def test_schedule_field_on_plan_and_tar_variant():
     """Test schedule field on Plan and TarVariant."""
-    from tariffs.regulated_fees import TarPeriodRate, TarVariant, TariffPeriod
+    from tariffs.regulated_fees import TariffPeriod, TarPeriodRate, TarVariant
 
     plan = Plan(name="TestBYOEPlan", byoe=True, schedule="2H", networks=[])
     assert plan.schedule == "2H"
@@ -381,7 +388,80 @@ def test_schedule_field_on_plan_and_tar_variant():
     assert variant.schedule == "3H"
 
 
+def test_schedule_2h_tou_period_validation_and_mapping():
+    """Test tou_period validation and mapping for 2H schedule."""
+    from tariffs.regulated_fees import TariffPeriod
 
+    # 1. Cheias mapped to fora_vazio, Vazio remains vazio
+    plan = Plan(
+        name="2H Plan",
+        schedule="2H",
+        networks=[
+            Network(
+                network_id="NET1",
+                tariffs=[
+                    Tariff(price=0.20, tou_period="cheias"),
+                    Tariff(price=0.15, tou_period="vazio"),
+                    Tariff(price=0.22, tou_period="fora_vazio"),
+                ],
+            )
+        ],
+    )
+    assert plan.networks[0].tariffs[0].tou_period == TariffPeriod.FORA_VAZIO
+    assert plan.networks[0].tariffs[1].tou_period == TariffPeriod.VAZIO
+    assert plan.networks[0].tariffs[2].tou_period == TariffPeriod.FORA_VAZIO
 
+    # 2. Case-insensitivity (CHEIAS, VAZIO, FORA_VAZIO)
+    plan_upper = Plan(
+        name="2H Upper Plan",
+        schedule="2H",
+        networks=[
+            Network(
+                network_id="NET1",
+                tariffs=[
+                    Tariff(price=0.20, tou_period="CHEIAS"),
+                    Tariff(price=0.15, tou_period="VAZIO"),
+                    Tariff(price=0.22, tou_period="FORA_VAZIO"),
+                ],
+            )
+        ],
+    )
+    assert plan_upper.networks[0].tariffs[0].tou_period == TariffPeriod.FORA_VAZIO
+    assert plan_upper.networks[0].tariffs[1].tou_period == TariffPeriod.VAZIO
+    assert plan_upper.networks[0].tariffs[2].tou_period == TariffPeriod.FORA_VAZIO
 
+    # 3. Invalid tou_period for 2H (e.g. ponta) raises ValidationError
+    with pytest.raises(
+        ValidationError, match="Invalid tou_period 'ponta' for schedule '2H'"
+    ):
+        Plan(
+            name="2H Invalid Plan",
+            schedule="2H",
+            networks=[
+                Network(
+                    network_id="NET1",
+                    tariffs=[
+                        Tariff(price=0.30, tou_period="ponta"),
+                    ],
+                )
+            ],
+        )
 
+    # 4. Schedule 3H allows ponta without mapping
+    plan_3h = Plan(
+        name="3H Plan",
+        schedule="3H",
+        networks=[
+            Network(
+                network_id="NET1",
+                tariffs=[
+                    Tariff(price=0.30, tou_period="ponta"),
+                    Tariff(price=0.20, tou_period="cheias"),
+                    Tariff(price=0.10, tou_period="vazio"),
+                ],
+            )
+        ],
+    )
+    assert plan_3h.networks[0].tariffs[0].tou_period == TariffPeriod.PONTA
+    assert plan_3h.networks[0].tariffs[1].tou_period == TariffPeriod.CHEIAS
+    assert plan_3h.networks[0].tariffs[2].tou_period == TariffPeriod.VAZIO

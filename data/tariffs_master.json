@@ -100,7 +100,7 @@
                   "price": 0.0976,
                   "unit": "energy",
                   "max": 43.0,
-                  "tou_period": "cheias"
+                  "tou_period": "fora_vazio"
                 },
                 {
                   "price": 0.0976,
@@ -142,7 +142,7 @@
                 {
                   "price": 0.169,
                   "unit": "energy",
-                  "tou_period": "cheias"
+                  "tou_period": "fora_vazio"
                 },
                 {
                   "price": 0.169,
@@ -187,7 +187,7 @@
                 {
                   "price": 0.1506,
                   "unit": "energy",
-                  "tou_period": "cheias"
+                  "tou_period": "fora_vazio"
                 },
                 {
                   "price": 0.1506,

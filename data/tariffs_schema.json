@@ -766,7 +766,8 @@
       "enum": [
         "ponta",
         "cheias",
-        "vazio"
+        "vazio",
+        "fora_vazio"
       ],
       "title": "TariffPeriod",
       "type": "string"

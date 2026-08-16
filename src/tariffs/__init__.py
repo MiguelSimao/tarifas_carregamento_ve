@@ -18,9 +18,9 @@ from .model import (
 from .regulated_fees import (
     RegulatedFees,
     RegulatedFeesDocument,
-    TarPeriodRate,
     TariffPeriod,
     TariffSchedule,
+    TarPeriodRate,
     TarVariant,
 )
 
@@ -37,11 +37,11 @@ __all__ = [
     "RegulatedFees",
     "RegulatedFeesDocument",
     "TarPeriodRate",
+    "TarVariant",
     "Tariff",
     "TariffDocument",
     "TariffPeriod",
     "TariffSchedule",
     "TariffTier",
-    "TarVariant",
     "TimeRestriction",
 ]

@@ -7,6 +7,7 @@ class TariffPeriod(str, Enum):
     PONTA = "ponta"
     CHEIAS = "cheias"
     VAZIO = "vazio"
+    FORA_VAZIO = "fora_vazio"
 
 
 class TariffCycle(str, Enum):

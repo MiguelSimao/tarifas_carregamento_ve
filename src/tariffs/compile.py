@@ -1,4 +1,5 @@
 import argparse
+import datetime
 import glob
 import os
 import sys
@@ -137,11 +138,17 @@ def main():
 
     master_providers = list(merged_providers_dict.values())
 
-    # Expand BYOE plans using master regulated fees
+    # Expand BYOE plans using master regulated fees and time restrictions
+    compile_today = datetime.date.today().isoformat()
     for prov in master_providers:
         for plan in prov.plans:
             if plan.is_byoe and master_regulated_fees:
-                expand_byoe_plan(plan, master_regulated_fees)
+                expand_byoe_plan(
+                    plan,
+                    master_regulated_fees,
+                    time_restrictions_list=master_time_restrictions if master_time_restrictions else None,
+                    reference_date=compile_today,
+                )
 
     # Create the master document
     master_doc = TariffDocument(

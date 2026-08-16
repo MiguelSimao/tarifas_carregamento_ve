@@ -1,5 +1,7 @@
 """BYOE (Bring Your Own Electricity / CEME) tariff generator."""
 
+import datetime
+
 from .model import (
     DimensionType,
     MobieFeeType,
@@ -8,7 +10,14 @@ from .model import (
     Plan,
     Tariff,
 )
-from .regulated_fees import RegulatedFees, TariffPeriod, TariffSchedule
+from .regulated_fees import (
+    RegulatedFees,
+    TariffCycle,
+    TariffCycleSchedule,
+    TariffPeriod,
+    TariffSchedule,
+)
+from .time_restrictions import resolve_all_time_restrictions
 
 
 def find_matching_regulated_fees(
@@ -36,6 +45,8 @@ def find_matching_regulated_fees(
 def expand_byoe_plan(
     plan: Plan,
     regulated_fees_list: list[RegulatedFees],
+    time_restrictions_list: list[TariffCycleSchedule] | None = None,
+    reference_date: str | None = None,
 ) -> Plan:
     """Expand a BYOE plan by calculating network tariffs from BYOE rates and regulated fees."""
     if not plan.is_byoe or not plan.byoe:
@@ -56,17 +67,20 @@ def expand_byoe_plan(
     if not has_byoe_rates and has_existing_tariffs:
         return plan
 
-    effective_date = plan.byoe.start_date or plan.start_date
+    today_ref_date = reference_date or datetime.date.today().isoformat()
     reg_fees = find_matching_regulated_fees(
         regulated_fees_list,
         country_code=plan.country_code,
-        effective_date=effective_date,
+        effective_date=today_ref_date,
     )
     if not reg_fees:
         raise ValueError(
             f"No regulated fees found for country '{plan.country_code or 'PT'}' "
-            f"and date '{effective_date}' for BYOE plan '{plan.name}'"
+            f"and date '{today_ref_date}' for BYOE plan '{plan.name}'"
         )
+
+    cycle = plan.byoe.cycle or TariffCycle.DIARIO
+    schedule = plan.byoe.schedule
 
     generated_tariffs: list[Tariff] = []
 
@@ -100,8 +114,6 @@ def expand_byoe_plan(
         )
 
     # 4. CEME energy rates
-    schedule = plan.byoe.schedule
-
     if schedule == TariffSchedule.SIMPLES:
         single_rate = plan.byoe.all_day
         if single_rate is None:
@@ -162,15 +174,34 @@ def expand_byoe_plan(
                 )
             else:
                 for period, rate in rates_map.items():
-                    generated_tariffs.append(
-                        Tariff(
-                            type=plan.byoe.power_type,
-                            price=round(rate, 4),
-                            unit=DimensionType.ENERGY,
-                            mobie_fee_type=MobieFeeType.CEME,
-                            tou_period=period,
-                        )
+                    restrs_list = resolve_all_time_restrictions(
+                        period=period,
+                        cycle=cycle,
+                        schedule=schedule or TariffSchedule.BIHORARIO,
+                        definitions=time_restrictions_list,
+                        country_code=plan.country_code,
+                        effective_date=today_ref_date,
                     )
+                    if restrs_list:
+                        for restrs in restrs_list:
+                            generated_tariffs.append(
+                                Tariff(
+                                    type=plan.byoe.power_type,
+                                    price=round(rate, 4),
+                                    unit=DimensionType.ENERGY,
+                                    mobie_fee_type=MobieFeeType.CEME,
+                                    time_restrictions=restrs,
+                                )
+                            )
+                    else:
+                        generated_tariffs.append(
+                            Tariff(
+                                type=plan.byoe.power_type,
+                                price=round(rate, 4),
+                                unit=DimensionType.ENERGY,
+                                mobie_fee_type=MobieFeeType.CEME,
+                            )
+                        )
 
     # 5. TAR regulated energy fees (if not included in BYOE plan)
     if not plan.byoe.includes_tar:
@@ -187,15 +218,35 @@ def expand_byoe_plan(
                 if schedule == TariffSchedule.BIHORARIO and period == TariffPeriod.CHEIAS:
                     period = TariffPeriod.FORA_VAZIO
 
-                generated_tariffs.append(
-                    Tariff(
-                        price=round(rate_item.rate, 4),
-                        unit=DimensionType.ENERGY,
-                        mobie_fee_type=MobieFeeType.TAR,
-                        mobie_voltage_level=voltage_level,
-                        tou_period=period,
-                    )
+                restrs_list = resolve_all_time_restrictions(
+                    period=period,
+                    cycle=cycle,
+                    schedule=schedule or variant.schedule or TariffSchedule.BIHORARIO,
+                    definitions=time_restrictions_list,
+                    country_code=plan.country_code,
+                    effective_date=today_ref_date,
                 )
+
+                if restrs_list:
+                    for restrs in restrs_list:
+                        generated_tariffs.append(
+                            Tariff(
+                                price=round(rate_item.rate, 4),
+                                unit=DimensionType.ENERGY,
+                                mobie_fee_type=MobieFeeType.TAR,
+                                mobie_voltage_level=voltage_level,
+                                time_restrictions=restrs,
+                            )
+                        )
+                else:
+                    generated_tariffs.append(
+                        Tariff(
+                            price=round(rate_item.rate, 4),
+                            unit=DimensionType.ENERGY,
+                            mobie_fee_type=MobieFeeType.TAR,
+                            mobie_voltage_level=voltage_level,
+                        )
+                    )
 
     # 6. Attach generated tariffs to network
     if plan.networks:

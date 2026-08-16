@@ -701,16 +701,30 @@ def test_byoe_plan_expansion():
 
     # TAR energy tariffs
     bt_fora_vazio = next(
-        t for t in tariffs if t.mobie_fee_type == MobieFeeType.TAR and t.mobie_voltage_level == MobieVoltageLevel.BT and t.tou_period == TariffPeriod.FORA_VAZIO
+        t for t in tariffs
+        if t.mobie_fee_type == MobieFeeType.TAR
+        and t.mobie_voltage_level == MobieVoltageLevel.BT
+        and t.price == 0.1192
     )
-    assert bt_fora_vazio.price == 0.1192
+    assert bt_fora_vazio.tou_period is None
+    assert bt_fora_vazio.time_restrictions is not None
+    assert len(bt_fora_vazio.time_restrictions) == 1
+    assert bt_fora_vazio.time_restrictions[0].start_time == "08:00"
+    assert bt_fora_vazio.time_restrictions[0].end_time == "22:00"
 
     bt_vazio = next(
-        t for t in tariffs if t.mobie_fee_type == MobieFeeType.TAR and t.mobie_voltage_level == MobieVoltageLevel.BT and t.tou_period == TariffPeriod.VAZIO
+        t for t in tariffs
+        if t.mobie_fee_type == MobieFeeType.TAR
+        and t.mobie_voltage_level == MobieVoltageLevel.BT
+        and t.price == 0.0266
     )
-    assert bt_vazio.price == 0.0266
+    assert bt_vazio.tou_period is None
+    assert bt_vazio.time_restrictions is not None
+    assert len(bt_vazio.time_restrictions) == 1
+    assert bt_vazio.time_restrictions[0].start_time == "22:00"
+    assert bt_vazio.time_restrictions[0].end_time == "08:00"
 
-    # Test plan with differing TOU rates (vazio != fora_vazio) -> CEME tariffs should keep tou_period
+    # Test plan with differing TOU rates (vazio != fora_vazio) -> CEME tariffs should have time_restrictions
     plan_differing_rates = Plan(
         name="Different Rates CEME",
         country_code="PT",
@@ -733,13 +747,22 @@ def test_byoe_plan_expansion():
     assert len(tariffs_diff) == 6
     assert not any(t.mobie_fee_type == MobieFeeType.IEC for t in tariffs_diff)
     ceme_vazio = next(
-        t for t in tariffs_diff if t.mobie_fee_type == MobieFeeType.CEME and t.tou_period == TariffPeriod.VAZIO
+        t for t in tariffs_diff
+        if t.mobie_fee_type == MobieFeeType.CEME and t.price == 0.1000
     )
-    assert ceme_vazio.price == 0.1000
+    assert ceme_vazio.tou_period is None
+    assert ceme_vazio.time_restrictions is not None
+    assert ceme_vazio.time_restrictions[0].start_time == "22:00"
+    assert ceme_vazio.time_restrictions[0].end_time == "08:00"
+
     ceme_fora_vazio = next(
-        t for t in tariffs_diff if t.mobie_fee_type == MobieFeeType.CEME and t.tou_period == TariffPeriod.FORA_VAZIO
+        t for t in tariffs_diff
+        if t.mobie_fee_type == MobieFeeType.CEME and t.price == 0.2000
     )
-    assert ceme_fora_vazio.price == 0.2000
+    assert ceme_fora_vazio.tou_period is None
+    assert ceme_fora_vazio.time_restrictions is not None
+    assert ceme_fora_vazio.time_restrictions[0].start_time == "08:00"
+    assert ceme_fora_vazio.time_restrictions[0].end_time == "22:00"
 
     # Test plan with includes_egme=False generating EGME fee
     plan_no_egme = Plan(

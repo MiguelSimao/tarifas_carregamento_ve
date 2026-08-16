@@ -33,8 +33,14 @@ from .regulated_fees import (
 from .time_restrictions import (
     calculate_restriction_duration_hours,
     calculate_total_weekly_hours,
+    find_effective_and_upcoming_schedules,
     find_matching_cycle_schedule,
+    find_matching_cycle_schedules,
+    get_portugal_dst_dates,
+    get_season_for_date,
+    get_upcoming_season,
     load_time_restrictions,
+    resolve_all_time_restrictions,
     resolve_time_restrictions,
 )
 
@@ -66,7 +72,13 @@ __all__ = [
     "TimeRestrictionsDocument",
     "calculate_restriction_duration_hours",
     "calculate_total_weekly_hours",
+    "find_effective_and_upcoming_schedules",
     "find_matching_cycle_schedule",
+    "find_matching_cycle_schedules",
+    "get_portugal_dst_dates",
+    "get_season_for_date",
+    "get_upcoming_season",
     "load_time_restrictions",
+    "resolve_all_time_restrictions",
     "resolve_time_restrictions",
 ]

@@ -1,6 +1,6 @@
 from enum import Enum
 
-from pydantic import BaseModel, Field
+from pydantic import AliasChoices, BaseModel, Field
 
 
 class TariffPeriod(str, Enum):
@@ -56,3 +56,40 @@ class RegulatedFeesDocument(BaseModel):
     """Top-level document for regulated fees YAML files."""
 
     regulated_fees: list[RegulatedFees]
+
+
+class TimeRestriction(BaseModel):
+    start_time: str | None = None
+    end_time: str | None = None
+    days_of_week: list[int] | None = None
+
+
+class TariffCycleSchedule(BaseModel):
+    """Time-of-use restrictions definition for a specific cycle, schedule, and date validity range."""
+
+    country_code: str = "PT"
+    start_date: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices("start_date", "effective_date"),
+        description="Effective start date of this cycle schedule (YYYY-MM-DD)",
+    )
+    end_date: str | None = Field(
+        default=None,
+        description="End date of this cycle schedule (YYYY-MM-DD)",
+    )
+    cycle: TariffCycle
+    schedule: TariffSchedule
+    season: str | None = Field(
+        default=None,
+        description="Seasonal identifier (e.g. 'inverno', 'verao', or None)",
+    )
+    periods: dict[TariffPeriod, list[TimeRestriction]]
+
+
+class TimeRestrictionsDocument(BaseModel):
+    """Top-level document for time restrictions definition YAML files."""
+
+    time_restrictions_definitions: list[TariffCycleSchedule] = Field(
+        validation_alias=AliasChoices("time_restrictions_definitions", "time_restrictions")
+    )
+

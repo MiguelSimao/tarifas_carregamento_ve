@@ -21,10 +21,21 @@ from .model import (
 from .regulated_fees import (
     RegulatedFees,
     RegulatedFeesDocument,
+    TariffCycle,
+    TariffCycleSchedule,
     TariffPeriod,
     TariffSchedule,
     TarPeriodRate,
     TarVariant,
+    TimeRestriction,
+    TimeRestrictionsDocument,
+)
+from .time_restrictions import (
+    calculate_restriction_duration_hours,
+    calculate_total_weekly_hours,
+    find_matching_cycle_schedule,
+    load_time_restrictions,
+    resolve_time_restrictions,
 )
 
 __all__ = [
@@ -45,9 +56,17 @@ __all__ = [
     "TarPeriodRate",
     "TarVariant",
     "Tariff",
+    "TariffCycle",
+    "TariffCycleSchedule",
     "TariffDocument",
     "TariffPeriod",
     "TariffSchedule",
     "TariffTier",
     "TimeRestriction",
+    "TimeRestrictionsDocument",
+    "calculate_restriction_duration_hours",
+    "calculate_total_weekly_hours",
+    "find_matching_cycle_schedule",
+    "load_time_restrictions",
+    "resolve_time_restrictions",
 ]

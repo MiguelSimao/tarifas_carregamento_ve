@@ -7,7 +7,7 @@ import yaml
 
 from .byoe_generator import expand_byoe_plan
 from .model import Provider, TariffDocument
-from .regulated_fees import RegulatedFeesDocument
+from .regulated_fees import RegulatedFeesDocument, TimeRestrictionsDocument
 from .validate import _cross_validate_tariff_doc
 
 DEFAULT_OUTPUT_PATH = os.path.join("data", "tariffs_master.json")
@@ -53,6 +53,7 @@ def main():
 
     raw_providers = []
     master_regulated_fees = []
+    master_time_restrictions = []
     errors = False
 
     for file_path in files:
@@ -66,6 +67,9 @@ def main():
             if "regulated_fees" in data:
                 fees_doc = RegulatedFeesDocument.model_validate(data)
                 master_regulated_fees.extend(fees_doc.regulated_fees)
+            elif "time_restrictions_definitions" in data or "time_restrictions" in data:
+                tr_doc = TimeRestrictionsDocument.model_validate(data)
+                master_time_restrictions.extend(tr_doc.time_restrictions_definitions)
             else:
                 doc = TariffDocument.model_validate(data)
                 _cross_validate_tariff_doc(doc, file_path)

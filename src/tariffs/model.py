@@ -3,7 +3,7 @@ from typing import Literal
 
 from pydantic import AliasChoices, BaseModel, Field, field_validator, model_validator
 
-from .regulated_fees import RegulatedFees, TariffPeriod, TariffSchedule
+from .regulated_fees import RegulatedFees, TariffPeriod, TariffSchedule, TimeRestriction
 
 
 class MobieVoltageLevel(str, Enum):
@@ -69,12 +69,6 @@ class AppUrl(BaseModel):
 class DisplayText(BaseModel):
     language: str
     text: str
-
-
-class TimeRestriction(BaseModel):
-    start_time: str | None = None
-    end_time: str | None = None
-    days_of_week: list[int] | None = None
 
 
 class TariffTier(BaseModel):

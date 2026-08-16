@@ -7,7 +7,7 @@ import yaml
 from pydantic import ValidationError
 
 from .model import TariffDocument
-from .regulated_fees import RegulatedFeesDocument, TariffSchedule
+from .regulated_fees import RegulatedFeesDocument, TariffSchedule, TimeRestrictionsDocument
 
 
 def _cross_validate_tariff_doc(doc: TariffDocument, file_path: str):
@@ -67,6 +67,8 @@ def _validate_file(file_path: str) -> bool:
 
         if "regulated_fees" in data:
             RegulatedFeesDocument.model_validate(data)
+        elif "time_restrictions_definitions" in data or "time_restrictions" in data:
+            TimeRestrictionsDocument.model_validate(data)
         else:
             doc = TariffDocument.model_validate(data)
             _cross_validate_tariff_doc(doc, file_path)

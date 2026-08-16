@@ -197,7 +197,7 @@ def expand_byoe_plan(
                     )
                 )
 
-    # 5. Attach generated tariffs to network
+    # 6. Attach generated tariffs to network
     if plan.networks:
         # Find MOBIE network or use first
         mobie_net = next((n for n in plan.networks if n.network_id == "MOBIE"), plan.networks[0])
@@ -206,3 +206,4 @@ def expand_byoe_plan(
         plan.networks = [Network(network_id="MOBIE", tariffs=generated_tariffs)]
 
     return plan
+

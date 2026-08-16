@@ -6,8 +6,8 @@ providers:
 
   - name: "CEME Base"
     country_code: PT
-    start_date: "2026-07-01"
     byoe:
+      start_date: "2026-07-01"
       cycle: diario
       schedule: "2H"
       includes_egme: true
@@ -15,23 +15,18 @@ providers:
       includes_tar: false
       renewable_energy: true
       activation_fee: 0.15
+      cheias: 0.1690
+      vazio: 0.1690
     payment_methods:
     - RFID_CARD
     - APP
     networks:
     - network_id: MOBIE
-      tariffs:
-      - unit: energy
-        tou_period: cheias
-        price: 0.1690
-      - unit: energy
-        tou_period: vazio
-        price: 0.1690
 
   - name: "CEME Sócio"
     country_code: PT
-    start_date: "2026-07-01"
     byoe:
+      start_date: "2026-07-01"
       cycle: diario
       schedule: "2H"
       includes_egme: true
@@ -39,6 +34,8 @@ providers:
       includes_tar: false
       renewable_energy: true
       activation_fee: 0.15
+      cheias: 0.1506
+      vazio: 0.1506
     contract_conditions:
     - PARTNERSHIP
     cost: 4.90
@@ -51,10 +48,3 @@ providers:
     - APP
     networks:
     - network_id: MOBIE
-      tariffs:
-      - unit: energy
-        tou_period: cheias
-        price: 0.1506
-      - unit: energy
-        tou_period: vazio
-        price: 0.1506

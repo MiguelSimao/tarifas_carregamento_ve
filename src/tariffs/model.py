@@ -6,6 +6,25 @@ from pydantic import AliasChoices, BaseModel, Field, field_validator, model_vali
 from .regulated_fees import RegulatedFees, TariffPeriod, TariffSchedule
 
 
+class MobieVoltageLevel(str, Enum):
+    BT = "BT"
+    MT = "MT"
+    BTE = "BTE"
+    BTN = "BTN"
+    AT = "AT"
+    MAT = "MAT"
+
+
+class FeeType(str, Enum):
+    ENERGY = "ENERGY"
+    TIME = "TIME"
+    FLAT = "FLAT"
+    PARKING = "PARKING"
+    EGME = "EGME"
+    TAR = "TAR"
+    IEC = "IEC"
+
+
 class DimensionType(str, Enum):
     ENERGY = "energy"
     TIME = "time"
@@ -76,6 +95,8 @@ class Tariff(BaseModel):
     type: Literal["AC", "DC"] | None = None
     price: float | None = None
     unit: DimensionType = DimensionType.ENERGY
+    fee_type: FeeType | None = None
+    mobie_voltage_level: MobieVoltageLevel | None = None
     min: float | None = None
     max: float | None = None
     start_after: float | None = Field(
@@ -119,10 +140,11 @@ class Network(BaseModel):
     excluded_cpos: list[str] | None = None
     included_locations: list[str] | None = None
     excluded_locations: list[str] | None = None
-    tariffs: list[Tariff]
+    tariffs: list[Tariff] = Field(default_factory=list)
 
 
 class ByoeConfig(BaseModel):
+    start_date: str | None = None
     cycle: Literal["diario", "semanal"] | None = None
     schedule: TariffSchedule | None = Field(
         default=None,
@@ -134,6 +156,28 @@ class ByoeConfig(BaseModel):
     activation_fee: float | None = None
     opc_commission_pct: float | None = None
     renewable_energy: bool | None = None
+
+    # TOU rate prices
+    vazio: float | None = None
+    cheias: float | None = None
+    fora_vazio: float | None = None
+    ponta: float | None = None
+
+    # Further restritions
+    power_type: Literal["AC", "DC"] | None = Field(
+        default=None,
+        validation_alias=AliasChoices("power_type", "type"),
+        description="Power/current type restriction: AC or DC",
+    )
+
+    @model_validator(mode="after")
+    def validate_byoe_rates(self) -> "ByoeConfig":
+        if self.schedule == TariffSchedule.BIHORARIO:
+            if self.ponta is not None:
+                raise ValueError("Schedule '2H' does not support 'ponta' rate.")
+            if self.cheias is not None and self.fora_vazio is None:
+                self.fora_vazio = self.cheias
+        return self
 
 
 class Plan(BaseModel):
@@ -163,7 +207,7 @@ class Plan(BaseModel):
         default=None,
         description="BYOE (CEME) specifics. If omitted or null, the plan is treated as a standard plan.",
     )
-    networks: list[Network]
+    networks: list[Network] = Field(default_factory=list)
 
     @property
     def is_byoe(self) -> bool:

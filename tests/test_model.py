@@ -477,3 +477,135 @@ def test_schedule_2h_tou_period_validation_and_mapping():
     assert plan_3h.networks[0].tariffs[0].tou_period == TariffPeriod.PONTA
     assert plan_3h.networks[0].tariffs[1].tou_period == TariffPeriod.CHEIAS
     assert plan_3h.networks[0].tariffs[2].tou_period == TariffPeriod.VAZIO
+
+
+def test_mobie_voltage_level_and_fee_type():
+    """Test MobieVoltageLevel and FeeType typed enums on Tariff."""
+    from tariffs.model import FeeType, MobieVoltageLevel
+
+    t = Tariff(
+        price=0.25,
+        unit="energy",
+        fee_type=FeeType.ENERGY,
+        mobie_voltage_level=MobieVoltageLevel.BT,
+    )
+    assert t.fee_type == FeeType.ENERGY
+    assert t.mobie_voltage_level == MobieVoltageLevel.BT
+    assert t.mobie_voltage_level == "BT"
+
+    # String input parsed to enum
+    t2 = Tariff(
+        price=0.10,
+        unit="flat",
+        fee_type="FLAT",
+        mobie_voltage_level="MT",
+    )
+    assert t2.fee_type == FeeType.FLAT
+    assert t2.mobie_voltage_level == MobieVoltageLevel.MT
+
+
+def test_byoe_rates_and_start_date_validation():
+    """Test ByoeConfig rate fields, start_date and schedule validations."""
+    from tariffs.model import ByoeConfig, TariffSchedule
+
+    byoe_2h = ByoeConfig(
+        start_date="2026-07-01",
+        schedule=TariffSchedule.BIHORARIO,
+        cheias=0.1690,
+        vazio=0.1690,
+    )
+    assert byoe_2h.start_date == "2026-07-01"
+    assert byoe_2h.vazio == 0.1690
+    assert byoe_2h.cheias == 0.1690
+    assert byoe_2h.fora_vazio == 0.1690  # mapped from cheias
+
+    # 2H rejecting ponta
+    with pytest.raises(ValidationError, match="Schedule '2H' does not support 'ponta' rate"):
+        ByoeConfig(
+            schedule=TariffSchedule.BIHORARIO,
+            ponta=0.25,
+            vazio=0.10,
+        )
+
+    # 3H accepting ponta, cheias, vazio
+    byoe_3h = ByoeConfig(
+        start_date="2026-01-01",
+        schedule=TariffSchedule.TRIHORARIO,
+        ponta=0.28,
+        cheias=0.18,
+        vazio=0.12,
+    )
+    assert byoe_3h.ponta == 0.28
+    assert byoe_3h.cheias == 0.18
+    assert byoe_3h.vazio == 0.12
+
+
+def test_byoe_plan_expansion():
+    """Test expanding a BYOE plan into concrete network tariffs."""
+    from tariffs.byoe_generator import expand_byoe_plan
+    from tariffs.model import ByoeConfig, FeeType, MobieVoltageLevel, Plan, TariffPeriod
+    from tariffs.regulated_fees import RegulatedFees, TarPeriodRate, TarVariant
+
+    regulated_fees = [
+        RegulatedFees(
+            country_code="PT",
+            effective_date="2026-01-01",
+            tar_variants=[
+                TarVariant(
+                    voltage_level="MT",
+                    schedule="2H",
+                    rates=[
+                        TarPeriodRate(period=TariffPeriod.CHEIAS, rate=0.0812),
+                        TarPeriodRate(period=TariffPeriod.VAZIO, rate=0.0157),
+                    ],
+                ),
+                TarVariant(
+                    voltage_level="BT",
+                    schedule="2H",
+                    rates=[
+                        TarPeriodRate(period=TariffPeriod.CHEIAS, rate=0.1192),
+                        TarPeriodRate(period=TariffPeriod.VAZIO, rate=0.0266),
+                    ],
+                ),
+            ],
+            iec=0.0010,
+            egme_connection=0.1088,
+        )
+    ]
+
+    plan = Plan(
+        name="ACP CEME Base",
+        country_code="PT",
+        byoe=ByoeConfig(
+            start_date="2026-07-01",
+            power_type="AC",
+            cycle="diario",
+            schedule="2H",
+            includes_egme=True,
+            includes_iec=False,
+            includes_tar=False,
+            activation_fee=0.15,
+            cheias=0.1690,
+            vazio=0.1690,
+        ),
+        networks=[Network(network_id="MOBIE")],
+    )
+
+    expanded = expand_byoe_plan(plan, regulated_fees)
+    assert len(expanded.networks) == 1
+    tariffs = expanded.networks[0].tariffs
+    # 1 flat fee + 4 energy rates (2 for MT, 2 for BT)
+    assert len(tariffs) == 5
+
+    flat = next(t for t in tariffs if t.unit == "flat")
+    assert flat.price == 0.15
+    assert flat.fee_type == FeeType.FLAT
+
+    bt_fora_vazio = next(
+        t for t in tariffs if t.mobie_voltage_level == MobieVoltageLevel.BT and t.tou_period == TariffPeriod.FORA_VAZIO
+    )
+    # 0.1690 (base) + 0.1192 (TAR BT) + 0.0010 (IEC) = 0.2892
+    assert bt_fora_vazio.price == 0.2892
+    assert bt_fora_vazio.fee_type == FeeType.ENERGY
+    assert bt_fora_vazio.type == "AC"
+

@@ -44,6 +44,35 @@
     },
     "ByoeConfig": {
       "properties": {
+        "start_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start Date"
+        },
+        "power_type": {
+          "anyOf": [
+            {
+              "enum": [
+                "AC",
+                "DC"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Power/current type restriction: AC or DC",
+          "title": "Power Type"
+        },
         "cycle": {
           "anyOf": [
             {
@@ -143,6 +172,54 @@
           ],
           "default": null,
           "title": "Renewable Energy"
+        },
+        "vazio": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vazio"
+        },
+        "cheias": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cheias"
+        },
+        "fora_vazio": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fora Vazio"
+        },
+        "ponta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ponta"
         }
       },
       "title": "ByoeConfig",
@@ -189,6 +266,31 @@
       ],
       "title": "DisplayText",
       "type": "object"
+    },
+    "FeeType": {
+      "enum": [
+        "ENERGY",
+        "TIME",
+        "FLAT",
+        "PARKING",
+        "EGME",
+        "TAR",
+        "IEC"
+      ],
+      "title": "FeeType",
+      "type": "string"
+    },
+    "MobieVoltageLevel": {
+      "enum": [
+        "BT",
+        "MT",
+        "BTE",
+        "BTN",
+        "AT",
+        "MAT"
+      ],
+      "title": "MobieVoltageLevel",
+      "type": "string"
     },
     "Network": {
       "properties": {
@@ -289,8 +391,7 @@
         }
       },
       "required": [
-        "network_id",
-        "tariffs"
+        "network_id"
       ],
       "title": "Network",
       "type": "object"
@@ -464,8 +565,7 @@
         }
       },
       "required": [
-        "name",
-        "networks"
+        "name"
       ],
       "title": "Plan",
       "type": "object"
@@ -684,6 +784,28 @@
         "unit": {
           "$ref": "#/$defs/DimensionType",
           "default": "energy"
+        },
+        "fee_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FeeType"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "mobie_voltage_level": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MobieVoltageLevel"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "min": {
           "anyOf": [

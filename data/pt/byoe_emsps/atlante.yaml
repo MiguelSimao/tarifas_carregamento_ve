@@ -4,8 +4,8 @@ providers:
   plans:
   - name: "CEME"
     country_code: PT
-    start_date: "2026-01-01"
     byoe:
+      start_date: "2026-01-01"
       cycle: semanal
       schedule: "2H"
       includes_egme: false
@@ -13,17 +13,12 @@ providers:
       includes_tar: false
       renewable_energy: false
       activation_fee: 0.0
+      cheias: 0.0976
+      vazio: 0.0976
+      power_type: AC
+
     payment_methods:
     - RFID_CARD
     - APP
     networks:
     - network_id: MOBIE
-      tariffs:
-      - unit: energy
-        tou_period: cheias
-        price: 0.0976
-        max: 43
-      - unit: energy
-        tou_period: vazio
-        price: 0.0976
-        max: 43

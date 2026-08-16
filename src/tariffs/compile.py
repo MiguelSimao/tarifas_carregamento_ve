@@ -5,6 +5,7 @@ import sys
 
 import yaml
 
+from .byoe_generator import expand_byoe_plan
 from .model import Provider, TariffDocument
 from .regulated_fees import RegulatedFeesDocument
 from .validate import _cross_validate_tariff_doc
@@ -131,6 +132,12 @@ def main():
         sys.exit(1)
 
     master_providers = list(merged_providers_dict.values())
+
+    # Expand BYOE plans using master regulated fees
+    for prov in master_providers:
+        for plan in prov.plans:
+            if plan.is_byoe and master_regulated_fees:
+                expand_byoe_plan(plan, master_regulated_fees)
 
     # Create the master document
     master_doc = TariffDocument(

@@ -7,11 +7,43 @@ import yaml
 from pydantic import ValidationError
 
 from .model import TariffDocument
-from .regulated_fees import RegulatedFeesDocument
+from .regulated_fees import RegulatedFeesDocument, TariffSchedule
 
 
 def _cross_validate_tariff_doc(doc: TariffDocument, file_path: str):
-    pass
+    for prov in doc.providers:
+        for plan in prov.plans:
+            if not plan.is_byoe:
+                if not plan.networks:
+                    raise ValueError(f"Plan '{plan.name}' in '{file_path}' must define at least one network.")
+                for net in plan.networks:
+                    if not net.tariffs:
+                        raise ValueError(
+                            f"Network '{net.network_id}' in plan '{plan.name}' ({file_path}) must define at least one tariff."
+                        )
+            else:
+                if not plan.networks:
+                    raise ValueError(
+                        f"BYOE Plan '{plan.name}' in '{file_path}' must define at least one network (e.g. MOBIE)."
+                    )
+                has_network_tariffs = any(len(net.tariffs) > 0 for net in plan.networks)
+                if not has_network_tariffs and plan.byoe:
+                    if plan.byoe.schedule == TariffSchedule.BIHORARIO:
+                        if plan.byoe.vazio is None or (
+                            plan.byoe.fora_vazio is None and plan.byoe.cheias is None
+                        ):
+                            raise ValueError(
+                                f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '2H' requires 'vazio' and 'cheias' (or 'fora_vazio') rates in 'byoe:' block."
+                            )
+                    elif plan.byoe.schedule == TariffSchedule.TRIHORARIO:
+                        if (
+                            plan.byoe.vazio is None
+                            or plan.byoe.cheias is None
+                            or plan.byoe.ponta is None
+                        ):
+                            raise ValueError(
+                                f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '3H' requires 'vazio', 'cheias', and 'ponta' rates in 'byoe:' block."
+                            )
 
 
 def _validate_file(file_path: str) -> bool:

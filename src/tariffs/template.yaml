@@ -50,6 +50,8 @@ providers:
             - type: AC # AC or DC
               price: 0.40 # Price amount
               unit: energy # Pricing unit. Default is 'energy' (per kWh). Other options: 'time' (per minute), 'flat' (per session), 'parking' (per minute)
+              fee_type: ENERGY # Optional fee category: ENERGY, TIME, FLAT, PARKING, EGME, TAR, IEC
+              mobie_voltage_level: BT # Optional restriction: BT, MT, BTE, BTN, AT, MAT
               time_restrictions: # Optional time-based restrictions for this tariff
                 - start_time: "08:00" # Start time for this tariff (HH:MM, 24-hour format)
                   end_time: "20:00"   # End time for this tariff (HH:MM, 24-hour format)
@@ -75,11 +77,13 @@ providers:
             - type: DC
               price: 0.50
               unit: flat # Flat fee applied once per session
+              fee_type: FLAT
 
             # Example of thresholded fee (e.g., idle fee of 0.20€/min after 60 minutes)
             - type: AC
               price: 0.20
               unit: parking # Idle/parking fee unit (per minute)
+              fee_type: PARKING
               start_after: 60 # Applies after 60 minutes
 
 
@@ -124,6 +128,8 @@ providers:
         country_code: "PT"
         start_date: "2026-07-01"
         byoe:
+          start_date: "2026-07-01"
+          power_type: "AC" # Optional: "AC" or "DC"
           cycle: "diario"
           schedule: "2H"
           includes_egme: true
@@ -131,16 +137,12 @@ providers:
           includes_tar: false
           renewable_energy: true
           activation_fee: 0.15
+          cheias: 0.1690 # or fora_vazio
+          vazio: 0.1690
         payment_methods:
           - RFID_CARD
           - APP
         networks:
           - network_id: "MOBIE"
-            tariffs:
-              - unit: energy
-                tou_period: cheias
-                price: 0.1690
-              - unit: energy
-                tou_period: vazio
-                price: 0.1690
+            # Tariffs are automatically generated during compilation from BYOE config + regulated fees
 

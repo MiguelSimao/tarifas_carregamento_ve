@@ -77,34 +77,63 @@
         {
           "name": "CEME",
           "country_code": "PT",
-          "start_date": "2026-01-01",
           "payment_methods": [
             "RFID_CARD",
             "APP"
           ],
           "byoe": {
+            "start_date": "2026-01-01",
             "cycle": "semanal",
             "schedule": "2H",
             "includes_tar": false,
             "includes_iec": false,
             "includes_egme": false,
             "activation_fee": 0.0,
-            "renewable_energy": false
+            "renewable_energy": false,
+            "vazio": 0.0976,
+            "cheias": 0.0976,
+            "fora_vazio": 0.0976,
+            "power_type": "AC"
           },
           "networks": [
             {
               "network_id": "MOBIE",
               "tariffs": [
                 {
-                  "price": 0.0976,
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "fee_type": "FLAT"
+                },
+                {
+                  "type": "AC",
+                  "price": 0.1798,
                   "unit": "energy",
-                  "max": 43.0,
+                  "fee_type": "ENERGY",
+                  "mobie_voltage_level": "MT",
                   "tou_period": "fora_vazio"
                 },
                 {
-                  "price": 0.0976,
+                  "type": "AC",
+                  "price": 0.1143,
                   "unit": "energy",
-                  "max": 43.0,
+                  "fee_type": "ENERGY",
+                  "mobie_voltage_level": "MT",
+                  "tou_period": "vazio"
+                },
+                {
+                  "type": "AC",
+                  "price": 0.2178,
+                  "unit": "energy",
+                  "fee_type": "ENERGY",
+                  "mobie_voltage_level": "BT",
+                  "tou_period": "fora_vazio"
+                },
+                {
+                  "type": "AC",
+                  "price": 0.1252,
+                  "unit": "energy",
+                  "fee_type": "ENERGY",
+                  "mobie_voltage_level": "BT",
                   "tou_period": "vazio"
                 }
               ]
@@ -121,32 +150,58 @@
         {
           "name": "CEME Base",
           "country_code": "PT",
-          "start_date": "2026-07-01",
           "payment_methods": [
             "RFID_CARD",
             "APP"
           ],
           "byoe": {
+            "start_date": "2026-07-01",
             "cycle": "diario",
             "schedule": "2H",
             "includes_tar": false,
             "includes_iec": false,
             "includes_egme": true,
             "activation_fee": 0.15,
-            "renewable_energy": true
+            "renewable_energy": true,
+            "vazio": 0.169,
+            "cheias": 0.169,
+            "fora_vazio": 0.169
           },
           "networks": [
             {
               "network_id": "MOBIE",
               "tariffs": [
                 {
-                  "price": 0.169,
+                  "price": 0.15,
+                  "unit": "flat",
+                  "fee_type": "FLAT"
+                },
+                {
+                  "price": 0.2512,
                   "unit": "energy",
+                  "fee_type": "ENERGY",
+                  "mobie_voltage_level": "MT",
                   "tou_period": "fora_vazio"
                 },
                 {
-                  "price": 0.169,
+                  "price": 0.1857,
                   "unit": "energy",
+                  "fee_type": "ENERGY",
+                  "mobie_voltage_level": "MT",
+                  "tou_period": "vazio"
+                },
+                {
+                  "price": 0.2892,
+                  "unit": "energy",
+                  "fee_type": "ENERGY",
+                  "mobie_voltage_level": "BT",
+                  "tou_period": "fora_vazio"
+                },
+                {
+                  "price": 0.1966,
+                  "unit": "energy",
+                  "fee_type": "ENERGY",
+                  "mobie_voltage_level": "BT",
                   "tou_period": "vazio"
                 }
               ]
@@ -156,7 +211,6 @@
         {
           "name": "CEME Sócio",
           "country_code": "PT",
-          "start_date": "2026-07-01",
           "cost": 4.9,
           "months": 1,
           "payment_methods": [
@@ -173,26 +227,53 @@
             }
           ],
           "byoe": {
+            "start_date": "2026-07-01",
             "cycle": "diario",
             "schedule": "2H",
             "includes_tar": false,
             "includes_iec": false,
             "includes_egme": true,
             "activation_fee": 0.15,
-            "renewable_energy": true
+            "renewable_energy": true,
+            "vazio": 0.1506,
+            "cheias": 0.1506,
+            "fora_vazio": 0.1506
           },
           "networks": [
             {
               "network_id": "MOBIE",
               "tariffs": [
                 {
-                  "price": 0.1506,
+                  "price": 0.15,
+                  "unit": "flat",
+                  "fee_type": "FLAT"
+                },
+                {
+                  "price": 0.2328,
                   "unit": "energy",
+                  "fee_type": "ENERGY",
+                  "mobie_voltage_level": "MT",
                   "tou_period": "fora_vazio"
                 },
                 {
-                  "price": 0.1506,
+                  "price": 0.1673,
                   "unit": "energy",
+                  "fee_type": "ENERGY",
+                  "mobie_voltage_level": "MT",
+                  "tou_period": "vazio"
+                },
+                {
+                  "price": 0.2708,
+                  "unit": "energy",
+                  "fee_type": "ENERGY",
+                  "mobie_voltage_level": "BT",
+                  "tou_period": "fora_vazio"
+                },
+                {
+                  "price": 0.1782,
+                  "unit": "energy",
+                  "fee_type": "ENERGY",
+                  "mobie_voltage_level": "BT",
                   "tou_period": "vazio"
                 }
               ]

@@ -6,7 +6,6 @@
       "plans": [
         {
           "name": "Base",
-          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "APP"
@@ -41,7 +40,6 @@
         },
         {
           "name": "AD-HOC",
-          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "ADHOC_BANK_CARD"
@@ -78,20 +76,21 @@
         },
         {
           "name": "CEME",
-          "byoe": true,
           "country_code": "PT",
           "start_date": "2026-01-01",
           "payment_methods": [
             "RFID_CARD",
             "APP"
           ],
-          "cycle": "semanal",
-          "schedule": "2H",
-          "includes_tar": false,
-          "includes_iec": false,
-          "includes_egme": false,
-          "activation_fee": 0.0,
-          "renewable_energy": false,
+          "byoe": {
+            "cycle": "semanal",
+            "schedule": "2H",
+            "includes_tar": false,
+            "includes_iec": false,
+            "includes_egme": false,
+            "activation_fee": 0.0,
+            "renewable_energy": false
+          },
           "networks": [
             {
               "network_id": "MOBIE",
@@ -121,20 +120,21 @@
       "plans": [
         {
           "name": "CEME Base",
-          "byoe": true,
           "country_code": "PT",
           "start_date": "2026-07-01",
           "payment_methods": [
             "RFID_CARD",
             "APP"
           ],
-          "cycle": "diario",
-          "schedule": "2H",
-          "includes_tar": false,
-          "includes_iec": false,
-          "includes_egme": true,
-          "activation_fee": 0.15,
-          "renewable_energy": true,
+          "byoe": {
+            "cycle": "diario",
+            "schedule": "2H",
+            "includes_tar": false,
+            "includes_iec": false,
+            "includes_egme": true,
+            "activation_fee": 0.15,
+            "renewable_energy": true
+          },
           "networks": [
             {
               "network_id": "MOBIE",
@@ -155,7 +155,6 @@
         },
         {
           "name": "CEME Sócio",
-          "byoe": true,
           "country_code": "PT",
           "start_date": "2026-07-01",
           "cost": 4.9,
@@ -164,13 +163,6 @@
             "RFID_CARD",
             "APP"
           ],
-          "cycle": "diario",
-          "schedule": "2H",
-          "includes_tar": false,
-          "includes_iec": false,
-          "includes_egme": true,
-          "activation_fee": 0.15,
-          "renewable_energy": true,
           "contract_conditions": [
             "PARTNERSHIP"
           ],
@@ -180,6 +172,15 @@
               "text": "Associado ACP"
             }
           ],
+          "byoe": {
+            "cycle": "diario",
+            "schedule": "2H",
+            "includes_tar": false,
+            "includes_iec": false,
+            "includes_egme": true,
+            "activation_fee": 0.15,
+            "renewable_energy": true
+          },
           "networks": [
             {
               "network_id": "MOBIE",
@@ -205,7 +206,6 @@
       "plans": [
         {
           "name": "Base",
-          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "APP"
@@ -246,7 +246,6 @@
       "plans": [
         {
           "name": "AD-HOC",
-          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "ADHOC_BANK_CARD"
@@ -266,7 +265,6 @@
         },
         {
           "name": "AD-HOC",
-          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "ADHOC_BANK_CARD"
@@ -333,7 +331,6 @@
       "plans": [
         {
           "name": "Base",
-          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "APP"
@@ -369,7 +366,6 @@
       "plans": [
         {
           "name": "Base",
-          "byoe": false,
           "country_code": "PT",
           "networks": [
             {
@@ -441,7 +437,6 @@
         },
         {
           "name": "Ionity Subscription",
-          "byoe": false,
           "country_code": "PT",
           "cost": 12.0,
           "months": 1,
@@ -465,7 +460,6 @@
         },
         {
           "name": "Powerdot Subscription",
-          "byoe": false,
           "country_code": "PT",
           "cost": 2.0,
           "months": 1,
@@ -515,7 +509,6 @@
       "plans": [
         {
           "name": "Base",
-          "byoe": false,
           "country_code": "PT",
           "networks": [
             {
@@ -567,7 +560,6 @@
       "plans": [
         {
           "name": "AD-HOC",
-          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "ADHOC_BANK_CARD"
@@ -598,7 +590,6 @@
       "plans": [
         {
           "name": "Base",
-          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "APP",
@@ -664,7 +655,6 @@
       "plans": [
         {
           "name": "AD-HOC",
-          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "ADHOC_BANK_CARD"
@@ -706,7 +696,6 @@
       "plans": [
         {
           "name": "AD-HOC",
-          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "ADHOC_BANK_CARD"
@@ -736,7 +725,6 @@
         },
         {
           "name": "App",
-          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "APP"
@@ -771,7 +759,6 @@
       "plans": [
         {
           "name": "AD-HOC",
-          "byoe": false,
           "networks": [
             {
               "network_id": "PRIO",
@@ -792,7 +779,6 @@
       "plans": [
         {
           "name": "Non-Member",
-          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "ADHOC_BANK_CARD",
@@ -1219,7 +1205,6 @@
         },
         {
           "name": "Member",
-          "byoe": false,
           "country_code": "PT",
           "cost": 12.0,
           "months": 1,
@@ -1646,7 +1631,6 @@
         },
         {
           "name": "MultiPass",
-          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "APP",
@@ -1673,7 +1657,6 @@
       "plans": [
         {
           "name": "Wenea (Confirmar App)",
-          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "APP"
@@ -1699,7 +1682,6 @@
       "plans": [
         {
           "name": "Base",
-          "byoe": false,
           "country_code": "PT",
           "payment_methods": [
             "APP",

@@ -42,6 +42,112 @@
       "title": "AppUrl",
       "type": "object"
     },
+    "ByoeConfig": {
+      "properties": {
+        "cycle": {
+          "anyOf": [
+            {
+              "enum": [
+                "diario",
+                "semanal"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cycle"
+        },
+        "schedule": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TariffSchedule"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Tariff schedule, e.g. '2H' (Bi-hor\u00e1rio), '3H' (Tri-hor\u00e1rio)"
+        },
+        "includes_tar": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Includes Tar"
+        },
+        "includes_iec": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Includes Iec"
+        },
+        "includes_egme": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Includes Egme"
+        },
+        "activation_fee": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Activation Fee"
+        },
+        "opc_commission_pct": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Opc Commission Pct"
+        },
+        "renewable_energy": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Renewable Energy"
+        }
+      },
+      "title": "ByoeConfig",
+      "type": "object"
+    },
     "ContractCondition": {
       "enum": [
         "ENERGY_AT_HOME",
@@ -205,11 +311,6 @@
           "title": "Name",
           "type": "string"
         },
-        "byoe": {
-          "default": false,
-          "title": "Byoe",
-          "type": "boolean"
-        },
         "country_code": {
           "anyOf": [
             {
@@ -297,34 +398,6 @@
           "default": null,
           "title": "Payment Methods"
         },
-        "cycle": {
-          "anyOf": [
-            {
-              "enum": [
-                "diario",
-                "semanal"
-              ],
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Cycle"
-        },
-        "schedule": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/TariffSchedule"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Tariff schedule, e.g. '2H' (Bi-hor\u00e1rio), '3H' (Tri-hor\u00e1rio)"
-        },
         "includes_vat": {
           "anyOf": [
             {
@@ -337,78 +410,6 @@
           "default": null,
           "description": "Whether VAT (IVA) is included in the plan prices",
           "title": "Includes Vat"
-        },
-        "includes_tar": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Includes Tar"
-        },
-        "includes_iec": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Includes Iec"
-        },
-        "includes_egme": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Includes Egme"
-        },
-        "activation_fee": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Activation Fee"
-        },
-        "opc_commission_pct": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Opc Commission Pct"
-        },
-        "renewable_energy": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Renewable Energy"
         },
         "contract_conditions": {
           "anyOf": [
@@ -441,6 +442,18 @@
           "default": null,
           "description": "Collection of notes for the plan in various languages",
           "title": "Notes"
+        },
+        "byoe": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ByoeConfig"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "BYOE (CEME) specifics. If omitted or null, the plan is treated as a standard plan."
         },
         "networks": {
           "items": {

@@ -3,16 +3,16 @@ providers:
   updated_at: "2026-01-03"
   plans:
   - name: "CEME"
-    byoe: true
     country_code: PT
     start_date: "2026-01-01"
-    cycle: semanal
-    schedule: "2H"
-    includes_egme: false
-    includes_iec: false
-    includes_tar: false
-    renewable_energy: false
-    activation_fee: 0.0
+    byoe:
+      cycle: semanal
+      schedule: "2H"
+      includes_egme: false
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: false
+      activation_fee: 0.0
     payment_methods:
     - RFID_CARD
     - APP

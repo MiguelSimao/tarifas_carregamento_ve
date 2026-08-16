@@ -3,6 +3,7 @@
 from .model import (
     AppType,
     AppUrl,
+    ByoeConfig,
     Connector,
     ContractCondition,
     DisplayText,
@@ -27,6 +28,7 @@ from .regulated_fees import (
 __all__ = [
     "AppType",
     "AppUrl",
+    "ByoeConfig",
     "Connector",
     "ContractCondition",
     "DisplayText",

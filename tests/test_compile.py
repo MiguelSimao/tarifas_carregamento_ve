@@ -49,7 +49,7 @@ def test_compilation_output(tmp_path):
         plan
         for p in data["providers"]
         for plan in p["plans"]
-        if plan.get("byoe") is True
+        if plan.get("byoe") is not None
     ]
     assert len(byoe_plans) > 0, "No BYOE plan found in compilation output"
 
@@ -97,9 +97,10 @@ def test_provider_merging_and_conflict_detection(tmp_path):
                         "plans": [
                             {
                                 "name": "PlanB",
-                                "byoe": True,
-                                "cycle": "diario",
-                                "includes_tar": False,
+                                "byoe": {
+                                    "cycle": "diario",
+                                    "includes_tar": False,
+                                },
                                 "networks": [
                                     {"network_id": "NET1", "tariffs": [{"price": 0.2}]}
                                 ],

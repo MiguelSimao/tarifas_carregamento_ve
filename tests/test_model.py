@@ -230,7 +230,7 @@ def test_tariff_cannot_have_price_and_tiers():
 
 def test_byoe_provider_and_plan_fields():
     """Test BYOE plan fields validation."""
-    from tariffs.model import TariffPeriod
+    from tariffs.model import ByoeConfig, TariffPeriod
 
     provider = Provider(
         name="ACP Electric",
@@ -239,13 +239,14 @@ def test_byoe_provider_and_plan_fields():
         plans=[
             Plan(
                 name="2H",
-                byoe=True,
-                cycle="diario",
-                includes_egme=True,
-                includes_iec=False,
-                includes_tar=False,
-                activation_fee=0.15,
-                renewable_energy=True,
+                byoe=ByoeConfig(
+                    cycle="diario",
+                    includes_egme=True,
+                    includes_iec=False,
+                    includes_tar=False,
+                    activation_fee=0.15,
+                    renewable_energy=True,
+                ),
                 networks=[
                     Network(
                         network_id="MOBIE",
@@ -258,10 +259,19 @@ def test_byoe_provider_and_plan_fields():
             )
         ],
     )
-    assert provider.plans[0].byoe is True
-    assert provider.plans[0].cycle == "diario"
-    assert provider.plans[0].includes_egme is True
+    assert provider.plans[0].is_byoe is True
+    assert provider.plans[0].byoe.cycle == "diario"
+    assert provider.plans[0].byoe.includes_egme is True
     assert provider.plans[0].networks[0].tariffs[0].tou_period == "cheias"
+
+    # Test boolean shorthand
+    plan_shorthand = Plan(name="Shorthand", byoe=True, networks=[])
+    assert plan_shorthand.is_byoe is True
+    assert plan_shorthand.byoe == ByoeConfig()
+
+    plan_none = Plan(name="Standard", networks=[])
+    assert plan_none.is_byoe is False
+    assert plan_none.byoe is None
 
 
 def test_regulated_fees_model():
@@ -374,11 +384,12 @@ def test_plan_notes():
 
 
 def test_schedule_field_on_plan_and_tar_variant():
-    """Test schedule field on Plan and TarVariant."""
+    """Test schedule field on Plan (under byoe) and TarVariant."""
+    from tariffs.model import ByoeConfig
     from tariffs.regulated_fees import TariffPeriod, TarPeriodRate, TarVariant
 
-    plan = Plan(name="TestBYOEPlan", byoe=True, schedule="2H", networks=[])
-    assert plan.schedule == "2H"
+    plan = Plan(name="TestBYOEPlan", byoe=ByoeConfig(schedule="2H"), networks=[])
+    assert plan.byoe.schedule == "2H"
 
     variant = TarVariant(
         voltage_level="BT",
@@ -390,12 +401,13 @@ def test_schedule_field_on_plan_and_tar_variant():
 
 def test_schedule_2h_tou_period_validation_and_mapping():
     """Test tou_period validation and mapping for 2H schedule."""
+    from tariffs.model import ByoeConfig
     from tariffs.regulated_fees import TariffPeriod
 
     # 1. Cheias mapped to fora_vazio, Vazio remains vazio
     plan = Plan(
         name="2H Plan",
-        schedule="2H",
+        byoe=ByoeConfig(schedule="2H"),
         networks=[
             Network(
                 network_id="NET1",
@@ -414,7 +426,7 @@ def test_schedule_2h_tou_period_validation_and_mapping():
     # 2. Case-insensitivity (CHEIAS, VAZIO, FORA_VAZIO)
     plan_upper = Plan(
         name="2H Upper Plan",
-        schedule="2H",
+        byoe={"schedule": "2H"},
         networks=[
             Network(
                 network_id="NET1",
@@ -436,7 +448,7 @@ def test_schedule_2h_tou_period_validation_and_mapping():
     ):
         Plan(
             name="2H Invalid Plan",
-            schedule="2H",
+            byoe=ByoeConfig(schedule="2H"),
             networks=[
                 Network(
                     network_id="NET1",
@@ -450,7 +462,7 @@ def test_schedule_2h_tou_period_validation_and_mapping():
     # 4. Schedule 3H allows ponta without mapping
     plan_3h = Plan(
         name="3H Plan",
-        schedule="3H",
+        byoe=ByoeConfig(schedule="3H"),
         networks=[
             Network(
                 network_id="NET1",

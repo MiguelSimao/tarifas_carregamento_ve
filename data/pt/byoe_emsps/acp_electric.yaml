@@ -5,16 +5,16 @@ providers:
   plans:
 
   - name: "CEME Base"
-    byoe: true
     country_code: PT
     start_date: "2026-07-01"
-    cycle: diario
-    schedule: "2H"
-    includes_egme: true
-    includes_iec: false
-    includes_tar: false
-    renewable_energy: true
-    activation_fee: 0.15
+    byoe:
+      cycle: diario
+      schedule: "2H"
+      includes_egme: true
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: true
+      activation_fee: 0.15
     payment_methods:
     - RFID_CARD
     - APP
@@ -29,16 +29,16 @@ providers:
         price: 0.1690
 
   - name: "CEME Sócio"
-    byoe: true
     country_code: PT
     start_date: "2026-07-01"
-    cycle: diario
-    schedule: "2H"
-    includes_egme: true
-    includes_iec: false
-    includes_tar: false
-    renewable_energy: true
-    activation_fee: 0.15
+    byoe:
+      cycle: diario
+      schedule: "2H"
+      includes_egme: true
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: true
+      activation_fee: 0.15
     contract_conditions:
     - PARTNERSHIP
     cost: 4.90

@@ -11,24 +11,7 @@ from .regulated_fees import RegulatedFeesDocument
 
 
 def _cross_validate_tariff_doc(doc: TariffDocument, file_path: str):
-    byoe_plan_fields = [
-        "cycle",
-        "schedule",
-        "includes_tar",
-        "includes_iec",
-        "includes_egme",
-        "activation_fee",
-        "opc_commission_pct",
-        "renewable_energy",
-    ]
-    for provider in doc.providers:
-        for plan in provider.plans:
-            if not plan.byoe:
-                for field_name in byoe_plan_fields:
-                    if getattr(plan, field_name) is not None:
-                        raise ValueError(
-                            f"Standard (non-BYOE) plan '{plan.name}' in provider '{provider.name}' cannot set BYOE field '{field_name}'"
-                        )
+    pass
 
 
 def _validate_file(file_path: str) -> bool:

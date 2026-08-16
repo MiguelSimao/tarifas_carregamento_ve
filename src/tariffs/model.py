@@ -122,25 +122,11 @@ class Network(BaseModel):
     tariffs: list[Tariff]
 
 
-class Plan(BaseModel):
-    name: str
-    byoe: bool = False
-    country_code: str | None = None
-    start_date: str | None = None
-    end_date: str | None = None
-    cost: float | None = None
-    months: int | None = None
-    period: str | None = None
-    payment_methods: list[PaymentMethod] | None = None
+class ByoeConfig(BaseModel):
     cycle: Literal["diario", "semanal"] | None = None
     schedule: TariffSchedule | None = Field(
         default=None,
         description="Tariff schedule, e.g. '2H' (Bi-horário), '3H' (Tri-horário)",
-    )
-    includes_vat: bool | None = Field(
-        default=None,
-        validation_alias=AliasChoices("includes_vat", "vat_included"),
-        description="Whether VAT (IVA) is included in the plan prices",
     )
     includes_tar: bool | None = None
     includes_iec: bool | None = None
@@ -148,6 +134,22 @@ class Plan(BaseModel):
     activation_fee: float | None = None
     opc_commission_pct: float | None = None
     renewable_energy: bool | None = None
+
+
+class Plan(BaseModel):
+    name: str
+    country_code: str | None = None
+    start_date: str | None = None
+    end_date: str | None = None
+    cost: float | None = None
+    months: int | None = None
+    period: str | None = None
+    payment_methods: list[PaymentMethod] | None = None
+    includes_vat: bool | None = Field(
+        default=None,
+        validation_alias=AliasChoices("includes_vat", "vat_included"),
+        description="Whether VAT (IVA) is included in the plan prices",
+    )
     contract_conditions: list[ContractCondition] | None = Field(
         default=None,
         validation_alias=AliasChoices("contract_conditions", "conditions"),
@@ -157,7 +159,22 @@ class Plan(BaseModel):
         default=None,
         description="Collection of notes for the plan in various languages",
     )
+    byoe: ByoeConfig | None = Field(
+        default=None,
+        description="BYOE (CEME) specifics. If omitted or null, the plan is treated as a standard plan.",
+    )
     networks: list[Network]
+
+    @property
+    def is_byoe(self) -> bool:
+        return self.byoe is not None
+
+    @field_validator("byoe", mode="before")
+    @classmethod
+    def parse_byoe(cls, v):
+        if isinstance(v, bool):
+            return {} if v else None
+        return v
 
     @field_validator("notes", mode="before")
     @classmethod
@@ -170,7 +187,8 @@ class Plan(BaseModel):
 
     @model_validator(mode="after")
     def validate_schedule_tariffs(self) -> "Plan":
-        if self.schedule == TariffSchedule.BIHORARIO:
+        schedule = self.byoe.schedule if self.byoe else None
+        if schedule == TariffSchedule.BIHORARIO:
             for network in self.networks or []:
                 for tariff in network.tariffs or []:
                     if tariff.tou_period is not None:

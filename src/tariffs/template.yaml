@@ -121,15 +121,16 @@ providers:
     updated_at: "2026-08-08"
     plans:
       - name: "2H"
-        byoe: true
         country_code: "PT"
         start_date: "2026-07-01"
-        cycle: "diario"
-        includes_egme: true
-        includes_iec: false
-        includes_tar: false
-        renewable_energy: true
-        activation_fee: 0.15
+        byoe:
+          cycle: "diario"
+          schedule: "2H"
+          includes_egme: true
+          includes_iec: false
+          includes_tar: false
+          renewable_energy: true
+          activation_fee: 0.15
         payment_methods:
           - RFID_CARD
           - APP

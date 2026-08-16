@@ -44,7 +44,7 @@ def test_compilation_output(tmp_path):
     assert "regulated_fees" in data
     assert len(data["regulated_fees"]) > 0
 
-    # Verify at least one BYOE plan exists and has generated tariffs with voltage levels and fee types
+    # Verify at least one BYOE plan exists and has generated tariffs with voltage levels
     byoe_plans = [
         plan
         for p in data["providers"]
@@ -55,7 +55,7 @@ def test_compilation_output(tmp_path):
     first_byoe_tariffs = byoe_plans[0]["networks"][0]["tariffs"]
     assert len(first_byoe_tariffs) > 0
     assert any(t.get("mobie_voltage_level") in ("BT", "MT") for t in first_byoe_tariffs)
-    assert any(t.get("fee_type") == "ENERGY" for t in first_byoe_tariffs)
+    assert any(t.get("unit") == "energy" for t in first_byoe_tariffs)
 
 
 def test_provider_merging_and_conflict_detection(tmp_path):

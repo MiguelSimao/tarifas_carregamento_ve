@@ -479,17 +479,18 @@ def test_schedule_2h_tou_period_validation_and_mapping():
     assert plan_3h.networks[0].tariffs[2].tou_period == TariffPeriod.VAZIO
 
 
-def test_mobie_voltage_level_and_fee_type():
-    """Test MobieVoltageLevel and FeeType typed enums on Tariff."""
-    from tariffs.model import FeeType, MobieVoltageLevel
+def test_mobie_voltage_level_and_mobie_fee_type():
+    """Test MobieVoltageLevel and MobieFeeType typed enums on Tariff."""
+    from tariffs.model import MobieFeeType, MobieVoltageLevel
 
     t = Tariff(
         price=0.25,
         unit="energy",
-        fee_type=FeeType.ENERGY,
+        mobie_fee_type=MobieFeeType.CEME,
         mobie_voltage_level=MobieVoltageLevel.BT,
     )
-    assert t.fee_type == FeeType.ENERGY
+    assert t.mobie_fee_type == MobieFeeType.CEME
+    assert t.mobie_fee_type == "CEME"
     assert t.mobie_voltage_level == MobieVoltageLevel.BT
     assert t.mobie_voltage_level == "BT"
 
@@ -497,11 +498,59 @@ def test_mobie_voltage_level_and_fee_type():
     t2 = Tariff(
         price=0.10,
         unit="flat",
-        fee_type="FLAT",
+        mobie_fee_type="EGME",
         mobie_voltage_level="MT",
     )
-    assert t2.fee_type == FeeType.FLAT
+    assert t2.mobie_fee_type == MobieFeeType.EGME
     assert t2.mobie_voltage_level == MobieVoltageLevel.MT
+
+    # MobieFeeType enum values
+    assert MobieFeeType.CEME == "CEME"
+    assert MobieFeeType.EGME == "EGME"
+    assert MobieFeeType.TAR == "TAR"
+    assert MobieFeeType.IEC == "IEC"
+
+
+def test_mobie_fee_type_only_allowed_in_byoe_plans():
+    """Test that mobie_fee_type is rejected in standard plans and allowed in BYOE plans."""
+    from tariffs.model import ByoeConfig, MobieFeeType, Network, Plan, Tariff
+
+    # Standard non-BYOE plan should reject mobie_fee_type
+    with pytest.raises(ValidationError, match="not a BYOE plan, but defines tariff with mobie_fee_type"):
+        Plan(
+            name="Standard Plan",
+            networks=[
+                Network(
+                    network_id="MOBIE",
+                    tariffs=[
+                        Tariff(
+                            price=0.25,
+                            unit="energy",
+                            mobie_fee_type=MobieFeeType.CEME,
+                        )
+                    ],
+                )
+            ],
+        )
+
+    # BYOE plan allows mobie_fee_type
+    byoe_plan = Plan(
+        name="BYOE Plan",
+        byoe=ByoeConfig(),
+        networks=[
+            Network(
+                network_id="MOBIE",
+                tariffs=[
+                    Tariff(
+                        price=0.25,
+                        unit="energy",
+                        mobie_fee_type=MobieFeeType.CEME,
+                    )
+                ],
+            )
+        ],
+    )
+    assert byoe_plan.networks[0].tariffs[0].mobie_fee_type == MobieFeeType.CEME
 
 
 def test_byoe_rates_and_start_date_validation():
@@ -516,7 +565,7 @@ def test_byoe_rates_and_start_date_validation():
     )
     assert byoe_2h.start_date == "2026-07-01"
     assert byoe_2h.vazio == 0.1690
-    assert byoe_2h.cheias == 0.1690
+    assert byoe_2h.cheias is None  # mapped to fora_vazio and unset
     assert byoe_2h.fora_vazio == 0.1690  # mapped from cheias
 
     # 2H rejecting ponta
@@ -543,7 +592,7 @@ def test_byoe_rates_and_start_date_validation():
 def test_byoe_plan_expansion():
     """Test expanding a BYOE plan into concrete network tariffs."""
     from tariffs.byoe_generator import expand_byoe_plan
-    from tariffs.model import ByoeConfig, FeeType, MobieVoltageLevel, Plan, TariffPeriod
+    from tariffs.model import ByoeConfig, MobieVoltageLevel, Plan, TariffPeriod
     from tariffs.regulated_fees import RegulatedFees, TarPeriodRate, TarVariant
 
     regulated_fees = [
@@ -599,13 +648,40 @@ def test_byoe_plan_expansion():
 
     flat = next(t for t in tariffs if t.unit == "flat")
     assert flat.price == 0.15
-    assert flat.fee_type == FeeType.FLAT
+    assert flat.mobie_fee_type is None
 
     bt_fora_vazio = next(
         t for t in tariffs if t.mobie_voltage_level == MobieVoltageLevel.BT and t.tou_period == TariffPeriod.FORA_VAZIO
     )
     # 0.1690 (base) + 0.1192 (TAR BT) + 0.0010 (IEC) = 0.2892
     assert bt_fora_vazio.price == 0.2892
-    assert bt_fora_vazio.fee_type == FeeType.ENERGY
     assert bt_fora_vazio.type == "AC"
+
+    # Test plan with includes_egme=False generating EGME fee
+    from tariffs.model import MobieFeeType
+
+    plan_no_egme = Plan(
+        name="Atlante CEME",
+        country_code="PT",
+        byoe=ByoeConfig(
+            start_date="2026-01-01",
+            power_type="AC",
+            cycle="semanal",
+            schedule="2H",
+            includes_egme=False,
+            includes_iec=False,
+            includes_tar=False,
+            activation_fee=0.0,
+            cheias=0.0976,
+            vazio=0.0976,
+        ),
+        networks=[Network(network_id="MOBIE")],
+    )
+    expanded_no_egme = expand_byoe_plan(plan_no_egme, regulated_fees)
+    tariffs_no_egme = expanded_no_egme.networks[0].tariffs
+    # 1 EGME flat fee + 4 energy rates
+    assert len(tariffs_no_egme) == 5
+    egme_fee = next(t for t in tariffs_no_egme if t.mobie_fee_type == MobieFeeType.EGME)
+    assert egme_fee.price == 0.1088
+    assert egme_fee.unit == "flat"
 

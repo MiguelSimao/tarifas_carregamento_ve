@@ -2,7 +2,7 @@
 
 from .model import (
     DimensionType,
-    FeeType,
+    MobieFeeType,
     MobieVoltageLevel,
     Network,
     Plan,
@@ -69,19 +69,22 @@ def expand_byoe_plan(
 
     generated_tariffs: list[Tariff] = []
 
-    # 1. Flat session fee (activation fee + optional EGME connection fee)
-    flat_fee = 0.0
-    if plan.byoe.activation_fee is not None:
-        flat_fee += plan.byoe.activation_fee
-    if not plan.byoe.includes_egme:
-        flat_fee += reg_fees.egme_connection
-
-    if round(flat_fee, 4) > 0:
+    # 1. Flat activation fee (if specified)
+    if plan.byoe.activation_fee is not None and round(plan.byoe.activation_fee, 4) > 0:
         generated_tariffs.append(
             Tariff(
-                price=round(flat_fee, 4),
+                price=round(plan.byoe.activation_fee, 4),
                 unit=DimensionType.FLAT,
-                fee_type=FeeType.FLAT,
+            )
+        )
+
+    # 2. EGME connection fee (flat) from regulated fees (if not included in BYOE plan)
+    if not plan.byoe.includes_egme and round(reg_fees.egme_connection, 4) > 0:
+        generated_tariffs.append(
+            Tariff(
+                price=round(reg_fees.egme_connection, 4),
+                unit=DimensionType.FLAT,
+                mobie_fee_type=MobieFeeType.EGME,
             )
         )
 
@@ -142,7 +145,6 @@ def expand_byoe_plan(
                     type=plan.byoe.power_type,
                     price=total_price,
                     unit=DimensionType.ENERGY,
-                    fee_type=FeeType.ENERGY,
                     mobie_voltage_level=voltage_level,
                     tou_period=period,
                 )

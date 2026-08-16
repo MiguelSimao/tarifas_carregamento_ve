@@ -56,23 +56,6 @@
           "default": null,
           "title": "Start Date"
         },
-        "power_type": {
-          "anyOf": [
-            {
-              "enum": [
-                "AC",
-                "DC"
-              ],
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Power/current type restriction: AC or DC",
-          "title": "Power Type"
-        },
         "cycle": {
           "anyOf": [
             {
@@ -220,6 +203,23 @@
           ],
           "default": null,
           "title": "Ponta"
+        },
+        "power_type": {
+          "anyOf": [
+            {
+              "enum": [
+                "AC",
+                "DC"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Power/current type restriction: AC or DC",
+          "title": "Power Type"
         }
       },
       "title": "ByoeConfig",
@@ -267,17 +267,14 @@
       "title": "DisplayText",
       "type": "object"
     },
-    "FeeType": {
+    "MobieFeeType": {
       "enum": [
-        "ENERGY",
-        "TIME",
-        "FLAT",
-        "PARKING",
+        "CEME",
         "EGME",
         "TAR",
         "IEC"
       ],
-      "title": "FeeType",
+      "title": "MobieFeeType",
       "type": "string"
     },
     "MobieVoltageLevel": {
@@ -785,10 +782,10 @@
           "$ref": "#/$defs/DimensionType",
           "default": "energy"
         },
-        "fee_type": {
+        "mobie_fee_type": {
           "anyOf": [
             {
-              "$ref": "#/$defs/FeeType"
+              "$ref": "#/$defs/MobieFeeType"
             },
             {
               "type": "null"

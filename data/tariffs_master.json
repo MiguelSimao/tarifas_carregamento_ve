@@ -91,7 +91,6 @@
             "activation_fee": 0.0,
             "renewable_energy": false,
             "vazio": 0.0976,
-            "cheias": 0.0976,
             "fora_vazio": 0.0976,
             "power_type": "AC"
           },
@@ -102,13 +101,12 @@
                 {
                   "price": 0.1088,
                   "unit": "flat",
-                  "fee_type": "FLAT"
+                  "mobie_fee_type": "EGME"
                 },
                 {
                   "type": "AC",
                   "price": 0.1798,
                   "unit": "energy",
-                  "fee_type": "ENERGY",
                   "mobie_voltage_level": "MT",
                   "tou_period": "fora_vazio"
                 },
@@ -116,7 +114,6 @@
                   "type": "AC",
                   "price": 0.1143,
                   "unit": "energy",
-                  "fee_type": "ENERGY",
                   "mobie_voltage_level": "MT",
                   "tou_period": "vazio"
                 },
@@ -124,7 +121,6 @@
                   "type": "AC",
                   "price": 0.2178,
                   "unit": "energy",
-                  "fee_type": "ENERGY",
                   "mobie_voltage_level": "BT",
                   "tou_period": "fora_vazio"
                 },
@@ -132,7 +128,6 @@
                   "type": "AC",
                   "price": 0.1252,
                   "unit": "energy",
-                  "fee_type": "ENERGY",
                   "mobie_voltage_level": "BT",
                   "tou_period": "vazio"
                 }
@@ -164,7 +159,6 @@
             "activation_fee": 0.15,
             "renewable_energy": true,
             "vazio": 0.169,
-            "cheias": 0.169,
             "fora_vazio": 0.169
           },
           "networks": [
@@ -173,34 +167,29 @@
               "tariffs": [
                 {
                   "price": 0.15,
-                  "unit": "flat",
-                  "fee_type": "FLAT"
+                  "unit": "flat"
                 },
                 {
                   "price": 0.2512,
                   "unit": "energy",
-                  "fee_type": "ENERGY",
                   "mobie_voltage_level": "MT",
                   "tou_period": "fora_vazio"
                 },
                 {
                   "price": 0.1857,
                   "unit": "energy",
-                  "fee_type": "ENERGY",
                   "mobie_voltage_level": "MT",
                   "tou_period": "vazio"
                 },
                 {
                   "price": 0.2892,
                   "unit": "energy",
-                  "fee_type": "ENERGY",
                   "mobie_voltage_level": "BT",
                   "tou_period": "fora_vazio"
                 },
                 {
                   "price": 0.1966,
                   "unit": "energy",
-                  "fee_type": "ENERGY",
                   "mobie_voltage_level": "BT",
                   "tou_period": "vazio"
                 }
@@ -236,7 +225,6 @@
             "activation_fee": 0.15,
             "renewable_energy": true,
             "vazio": 0.1506,
-            "cheias": 0.1506,
             "fora_vazio": 0.1506
           },
           "networks": [
@@ -245,34 +233,29 @@
               "tariffs": [
                 {
                   "price": 0.15,
-                  "unit": "flat",
-                  "fee_type": "FLAT"
+                  "unit": "flat"
                 },
                 {
                   "price": 0.2328,
                   "unit": "energy",
-                  "fee_type": "ENERGY",
                   "mobie_voltage_level": "MT",
                   "tou_period": "fora_vazio"
                 },
                 {
                   "price": 0.1673,
                   "unit": "energy",
-                  "fee_type": "ENERGY",
                   "mobie_voltage_level": "MT",
                   "tou_period": "vazio"
                 },
                 {
                   "price": 0.2708,
                   "unit": "energy",
-                  "fee_type": "ENERGY",
                   "mobie_voltage_level": "BT",
                   "tou_period": "fora_vazio"
                 },
                 {
                   "price": 0.1782,
                   "unit": "energy",
-                  "fee_type": "ENERGY",
                   "mobie_voltage_level": "BT",
                   "tou_period": "vazio"
                 }

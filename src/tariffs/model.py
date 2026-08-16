@@ -15,11 +15,8 @@ class MobieVoltageLevel(str, Enum):
     MAT = "MAT"
 
 
-class FeeType(str, Enum):
-    ENERGY = "ENERGY"
-    TIME = "TIME"
-    FLAT = "FLAT"
-    PARKING = "PARKING"
+class MobieFeeType(str, Enum):
+    CEME = "CEME"
     EGME = "EGME"
     TAR = "TAR"
     IEC = "IEC"
@@ -95,7 +92,7 @@ class Tariff(BaseModel):
     type: Literal["AC", "DC"] | None = None
     price: float | None = None
     unit: DimensionType = DimensionType.ENERGY
-    fee_type: FeeType | None = None
+    mobie_fee_type: MobieFeeType | None = None
     mobie_voltage_level: MobieVoltageLevel | None = None
     min: float | None = None
     max: float | None = None
@@ -175,8 +172,10 @@ class ByoeConfig(BaseModel):
         if self.schedule == TariffSchedule.BIHORARIO:
             if self.ponta is not None:
                 raise ValueError("Schedule '2H' does not support 'ponta' rate.")
-            if self.cheias is not None and self.fora_vazio is None:
-                self.fora_vazio = self.cheias
+            if self.cheias is not None:
+                if self.fora_vazio is None:
+                    self.fora_vazio = self.cheias
+                self.cheias = None
         return self
 
 
@@ -230,7 +229,14 @@ class Plan(BaseModel):
         return v
 
     @model_validator(mode="after")
-    def validate_schedule_tariffs(self) -> "Plan":
+    def validate_plan_tariffs(self) -> "Plan":
+        if not self.is_byoe:
+            for network in self.networks or []:
+                for tariff in network.tariffs or []:
+                    if tariff.mobie_fee_type is not None:
+                        raise ValueError(
+                            f"Plan '{self.name}' is not a BYOE plan, but defines tariff with mobie_fee_type '{tariff.mobie_fee_type.value if hasattr(tariff.mobie_fee_type, 'value') else tariff.mobie_fee_type}'."
+                        )
         schedule = self.byoe.schedule if self.byoe else None
         if schedule == TariffSchedule.BIHORARIO:
             for network in self.networks or []:

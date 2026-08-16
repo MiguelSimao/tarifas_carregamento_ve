@@ -679,8 +679,8 @@ def test_byoe_plan_expansion():
     expanded = expand_byoe_plan(plan, regulated_fees)
     assert len(expanded.networks) == 1
     tariffs = expanded.networks[0].tariffs
-    # 1 flat fee + 1 CEME energy rate (no tou_period since rates are equal) + 4 TAR energy rates (2 for MT, 2 for BT)
-    assert len(tariffs) == 6
+    # 1 flat fee + 1 IEC energy rate + 1 CEME energy rate (no tou_period since rates are equal) + 4 TAR energy rates (2 for MT, 2 for BT)
+    assert len(tariffs) == 7
 
     flat = next(t for t in tariffs if t.unit == "flat")
     assert flat.price == 0.15
@@ -688,9 +688,14 @@ def test_byoe_plan_expansion():
 
     from tariffs.model import MobieFeeType
 
-    # CEME energy tariff (0.1690 base + 0.0010 IEC = 0.1700)
+    # IEC energy tariff
+    iec_tariff = next(t for t in tariffs if t.mobie_fee_type == MobieFeeType.IEC)
+    assert iec_tariff.price == 0.0010
+    assert iec_tariff.unit == "energy"
+
+    # CEME energy tariff (pure base rate 0.1690)
     ceme_tariff = next(t for t in tariffs if t.mobie_fee_type == MobieFeeType.CEME)
-    assert ceme_tariff.price == 0.1700
+    assert ceme_tariff.price == 0.1690
     assert ceme_tariff.type == "AC"
     assert ceme_tariff.tou_period is None  # no TOU constraint since all rates are identical
 
@@ -724,8 +729,9 @@ def test_byoe_plan_expansion():
     )
     expanded_diff = expand_byoe_plan(plan_differing_rates, regulated_fees)
     tariffs_diff = expanded_diff.networks[0].tariffs
-    # 2 CEME rates + 4 TAR rates = 6
+    # 2 CEME rates + 4 TAR rates = 6 (no IEC since includes_iec=True)
     assert len(tariffs_diff) == 6
+    assert not any(t.mobie_fee_type == MobieFeeType.IEC for t in tariffs_diff)
     ceme_vazio = next(
         t for t in tariffs_diff if t.mobie_fee_type == MobieFeeType.CEME and t.tou_period == TariffPeriod.VAZIO
     )
@@ -755,10 +761,13 @@ def test_byoe_plan_expansion():
     )
     expanded_no_egme = expand_byoe_plan(plan_no_egme, regulated_fees)
     tariffs_no_egme = expanded_no_egme.networks[0].tariffs
-    # 1 EGME flat fee + 1 CEME energy rate + 4 TAR energy rates = 6
-    assert len(tariffs_no_egme) == 6
+    # 1 EGME flat fee + 1 IEC energy rate + 1 CEME energy rate + 4 TAR energy rates = 7
+    assert len(tariffs_no_egme) == 7
     egme_fee = next(t for t in tariffs_no_egme if t.mobie_fee_type == MobieFeeType.EGME)
     assert egme_fee.price == 0.1088
     assert egme_fee.unit == "flat"
+    iec_fee = next(t for t in tariffs_no_egme if t.mobie_fee_type == MobieFeeType.IEC)
+    assert iec_fee.price == 0.0010
+    assert iec_fee.unit == "energy"
 
 

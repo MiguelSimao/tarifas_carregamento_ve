@@ -104,8 +104,13 @@
                   "mobie_fee_type": "EGME"
                 },
                 {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
                   "type": "AC",
-                  "price": 0.0986,
+                  "price": 0.0976,
                   "unit": "energy",
                   "mobie_fee_type": "CEME"
                 },
@@ -176,7 +181,12 @@
                   "unit": "flat"
                 },
                 {
-                  "price": 0.17,
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.169,
                   "unit": "energy",
                   "mobie_fee_type": "CEME"
                 },
@@ -251,7 +261,12 @@
                   "unit": "flat"
                 },
                 {
-                  "price": 0.1516,
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1506,
                   "unit": "energy",
                   "mobie_fee_type": "CEME"
                 },
@@ -321,7 +336,12 @@
                   "mobie_fee_type": "EGME"
                 },
                 {
-                  "price": 0.2688,
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.2678,
                   "unit": "energy",
                   "mobie_fee_type": "CEME"
                 }

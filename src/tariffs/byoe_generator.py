@@ -89,9 +89,18 @@ def expand_byoe_plan(
             )
         )
 
-    # 3. CEME energy rates
+    # 3. IEC regulated energy tax from regulated fees (if not included in BYOE plan)
+    if not plan.byoe.includes_iec and round(reg_fees.iec, 4) > 0:
+        generated_tariffs.append(
+            Tariff(
+                price=round(reg_fees.iec, 4),
+                unit=DimensionType.ENERGY,
+                mobie_fee_type=MobieFeeType.IEC,
+            )
+        )
+
+    # 4. CEME energy rates
     schedule = plan.byoe.schedule
-    iec_add = 0.0 if plan.byoe.includes_iec else reg_fees.iec
 
     if schedule == TariffSchedule.SIMPLES:
         single_rate = plan.byoe.all_day
@@ -105,7 +114,7 @@ def expand_byoe_plan(
             generated_tariffs.append(
                 Tariff(
                     type=plan.byoe.power_type,
-                    price=round(single_rate + iec_add, 4),
+                    price=round(single_rate, 4),
                     unit=DimensionType.ENERGY,
                     mobie_fee_type=MobieFeeType.CEME,
                 )
@@ -146,7 +155,7 @@ def expand_byoe_plan(
                 generated_tariffs.append(
                     Tariff(
                         type=plan.byoe.power_type,
-                        price=round(rate + iec_add, 4),
+                        price=round(rate, 4),
                         unit=DimensionType.ENERGY,
                         mobie_fee_type=MobieFeeType.CEME,
                     )
@@ -156,14 +165,14 @@ def expand_byoe_plan(
                     generated_tariffs.append(
                         Tariff(
                             type=plan.byoe.power_type,
-                            price=round(rate + iec_add, 4),
+                            price=round(rate, 4),
                             unit=DimensionType.ENERGY,
                             mobie_fee_type=MobieFeeType.CEME,
                             tou_period=period,
                         )
                     )
 
-    # 4. TAR regulated energy fees (if not included in BYOE plan)
+    # 5. TAR regulated energy fees (if not included in BYOE plan)
     if not plan.byoe.includes_tar:
         for variant in reg_fees.tar_variants:
             if schedule is not None and variant.schedule is not None and variant.schedule != schedule:

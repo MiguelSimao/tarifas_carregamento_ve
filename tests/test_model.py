@@ -111,7 +111,10 @@ def test_tariff_thresholded_fee():
 
 def test_time_restrictions_model():
     """Test the TimeRestriction model instantiation."""
-    tr = TimeRestriction(start_time="08:00", end_time="20:00", days_of_week=[6, 7])
+    tr = TimeRestriction(
+        name="fora_vazio", start_time="08:00", end_time="20:00", days_of_week=[6, 7]
+    )
+    assert tr.name == "fora_vazio"
     assert tr.start_time == "08:00"
     assert tr.end_time == "20:00"
     assert tr.days_of_week == [6, 7]
@@ -709,6 +712,7 @@ def test_byoe_plan_expansion():
     assert bt_fora_vazio.tou_period is None
     assert bt_fora_vazio.time_restrictions is not None
     assert len(bt_fora_vazio.time_restrictions) == 1
+    assert bt_fora_vazio.time_restrictions[0].name == "fora_vazio"
     assert bt_fora_vazio.time_restrictions[0].start_time == "08:00"
     assert bt_fora_vazio.time_restrictions[0].end_time == "22:00"
 
@@ -721,6 +725,7 @@ def test_byoe_plan_expansion():
     assert bt_vazio.tou_period is None
     assert bt_vazio.time_restrictions is not None
     assert len(bt_vazio.time_restrictions) == 1
+    assert bt_vazio.time_restrictions[0].name == "vazio"
     assert bt_vazio.time_restrictions[0].start_time == "22:00"
     assert bt_vazio.time_restrictions[0].end_time == "08:00"
 
@@ -752,6 +757,7 @@ def test_byoe_plan_expansion():
     )
     assert ceme_vazio.tou_period is None
     assert ceme_vazio.time_restrictions is not None
+    assert ceme_vazio.time_restrictions[0].name == "vazio"
     assert ceme_vazio.time_restrictions[0].start_time == "22:00"
     assert ceme_vazio.time_restrictions[0].end_time == "08:00"
 
@@ -761,6 +767,7 @@ def test_byoe_plan_expansion():
     )
     assert ceme_fora_vazio.tou_period is None
     assert ceme_fora_vazio.time_restrictions is not None
+    assert ceme_fora_vazio.time_restrictions[0].name == "fora_vazio"
     assert ceme_fora_vazio.time_restrictions[0].start_time == "08:00"
     assert ceme_fora_vazio.time_restrictions[0].end_time == "22:00"
 

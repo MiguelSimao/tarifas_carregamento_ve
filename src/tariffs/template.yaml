@@ -51,7 +51,8 @@ providers:
               price: 0.40 # Price amount
               unit: energy # Pricing unit. Default is 'energy' (per kWh). Other options: 'time' (per minute), 'flat' (per session), 'parking' (per minute)
               time_restrictions: # Optional time-based restrictions for this tariff
-                - start_time: "08:00" # Start time for this tariff (HH:MM, 24-hour format)
+                - name: "fora_vazio"  # Optional name or interval key
+                  start_time: "08:00" # Start time for this tariff (HH:MM, 24-hour format)
                   end_time: "20:00"   # End time for this tariff (HH:MM, 24-hour format)
                   days_of_week:       # Days of the week when this tariff applies (1=Monday, 7=Sunday)
                     - 6

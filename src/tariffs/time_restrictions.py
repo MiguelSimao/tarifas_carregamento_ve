@@ -284,7 +284,12 @@ def resolve_all_time_restrictions(
         for p_enum, restrs in sched.periods.items():
             p_str = p_enum.value if isinstance(p_enum, TariffPeriod) else str(p_enum).lower()
             if p_str == period_val:
-                copied = [r.model_copy() for r in restrs]
+                copied = []
+                for r in restrs:
+                    c = r.model_copy()
+                    if c.name is None:
+                        c.name = period_val
+                    copied.append(c)
                 if copied not in unique_restr_lists:
                     unique_restr_lists.append(copied)
 
@@ -326,7 +331,13 @@ def resolve_time_restrictions(
     for p_enum, restrs in matched.periods.items():
         p_str = p_enum.value if isinstance(p_enum, TariffPeriod) else str(p_enum).lower()
         if p_str == period_val:
-            return [r.model_copy() for r in restrs]
+            copied = []
+            for r in restrs:
+                c = r.model_copy()
+                if c.name is None:
+                    c.name = period_val
+                copied.append(c)
+            return copied
 
     return None
 

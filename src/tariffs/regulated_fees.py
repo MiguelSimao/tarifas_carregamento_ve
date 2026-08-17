@@ -59,6 +59,7 @@ class RegulatedFeesDocument(BaseModel):
 
 
 class TimeRestriction(BaseModel):
+    name: str | None = None
     start_time: str | None = None
     end_time: str | None = None
     days_of_week: list[int] | None = None

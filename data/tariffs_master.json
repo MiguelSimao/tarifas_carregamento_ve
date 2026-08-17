@@ -121,6 +121,7 @@
                   "mobie_voltage_level": "MT",
                   "time_restrictions": [
                     {
+                      "name": "fora_vazio",
                       "start_time": "07:00",
                       "end_time": "24:00",
                       "days_of_week": [
@@ -132,6 +133,7 @@
                       ]
                     },
                     {
+                      "name": "fora_vazio",
                       "start_time": "09:00",
                       "end_time": "14:00",
                       "days_of_week": [
@@ -139,6 +141,7 @@
                       ]
                     },
                     {
+                      "name": "fora_vazio",
                       "start_time": "20:00",
                       "end_time": "22:00",
                       "days_of_week": [
@@ -154,6 +157,7 @@
                   "mobie_voltage_level": "MT",
                   "time_restrictions": [
                     {
+                      "name": "vazio",
                       "start_time": "00:00",
                       "end_time": "07:00",
                       "days_of_week": [
@@ -165,6 +169,7 @@
                       ]
                     },
                     {
+                      "name": "vazio",
                       "start_time": "00:00",
                       "end_time": "09:00",
                       "days_of_week": [
@@ -172,6 +177,7 @@
                       ]
                     },
                     {
+                      "name": "vazio",
                       "start_time": "14:00",
                       "end_time": "20:00",
                       "days_of_week": [
@@ -179,6 +185,7 @@
                       ]
                     },
                     {
+                      "name": "vazio",
                       "start_time": "22:00",
                       "end_time": "24:00",
                       "days_of_week": [
@@ -186,6 +193,7 @@
                       ]
                     },
                     {
+                      "name": "vazio",
                       "start_time": "00:00",
                       "end_time": "24:00",
                       "days_of_week": [
@@ -201,6 +209,7 @@
                   "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
+                      "name": "fora_vazio",
                       "start_time": "07:00",
                       "end_time": "24:00",
                       "days_of_week": [
@@ -212,6 +221,7 @@
                       ]
                     },
                     {
+                      "name": "fora_vazio",
                       "start_time": "09:00",
                       "end_time": "14:00",
                       "days_of_week": [
@@ -219,6 +229,7 @@
                       ]
                     },
                     {
+                      "name": "fora_vazio",
                       "start_time": "20:00",
                       "end_time": "22:00",
                       "days_of_week": [
@@ -234,6 +245,7 @@
                   "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
+                      "name": "vazio",
                       "start_time": "00:00",
                       "end_time": "07:00",
                       "days_of_week": [
@@ -245,6 +257,7 @@
                       ]
                     },
                     {
+                      "name": "vazio",
                       "start_time": "00:00",
                       "end_time": "09:00",
                       "days_of_week": [
@@ -252,6 +265,7 @@
                       ]
                     },
                     {
+                      "name": "vazio",
                       "start_time": "14:00",
                       "end_time": "20:00",
                       "days_of_week": [
@@ -259,6 +273,7 @@
                       ]
                     },
                     {
+                      "name": "vazio",
                       "start_time": "22:00",
                       "end_time": "24:00",
                       "days_of_week": [
@@ -266,6 +281,7 @@
                       ]
                     },
                     {
+                      "name": "vazio",
                       "start_time": "00:00",
                       "end_time": "24:00",
                       "days_of_week": [
@@ -329,6 +345,7 @@
                   "mobie_voltage_level": "MT",
                   "time_restrictions": [
                     {
+                      "name": "fora_vazio",
                       "start_time": "08:00",
                       "end_time": "22:00",
                       "days_of_week": [
@@ -350,6 +367,7 @@
                   "mobie_voltage_level": "MT",
                   "time_restrictions": [
                     {
+                      "name": "vazio",
                       "start_time": "22:00",
                       "end_time": "08:00",
                       "days_of_week": [
@@ -371,6 +389,7 @@
                   "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
+                      "name": "fora_vazio",
                       "start_time": "08:00",
                       "end_time": "22:00",
                       "days_of_week": [
@@ -392,6 +411,7 @@
                   "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
+                      "name": "vazio",
                       "start_time": "22:00",
                       "end_time": "08:00",
                       "days_of_week": [
@@ -465,6 +485,7 @@
                   "mobie_voltage_level": "MT",
                   "time_restrictions": [
                     {
+                      "name": "fora_vazio",
                       "start_time": "08:00",
                       "end_time": "22:00",
                       "days_of_week": [
@@ -486,6 +507,7 @@
                   "mobie_voltage_level": "MT",
                   "time_restrictions": [
                     {
+                      "name": "vazio",
                       "start_time": "22:00",
                       "end_time": "08:00",
                       "days_of_week": [
@@ -507,6 +529,7 @@
                   "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
+                      "name": "fora_vazio",
                       "start_time": "08:00",
                       "end_time": "22:00",
                       "days_of_week": [
@@ -528,6 +551,7 @@
                   "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
+                      "name": "vazio",
                       "start_time": "22:00",
                       "end_time": "08:00",
                       "days_of_week": [

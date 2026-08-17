@@ -988,6 +988,18 @@
     },
     "TimeRestriction": {
       "properties": {
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
         "start_time": {
           "anyOf": [
             {

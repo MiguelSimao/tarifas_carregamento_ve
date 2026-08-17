@@ -55,6 +55,7 @@ def test_ciclo_diario_2h_weekly_hours():
         definitions=definitions,
     )
     assert vazio_restrictions is not None
+    assert all(r.name == "vazio" for r in vazio_restrictions)
     vazio_hours = calculate_total_weekly_hours(vazio_restrictions)
     assert vazio_hours == 70.0
 
@@ -65,6 +66,7 @@ def test_ciclo_diario_2h_weekly_hours():
         definitions=definitions,
     )
     assert fora_vazio_restrictions is not None
+    assert all(r.name == "fora_vazio" for r in fora_vazio_restrictions)
     fora_vazio_hours = calculate_total_weekly_hours(fora_vazio_restrictions)
     assert fora_vazio_hours == 98.0
 
@@ -352,12 +354,15 @@ def test_3h_byoe_plan_expansion_generates_seasonal_tariffs():
     assert len(ceme_ponta) == 2
     assert all(t.tou_period is None for t in ceme_ponta)
     assert all(t.time_restrictions is not None for t in ceme_ponta)
+    assert all(all(r.name == "ponta" for r in t.time_restrictions) for t in ceme_ponta)
 
     ceme_cheias = [t for t in ceme_tariffs if t.price == 0.2000]
     assert len(ceme_cheias) == 2
+    assert all(all(r.name == "cheias" for r in t.time_restrictions) for t in ceme_cheias)
 
     ceme_vazio = [t for t in ceme_tariffs if t.price == 0.1000]
     assert len(ceme_vazio) == 1
+    assert all(all(r.name == "vazio" for r in t.time_restrictions) for t in ceme_vazio)
 
     # TAR tariffs: 2 Ponta + 2 Cheias + 1 Vazio = 5
     tar_tariffs = [t for t in tariffs if t.mobie_fee_type == MobieFeeType.TAR]
@@ -366,12 +371,15 @@ def test_3h_byoe_plan_expansion_generates_seasonal_tariffs():
     tar_ponta = [t for t in tar_tariffs if t.price == 0.2807]
     assert len(tar_ponta) == 2
     assert all(t.tou_period is None for t in tar_ponta)
+    assert all(all(r.name == "ponta" for r in t.time_restrictions) for t in tar_ponta)
 
     tar_cheias = [t for t in tar_tariffs if t.price == 0.0769]
     assert len(tar_cheias) == 2
+    assert all(all(r.name == "cheias" for r in t.time_restrictions) for t in tar_cheias)
 
     tar_vazio = [t for t in tar_tariffs if t.price == 0.0266]
     assert len(tar_vazio) == 1
+    assert all(all(r.name == "vazio" for r in t.time_restrictions) for t in tar_vazio)
 
 
 def test_portugal_dst_dates_calculation():

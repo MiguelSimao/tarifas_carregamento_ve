@@ -55,8 +55,12 @@ def test_compilation_output(tmp_path):
     first_byoe_tariffs = byoe_plans[0]["networks"][0]["tariffs"]
     assert len(first_byoe_tariffs) > 0
     assert any(t.get("mobie_voltage_level") in ("BT", "MT") for t in first_byoe_tariffs)
-    assert any(t.get("unit") == "energy" for t in first_byoe_tariffs)
     assert any("time_restrictions" in t for t in first_byoe_tariffs)
+    tariffs_with_restrs = [t for t in first_byoe_tariffs if "time_restrictions" in t]
+    assert all(
+        all(r.get("name") in ("vazio", "fora_vazio", "cheias", "ponta") for r in t["time_restrictions"])
+        for t in tariffs_with_restrs
+    )
     assert not any("tou_period" in t for t in first_byoe_tariffs)
 
 

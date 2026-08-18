@@ -19,9 +19,14 @@
               ],
               "tariffs": [
                 {
-                  "type": "DC",
-                  "price": 0.49,
-                  "unit": "energy"
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "min": 43.0,
+                      "price": 0.49,
+                      "unit": "energy"
+                    }
+                  ]
                 }
               ]
             },
@@ -30,9 +35,14 @@
               "cashback": 0.5,
               "tariffs": [
                 {
-                  "type": "DC",
-                  "price": 0.49,
-                  "unit": "energy"
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "min": 43.0,
+                      "price": 0.49,
+                      "unit": "energy"
+                    }
+                  ]
                 }
               ]
             }
@@ -85,14 +95,14 @@
             "start_date": "2026-01-01",
             "cycle": "semanal",
             "schedule": "2H",
+            "includes_vat": false,
             "includes_tar": false,
             "includes_iec": false,
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": false,
             "vazio": 0.0976,
-            "fora_vazio": 0.0976,
-            "power_type": "AC"
+            "fora_vazio": 0.0976
           },
           "networks": [
             {
@@ -101,24 +111,27 @@
                 {
                   "price": 0.1088,
                   "unit": "flat",
-                  "mobie_fee_type": "EGME"
+                  "mobie_fee_type": "EGME",
+                  "max": 43.0
                 },
                 {
                   "price": 0.001,
                   "unit": "energy",
-                  "mobie_fee_type": "IEC"
+                  "mobie_fee_type": "IEC",
+                  "max": 43.0
                 },
                 {
-                  "type": "AC",
                   "price": 0.0976,
                   "unit": "energy",
-                  "mobie_fee_type": "CEME"
+                  "mobie_fee_type": "CEME",
+                  "max": 43.0
                 },
                 {
                   "price": 0.0812,
                   "unit": "energy",
                   "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "MT",
+                  "max": 43.0,
                   "time_restrictions": [
                     {
                       "name": "fora_vazio",
@@ -155,6 +168,7 @@
                   "unit": "energy",
                   "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "MT",
+                  "max": 43.0,
                   "time_restrictions": [
                     {
                       "name": "vazio",
@@ -207,6 +221,7 @@
                   "unit": "energy",
                   "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
+                  "max": 43.0,
                   "time_restrictions": [
                     {
                       "name": "fora_vazio",
@@ -243,6 +258,7 @@
                   "unit": "energy",
                   "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
+                  "max": 43.0,
                   "time_restrictions": [
                     {
                       "name": "vazio",
@@ -312,6 +328,7 @@
             "start_date": "2026-07-01",
             "cycle": "diario",
             "schedule": "2H",
+            "includes_vat": false,
             "includes_tar": false,
             "includes_iec": false,
             "includes_egme": true,
@@ -452,6 +469,7 @@
             "start_date": "2026-07-01",
             "cycle": "diario",
             "schedule": "2H",
+            "includes_vat": false,
             "includes_tar": false,
             "includes_iec": false,
             "includes_egme": true,
@@ -587,6 +605,7 @@
           "byoe": {
             "start_date": "2026-07-01",
             "schedule": "1H",
+            "includes_vat": false,
             "includes_tar": true,
             "includes_iec": false,
             "includes_egme": false,

@@ -330,7 +330,6 @@ def test_3h_byoe_plan_expansion_generates_seasonal_tariffs():
         country_code="PT",
         byoe=ByoeConfig(
             start_date="2026-01-01",
-            power_type="AC",
             cycle="diario",
             schedule="3H",
             includes_egme=True,

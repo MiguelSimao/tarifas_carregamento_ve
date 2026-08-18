@@ -126,9 +126,9 @@ providers:
         start_date: "2026-07-01"
         byoe:
           start_date: "2026-07-01"
-          power_type: "AC" # Optional: "AC" or "DC"
           cycle: "diario"
           schedule: "2H"
+          includes_vat: false # Whether VAT is included in rates (default: false)
           includes_egme: true
           includes_iec: false
           includes_tar: false
@@ -141,6 +141,10 @@ providers:
           - APP
         networks:
           - network_id: "MOBIE"
-            # Tariffs are automatically generated during compilation from BYOE config + regulated fees,
-            # or can be explicitly defined with BYOE-specific fields (e.g. mobie_fee_type: CEME/EGME/TAR/IEC, mobie_voltage_level: BT/MT)
+            # Tariffs can be automatically generated across all power levels, or defined with placeholder
+            # entries to apply restrictions (e.g. max: 43 with byoe: true):
+            # tariffs:
+            #   - max: 43
+            #     byoe: true
+
 

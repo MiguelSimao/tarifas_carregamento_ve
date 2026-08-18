@@ -15,10 +15,11 @@ providers:
       activation_fee: 0.0
       cheias: 0.0976
       vazio: 0.0976
-      power_type: AC
-
     payment_methods:
     - RFID_CARD
     - APP
     networks:
     - network_id: MOBIE
+      tariffs:
+      - max: 43
+        byoe: true

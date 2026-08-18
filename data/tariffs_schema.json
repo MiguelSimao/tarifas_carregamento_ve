@@ -84,6 +84,12 @@
           "default": null,
           "description": "Tariff schedule, e.g. '2H' (Bi-hor\u00e1rio), '3H' (Tri-hor\u00e1rio)"
         },
+        "includes_vat": {
+          "default": false,
+          "description": "Whether VAT (IVA) is included in the BYOE rates",
+          "title": "Includes Vat",
+          "type": "boolean"
+        },
         "includes_tar": {
           "anyOf": [
             {
@@ -215,23 +221,6 @@
           ],
           "default": null,
           "title": "Ponta"
-        },
-        "power_type": {
-          "anyOf": [
-            {
-              "enum": [
-                "AC",
-                "DC"
-              ],
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Power/current type restriction: AC or DC",
-          "title": "Power Type"
         }
       },
       "title": "ByoeConfig",
@@ -893,6 +882,19 @@
             }
           ],
           "default": null
+        },
+        "byoe": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Placeholder indicator for BYOE tariff expansion",
+          "title": "Byoe"
         }
       },
       "title": "Tariff",

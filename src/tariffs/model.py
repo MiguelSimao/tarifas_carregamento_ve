@@ -97,6 +97,14 @@ class Tariff(BaseModel):
     tiers: list[TariffTier] | None = None
     time_restrictions: list[TimeRestriction] | None = None
     tou_period: TariffPeriod | None = None
+    byoe: bool | None = Field(
+        default=None,
+        description="Placeholder indicator for BYOE tariff expansion",
+    )
+
+    @property
+    def is_byoe_placeholder(self) -> bool:
+        return bool(self.byoe)
 
     @field_validator("tou_period", mode="before")
     @classmethod
@@ -107,7 +115,7 @@ class Tariff(BaseModel):
 
     @model_validator(mode="after")
     def validate_and_propagate_tariff(self) -> "Tariff":
-        if self.price is None and self.tiers is None:
+        if not self.is_byoe_placeholder and self.price is None and self.tiers is None:
             raise ValueError('Either "price" or "tiers" must be provided in a tariff')
         if self.price is not None and self.tiers is not None:
             raise ValueError('Cannot specify both "price" and "tiers" in a tariff')
@@ -141,6 +149,11 @@ class ByoeConfig(BaseModel):
         default=None,
         description="Tariff schedule, e.g. '2H' (Bi-horário), '3H' (Tri-horário)",
     )
+    includes_vat: bool = Field(
+        default=False,
+        validation_alias=AliasChoices("includes_vat", "vat_included"),
+        description="Whether VAT (IVA) is included in the BYOE rates",
+    )
     includes_tar: bool | None = None
     includes_iec: bool | None = None
     includes_egme: bool | None = None
@@ -154,13 +167,6 @@ class ByoeConfig(BaseModel):
     cheias: float | None = None
     fora_vazio: float | None = None
     ponta: float | None = None
-
-    # Further restritions
-    power_type: Literal["AC", "DC"] | None = Field(
-        default=None,
-        validation_alias=AliasChoices("power_type", "type"),
-        description="Power/current type restriction: AC or DC",
-    )
 
     @model_validator(mode="after")
     def validate_byoe_rates(self) -> "ByoeConfig":
@@ -246,6 +252,10 @@ class Plan(BaseModel):
                     if tariff.mobie_fee_type is not None:
                         raise ValueError(
                             f"Plan '{self.name}' is not a BYOE plan, but defines tariff with mobie_fee_type '{tariff.mobie_fee_type.value if hasattr(tariff.mobie_fee_type, 'value') else tariff.mobie_fee_type}'."
+                        )
+                    if tariff.is_byoe_placeholder:
+                        raise ValueError(
+                            f"Plan '{self.name}' is not a BYOE plan, but defines tariff with byoe placeholder."
                         )
         schedule = self.byoe.schedule if self.byoe else None
         if schedule == TariffSchedule.BIHORARIO:

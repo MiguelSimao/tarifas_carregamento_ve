@@ -666,7 +666,6 @@ def test_byoe_plan_expansion():
         country_code="PT",
         byoe=ByoeConfig(
             start_date="2026-07-01",
-            power_type="AC",
             cycle="diario",
             schedule="2H",
             includes_egme=True,
@@ -676,7 +675,12 @@ def test_byoe_plan_expansion():
             cheias=0.1690,
             vazio=0.1690,
         ),
-        networks=[Network(network_id="MOBIE")],
+        networks=[
+            Network(
+                network_id="MOBIE",
+                tariffs=[Tariff(type="AC", byoe=True)],
+            )
+        ],
     )
 
     expanded = expand_byoe_plan(plan, regulated_fees)
@@ -688,6 +692,7 @@ def test_byoe_plan_expansion():
     flat = next(t for t in tariffs if t.unit == "flat")
     assert flat.price == 0.15
     assert flat.mobie_fee_type is None
+    assert flat.type == "AC"
 
     from tariffs.model import MobieFeeType
 
@@ -695,6 +700,7 @@ def test_byoe_plan_expansion():
     iec_tariff = next(t for t in tariffs if t.mobie_fee_type == MobieFeeType.IEC)
     assert iec_tariff.price == 0.0010
     assert iec_tariff.unit == "energy"
+    assert iec_tariff.type == "AC"
 
     # CEME energy tariff (pure base rate 0.1690)
     ceme_tariff = next(t for t in tariffs if t.mobie_fee_type == MobieFeeType.CEME)
@@ -710,6 +716,7 @@ def test_byoe_plan_expansion():
         and t.price == 0.1192
     )
     assert bt_fora_vazio.tou_period is None
+    assert bt_fora_vazio.type == "AC"
     assert bt_fora_vazio.time_restrictions is not None
     assert len(bt_fora_vazio.time_restrictions) == 1
     assert bt_fora_vazio.time_restrictions[0].name == "fora_vazio"
@@ -723,6 +730,7 @@ def test_byoe_plan_expansion():
         and t.price == 0.0266
     )
     assert bt_vazio.tou_period is None
+    assert bt_vazio.type == "AC"
     assert bt_vazio.time_restrictions is not None
     assert len(bt_vazio.time_restrictions) == 1
     assert bt_vazio.time_restrictions[0].name == "vazio"
@@ -735,7 +743,6 @@ def test_byoe_plan_expansion():
         country_code="PT",
         byoe=ByoeConfig(
             start_date="2026-07-01",
-            power_type="AC",
             cycle="diario",
             schedule="2H",
             includes_egme=True,
@@ -777,7 +784,6 @@ def test_byoe_plan_expansion():
         country_code="PT",
         byoe=ByoeConfig(
             start_date="2026-01-01",
-            power_type="AC",
             cycle="semanal",
             schedule="2H",
             includes_egme=False,
@@ -787,17 +793,139 @@ def test_byoe_plan_expansion():
             cheias=0.0976,
             vazio=0.0976,
         ),
-        networks=[Network(network_id="MOBIE")],
+        networks=[
+            Network(
+                network_id="MOBIE",
+                tariffs=[Tariff(max=43, byoe=True)],
+            )
+        ],
     )
     expanded_no_egme = expand_byoe_plan(plan_no_egme, regulated_fees)
     tariffs_no_egme = expanded_no_egme.networks[0].tariffs
-    # 1 EGME flat fee + 1 IEC energy rate + 1 CEME energy rate + 4 TAR energy rates = 7
+    # 1 EGME flat fee + 1 IEC energy rate + 1 CEME energy rate + 2 TAR BT + 2 TAR MT = 7 (all with max: 43)
     assert len(tariffs_no_egme) == 7
+    assert all(t.max == 43.0 for t in tariffs_no_egme)
+    assert any(t.mobie_voltage_level == MobieVoltageLevel.MT for t in tariffs_no_egme)
+    assert any(t.mobie_voltage_level == MobieVoltageLevel.BT for t in tariffs_no_egme)
     egme_fee = next(t for t in tariffs_no_egme if t.mobie_fee_type == MobieFeeType.EGME)
     assert egme_fee.price == 0.1088
     assert egme_fee.unit == "flat"
+    assert egme_fee.max == 43.0
     iec_fee = next(t for t in tariffs_no_egme if t.mobie_fee_type == MobieFeeType.IEC)
     assert iec_fee.price == 0.0010
     assert iec_fee.unit == "energy"
+    assert iec_fee.max == 43.0
+
+
+def test_byoe_placeholder_tariff_validation():
+    """Test Tariff byoe placeholder validation."""
+    # Placeholder tariff without price or tiers is valid
+    t_ph = Tariff(max=43, byoe=True)
+    assert t_ph.is_byoe_placeholder is True
+    assert t_ph.max == 43.0
+    assert t_ph.price is None
+
+    # Normal tariff without price, tiers, or byoe raises error
+    with pytest.raises(ValidationError, match='Either "price" or "tiers" must be provided'):
+        Tariff(max=43)
+
+    # Standard plan rejects byoe placeholder tariff
+    with pytest.raises(ValidationError, match="defines tariff with byoe placeholder"):
+        Plan(
+            name="Standard Plan",
+            networks=[
+                Network(
+                    network_id="MOBIE",
+                    tariffs=[Tariff(max=43, byoe=True)],
+                )
+            ],
+        )
+
+
+def test_byoe_config_includes_vat_default():
+    """Test ByoeConfig includes_vat defaults to False."""
+    from tariffs.model import ByoeConfig
+
+    cfg = ByoeConfig(start_date="2026-01-01")
+    assert cfg.includes_vat is False
+
+    cfg_true = ByoeConfig(start_date="2026-01-01", includes_vat=True)
+    assert cfg_true.includes_vat is True
+
+    cfg_alias = ByoeConfig(start_date="2026-01-01", vat_included=True)
+    assert cfg_alias.includes_vat is True
+
+
+def test_byoe_multi_placeholder_expansion():
+    """Test expanding multiple placeholder tariffs with explicit voltage levels."""
+    from tariffs.byoe_generator import expand_byoe_plan
+    from tariffs.model import ByoeConfig, MobieFeeType, MobieVoltageLevel, Network, Plan, Tariff
+    from tariffs.regulated_fees import RegulatedFees, TariffPeriod, TarPeriodRate, TarVariant
+
+    regulated_fees = [
+        RegulatedFees(
+            country_code="PT",
+            effective_date="2026-01-01",
+            tar_variants=[
+                TarVariant(
+                    voltage_level="MT",
+                    schedule="2H",
+                    rates=[
+                        TarPeriodRate(period=TariffPeriod.CHEIAS, rate=0.0812),
+                        TarPeriodRate(period=TariffPeriod.VAZIO, rate=0.0157),
+                    ],
+                ),
+                TarVariant(
+                    voltage_level="BT",
+                    schedule="2H",
+                    rates=[
+                        TarPeriodRate(period=TariffPeriod.CHEIAS, rate=0.1192),
+                        TarPeriodRate(period=TariffPeriod.VAZIO, rate=0.0266),
+                    ],
+                ),
+            ],
+            iec=0.0010,
+            egme_connection=0.1088,
+        )
+    ]
+
+    plan = Plan(
+        name="Tiered CEME",
+        country_code="PT",
+        byoe=ByoeConfig(
+            start_date="2026-01-01",
+            schedule="2H",
+            cheias=0.1000,
+            vazio=0.1000,
+        ),
+        networks=[
+            Network(
+                network_id="MOBIE",
+                tariffs=[
+                    Tariff(type="AC", max=43, mobie_voltage_level=MobieVoltageLevel.BT, byoe=True),
+                    Tariff(type="DC", min=43, mobie_voltage_level=MobieVoltageLevel.MT, byoe=True),
+                ],
+            )
+        ],
+    )
+
+    expanded = expand_byoe_plan(plan, regulated_fees)
+    tariffs = expanded.networks[0].tariffs
+
+    ac_tariffs = [t for t in tariffs if t.type == "AC"]
+    dc_tariffs = [t for t in tariffs if t.type == "DC"]
+
+    # AC (BT only): EGME + IEC + CEME + 2 TAR BT = 5
+    assert len(ac_tariffs) == 5
+    assert all(t.max == 43.0 for t in ac_tariffs)
+    assert all(t.min is None for t in ac_tariffs)
+    assert all(t.mobie_voltage_level != MobieVoltageLevel.MT for t in ac_tariffs)
+
+    # DC (MT only): EGME + IEC + CEME + 2 TAR MT = 5
+    assert len(dc_tariffs) == 5
+    assert all(t.min == 43.0 for t in dc_tariffs)
+    assert all(t.max is None for t in dc_tariffs)
+    assert all(t.mobie_voltage_level != MobieVoltageLevel.BT for t in dc_tariffs)
+
 
 

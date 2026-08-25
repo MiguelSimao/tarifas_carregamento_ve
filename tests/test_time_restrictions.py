@@ -36,12 +36,12 @@ def test_time_restrictions_yaml_validates():
         data = yaml.safe_load(f)
 
     doc = TimeRestrictionsDocument.model_validate(data)
-    assert len(doc.time_restrictions_definitions) >= 6
+    assert len(doc.time_restrictions_definitions) >= 20
 
-    # Verify each definition has start_date
+    # Verify each definition has effective_start_date and valid country_code
     for definition in doc.time_restrictions_definitions:
-        assert definition.country_code == "PT"
-        assert definition.start_date == "2026-01-01"
+        assert definition.country_code in ("PT", "PT::RAA", "PT::RAM")
+        assert definition.effective_start_date == "2026-01-01"
 
 
 def test_ciclo_diario_2h_weekly_hours():
@@ -473,8 +473,286 @@ def test_find_effective_and_upcoming_schedules_with_future_changeover():
         reference_date="2026-08-16",
     )
     assert len(matched) == 2
-    assert matched[0].start_date == "2026-01-01" # Active today
-    assert matched[1].start_date == "2027-01-01" # Upcoming regulation changeover
+    assert matched[0].start_date == "2026-01-01"  # Active today
+    assert matched[1].start_date == "2027-01-01"  # Upcoming regulation changeover
+
+
+def test_raa_time_restrictions_weekly_hours():
+    """Ensure RAA (Azores) time restrictions sum to 168h across all cycles and schedules."""
+    definitions = load_time_restrictions()
+
+    # 1. 2H Diário
+    vazio_diario = resolve_time_restrictions(
+        period=TariffPeriod.VAZIO,
+        cycle=TariffCycle.DIARIO,
+        schedule=TariffSchedule.BIHORARIO,
+        country_code="PT::RAA",
+        definitions=definitions,
+    )
+    assert vazio_diario is not None
+    assert calculate_total_weekly_hours(vazio_diario) == 70.0
+    fora_vazio_diario = resolve_time_restrictions(
+        period=TariffPeriod.FORA_VAZIO,
+        cycle=TariffCycle.DIARIO,
+        schedule=TariffSchedule.BIHORARIO,
+        country_code="PT::RAA",
+        definitions=definitions,
+    )
+    assert fora_vazio_diario is not None
+    assert calculate_total_weekly_hours(fora_vazio_diario) == 98.0
+
+    # 2. 2H Semanal (Inverno & Verão)
+    for season in ("inverno", "verao"):
+        vazio_sem = resolve_time_restrictions(
+            period=TariffPeriod.VAZIO,
+            cycle=TariffCycle.SEMANAL,
+            schedule=TariffSchedule.BIHORARIO,
+            country_code="PT::RAA",
+            season=season,
+            definitions=definitions,
+        )
+        fora_vazio_sem = resolve_time_restrictions(
+            period=TariffPeriod.FORA_VAZIO,
+            cycle=TariffCycle.SEMANAL,
+            schedule=TariffSchedule.BIHORARIO,
+            country_code="PT::RAA",
+            season=season,
+            definitions=definitions,
+        )
+        assert vazio_sem is not None and fora_vazio_sem is not None
+        v_h = calculate_total_weekly_hours(vazio_sem)
+        fv_h = calculate_total_weekly_hours(fora_vazio_sem)
+        assert v_h == 76.0
+        assert fv_h == 92.0
+        assert v_h + fv_h == 168.0
+
+    # 3. 3H Diário (Inverno & Verão)
+    for season in ("inverno", "verao"):
+        vazio = resolve_time_restrictions(
+            period=TariffPeriod.VAZIO,
+            cycle=TariffCycle.DIARIO,
+            schedule=TariffSchedule.TRIHORARIO,
+            country_code="PT::RAA",
+            season=season,
+            definitions=definitions,
+        )
+        ponta = resolve_time_restrictions(
+            period=TariffPeriod.PONTA,
+            cycle=TariffCycle.DIARIO,
+            schedule=TariffSchedule.TRIHORARIO,
+            country_code="PT::RAA",
+            season=season,
+            definitions=definitions,
+        )
+        cheias = resolve_time_restrictions(
+            period=TariffPeriod.CHEIAS,
+            cycle=TariffCycle.DIARIO,
+            schedule=TariffSchedule.TRIHORARIO,
+            country_code="PT::RAA",
+            season=season,
+            definitions=definitions,
+        )
+        v_h = calculate_total_weekly_hours(vazio)
+        p_h = calculate_total_weekly_hours(ponta)
+        c_h = calculate_total_weekly_hours(cheias)
+        assert v_h == 70.0
+        assert p_h == 28.0
+        assert c_h == 70.0
+        assert v_h + p_h + c_h == 168.0
+
+    # 4. 3H Semanal (Inverno: Ponta 15h, Cheias 77h; Verão: Ponta 25h, Cheias 67h)
+    for season, expected_ponta, expected_cheias in [("inverno", 15.0, 77.0), ("verao", 25.0, 67.0)]:
+        vazio = resolve_time_restrictions(
+            period=TariffPeriod.VAZIO,
+            cycle=TariffCycle.SEMANAL,
+            schedule=TariffSchedule.TRIHORARIO,
+            country_code="PT::RAA",
+            season=season,
+            definitions=definitions,
+        )
+        ponta = resolve_time_restrictions(
+            period=TariffPeriod.PONTA,
+            cycle=TariffCycle.SEMANAL,
+            schedule=TariffSchedule.TRIHORARIO,
+            country_code="PT::RAA",
+            season=season,
+            definitions=definitions,
+        )
+        cheias = resolve_time_restrictions(
+            period=TariffPeriod.CHEIAS,
+            cycle=TariffCycle.SEMANAL,
+            schedule=TariffSchedule.TRIHORARIO,
+            country_code="PT::RAA",
+            season=season,
+            definitions=definitions,
+        )
+        v_h = calculate_total_weekly_hours(vazio)
+        p_h = calculate_total_weekly_hours(ponta)
+        c_h = calculate_total_weekly_hours(cheias)
+        assert v_h == 76.0
+        assert p_h == expected_ponta
+        assert c_h == expected_cheias
+        assert v_h + p_h + c_h == 168.0
+
+
+def test_ram_time_restrictions_weekly_hours():
+    """Ensure RAM (Madeira) time restrictions sum to 168h across all cycles and schedules."""
+    definitions = load_time_restrictions()
+
+    # 1. 2H Diário (Vazio: 23:00 to 09:00 -> 70h, Fora de Vazio: 09:00 to 23:00 -> 98h)
+    vazio_diario = resolve_time_restrictions(
+        period=TariffPeriod.VAZIO,
+        cycle=TariffCycle.DIARIO,
+        schedule=TariffSchedule.BIHORARIO,
+        country_code="PT::RAM",
+        definitions=definitions,
+    )
+    assert vazio_diario is not None
+    assert calculate_total_weekly_hours(vazio_diario) == 70.0
+    fora_vazio_diario = resolve_time_restrictions(
+        period=TariffPeriod.FORA_VAZIO,
+        cycle=TariffCycle.DIARIO,
+        schedule=TariffSchedule.BIHORARIO,
+        country_code="PT::RAM",
+        definitions=definitions,
+    )
+    assert fora_vazio_diario is not None
+    assert calculate_total_weekly_hours(fora_vazio_diario) == 98.0
+
+    # 2. 2H Semanal (Inverno & Verão)
+    for season in ("inverno", "verao"):
+        vazio_sem = resolve_time_restrictions(
+            period=TariffPeriod.VAZIO,
+            cycle=TariffCycle.SEMANAL,
+            schedule=TariffSchedule.BIHORARIO,
+            country_code="PT::RAM",
+            season=season,
+            definitions=definitions,
+        )
+        fora_vazio_sem = resolve_time_restrictions(
+            period=TariffPeriod.FORA_VAZIO,
+            cycle=TariffCycle.SEMANAL,
+            schedule=TariffSchedule.BIHORARIO,
+            country_code="PT::RAM",
+            season=season,
+            definitions=definitions,
+        )
+        assert vazio_sem is not None and fora_vazio_sem is not None
+        v_h = calculate_total_weekly_hours(vazio_sem)
+        fv_h = calculate_total_weekly_hours(fora_vazio_sem)
+        assert v_h == 76.0
+        assert fv_h == 92.0
+        assert v_h + fv_h == 168.0
+
+    # 3. 3H Diário (Inverno & Verão)
+    for season in ("inverno", "verao"):
+        vazio = resolve_time_restrictions(
+            period=TariffPeriod.VAZIO,
+            cycle=TariffCycle.DIARIO,
+            schedule=TariffSchedule.TRIHORARIO,
+            country_code="PT::RAM",
+            season=season,
+            definitions=definitions,
+        )
+        ponta = resolve_time_restrictions(
+            period=TariffPeriod.PONTA,
+            cycle=TariffCycle.DIARIO,
+            schedule=TariffSchedule.TRIHORARIO,
+            country_code="PT::RAM",
+            season=season,
+            definitions=definitions,
+        )
+        cheias = resolve_time_restrictions(
+            period=TariffPeriod.CHEIAS,
+            cycle=TariffCycle.DIARIO,
+            schedule=TariffSchedule.TRIHORARIO,
+            country_code="PT::RAM",
+            season=season,
+            definitions=definitions,
+        )
+        v_h = calculate_total_weekly_hours(vazio)
+        p_h = calculate_total_weekly_hours(ponta)
+        c_h = calculate_total_weekly_hours(cheias)
+        assert v_h == 70.0
+        assert p_h == 28.0
+        assert c_h == 70.0
+        assert v_h + p_h + c_h == 168.0
+
+    # 4. 3H Semanal (Inverno: Ponta 15h, Cheias 77h; Verão: Ponta 25h, Cheias 67h)
+    for season, expected_ponta, expected_cheias in [("inverno", 15.0, 77.0), ("verao", 25.0, 67.0)]:
+        vazio = resolve_time_restrictions(
+            period=TariffPeriod.VAZIO,
+            cycle=TariffCycle.SEMANAL,
+            schedule=TariffSchedule.TRIHORARIO,
+            country_code="PT::RAM",
+            season=season,
+            definitions=definitions,
+        )
+        ponta = resolve_time_restrictions(
+            period=TariffPeriod.PONTA,
+            cycle=TariffCycle.SEMANAL,
+            schedule=TariffSchedule.TRIHORARIO,
+            country_code="PT::RAM",
+            season=season,
+            definitions=definitions,
+        )
+        cheias = resolve_time_restrictions(
+            period=TariffPeriod.CHEIAS,
+            cycle=TariffCycle.SEMANAL,
+            schedule=TariffSchedule.TRIHORARIO,
+            country_code="PT::RAM",
+            season=season,
+            definitions=definitions,
+        )
+        v_h = calculate_total_weekly_hours(vazio)
+        p_h = calculate_total_weekly_hours(ponta)
+        c_h = calculate_total_weekly_hours(cheias)
+        assert v_h == 76.0
+        assert p_h == expected_ponta
+        assert c_h == expected_cheias
+        assert v_h + p_h + c_h == 168.0
+
+
+def test_option_a_regulation_document_structure():
+    """Ensure RegulationTimeRestrictions correctly groups schedules by country_code and effective_start_date."""
+    yaml_path = os.path.join(
+        os.path.dirname(__file__), "..", "data", "pt", "byoe_fees", "time_restrictions.yaml"
+    )
+    with open(yaml_path, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+
+    doc = TimeRestrictionsDocument.model_validate(data)
+    assert len(doc.time_restrictions) == 3
+
+    pt_reg = next(r for r in doc.time_restrictions if r.country_code == "PT")
+    assert pt_reg.effective_start_date == "2026-01-01"
+    assert len(pt_reg.schedules) == 6
+
+    raa_reg = next(r for r in doc.time_restrictions if r.country_code == "PT::RAA")
+    assert raa_reg.effective_start_date == "2026-01-01"
+    assert len(raa_reg.schedules) == 7
+
+    ram_reg = next(r for r in doc.time_restrictions if r.country_code == "PT::RAM")
+    assert ram_reg.effective_start_date == "2026-01-01"
+    assert len(ram_reg.schedules) == 7
+
+
+def test_seasonal_dates_and_cycle_aware_resolution():
+    """Ensure seasonal dates and cycle-aware get_season_for_date correctly resolve seasons."""
+    # Continental / Island Daily: DST transition
+    assert get_season_for_date("2026-01-15", country_code="PT") == "inverno"
+    assert get_season_for_date("2026-05-15", country_code="PT") == "verao"
+    assert get_season_for_date("2026-08-16", country_code="PT") == "verao"
+    assert get_season_for_date("2026-11-15", country_code="PT") == "inverno"
+
+    # Island Weekly: fixed calendar (June 1 to October 31 = summer)
+    assert get_season_for_date("2026-05-15", country_code="PT::RAA", cycle=TariffCycle.SEMANAL) == "inverno"
+    assert get_season_for_date("2026-06-01", country_code="PT::RAA", cycle=TariffCycle.SEMANAL) == "verao"
+    assert get_season_for_date("2026-08-16", country_code="PT::RAA", cycle=TariffCycle.SEMANAL) == "verao"
+    assert get_season_for_date("2026-10-31", country_code="PT::RAA", cycle=TariffCycle.SEMANAL) == "verao"
+    assert get_season_for_date("2026-11-01", country_code="PT::RAA", cycle=TariffCycle.SEMANAL) == "inverno"
+
+
 
 
 

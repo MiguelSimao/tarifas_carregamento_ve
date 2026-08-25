@@ -42,7 +42,11 @@ def test_compilation_output(tmp_path):
     assert "providers" in data
     assert len(data["providers"]) > 0
     assert "regulated_fees" in data
-    assert len(data["regulated_fees"]) > 0
+    assert len(data["regulated_fees"]) >= 3
+    rf_countries = [rf["country_code"] for rf in data["regulated_fees"]]
+    assert "PT" in rf_countries
+    assert "PT::RAA" in rf_countries
+    assert "PT::RAM" in rf_countries
 
     # Verify at least one BYOE plan exists and has generated tariffs with voltage levels & time restrictions
     byoe_plans = [

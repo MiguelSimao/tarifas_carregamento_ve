@@ -1,222 +1,745 @@
-time_restrictions_definitions:
+time_restrictions:
 
-  # =========================================================================
-  # Ciclo Diário - Bi-horário (2H)
-  # 70 horas de vazio por semana (10h/dia todos os dias)
-  # =========================================================================
+  # #########################################################################
+  # PORTUGAL CONTINENTAL (PT)
+  # #########################################################################
   - country_code: PT
-    start_date: "2026-01-01"
-    cycle: diario
-    schedule: "2H"
-    periods:
-      vazio:
-        - start_time: "22:00"
-          end_time: "08:00"
-          days_of_week: [1, 2, 3, 4, 5, 6, 7]
-      fora_vazio:
-        - start_time: "08:00"
-          end_time: "22:00"
-          days_of_week: [1, 2, 3, 4, 5, 6, 7]
+    effective_start_date: "2026-01-01"
+    schedules:
 
-  # =========================================================================
-  # Ciclo Semanal - Bi-horário (2H)
-  # 76 horas de vazio por semana (35h dias úteis + 17h sábado + 24h domingo)
-  # =========================================================================
-  - country_code: PT
-    start_date: "2026-01-01"
-    cycle: semanal
-    schedule: "2H"
-    periods:
-      vazio:
-        # Dias úteis (Segunda a Sexta): 00h às 07h
-        - start_time: "00:00"
-          end_time: "07:00"
-          days_of_week: [1, 2, 3, 4, 5]
-        # Sábado: 00h às 09h, 14h às 20h, 22h às 24h
-        - start_time: "00:00"
-          end_time: "09:00"
-          days_of_week: [6]
-        - start_time: "14:00"
-          end_time: "20:00"
-          days_of_week: [6]
-        - start_time: "22:00"
-          end_time: "24:00"
-          days_of_week: [6]
-        # Domingo: Todo o dia (00h às 24h)
-        - start_time: "00:00"
-          end_time: "24:00"
-          days_of_week: [7]
+      # =======================================================================
+      # Ciclo Diário - Bi-horário (2H)
+      # 70 horas de vazio por semana (10h/dia todos os dias: 22h às 08h)
+      # =======================================================================
+      - cycle: diario
+        schedule: "2H"
+        periods:
+          vazio:
+            - start_time: "22:00"
+              end_time: "08:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          fora_vazio:
+            - start_time: "08:00"
+              end_time: "22:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
 
-      fora_vazio:
-        # Dias úteis (Segunda a Sexta): 07h às 24h
-        - start_time: "07:00"
-          end_time: "24:00"
-          days_of_week: [1, 2, 3, 4, 5]
-        # Sábado: 09h às 14h, 20h às 22h
-        - start_time: "09:00"
-          end_time: "14:00"
-          days_of_week: [6]
-        - start_time: "20:00"
-          end_time: "22:00"
-          days_of_week: [6]
-        # Domingo: Sem fora de vazio
+      # =======================================================================
+      # Ciclo Semanal - Bi-horário (2H)
+      # 76 horas de vazio por semana (35h dias úteis + 17h sábado + 24h domingo)
+      # =======================================================================
+      - cycle: semanal
+        schedule: "2H"
+        periods:
+          vazio:
+            # Dias úteis (Segunda a Sexta): 00h às 07h
+            - start_time: "00:00"
+              end_time: "07:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            # Sábado: 00h às 09h, 14h às 20h, 22h às 24h
+            - start_time: "00:00"
+              end_time: "09:00"
+              days_of_week: [6]
+            - start_time: "14:00"
+              end_time: "20:00"
+              days_of_week: [6]
+            - start_time: "22:00"
+              end_time: "24:00"
+              days_of_week: [6]
+            # Domingo: Todo o dia (00h às 24h)
+            - start_time: "00:00"
+              end_time: "24:00"
+              days_of_week: [7]
 
-  # =========================================================================
-  # Ciclo Diário - Tri-horário (3H) - Inverno
-  # =========================================================================
-  - country_code: PT
-    start_date: "2026-01-01"
-    cycle: diario
-    schedule: "3H"
-    season: inverno
-    periods:
-      vazio:
-        - start_time: "22:00"
-          end_time: "08:00"
-          days_of_week: [1, 2, 3, 4, 5, 6, 7]
-      ponta:
-        - start_time: "09:00"
-          end_time: "10:30"
-          days_of_week: [1, 2, 3, 4, 5, 6, 7]
-        - start_time: "18:00"
-          end_time: "20:30"
-          days_of_week: [1, 2, 3, 4, 5, 6, 7]
-      cheias:
-        - start_time: "08:00"
-          end_time: "09:00"
-          days_of_week: [1, 2, 3, 4, 5, 6, 7]
-        - start_time: "10:30"
-          end_time: "18:00"
-          days_of_week: [1, 2, 3, 4, 5, 6, 7]
-        - start_time: "20:30"
-          end_time: "22:00"
-          days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          fora_vazio:
+            # Dias úteis (Segunda a Sexta): 07h às 24h
+            - start_time: "07:00"
+              end_time: "24:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            # Sábado: 09h às 14h, 20h às 22h
+            - start_time: "09:00"
+              end_time: "14:00"
+              days_of_week: [6]
+            - start_time: "20:00"
+              end_time: "22:00"
+              days_of_week: [6]
+            # Domingo: Sem fora de vazio
 
-  # =========================================================================
-  # Ciclo Diário - Tri-horário (3H) - Verão
-  # =========================================================================
-  - country_code: PT
-    start_date: "2026-01-01"
-    cycle: diario
-    schedule: "3H"
-    season: verao
-    periods:
-      vazio:
-        - start_time: "22:00"
-          end_time: "08:00"
-          days_of_week: [1, 2, 3, 4, 5, 6, 7]
-      ponta:
-        - start_time: "10:30"
-          end_time: "13:00"
-          days_of_week: [1, 2, 3, 4, 5, 6, 7]
-        - start_time: "19:30"
-          end_time: "21:00"
-          days_of_week: [1, 2, 3, 4, 5, 6, 7]
-      cheias:
-        - start_time: "08:00"
-          end_time: "10:30"
-          days_of_week: [1, 2, 3, 4, 5, 6, 7]
-        - start_time: "13:00"
-          end_time: "19:30"
-          days_of_week: [1, 2, 3, 4, 5, 6, 7]
-        - start_time: "21:00"
-          end_time: "22:00"
-          days_of_week: [1, 2, 3, 4, 5, 6, 7]
+      # =======================================================================
+      # Ciclo Diário - Tri-horário (3H) - Inverno (Hora Legal de Inverno: DST)
+      # =======================================================================
+      - cycle: diario
+        schedule: "3H"
+        season: inverno
+        start_date: "2026-10-25"
+        end_date: "2027-03-27"
+        periods:
+          vazio:
+            - start_time: "22:00"
+              end_time: "08:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          ponta:
+            - start_time: "09:00"
+              end_time: "10:30"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "18:00"
+              end_time: "20:30"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          cheias:
+            - start_time: "08:00"
+              end_time: "09:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "10:30"
+              end_time: "18:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "20:30"
+              end_time: "22:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
 
-  # =========================================================================
-  # Ciclo Semanal - Tri-horário (3H) - Inverno
-  # =========================================================================
-  - country_code: PT
-    start_date: "2026-01-01"
-    cycle: semanal
-    schedule: "3H"
-    season: inverno
-    periods:
-      vazio:
-        - start_time: "00:00"
-          end_time: "07:00"
-          days_of_week: [1, 2, 3, 4, 5]
-        - start_time: "00:00"
-          end_time: "09:00"
-          days_of_week: [6]
-        - start_time: "14:00"
-          end_time: "20:00"
-          days_of_week: [6]
-        - start_time: "22:00"
-          end_time: "24:00"
-          days_of_week: [6]
-        - start_time: "00:00"
-          end_time: "24:00"
-          days_of_week: [7]
-      ponta:
-        - start_time: "09:00"
-          end_time: "10:30"
-          days_of_week: [1, 2, 3, 4, 5]
-        - start_time: "18:00"
-          end_time: "20:30"
-          days_of_week: [1, 2, 3, 4, 5]
-      cheias:
-        - start_time: "07:00"
-          end_time: "09:00"
-          days_of_week: [1, 2, 3, 4, 5]
-        - start_time: "10:30"
-          end_time: "18:00"
-          days_of_week: [1, 2, 3, 4, 5]
-        - start_time: "20:30"
-          end_time: "24:00"
-          days_of_week: [1, 2, 3, 4, 5]
-        - start_time: "09:00"
-          end_time: "14:00"
-          days_of_week: [6]
-        - start_time: "20:00"
-          end_time: "22:00"
-          days_of_week: [6]
+      # =======================================================================
+      # Ciclo Diário - Tri-horário (3H) - Verão (Hora Legal de Verão: DST)
+      # =======================================================================
+      - cycle: diario
+        schedule: "3H"
+        season: verao
+        start_date: "2026-03-29"
+        end_date: "2026-10-24"
+        periods:
+          vazio:
+            - start_time: "22:00"
+              end_time: "08:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          ponta:
+            - start_time: "10:30"
+              end_time: "13:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "19:30"
+              end_time: "21:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          cheias:
+            - start_time: "08:00"
+              end_time: "10:30"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "13:00"
+              end_time: "19:30"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "21:00"
+              end_time: "22:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
 
-  # =========================================================================
-  # Ciclo Semanal - Tri-horário (3H) - Verão
-  # =========================================================================
-  - country_code: PT
-    start_date: "2026-01-01"
-    cycle: semanal
-    schedule: "3H"
-    season: verao
-    periods:
-      vazio:
-        - start_time: "00:00"
-          end_time: "07:00"
-          days_of_week: [1, 2, 3, 4, 5]
-        - start_time: "00:00"
-          end_time: "09:00"
-          days_of_week: [6]
-        - start_time: "14:00"
-          end_time: "20:00"
-          days_of_week: [6]
-        - start_time: "22:00"
-          end_time: "24:00"
-          days_of_week: [6]
-        - start_time: "00:00"
-          end_time: "24:00"
-          days_of_week: [7]
-      ponta:
-        - start_time: "10:30"
-          end_time: "13:00"
-          days_of_week: [1, 2, 3, 4, 5]
-        - start_time: "19:30"
-          end_time: "21:00"
-          days_of_week: [1, 2, 3, 4, 5]
-      cheias:
-        - start_time: "07:00"
-          end_time: "10:30"
-          days_of_week: [1, 2, 3, 4, 5]
-        - start_time: "13:00"
-          end_time: "19:30"
-          days_of_week: [1, 2, 3, 4, 5]
-        - start_time: "21:00"
-          end_time: "24:00"
-          days_of_week: [1, 2, 3, 4, 5]
-        - start_time: "09:00"
-          end_time: "14:00"
-          days_of_week: [6]
-        - start_time: "20:00"
-          end_time: "22:00"
-          days_of_week: [6]
+      # =======================================================================
+      # Ciclo Semanal - Tri-horário (3H) - Inverno (Hora Legal de Inverno: DST)
+      # =======================================================================
+      - cycle: semanal
+        schedule: "3H"
+        season: inverno
+        start_date: "2026-10-25"
+        end_date: "2027-03-27"
+        periods:
+          vazio:
+            - start_time: "00:00"
+              end_time: "07:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "00:00"
+              end_time: "09:00"
+              days_of_week: [6]
+            - start_time: "14:00"
+              end_time: "20:00"
+              days_of_week: [6]
+            - start_time: "22:00"
+              end_time: "24:00"
+              days_of_week: [6]
+            - start_time: "00:00"
+              end_time: "24:00"
+              days_of_week: [7]
+          ponta:
+            - start_time: "09:00"
+              end_time: "10:30"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "18:00"
+              end_time: "20:30"
+              days_of_week: [1, 2, 3, 4, 5]
+          cheias:
+            - start_time: "07:00"
+              end_time: "09:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "10:30"
+              end_time: "18:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "20:30"
+              end_time: "24:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "09:00"
+              end_time: "14:00"
+              days_of_week: [6]
+            - start_time: "20:00"
+              end_time: "22:00"
+              days_of_week: [6]
+
+      # =======================================================================
+      # Ciclo Semanal - Tri-horário (3H) - Verão (Hora Legal de Verão: DST)
+      # =======================================================================
+      - cycle: semanal
+        schedule: "3H"
+        season: verao
+        start_date: "2026-03-29"
+        end_date: "2026-10-24"
+        periods:
+          vazio:
+            - start_time: "00:00"
+              end_time: "07:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "00:00"
+              end_time: "09:00"
+              days_of_week: [6]
+            - start_time: "14:00"
+              end_time: "20:00"
+              days_of_week: [6]
+            - start_time: "22:00"
+              end_time: "24:00"
+              days_of_week: [6]
+            - start_time: "00:00"
+              end_time: "24:00"
+              days_of_week: [7]
+          ponta:
+            - start_time: "10:30"
+              end_time: "13:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "19:30"
+              end_time: "21:00"
+              days_of_week: [1, 2, 3, 4, 5]
+          cheias:
+            - start_time: "07:00"
+              end_time: "10:30"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "13:00"
+              end_time: "19:30"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "21:00"
+              end_time: "24:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "09:00"
+              end_time: "14:00"
+              days_of_week: [6]
+            - start_time: "20:00"
+              end_time: "22:00"
+              days_of_week: [6]
+
+  # #########################################################################
+  # REGIÃO AUTÓNOMA DOS AÇORES (PT::RAA)
+  # #########################################################################
+  - country_code: PT::RAA
+    effective_start_date: "2026-01-01"
+    schedules:
+
+      # =======================================================================
+      # Açores: Ciclo Diário - Bi-horário (2H)
+      # 70 horas de vazio por semana (10h/dia todos os dias: 22h às 08h)
+      # =======================================================================
+      - cycle: diario
+        schedule: "2H"
+        periods:
+          vazio:
+            - start_time: "22:00"
+              end_time: "08:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          fora_vazio:
+            - start_time: "08:00"
+              end_time: "22:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+
+      # =======================================================================
+      # Açores: Ciclo Semanal - Bi-horário (2H) - Inverno (01/11 a 31/05)
+      # 76 horas de vazio por semana (35h dias úteis + 17h sábado + 24h domingo)
+      # =======================================================================
+      - cycle: semanal
+        schedule: "2H"
+        season: inverno
+        start_date: "2026-11-01"
+        end_date: "2027-05-31"
+        periods:
+          vazio:
+            # Dias úteis (Segunda a Sexta): 00h às 07h
+            - start_time: "00:00"
+              end_time: "07:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            # Sábado: 00h às 11h30, 13h30 às 18h, 23h às 24h
+            - start_time: "00:00"
+              end_time: "11:30"
+              days_of_week: [6]
+            - start_time: "13:30"
+              end_time: "18:00"
+              days_of_week: [6]
+            - start_time: "23:00"
+              end_time: "24:00"
+              days_of_week: [6]
+            # Domingo: Todo o dia (00h às 24h)
+            - start_time: "00:00"
+              end_time: "24:00"
+              days_of_week: [7]
+
+          fora_vazio:
+            # Dias úteis (Segunda a Sexta): 07h às 24h
+            - start_time: "07:00"
+              end_time: "24:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            # Sábado: 11h30 às 13h30, 18h às 23h
+            - start_time: "11:30"
+              end_time: "13:30"
+              days_of_week: [6]
+            - start_time: "18:00"
+              end_time: "23:00"
+              days_of_week: [6]
+            # Domingo: Sem fora de vazio
+
+      # =======================================================================
+      # Açores: Ciclo Semanal - Bi-horário (2H) - Verão (01/06 a 31/10)
+      # 76 horas de vazio por semana (35h dias úteis + 17h sábado + 24h domingo)
+      # =======================================================================
+      - cycle: semanal
+        schedule: "2H"
+        season: verao
+        start_date: "2026-06-01"
+        end_date: "2026-10-31"
+        periods:
+          vazio:
+            # Dias úteis (Segunda a Sexta): 00h às 07h
+            - start_time: "00:00"
+              end_time: "07:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            # Sábado: 00h às 11h, 14h30 às 19h30, 23h às 24h
+            - start_time: "00:00"
+              end_time: "11:00"
+              days_of_week: [6]
+            - start_time: "14:30"
+              end_time: "19:30"
+              days_of_week: [6]
+            - start_time: "23:00"
+              end_time: "24:00"
+              days_of_week: [6]
+            # Domingo: Todo o dia (00h às 24h)
+            - start_time: "00:00"
+              end_time: "24:00"
+              days_of_week: [7]
+
+          fora_vazio:
+            # Dias úteis (Segunda a Sexta): 07h às 24h
+            - start_time: "07:00"
+              end_time: "24:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            # Sábado: 11h às 14h30, 19h30 às 23h
+            - start_time: "11:00"
+              end_time: "14:30"
+              days_of_week: [6]
+            - start_time: "19:30"
+              end_time: "23:00"
+              days_of_week: [6]
+            # Domingo: Sem fora de vazio
+
+      # =======================================================================
+      # Açores: Ciclo Diário - Tri-horário (3H) - Inverno (Hora Legal: DST)
+      # =======================================================================
+      - cycle: diario
+        schedule: "3H"
+        season: inverno
+        start_date: "2026-10-25"
+        end_date: "2027-03-27"
+        periods:
+          vazio:
+            - start_time: "22:00"
+              end_time: "08:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          ponta:
+            - start_time: "09:30"
+              end_time: "11:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "17:30"
+              end_time: "20:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          cheias:
+            - start_time: "08:00"
+              end_time: "09:30"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "11:00"
+              end_time: "17:30"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "20:00"
+              end_time: "22:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+
+      # =======================================================================
+      # Açores: Ciclo Diário - Tri-horário (3H) - Verão (Hora Legal: DST)
+      # =======================================================================
+      - cycle: diario
+        schedule: "3H"
+        season: verao
+        start_date: "2026-03-29"
+        end_date: "2026-10-24"
+        periods:
+          vazio:
+            - start_time: "22:00"
+              end_time: "08:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          ponta:
+            - start_time: "09:00"
+              end_time: "11:30"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "19:30"
+              end_time: "21:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          cheias:
+            - start_time: "08:00"
+              end_time: "09:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "11:30"
+              end_time: "19:30"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "21:00"
+              end_time: "22:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+
+      # =======================================================================
+      # Açores: Ciclo Semanal - Tri-horário (3H) - Inverno (01/11 a 31/05)
+      # =======================================================================
+      - cycle: semanal
+        schedule: "3H"
+        season: inverno
+        start_date: "2026-11-01"
+        end_date: "2027-05-31"
+        periods:
+          vazio:
+            - start_time: "00:00"
+              end_time: "07:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "00:00"
+              end_time: "11:30"
+              days_of_week: [6]
+            - start_time: "13:30"
+              end_time: "18:00"
+              days_of_week: [6]
+            - start_time: "23:00"
+              end_time: "24:00"
+              days_of_week: [6]
+            - start_time: "00:00"
+              end_time: "24:00"
+              days_of_week: [7]
+          ponta:
+            - start_time: "18:30"
+              end_time: "21:30"
+              days_of_week: [1, 2, 3, 4, 5]
+          cheias:
+            - start_time: "07:00"
+              end_time: "18:30"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "21:30"
+              end_time: "24:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "11:30"
+              end_time: "13:30"
+              days_of_week: [6]
+            - start_time: "18:00"
+              end_time: "23:00"
+              days_of_week: [6]
+
+      # =======================================================================
+      # Açores: Ciclo Semanal - Tri-horário (3H) - Verão (01/06 a 31/10)
+      # =======================================================================
+      - cycle: semanal
+        schedule: "3H"
+        season: verao
+        start_date: "2026-06-01"
+        end_date: "2026-10-31"
+        periods:
+          vazio:
+            - start_time: "00:00"
+              end_time: "07:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "00:00"
+              end_time: "11:00"
+              days_of_week: [6]
+            - start_time: "14:30"
+              end_time: "19:30"
+              days_of_week: [6]
+            - start_time: "23:00"
+              end_time: "24:00"
+              days_of_week: [6]
+            - start_time: "00:00"
+              end_time: "24:00"
+              days_of_week: [7]
+          ponta:
+            - start_time: "10:30"
+              end_time: "15:30"
+              days_of_week: [1, 2, 3, 4, 5]
+          cheias:
+            - start_time: "07:00"
+              end_time: "10:30"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "15:30"
+              end_time: "24:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "11:00"
+              end_time: "14:30"
+              days_of_week: [6]
+            - start_time: "19:30"
+              end_time: "23:00"
+              days_of_week: [6]
+
+  # #########################################################################
+  # REGIÃO AUTÓNOMA DA MADEIRA (PT::RAM)
+  # #########################################################################
+  - country_code: PT::RAM
+    effective_start_date: "2026-01-01"
+    schedules:
+
+      # =======================================================================
+      # Madeira: Ciclo Diário - Bi-horário (2H)
+      # 70 horas de vazio por semana (10h/dia todos os dias: 23h às 09h)
+      # =======================================================================
+      - cycle: diario
+        schedule: "2H"
+        periods:
+          vazio:
+            - start_time: "23:00"
+              end_time: "09:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          fora_vazio:
+            - start_time: "09:00"
+              end_time: "23:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+
+      # =======================================================================
+      # Madeira: Ciclo Semanal - Bi-horário (2H) - Inverno (01/11 a 31/05)
+      # =======================================================================
+      - cycle: semanal
+        schedule: "2H"
+        season: inverno
+        start_date: "2026-11-01"
+        end_date: "2027-05-31"
+        periods:
+          vazio:
+            # Dias úteis (Segunda a Sexta): 00h às 07h
+            - start_time: "00:00"
+              end_time: "07:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            # Sábado: 00h às 11h30, 14h às 18h, 22h30 às 24h
+            - start_time: "00:00"
+              end_time: "11:30"
+              days_of_week: [6]
+            - start_time: "14:00"
+              end_time: "18:00"
+              days_of_week: [6]
+            - start_time: "22:30"
+              end_time: "24:00"
+              days_of_week: [6]
+            # Domingo: Todo o dia (00h às 24h)
+            - start_time: "00:00"
+              end_time: "24:00"
+              days_of_week: [7]
+
+          fora_vazio:
+            # Dias úteis (Segunda a Sexta): 07h às 24h
+            - start_time: "07:00"
+              end_time: "24:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            # Sábado: 11h30 às 14h, 18h às 22h30
+            - start_time: "11:30"
+              end_time: "14:00"
+              days_of_week: [6]
+            - start_time: "18:00"
+              end_time: "22:30"
+              days_of_week: [6]
+
+      # =======================================================================
+      # Madeira: Ciclo Semanal - Bi-horário (2H) - Verão (01/06 a 31/10)
+      # =======================================================================
+      - cycle: semanal
+        schedule: "2H"
+        season: verao
+        start_date: "2026-06-01"
+        end_date: "2026-10-31"
+        periods:
+          vazio:
+            # Dias úteis (Segunda a Sexta): 00h às 07h
+            - start_time: "00:00"
+              end_time: "07:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            # Sábado: 00h às 11h, 14h30 às 19h30, 23h às 24h
+            - start_time: "00:00"
+              end_time: "11:00"
+              days_of_week: [6]
+            - start_time: "14:30"
+              end_time: "19:30"
+              days_of_week: [6]
+            - start_time: "23:00"
+              end_time: "24:00"
+              days_of_week: [6]
+            # Domingo: Todo o dia (00h às 24h)
+            - start_time: "00:00"
+              end_time: "24:00"
+              days_of_week: [7]
+
+          fora_vazio:
+            # Dias úteis (Segunda a Sexta): 07h às 24h
+            - start_time: "07:00"
+              end_time: "24:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            # Sábado: 11h às 14h30, 19h30 às 23h
+            - start_time: "11:00"
+              end_time: "14:30"
+              days_of_week: [6]
+            - start_time: "19:30"
+              end_time: "23:00"
+              days_of_week: [6]
+
+      # =======================================================================
+      # Madeira: Ciclo Diário - Tri-horário (3H) - Inverno (Hora Legal: DST)
+      # =======================================================================
+      - cycle: diario
+        schedule: "3H"
+        season: inverno
+        start_date: "2026-10-25"
+        end_date: "2027-03-27"
+        periods:
+          vazio:
+            - start_time: "23:00"
+              end_time: "09:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          ponta:
+            - start_time: "10:30"
+              end_time: "12:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "18:30"
+              end_time: "21:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          cheias:
+            - start_time: "09:00"
+              end_time: "10:30"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "12:00"
+              end_time: "18:30"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "21:00"
+              end_time: "23:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+
+      # =======================================================================
+      # Madeira: Ciclo Diário - Tri-horário (3H) - Verão (Hora Legal: DST)
+      # =======================================================================
+      - cycle: diario
+        schedule: "3H"
+        season: verao
+        start_date: "2026-03-29"
+        end_date: "2026-10-24"
+        periods:
+          vazio:
+            - start_time: "23:00"
+              end_time: "09:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          ponta:
+            - start_time: "10:30"
+              end_time: "13:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "20:30"
+              end_time: "22:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+          cheias:
+            - start_time: "09:00"
+              end_time: "10:30"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "13:00"
+              end_time: "20:30"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+            - start_time: "22:00"
+              end_time: "23:00"
+              days_of_week: [1, 2, 3, 4, 5, 6, 7]
+
+      # =======================================================================
+      # Madeira: Ciclo Semanal - Tri-horário (3H) - Inverno (01/11 a 31/05)
+      # =======================================================================
+      - cycle: semanal
+        schedule: "3H"
+        season: inverno
+        start_date: "2026-11-01"
+        end_date: "2027-05-31"
+        periods:
+          vazio:
+            - start_time: "00:00"
+              end_time: "07:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "00:00"
+              end_time: "11:30"
+              days_of_week: [6]
+            - start_time: "14:00"
+              end_time: "18:00"
+              days_of_week: [6]
+            - start_time: "22:30"
+              end_time: "24:00"
+              days_of_week: [6]
+            - start_time: "00:00"
+              end_time: "24:00"
+              days_of_week: [7]
+          ponta:
+            - start_time: "19:00"
+              end_time: "22:00"
+              days_of_week: [1, 2, 3, 4, 5]
+          cheias:
+            - start_time: "07:00"
+              end_time: "19:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "22:00"
+              end_time: "24:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "11:30"
+              end_time: "14:00"
+              days_of_week: [6]
+            - start_time: "18:00"
+              end_time: "22:30"
+              days_of_week: [6]
+
+      # =======================================================================
+      # Madeira: Ciclo Semanal - Tri-horário (3H) - Verão (01/06 a 31/10)
+      # =======================================================================
+      - cycle: semanal
+        schedule: "3H"
+        season: verao
+        start_date: "2026-06-01"
+        end_date: "2026-10-31"
+        periods:
+          vazio:
+            - start_time: "00:00"
+              end_time: "07:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "00:00"
+              end_time: "11:00"
+              days_of_week: [6]
+            - start_time: "14:30"
+              end_time: "19:30"
+              days_of_week: [6]
+            - start_time: "23:00"
+              end_time: "24:00"
+              days_of_week: [6]
+            - start_time: "00:00"
+              end_time: "24:00"
+              days_of_week: [7]
+          ponta:
+            - start_time: "11:00"
+              end_time: "14:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "20:00"
+              end_time: "22:00"
+              days_of_week: [1, 2, 3, 4, 5]
+          cheias:
+            - start_time: "07:00"
+              end_time: "11:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "14:00"
+              end_time: "20:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "22:00"
+              end_time: "24:00"
+              days_of_week: [1, 2, 3, 4, 5]
+            - start_time: "11:00"
+              end_time: "14:30"
+              days_of_week: [6]
+            - start_time: "19:30"
+              end_time: "23:00"
+              days_of_week: [6]

@@ -55,8 +55,9 @@ def get_portugal_dst_dates(year: int) -> tuple[datetime.date, datetime.date]:
 def get_season_for_date(
     target_date: str | datetime.date | None = None,
     country_code: str = "PT",
+    cycle: TariffCycle | str | None = None,
 ) -> str:
-    """Determine the active season ('verao' or 'inverno') for a given date in Portugal."""
+    """Determine the active season ('verao' or 'inverno') for a given date."""
     if target_date is None:
         d = datetime.date.today()
     elif isinstance(target_date, str):
@@ -65,12 +66,15 @@ def get_season_for_date(
         d = target_date
 
     country = (country_code or "PT").upper()
-    if country == "PT":
-        summer_start, winter_start = get_portugal_dst_dates(d.year)
-        if summer_start <= d < winter_start:
+    cycle_val = cycle.value if isinstance(cycle, TariffCycle) else (str(cycle).lower() if cycle else None)
+
+    # For Azores and Madeira weekly cycle (Ciclo Semanal), summer is fixed June 1 to October 31
+    if country in ("PT::RAA", "PT::RAM") and cycle_val == "semanal":
+        if 6 <= d.month <= 10:
             return "verao"
         return "inverno"
 
+    # Default / Continental / Island Daily: Daylight Saving Time (DST)
     summer_start, winter_start = get_portugal_dst_dates(d.year)
     if summer_start <= d < winter_start:
         return "verao"
@@ -110,53 +114,64 @@ def find_effective_and_upcoming_schedules(
     if not candidates:
         return []
 
-    # Filter definitions valid on reference_date (today)
+    # Filter definitions by regulation validity on reference_date (today)
     active_today_candidates = []
-    for c in candidates:
-        if c.start_date and c.start_date > ref_d_str:
-            continue
-        if c.end_date and c.end_date < ref_d_str:
-            continue
-        active_today_candidates.append(c)
+    future_candidates = []
 
-    # Future definitions starting after reference_date (upcoming regulation changeovers)
-    future_candidates = [c for c in candidates if c.start_date and c.start_date > ref_d_str]
+    for c in candidates:
+        reg_start = c.effective_start_date or c.start_date
+        if reg_start and reg_start > ref_d_str:
+            future_candidates.append(c)
+        else:
+            active_today_candidates.append(c)
 
     results: list[TariffCycleSchedule] = []
 
     if active_today_candidates:
         has_seasonal = any(c.season is not None for c in active_today_candidates)
         if has_seasonal:
-            current_season = get_season_for_date(ref_d_str, country_code=target_country)
+            # Check if any candidate directly matches reference date range
+            matching_date_candidate = next(
+                (c for c in active_today_candidates if c.start_date and c.end_date and c.start_date <= ref_d_str <= c.end_date),
+                None,
+            )
+            if matching_date_candidate and matching_date_candidate.season:
+                current_season = matching_date_candidate.season.lower()
+            else:
+                current_season = get_season_for_date(ref_d_str, country_code=target_country, cycle=cycle_val)
+
             upcoming_season = get_upcoming_season(current_season)
 
             # 1. Active season today
             cur_season_matches = [c for c in active_today_candidates if c.season == current_season]
             if cur_season_matches:
-                cur_season_matches.sort(key=lambda c: c.start_date or "", reverse=True)
+                cur_season_matches.sort(key=lambda c: c.effective_start_date or c.start_date or "", reverse=True)
                 results.append(cur_season_matches[0])
 
             # 2. Upcoming season from active regulation
             up_season_matches = [c for c in active_today_candidates if c.season == upcoming_season]
             if up_season_matches:
-                up_season_matches.sort(key=lambda c: c.start_date or "", reverse=True)
+                up_season_matches.sort(key=lambda c: c.effective_start_date or c.start_date or "", reverse=True)
                 results.append(up_season_matches[0])
         else:
-            # Non-seasonal: pick latest start_date for today
-            active_today_candidates.sort(key=lambda c: c.start_date or "", reverse=True)
+            # Non-seasonal: pick latest regulation start date for today
+            active_today_candidates.sort(key=lambda c: c.effective_start_date or c.start_date or "", reverse=True)
             results.append(active_today_candidates[0])
 
     # 3. If future regulation changeovers exist, add the earliest upcoming future regulation period
     if future_candidates:
-        future_candidates.sort(key=lambda c: c.start_date or "")
-        next_start_date = future_candidates[0].start_date
-        next_gen_candidates = [c for c in future_candidates if c.start_date == next_start_date]
+        future_candidates.sort(key=lambda c: c.effective_start_date or c.start_date or "")
+        next_start_date = future_candidates[0].effective_start_date or future_candidates[0].start_date
+        next_gen_candidates = [
+            c for c in future_candidates
+            if (c.effective_start_date or c.start_date) == next_start_date
+        ]
         for fg in next_gen_candidates:
             if fg not in results:
                 results.append(fg)
 
     if not results and candidates:
-        candidates.sort(key=lambda c: c.start_date or "", reverse=True)
+        candidates.sort(key=lambda c: c.effective_start_date or c.start_date or "", reverse=True)
         results.append(candidates[0])
 
     return results
@@ -191,9 +206,8 @@ def find_matching_cycle_schedules(
     if effective_date is not None:
         valid_candidates = []
         for c in candidates:
-            if c.start_date and c.start_date > effective_date:
-                continue
-            if c.end_date and c.end_date < effective_date:
+            reg_start = c.effective_start_date or c.start_date
+            if reg_start and reg_start > effective_date:
                 continue
             valid_candidates.append(c)
         candidates = valid_candidates
@@ -201,7 +215,7 @@ def find_matching_cycle_schedules(
     if not candidates:
         return []
 
-    # Group candidates by season (None, 'inverno', 'verao', etc.) and pick the latest start_date for each
+    # Group candidates by season (None, 'inverno', 'verao', etc.) and pick the latest regulation start for each
     by_season: dict[str | None, list[TariffCycleSchedule]] = {}
     for c in candidates:
         season_key = c.season.lower() if c.season else None
@@ -209,7 +223,7 @@ def find_matching_cycle_schedules(
 
     results: list[TariffCycleSchedule] = []
     for s_key, sched_list in by_season.items():
-        sched_list.sort(key=lambda c: c.start_date or "", reverse=True)
+        sched_list.sort(key=lambda c: c.effective_start_date or c.start_date or "", reverse=True)
         results.append(sched_list[0])
 
     return results

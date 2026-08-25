@@ -1,6 +1,6 @@
 from enum import Enum
 
-from pydantic import AliasChoices, BaseModel, Field
+from pydantic import AliasChoices, BaseModel, Field, model_validator
 
 
 class TariffPeriod(str, Enum):
@@ -44,7 +44,10 @@ class RegulatedFees(BaseModel):
     """A dated set of regulated fees."""
 
     country_code: str = "PT"
-    effective_date: str
+    effective_date: str = Field(
+        validation_alias=AliasChoices("effective_date", "effective_start_date"),
+        description="Effective start date of this regulation period (YYYY-MM-DD)",
+    )
     end_date: str | None = None
     tar_variants: list[TarVariant]
     iec: float  # Electricity special tax (€/kWh)
@@ -66,31 +69,67 @@ class TimeRestriction(BaseModel):
 
 
 class TariffCycleSchedule(BaseModel):
-    """Time-of-use restrictions definition for a specific cycle, schedule, and date validity range."""
+    """Time-of-use restrictions definition for a specific cycle, schedule, and seasonal date validity range."""
 
-    country_code: str = "PT"
-    start_date: str | None = Field(
-        default=None,
-        validation_alias=AliasChoices("start_date", "effective_date"),
-        description="Effective start date of this cycle schedule (YYYY-MM-DD)",
-    )
-    end_date: str | None = Field(
-        default=None,
-        description="End date of this cycle schedule (YYYY-MM-DD)",
-    )
     cycle: TariffCycle
     schedule: TariffSchedule
     season: str | None = Field(
         default=None,
         description="Seasonal identifier (e.g. 'inverno', 'verao', or None)",
     )
+    start_date: str | None = Field(
+        default=None,
+        description="Seasonal start date (YYYY-MM-DD)",
+    )
+    end_date: str | None = Field(
+        default=None,
+        description="Seasonal end date (YYYY-MM-DD)",
+    )
     periods: dict[TariffPeriod, list[TimeRestriction]]
+    country_code: str = "PT"
+    effective_start_date: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices("effective_start_date", "effective_date"),
+        description="Effective start date of this regulation period (YYYY-MM-DD)",
+    )
+
+
+class RegulationTimeRestrictions(BaseModel):
+    """A set of time-of-use restriction schedules for a country/region and regulation period."""
+
+    country_code: str = "PT"
+    effective_start_date: str = Field(
+        validation_alias=AliasChoices("effective_start_date", "effective_date", "start_date"),
+        description="Effective start date of this regulation period (YYYY-MM-DD)",
+    )
+    end_date: str | None = Field(
+        default=None,
+        description="End date of this regulation period (YYYY-MM-DD)",
+    )
+    schedules: list[TariffCycleSchedule]
+
+    @model_validator(mode="after")
+    def propagate_metadata(self) -> "RegulationTimeRestrictions":
+        for s in self.schedules:
+            if not s.country_code or s.country_code == "PT":
+                s.country_code = self.country_code
+            if not s.effective_start_date:
+                s.effective_start_date = self.effective_start_date
+        return self
 
 
 class TimeRestrictionsDocument(BaseModel):
     """Top-level document for time restrictions definition YAML files."""
 
-    time_restrictions_definitions: list[TariffCycleSchedule] = Field(
-        validation_alias=AliasChoices("time_restrictions_definitions", "time_restrictions")
+    time_restrictions: list[RegulationTimeRestrictions] = Field(
+        validation_alias=AliasChoices("time_restrictions", "time_restrictions_definitions")
     )
+
+    @property
+    def time_restrictions_definitions(self) -> list[TariffCycleSchedule]:
+        """Convenience accessor returning all flattened TariffCycleSchedule instances."""
+        all_schedules: list[TariffCycleSchedule] = []
+        for reg in self.time_restrictions:
+            all_schedules.extend(reg.schedules)
+        return all_schedules
 

@@ -6,6 +6,10 @@ providers:
 
   - name: "CEME Base"
     country_code: PT
+    regions:
+    - PT
+    - "PT::RAA"
+    - "PT::RAM"
     byoe:
       start_date: "2026-07-01"
       cycle: diario
@@ -25,6 +29,10 @@ providers:
 
   - name: "CEME Sócio"
     country_code: PT
+    regions:
+    - PT
+    - "PT::RAA"
+    - "PT::RAM"
     byoe:
       start_date: "2026-07-01"
       cycle: diario

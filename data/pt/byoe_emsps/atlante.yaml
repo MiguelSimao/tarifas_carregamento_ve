@@ -4,6 +4,10 @@ providers:
   plans:
   - name: "CEME"
     country_code: PT
+    regions:
+    - PT
+    - "PT::RAA"
+    - "PT::RAM"
     byoe:
       start_date: "2026-01-01"
       cycle: semanal

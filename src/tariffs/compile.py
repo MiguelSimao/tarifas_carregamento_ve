@@ -6,8 +6,8 @@ import sys
 
 import yaml
 
-from .byoe_generator import expand_byoe_plan
-from .model import Provider, TariffDocument
+from .byoe_generator import expand_byoe_plan, expand_byoe_plans, find_matching_regulated_fees
+from .model import Plan, Provider, TariffDocument
 from .regulated_fees import RegulatedFeesDocument, TimeRestrictionsDocument
 from .validate import _cross_validate_tariff_doc
 
@@ -141,14 +141,27 @@ def main():
     # Expand BYOE plans using master regulated fees and time restrictions
     compile_today = datetime.date.today().isoformat()
     for prov in master_providers:
+        expanded_plans: list[Plan] = []
         for plan in prov.plans:
             if plan.is_byoe and master_regulated_fees:
-                expand_byoe_plan(
+                regional_plans = expand_byoe_plans(
                     plan,
                     master_regulated_fees,
                     time_restrictions_list=master_time_restrictions if master_time_restrictions else None,
                     reference_date=compile_today,
                 )
+                expanded_plans.extend(regional_plans)
+            else:
+                if plan.vat is None and master_regulated_fees and plan.country_code:
+                    rf = find_matching_regulated_fees(
+                        master_regulated_fees,
+                        country_code=plan.country_code,
+                        effective_date=compile_today,
+                    )
+                    if rf and rf.vat is not None:
+                        plan.vat = rf.vat
+                expanded_plans.append(plan)
+        prov.plans = expanded_plans
 
     # Create the master document
     master_doc = TariffDocument(

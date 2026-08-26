@@ -258,15 +258,19 @@ def _generate_tariffs_for_restriction(
     return generated_tariffs
 
 
-def expand_byoe_plan(
+def _expand_single_byoe_plan(
     plan: Plan,
     regulated_fees_list: list[RegulatedFees],
     time_restrictions_list: list[TariffCycleSchedule] | None = None,
     reference_date: str | None = None,
+    country_code: str | None = None,
 ) -> Plan:
-    """Expand a BYOE plan by calculating network tariffs from BYOE rates and regulated fees."""
+    """Expand tariffs for a single BYOE plan for a specific country/region."""
     if not plan.is_byoe or not plan.byoe:
         return plan
+
+    target_country = country_code or plan.country_code or "PT"
+    today_ref_date = reference_date or datetime.date.today().isoformat()
 
     # Check if BYOE rates are provided or tariffs need generating
     has_byoe_rates = (
@@ -289,17 +293,22 @@ def expand_byoe_plan(
     if not has_byoe_rates and not has_placeholders and has_existing_tariffs:
         return plan
 
-    today_ref_date = reference_date or datetime.date.today().isoformat()
     reg_fees = find_matching_regulated_fees(
         regulated_fees_list,
-        country_code=plan.country_code,
+        country_code=target_country,
         effective_date=today_ref_date,
     )
     if not reg_fees:
         raise ValueError(
-            f"No regulated fees found for country '{plan.country_code or 'PT'}' "
+            f"No regulated fees found for country '{target_country}' "
             f"and date '{today_ref_date}' for BYOE plan '{plan.name}'"
         )
+
+    # Associate regional VAT and includes_vat if not explicitly provided on the plan
+    if plan.vat is None and reg_fees.vat is not None:
+        plan.vat = reg_fees.vat
+    if plan.includes_vat is None and plan.byoe and plan.byoe.includes_vat is not None:
+        plan.includes_vat = plan.byoe.includes_vat
 
     if not plan.networks:
         plan.networks = [Network(network_id="MOBIE")]
@@ -315,7 +324,7 @@ def expand_byoe_plan(
                         reg_fees=reg_fees,
                         time_restrictions_list=time_restrictions_list,
                         reference_date=today_ref_date,
-                        country_code=plan.country_code,
+                        country_code=target_country,
                         power_type=placeholder.type,
                         min_power=placeholder.min,
                         max_power=placeholder.max,
@@ -330,7 +339,7 @@ def expand_byoe_plan(
                     reg_fees=reg_fees,
                     time_restrictions_list=time_restrictions_list,
                     reference_date=today_ref_date,
-                    country_code=plan.country_code,
+                    country_code=target_country,
                     power_type=None,
                     min_power=None,
                     max_power=None,
@@ -338,4 +347,51 @@ def expand_byoe_plan(
                 )
 
     return plan
+
+
+def expand_byoe_plans(
+    plan: Plan,
+    regulated_fees_list: list[RegulatedFees],
+    time_restrictions_list: list[TariffCycleSchedule] | None = None,
+    reference_date: str | None = None,
+) -> list[Plan]:
+    """Expand a BYOE plan into one or more regional plans (if regions are specified)
+    by calculating network tariffs from BYOE rates, regional regulated fees, and regional time restrictions.
+    """
+    if not plan.is_byoe or not plan.byoe:
+        return [plan]
+
+    target_regions = plan.regions or [plan.country_code or "PT"]
+    expanded_plans: list[Plan] = []
+
+    for region in target_regions:
+        regional_plan = plan.model_copy(deep=True)
+        regional_plan.country_code = region
+        regional_plan.regions = None
+        _expand_single_byoe_plan(
+            plan=regional_plan,
+            regulated_fees_list=regulated_fees_list,
+            time_restrictions_list=time_restrictions_list,
+            reference_date=reference_date,
+            country_code=region,
+        )
+        expanded_plans.append(regional_plan)
+
+    return expanded_plans
+
+
+def expand_byoe_plan(
+    plan: Plan,
+    regulated_fees_list: list[RegulatedFees],
+    time_restrictions_list: list[TariffCycleSchedule] | None = None,
+    reference_date: str | None = None,
+) -> Plan:
+    """Expand a single BYOE plan (or first region if multiple regions specified)."""
+    return expand_byoe_plans(
+        plan=plan,
+        regulated_fees_list=regulated_fees_list,
+        time_restrictions_list=time_restrictions_list,
+        reference_date=reference_date,
+    )[0]
+
 

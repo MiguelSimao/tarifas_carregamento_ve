@@ -198,6 +198,11 @@ class ByoeConfig(BaseModel):
 class Plan(BaseModel):
     name: str
     country_code: str | None = None
+    regions: list[str] | None = Field(
+        default=None,
+        validation_alias=AliasChoices("regions", "applicable_regions"),
+        description="List of regional country codes where this plan is applicable (e.g. ['PT', 'PT::RAA', 'PT::RAM'])",
+    )
     start_date: str | None = None
     end_date: str | None = None
     cost: float | None = None
@@ -208,6 +213,11 @@ class Plan(BaseModel):
         default=None,
         validation_alias=AliasChoices("includes_vat", "vat_included"),
         description="Whether VAT (IVA) is included in the plan prices",
+    )
+    vat: float | None = Field(
+        default=None,
+        validation_alias=AliasChoices("vat", "vat_rate"),
+        description="Applicable VAT rate for the plan and region (e.g. 0.23 for 23%, 0.16 for 16%, 0.22 for 22%)",
     )
     contract_conditions: list[ContractCondition] | None = Field(
         default=None,

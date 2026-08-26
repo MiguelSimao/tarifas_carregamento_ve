@@ -10,6 +10,7 @@
           "payment_methods": [
             "APP"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "MOBIE",
@@ -54,6 +55,7 @@
           "payment_methods": [
             "ADHOC_BANK_CARD"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "ATLA",
@@ -91,6 +93,8 @@
             "RFID_CARD",
             "APP"
           ],
+          "includes_vat": false,
+          "vat": 0.23,
           "byoe": {
             "start_date": "2026-01-01",
             "cycle": "semanal",
@@ -309,6 +313,462 @@
               ]
             }
           ]
+        },
+        {
+          "name": "CEME",
+          "country_code": "PT::RAA",
+          "payment_methods": [
+            "RFID_CARD",
+            "APP"
+          ],
+          "includes_vat": false,
+          "vat": 0.16,
+          "byoe": {
+            "start_date": "2026-01-01",
+            "cycle": "semanal",
+            "schedule": "2H",
+            "includes_vat": false,
+            "includes_tar": false,
+            "includes_iec": false,
+            "includes_egme": false,
+            "activation_fee": 0.0,
+            "renewable_energy": false,
+            "vazio": 0.0976,
+            "fora_vazio": 0.0976
+          },
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME",
+                  "max": 43.0
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC",
+                  "max": 43.0
+                },
+                {
+                  "price": 0.0976,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "max": 43.0
+                },
+                {
+                  "price": 0.108,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "max": 43.0,
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.108,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "max": 43.0,
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "18:00",
+                      "end_time": "23:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.0905,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "max": 43.0,
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.0905,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "max": 43.0,
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "13:30",
+                      "end_time": "18:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CEME",
+          "country_code": "PT::RAM",
+          "payment_methods": [
+            "RFID_CARD",
+            "APP"
+          ],
+          "includes_vat": false,
+          "vat": 0.22,
+          "byoe": {
+            "start_date": "2026-01-01",
+            "cycle": "semanal",
+            "schedule": "2H",
+            "includes_vat": false,
+            "includes_tar": false,
+            "includes_iec": false,
+            "includes_egme": false,
+            "activation_fee": 0.0,
+            "renewable_energy": false,
+            "vazio": 0.0976,
+            "fora_vazio": 0.0976
+          },
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME",
+                  "max": 43.0
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC",
+                  "max": 43.0
+                },
+                {
+                  "price": 0.0976,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "max": 43.0
+                },
+                {
+                  "price": 0.108,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "max": 43.0,
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.108,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "max": 43.0,
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "11:30",
+                      "end_time": "14:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "18:00",
+                      "end_time": "22:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.0905,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "max": 43.0,
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.0905,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "max": 43.0,
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "14:00",
+                      "end_time": "18:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "22:30",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -324,6 +784,8 @@
             "RFID_CARD",
             "APP"
           ],
+          "includes_vat": false,
+          "vat": 0.23,
           "byoe": {
             "start_date": "2026-07-01",
             "cycle": "diario",
@@ -448,6 +910,182 @@
           ]
         },
         {
+          "name": "CEME Base",
+          "country_code": "PT::RAA",
+          "payment_methods": [
+            "RFID_CARD",
+            "APP"
+          ],
+          "includes_vat": false,
+          "vat": 0.16,
+          "byoe": {
+            "start_date": "2026-07-01",
+            "cycle": "diario",
+            "schedule": "2H",
+            "includes_vat": false,
+            "includes_tar": false,
+            "includes_iec": false,
+            "includes_egme": true,
+            "activation_fee": 0.15,
+            "renewable_energy": true,
+            "vazio": 0.169,
+            "fora_vazio": 0.169
+          },
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "tariffs": [
+                {
+                  "price": 0.15,
+                  "unit": "flat"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.169,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME"
+                },
+                {
+                  "price": 0.108,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "08:00",
+                      "end_time": "22:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.0905,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "22:00",
+                      "end_time": "08:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CEME Base",
+          "country_code": "PT::RAM",
+          "payment_methods": [
+            "RFID_CARD",
+            "APP"
+          ],
+          "includes_vat": false,
+          "vat": 0.22,
+          "byoe": {
+            "start_date": "2026-07-01",
+            "cycle": "diario",
+            "schedule": "2H",
+            "includes_vat": false,
+            "includes_tar": false,
+            "includes_iec": false,
+            "includes_egme": true,
+            "activation_fee": 0.15,
+            "renewable_energy": true,
+            "vazio": 0.169,
+            "fora_vazio": 0.169
+          },
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "tariffs": [
+                {
+                  "price": 0.15,
+                  "unit": "flat"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.169,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME"
+                },
+                {
+                  "price": 0.108,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "09:00",
+                      "end_time": "23:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.0905,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "09:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
           "name": "CEME Sócio",
           "country_code": "PT",
           "cost": 4.9,
@@ -456,6 +1094,8 @@
             "RFID_CARD",
             "APP"
           ],
+          "includes_vat": false,
+          "vat": 0.23,
           "contract_conditions": [
             "PARTNERSHIP"
           ],
@@ -587,6 +1227,204 @@
               ]
             }
           ]
+        },
+        {
+          "name": "CEME Sócio",
+          "country_code": "PT::RAA",
+          "cost": 4.9,
+          "months": 1,
+          "payment_methods": [
+            "RFID_CARD",
+            "APP"
+          ],
+          "includes_vat": false,
+          "vat": 0.16,
+          "contract_conditions": [
+            "PARTNERSHIP"
+          ],
+          "notes": [
+            {
+              "language": "pt",
+              "text": "Associado ACP"
+            }
+          ],
+          "byoe": {
+            "start_date": "2026-07-01",
+            "cycle": "diario",
+            "schedule": "2H",
+            "includes_vat": false,
+            "includes_tar": false,
+            "includes_iec": false,
+            "includes_egme": true,
+            "activation_fee": 0.15,
+            "renewable_energy": true,
+            "vazio": 0.1506,
+            "fora_vazio": 0.1506
+          },
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "tariffs": [
+                {
+                  "price": 0.15,
+                  "unit": "flat"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1506,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME"
+                },
+                {
+                  "price": 0.108,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "08:00",
+                      "end_time": "22:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.0905,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "22:00",
+                      "end_time": "08:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CEME Sócio",
+          "country_code": "PT::RAM",
+          "cost": 4.9,
+          "months": 1,
+          "payment_methods": [
+            "RFID_CARD",
+            "APP"
+          ],
+          "includes_vat": false,
+          "vat": 0.22,
+          "contract_conditions": [
+            "PARTNERSHIP"
+          ],
+          "notes": [
+            {
+              "language": "pt",
+              "text": "Associado ACP"
+            }
+          ],
+          "byoe": {
+            "start_date": "2026-07-01",
+            "cycle": "diario",
+            "schedule": "2H",
+            "includes_vat": false,
+            "includes_tar": false,
+            "includes_iec": false,
+            "includes_egme": true,
+            "activation_fee": 0.15,
+            "renewable_energy": true,
+            "vazio": 0.1506,
+            "fora_vazio": 0.1506
+          },
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "tariffs": [
+                {
+                  "price": 0.15,
+                  "unit": "flat"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1506,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME"
+                },
+                {
+                  "price": 0.108,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "09:00",
+                      "end_time": "23:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.0905,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "09:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -602,6 +1440,94 @@
             "RFID_CARD",
             "APP"
           ],
+          "includes_vat": false,
+          "vat": 0.23,
+          "byoe": {
+            "start_date": "2026-07-01",
+            "schedule": "1H",
+            "includes_vat": false,
+            "includes_tar": true,
+            "includes_iec": false,
+            "includes_egme": false,
+            "activation_fee": 0.0,
+            "renewable_energy": true,
+            "all_day": 0.2678
+          },
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.2678,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CEME",
+          "country_code": "PT::RAA",
+          "payment_methods": [
+            "RFID_CARD",
+            "APP"
+          ],
+          "includes_vat": false,
+          "vat": 0.16,
+          "byoe": {
+            "start_date": "2026-07-01",
+            "schedule": "1H",
+            "includes_vat": false,
+            "includes_tar": true,
+            "includes_iec": false,
+            "includes_egme": false,
+            "activation_fee": 0.0,
+            "renewable_energy": true,
+            "all_day": 0.2678
+          },
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.2678,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CEME",
+          "country_code": "PT::RAM",
+          "payment_methods": [
+            "RFID_CARD",
+            "APP"
+          ],
+          "includes_vat": false,
+          "vat": 0.22,
           "byoe": {
             "start_date": "2026-07-01",
             "schedule": "1H",
@@ -647,6 +1573,7 @@
           "payment_methods": [
             "APP"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "CONTINENTE",
@@ -687,6 +1614,7 @@
           "payment_methods": [
             "ADHOC_BANK_CARD"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "DTEI",
@@ -706,6 +1634,7 @@
           "payment_methods": [
             "ADHOC_BANK_CARD"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "ENBL",
@@ -772,6 +1701,7 @@
           "payment_methods": [
             "APP"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "FCTO",
@@ -804,6 +1734,7 @@
         {
           "name": "Base",
           "country_code": "PT",
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "MOBIE",
@@ -877,6 +1808,7 @@
           "country_code": "PT",
           "cost": 12.0,
           "months": 1,
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "IONY",
@@ -900,6 +1832,7 @@
           "country_code": "PT",
           "cost": 2.0,
           "months": 1,
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "HORZ",
@@ -947,6 +1880,7 @@
         {
           "name": "Base",
           "country_code": "PT",
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "MOBIE",
@@ -1001,6 +1935,7 @@
           "payment_methods": [
             "ADHOC_BANK_CARD"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "GLPP",
@@ -1032,6 +1967,7 @@
             "APP",
             "ADHOC"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "HGP",
@@ -1096,6 +2032,7 @@
           "payment_methods": [
             "ADHOC_BANK_CARD"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "FCTO",
@@ -1137,6 +2074,7 @@
           "payment_methods": [
             "ADHOC_BANK_CARD"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "CEPS",
@@ -1166,6 +2104,7 @@
           "payment_methods": [
             "APP"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "CEPS",
@@ -1222,6 +2161,7 @@
             "RFID_CARD",
             "APP"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "TESLA",
@@ -1568,14 +2508,10 @@
               "network_id": "TESLA",
               "display_name": "Alcantarilha",
               "included_locations": [
-                "ALCANTARILHASUPERCHARGER-13945542774",
-                "ALCANTARILHASUPERCHARGER-13945542775",
-                "ALCANTARILHASUPERCHARGER-13945542776",
-                "ALCANTARILHASUPERCHARGER-13945542777",
-                "ALCANTARILHASUPERCHARGER-13945542778",
-                "ALCANTARILHASUPERCHARGER-13945542779",
-                "ALCANTARILHASUPERCHARGER-13945542780",
-                "ALCANTARILHASUPERCHARGER-13945542781",
+                "ALCANTARILHASUPERCHARGER-1",
+                "ALCANTARILHASUPERCHARGER-2",
+                "ALCANTARILHASUPERCHARGER-3",
+                "ALCANTARILHASUPERCHARGER-4",
                 "ALCANTARILHASUPERCHARGER-5",
                 "ALCANTARILHASUPERCHARGER-6",
                 "ALCANTARILHASUPERCHARGER-7"
@@ -1648,6 +2584,7 @@
           "payment_methods": [
             "APP"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "TESLA",
@@ -1994,14 +2931,10 @@
               "network_id": "TESLA",
               "display_name": "Alcantarilha",
               "included_locations": [
-                "ALCANTARILHASUPERCHARGER-13945542774",
-                "ALCANTARILHASUPERCHARGER-13945542775",
-                "ALCANTARILHASUPERCHARGER-13945542776",
-                "ALCANTARILHASUPERCHARGER-13945542777",
-                "ALCANTARILHASUPERCHARGER-13945542778",
-                "ALCANTARILHASUPERCHARGER-13945542779",
-                "ALCANTARILHASUPERCHARGER-13945542780",
-                "ALCANTARILHASUPERCHARGER-13945542781",
+                "ALCANTARILHASUPERCHARGER-1",
+                "ALCANTARILHASUPERCHARGER-2",
+                "ALCANTARILHASUPERCHARGER-3",
+                "ALCANTARILHASUPERCHARGER-4",
                 "ALCANTARILHASUPERCHARGER-5",
                 "ALCANTARILHASUPERCHARGER-6",
                 "ALCANTARILHASUPERCHARGER-7"
@@ -2073,6 +3006,7 @@
             "APP",
             "RFID_CARD"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "IONY",
@@ -2098,6 +3032,7 @@
           "payment_methods": [
             "APP"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "MOBIE",
@@ -2124,6 +3059,7 @@
             "APP",
             "ADHOC_BANK_CARD"
           ],
+          "vat": 0.23,
           "networks": [
             {
               "network_id": "ZUN",

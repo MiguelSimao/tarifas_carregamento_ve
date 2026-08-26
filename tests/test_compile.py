@@ -174,3 +174,50 @@ def test_provider_merging_and_conflict_detection(tmp_path):
             compile_main()
     finally:
         sys.argv = orig_argv
+
+
+def test_compiler_driven_multi_region_expansion():
+    """Verify that multi-region BYOE plans expand into distinct regional plans with appropriate TAR and time restrictions."""
+    with open("data/tariffs_master.json", "r", encoding="utf-8") as f:
+        master = json.load(f)
+
+    acp_provider = next(p for p in master["providers"] if p["name"] == "ACP Electric")
+    ceme_base_plans = [pl for pl in acp_provider["plans"] if pl["name"] == "CEME Base"]
+
+    # Verify 3 distinct plans generated: PT, PT::RAA, PT::RAM
+    regional_codes = {pl["country_code"] for pl in ceme_base_plans}
+    assert regional_codes == {"PT", "PT::RAA", "PT::RAM"}
+
+    # Verify Continental plan has PT TAR rates, 22:00-08:00 Vazio, and 23% VAT
+    pt_plan = next(pl for pl in ceme_base_plans if pl["country_code"] == "PT")
+    assert pt_plan.get("vat") == 0.23
+    assert pt_plan.get("includes_vat") is False
+    pt_vazio_tar = next(
+        t for t in pt_plan["networks"][0]["tariffs"]
+        if t.get("mobie_fee_type") == "TAR" and t.get("price") == 0.0266
+    )
+    assert pt_vazio_tar["time_restrictions"][0]["start_time"] == "22:00"
+    assert pt_vazio_tar["time_restrictions"][0]["end_time"] == "08:00"
+
+    # Verify Madeira plan has RAM TAR rates, 23:00-09:00 Vazio, and 22% VAT
+    ram_plan = next(pl for pl in ceme_base_plans if pl["country_code"] == "PT::RAM")
+    assert ram_plan.get("vat") == 0.22
+    assert ram_plan.get("includes_vat") is False
+    ram_vazio_tar = next(
+        t for t in ram_plan["networks"][0]["tariffs"]
+        if t.get("mobie_fee_type") == "TAR" and t.get("price") == 0.0905
+    )
+    assert ram_vazio_tar["time_restrictions"][0]["start_time"] == "23:00"
+    assert ram_vazio_tar["time_restrictions"][0]["end_time"] == "09:00"
+
+    # Verify Azores plan has RAA TAR rates, 22:00-08:00 Vazio, and 16% VAT
+    raa_plan = next(pl for pl in ceme_base_plans if pl["country_code"] == "PT::RAA")
+    assert raa_plan.get("vat") == 0.16
+    assert raa_plan.get("includes_vat") is False
+    raa_vazio_tar = next(
+        t for t in raa_plan["networks"][0]["tariffs"]
+        if t.get("mobie_fee_type") == "TAR" and t.get("price") == 0.0905
+    )
+    assert raa_vazio_tar["time_restrictions"][0]["start_time"] == "22:00"
+    assert raa_vazio_tar["time_restrictions"][0]["end_time"] == "08:00"
+

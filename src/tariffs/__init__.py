@@ -31,6 +31,11 @@ from .regulated_fees import (
     TimeRestriction,
     TimeRestrictionsDocument,
 )
+from .byoe_generator import (
+    expand_byoe_plan,
+    expand_byoe_plans,
+    find_matching_regulated_fees,
+)
 from .time_restrictions import (
     calculate_restriction_duration_hours,
     calculate_total_weekly_hours,
@@ -74,9 +79,12 @@ __all__ = [
     "TimeRestrictionsDocument",
     "calculate_restriction_duration_hours",
     "calculate_total_weekly_hours",
+    "expand_byoe_plan",
+    "expand_byoe_plans",
     "find_effective_and_upcoming_schedules",
     "find_matching_cycle_schedule",
     "find_matching_cycle_schedules",
+    "find_matching_regulated_fees",
     "get_portugal_dst_dates",
     "get_season_for_date",
     "get_upcoming_season",

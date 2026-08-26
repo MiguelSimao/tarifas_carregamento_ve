@@ -422,6 +422,22 @@
           "default": null,
           "title": "Country Code"
         },
+        "regions": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "List of regional country codes where this plan is applicable (e.g. ['PT', 'PT::RAA', 'PT::RAM'])",
+          "title": "Regions"
+        },
         "start_date": {
           "anyOf": [
             {
@@ -509,6 +525,19 @@
           "default": null,
           "description": "Whether VAT (IVA) is included in the plan prices",
           "title": "Includes Vat"
+        },
+        "vat": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Applicable VAT rate for the plan and region (e.g. 0.23 for 23%, 0.16 for 16%, 0.22 for 22%)",
+          "title": "Vat"
         },
         "contract_conditions": {
           "anyOf": [
@@ -634,6 +663,7 @@
           "type": "string"
         },
         "effective_date": {
+          "description": "Effective start date of this regulation period (YYYY-MM-DD)",
           "title": "Effective Date",
           "type": "string"
         },

@@ -20458,6 +20458,33 @@
       ]
     },
     {
+      "name": "Ionity",
+      "publish": true,
+      "plans": [
+        {
+          "name": "AD-HOC",
+          "publish": true,
+          "country_code": "PT",
+          "payment_methods": [
+            "ADHOC_BANK_CARD"
+          ],
+          "vat": 0.23,
+          "networks": [
+            {
+              "network_id": "IONY",
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.62,
+                  "unit": "energy"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Tesla",
       "publish": true,
       "plans": [

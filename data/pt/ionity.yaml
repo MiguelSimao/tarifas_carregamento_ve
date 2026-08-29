@@ -1,0 +1,13 @@
+providers:
+- name: Ionity
+  plans:
+  - name: AD-HOC
+    country_code: PT
+    payment_methods:
+    - ADHOC_BANK_CARD
+
+    networks:
+    - network_id: IONY
+      tariffs:
+      - type: DC
+        price: 0.62

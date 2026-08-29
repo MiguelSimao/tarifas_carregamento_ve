@@ -221,3 +221,136 @@ def test_compiler_driven_multi_region_expansion():
     assert raa_vazio_tar["time_restrictions"][0]["start_time"] == "22:00"
     assert raa_vazio_tar["time_restrictions"][0]["end_time"] == "08:00"
 
+
+def test_compilation_excludes_unpublished_plans(tmp_path):
+    """Verify that plans with publish: false are excluded from compilation."""
+    import sys
+
+    dir_path = tmp_path / "test_publish_plans"
+    dir_path.mkdir()
+
+    file1 = dir_path / "provider.yaml"
+    file1.write_text(
+        yaml.dump(
+            {
+                "providers": [
+                    {
+                        "name": "PublishTestProvider",
+                        "plans": [
+                            {
+                                "name": "PlanPublishedExplicit",
+                                "publish": True,
+                                "networks": [
+                                    {"network_id": "NET1", "tariffs": [{"price": 0.25}]}
+                                ],
+                            },
+                            {
+                                "name": "PlanPublishedDefault",
+                                "networks": [
+                                    {"network_id": "NET1", "tariffs": [{"price": 0.30}]}
+                                ],
+                            },
+                            {
+                                "name": "PlanDraft",
+                                "publish": False,
+                                "networks": [
+                                    {"network_id": "NET1", "tariffs": [{"price": 0.99}]}
+                                ],
+                            },
+                        ],
+                    }
+                ]
+            }
+        )
+    )
+
+    output_file = str(tmp_path / "output.json")
+    orig_argv = sys.argv
+    try:
+        sys.argv = ["tariffs-compile", "-i", str(dir_path), "-o", output_file]
+        compile_main()
+    finally:
+        sys.argv = orig_argv
+
+    with open(output_file, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    assert len(data["providers"]) == 1
+    provider = data["providers"][0]
+    plan_names = [p["name"] for p in provider["plans"]]
+    assert "PlanPublishedExplicit" in plan_names
+    assert "PlanPublishedDefault" in plan_names
+    assert "PlanDraft" not in plan_names
+
+
+def test_compilation_excludes_unpublished_provider_and_empty_plans(tmp_path):
+    """Verify that providers with publish: false or with all unpublished plans are excluded."""
+    import sys
+
+    dir_path = tmp_path / "test_publish_providers"
+    dir_path.mkdir()
+
+    file1 = dir_path / "providers.yaml"
+    file1.write_text(
+        yaml.dump(
+            {
+                "providers": [
+                    {
+                        "name": "ActiveProvider",
+                        "publish": True,
+                        "plans": [
+                            {
+                                "name": "ActivePlan",
+                                "networks": [
+                                    {"network_id": "NET1", "tariffs": [{"price": 0.20}]}
+                                ],
+                            }
+                        ],
+                    },
+                    {
+                        "name": "DisabledProvider",
+                        "publish": False,
+                        "plans": [
+                            {
+                                "name": "SomePlan",
+                                "networks": [
+                                    {"network_id": "NET1", "tariffs": [{"price": 0.30}]}
+                                ],
+                            }
+                        ],
+                    },
+                    {
+                        "name": "ProviderWithOnlyDraftPlans",
+                        "publish": True,
+                        "plans": [
+                            {
+                                "name": "DraftPlanOnly",
+                                "publish": False,
+                                "networks": [
+                                    {"network_id": "NET1", "tariffs": [{"price": 0.40}]}
+                                ],
+                            }
+                        ],
+                    },
+                ]
+            }
+        )
+    )
+
+    output_file = str(tmp_path / "output.json")
+    orig_argv = sys.argv
+    try:
+        sys.argv = ["tariffs-compile", "-i", str(dir_path), "-o", output_file]
+        compile_main()
+    finally:
+        sys.argv = orig_argv
+
+    with open(output_file, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    prov_names = [p["name"] for p in data["providers"]]
+    assert "ActiveProvider" in prov_names
+    assert "DisabledProvider" not in prov_names
+    assert "ProviderWithOnlyDraftPlans" not in prov_names
+
+

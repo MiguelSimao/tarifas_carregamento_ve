@@ -37,6 +37,7 @@ def test_template_yaml_validates():
     assert len(doc.providers) > 0
 
     provider = doc.providers[0]
+    assert provider.publish is True
     assert provider.app_url is not None
     assert provider.app_url.web == "https://app.provider.com"
     assert (
@@ -47,6 +48,7 @@ def test_template_yaml_validates():
 
     # Locate a specific plan and network to verify newly added fields
     plan_base = next(p for p in provider.plans if p.name == "PlanName")
+    assert plan_base.publish is True
     assert plan_base.includes_vat is True
     assert plan_base.contract_conditions == [ContractCondition.APP_ACTIVATION]
     assert plan_base.notes is not None
@@ -926,6 +928,22 @@ def test_byoe_multi_placeholder_expansion():
     assert all(t.min == 43.0 for t in dc_tariffs)
     assert all(t.max is None for t in dc_tariffs)
     assert all(t.mobie_voltage_level != MobieVoltageLevel.BT for t in dc_tariffs)
+
+
+def test_publish_field_defaults_and_validation():
+    """Verify that publish field defaults to True on Plan and Provider, and can be set to False."""
+    plan_default = Plan(name="DefaultPublished", networks=[Network(network_id="N1", tariffs=[Tariff(price=0.3)])])
+    assert plan_default.publish is True
+
+    plan_unpublished = Plan(name="DraftPlan", publish=False, networks=[Network(network_id="N1", tariffs=[Tariff(price=0.3)])])
+    assert plan_unpublished.publish is False
+
+    provider_default = Provider(name="DefaultProvider", plans=[plan_default])
+    assert provider_default.publish is True
+
+    provider_unpublished = Provider(name="DraftProvider", publish=False, plans=[plan_default])
+    assert provider_unpublished.publish is False
+
 
 
 

@@ -4,6 +4,7 @@
 
 providers:
   - name: "ProviderName" # e.g., "Electroverse"
+    publish: true # Whether provider is published (default: true). If false, excluded from compilation.
     url: "https://www.provider.com"
     app_url:
       web: "https://app.provider.com"
@@ -11,6 +12,7 @@ providers:
       ios: "https://apps.apple.com/app/id123456789"
     plans:
       - name: "PlanName" # e.g., "Base"
+        publish: true # Whether plan is published (default: true). If false, excluded from compilation.
         country_code: "PT" # ISO 3166-1 alpha-2 country code
         includes_vat: true # Whether VAT (IVA) is included in tariff prices
         contract_conditions:

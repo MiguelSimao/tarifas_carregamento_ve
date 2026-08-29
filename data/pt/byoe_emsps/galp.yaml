@@ -1,36 +1,16 @@
 providers:
-- name: EDP
-  url: https://www.edp.pt/particulares/servicos/mobilidade-eletrica/carregar-fora-de-casa/
+- name: Galp
+  url: https://www.galp.com/pt/pt/particulares/estrada/cartao-galpelectric-info
   updated_at: "2026-08-08"
   plans:
-  - name: CEME
+  - name: CEME Base (Diário)
     country_code: PT
     regions:
     - PT
     - PT::RAA
     - PT::RAM
     byoe:
-      start_date: "2026-07-01"
-      schedule: 1H
-      includes_egme: false
-      includes_iec: false
-      includes_tar: true
-      renewable_energy: true
-      activation_fee: 0.0
-      all_day: 0.2678
-    payment_methods:
-    - RFID_CARD
-    - APP
-    networks:
-    - network_id: MOBIE
-  - name: CEME Bi-horário
-    country_code: PT
-    regions:
-    - PT
-    - PT::RAA
-    - PT::RAM
-    byoe:
-      start_date: "2026-07-01"
+      start_date: "2026-01-01"
       schedule: 2H
       includes_egme: false
       includes_iec: false
@@ -38,46 +18,41 @@ providers:
       renewable_energy: true
       activation_fee: 0.0
       cycle: diario
-      fora_vazio: 0.2826
-      vazio: 0.1927
+      fora_vazio: 0.2632
+      vazio: 0.1954
     payment_methods:
     - RFID_CARD
-    - APP
     networks:
     - network_id: MOBIE
-  - name: CEME Casa
+  - name: CEME Base (Semanal)
     country_code: PT
     regions:
     - PT
     - PT::RAA
     - PT::RAM
     byoe:
-      start_date: "2026-07-01"
-      schedule: 1H
+      start_date: "2026-01-01"
+      schedule: 2H
       includes_egme: false
       includes_iec: false
       includes_tar: true
       renewable_energy: true
       activation_fee: 0.0
-      all_day: 0.2142
-    contract_conditions:
-    - ENERGY_AT_HOME
-    notes:
-    - language: pt
-      text: Cliente Casa (-20%)
+      cycle: semanal
+      fora_vazio: 0.2632
+      vazio: 0.1954
     payment_methods:
     - RFID_CARD
-    - APP
     networks:
     - network_id: MOBIE
-  - name: CEME Casa Bi-horário
+  - name: CEME App + OPC (Diário)
     country_code: PT
     regions:
     - PT
     - PT::RAA
     - PT::RAM
     byoe:
-      start_date: "2026-07-01"
+      start_date: "2026-01-01"
       schedule: 2H
       includes_egme: false
       includes_iec: false
@@ -85,52 +60,51 @@ providers:
       renewable_energy: true
       activation_fee: 0.0
       cycle: diario
-      fora_vazio: 0.2261
-      vazio: 0.1542
-    contract_conditions:
-    - ENERGY_AT_HOME
+      fora_vazio: 0.2106
+      vazio: 0.1563
     notes:
     - language: pt
-      text: Cliente Casa (-20%)
+      text: Postos Galp (-20%)
     payment_methods:
-    - RFID_CARD
     - APP
     networks:
     - network_id: MOBIE
-  - name: CEME Casa + UVE
+      included_cpos:
+      - GLPP
+  - name: CEME App + OPC (Semanal)
     country_code: PT
     regions:
     - PT
     - PT::RAA
     - PT::RAM
     byoe:
-      start_date: "2026-07-01"
-      schedule: 1H
+      start_date: "2026-01-01"
+      schedule: 2H
       includes_egme: false
       includes_iec: false
       includes_tar: true
       renewable_energy: true
       activation_fee: 0.0
-      all_day: 0.1875
-    contract_conditions:
-    - ENERGY_AT_HOME
-    - PARTNERSHIP
+      cycle: semanal
+      fora_vazio: 0.2106
+      vazio: 0.1563
     notes:
     - language: pt
-      text: Cliente Casa + Associado UVE (-30%)
+      text: Postos Galp (-20%)
     payment_methods:
-    - RFID_CARD
     - APP
     networks:
     - network_id: MOBIE
-  - name: CEME Casa + UVE Bi-horário
+      included_cpos:
+      - GLPP
+  - name: CEME Casa + OPC (Diário)
     country_code: PT
     regions:
     - PT
     - PT::RAA
     - PT::RAM
     byoe:
-      start_date: "2026-07-01"
+      start_date: "2026-01-01"
       schedule: 2H
       includes_egme: false
       includes_iec: false
@@ -138,52 +112,55 @@ providers:
       renewable_energy: true
       activation_fee: 0.0
       cycle: diario
-      fora_vazio: 0.1978
-      vazio: 0.1349
+      fora_vazio: 0.1842
+      vazio: 0.1368
     contract_conditions:
     - ENERGY_AT_HOME
-    - PARTNERSHIP
     notes:
     - language: pt
-      text: Cliente Casa + Associado UVE (-30%)
+      text: Postos Galp + Cliente Casa (-30%)
     payment_methods:
-    - RFID_CARD
     - APP
     networks:
     - network_id: MOBIE
-  - name: CEME UVE
+      included_cpos:
+      - GLPP
+  - name: CEME Casa + OPC (Semanal)
     country_code: PT
     regions:
     - PT
     - PT::RAA
     - PT::RAM
     byoe:
-      start_date: "2026-07-01"
-      schedule: 1H
+      start_date: "2026-01-01"
+      schedule: 2H
       includes_egme: false
       includes_iec: false
       includes_tar: true
       renewable_energy: true
       activation_fee: 0.0
-      all_day: 0.241
+      cycle: semanal
+      fora_vazio: 0.1842
+      vazio: 0.1368
     contract_conditions:
-    - PARTNERSHIP
+    - ENERGY_AT_HOME
     notes:
     - language: pt
-      text: Associado UVE (-10%)
+      text: Postos Galp + Cliente Casa (-30%)
     payment_methods:
-    - RFID_CARD
     - APP
     networks:
     - network_id: MOBIE
-  - name: CEME UVE Bi-horário
+      included_cpos:
+      - GLPP
+  - name: CEME App (Diário)
     country_code: PT
     regions:
     - PT
     - PT::RAA
     - PT::RAM
     byoe:
-      start_date: "2026-07-01"
+      start_date: "2026-01-01"
       schedule: 2H
       includes_egme: false
       includes_iec: false
@@ -191,13 +168,94 @@ providers:
       renewable_energy: true
       activation_fee: 0.0
       cycle: diario
-      fora_vazio: 0.2543
-      vazio: 0.1734
+      fora_vazio: 0.2032
+      vazio: 0.1462
     contract_conditions:
-    - PARTNERSHIP
+    - LOYALTY_PROGRAM
     notes:
     - language: pt
-      text: Associado UVE (-10%)
+      text: App Mundo (-8%)
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+  - name: CEME App (Semanal)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-01-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: semanal
+      fora_vazio: 0.2032
+      vazio: 0.1462
+    contract_conditions:
+    - LOYALTY_PROGRAM
+    notes:
+    - language: pt
+      text: App Mundo (-8%)
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+  - name: CEME Casa (Diário)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-01-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.1811
+      vazio: 0.1303
+    contract_conditions:
+    - ENERGY_AT_HOME
+    notes:
+    - language: pt
+      text: Cliente Casa (-18%)
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+  - name: CEME Casa (Semanal)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-01-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: semanal
+      fora_vazio: 0.1811
+      vazio: 0.1303
+    contract_conditions:
+    - ENERGY_AT_HOME
+    notes:
+    - language: pt
+      text: Cliente Casa (-18%)
     payment_methods:
     - RFID_CARD
     - APP

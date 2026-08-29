@@ -1,0 +1,103 @@
+providers:
+- name: Miio
+  url: https://www.miio.com/pt/prices/charging
+  updated_at: "2026-05-03"
+  plans:
+  - name: CEME Base (Diário)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-05-01"
+      schedule: 2H
+      includes_egme: true
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.24
+      vazio: 0.24
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+  - name: CEME Base (Semanal)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-05-01"
+      schedule: 2H
+      includes_egme: true
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: semanal
+      fora_vazio: 0.24
+      vazio: 0.24
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+  - name: CEME One (Diário)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-05-01"
+      schedule: 2H
+      includes_egme: true
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.17
+      vazio: 0.17
+    cost: 3.33
+    months: 1
+    notes:
+    - language: pt
+      text: Subscrição €49,99/ano ou €4.99/mês
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+  - name: CEME One (Semanal)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-05-01"
+      schedule: 2H
+      includes_egme: true
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: semanal
+      fora_vazio: 0.17
+      vazio: 0.17
+    cost: 3.33
+    months: 1
+    notes:
+    - language: pt
+      text: Subscrição €49,99/ano ou €4.99/mês
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE

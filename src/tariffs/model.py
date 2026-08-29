@@ -197,6 +197,10 @@ class ByoeConfig(BaseModel):
 
 class Plan(BaseModel):
     name: str
+    publish: bool = Field(
+        default=True,
+        description="Whether this plan should be published and included in compilation",
+    )
     country_code: str | None = None
     regions: list[str] | None = Field(
         default=None,
@@ -288,6 +292,10 @@ class Plan(BaseModel):
 
 class Provider(BaseModel):
     name: str
+    publish: bool = Field(
+        default=True,
+        description="Whether this provider should be published and included in compilation",
+    )
     url: str | None = None
     app_url: AppUrl | None = Field(
         default=None,

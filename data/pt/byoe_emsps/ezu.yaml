@@ -1,0 +1,53 @@
+providers:
+- name: EZU / AB Energia
+  url: https://www.ezu.pt/ceme
+  updated_at: "2026-08-08"
+  plans:
+  - name: CEME Cartão
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2025-11-26"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: false
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.15
+      vazio: 0.15
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE
+  - name: CEME App
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-07-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: false
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.099
+      vazio: 0.099
+    contract_conditions:
+    - APP_ACTIVATION
+    end_date: "2026-08-31"
+    notes:
+    - language: pt
+      text: Adesão App AB Energia
+    payment_methods:
+    - APP
+    networks:
+    - network_id: MOBIE

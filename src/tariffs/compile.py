@@ -6,7 +6,7 @@ import sys
 
 import yaml
 
-from .byoe_generator import expand_byoe_plan, expand_byoe_plans, find_matching_regulated_fees
+from .byoe_generator import expand_byoe_plans, find_matching_regulated_fees
 from .model import Plan, Provider, TariffDocument
 from .regulated_fees import RegulatedFeesDocument, TimeRestrictionsDocument
 from .validate import _cross_validate_tariff_doc
@@ -92,17 +92,24 @@ def main():
 
     for file_path, prov in raw_providers:
         name = prov.name
+        published_plans = [p for p in prov.plans if p.publish]
+
         if name not in merged_providers_dict:
             merged_providers_dict[name] = Provider(
                 name=prov.name,
+                publish=prov.publish,
                 url=prov.url,
+                app_url=prov.app_url,
                 updated_at=prov.updated_at,
-                plans=list(prov.plans),
+                plans=published_plans,
             )
             provider_sources[name] = [file_path]
         else:
             existing = merged_providers_dict[name]
             sources = provider_sources[name]
+
+            if not prov.publish:
+                existing.publish = False
 
             # Check url conflict
             if prov.url is not None:
@@ -114,6 +121,17 @@ def main():
                     errors = True
                 elif existing.url is None:
                     existing.url = prov.url
+
+            # Check app_url conflict
+            if prov.app_url is not None:
+                if existing.app_url is not None and existing.app_url != prov.app_url:
+                    print(
+                        f"[ERROR] Conflict for provider '{name}': field 'app_url' differs "
+                        f"between '{sources[0]}' ({existing.app_url}) and '{file_path}' ({prov.app_url})"
+                    )
+                    errors = True
+                elif existing.app_url is None:
+                    existing.app_url = prov.app_url
 
             # Check updated_at conflict
             if prov.updated_at is not None:
@@ -129,20 +147,25 @@ def main():
                 elif existing.updated_at is None:
                     existing.updated_at = prov.updated_at
 
-            existing.plans.extend(prov.plans)
+            existing.plans.extend(published_plans)
             sources.append(file_path)
 
     if errors:
         print("\nCompilation aborted due to metadata conflicts across provider files.")
         sys.exit(1)
 
-    master_providers = list(merged_providers_dict.values())
+    master_providers = [
+        prov for prov in merged_providers_dict.values()
+        if prov.publish and len(prov.plans) > 0
+    ]
 
     # Expand BYOE plans using master regulated fees and time restrictions
     compile_today = datetime.date.today().isoformat()
     for prov in master_providers:
         expanded_plans: list[Plan] = []
         for plan in prov.plans:
+            if not plan.publish:
+                continue
             if plan.is_byoe and master_regulated_fees:
                 regional_plans = expand_byoe_plans(
                     plan,
@@ -162,6 +185,9 @@ def main():
                         plan.vat = rf.vat
                 expanded_plans.append(plan)
         prov.plans = expanded_plans
+
+    # Exclude any provider that ended up with no plans after expansion
+    master_providers = [prov for prov in master_providers if prov.plans]
 
     # Create the master document
     master_doc = TariffDocument(

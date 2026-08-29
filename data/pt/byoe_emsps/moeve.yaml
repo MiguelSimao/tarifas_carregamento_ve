@@ -1,0 +1,78 @@
+providers:
+- name: Moeve
+  url: https://pt.cepsa.com/pt/utilizacao/produtos-servicos/carregamento-eletrico
+  updated_at: "2026-04-21"
+  plans:
+  - name: CEME App GOW
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-04-21"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: false
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.11
+      vazio: 0.1085
+    contract_conditions:
+    - LOYALTY_PROGRAM
+    notes:
+    - language: pt
+      text: Cashback App GOW  (Cashback -2c/kWh)
+    payment_methods:
+    - APP
+    networks:
+    - network_id: MOBIE
+  - name: CEME App GOW Deco
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-04-21"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: false
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.09
+      vazio: 0.0885
+    contract_conditions:
+    - PARTNERSHIP
+    notes:
+    - language: pt
+      text: App GOW + Deco (Cashback -4c/kWh)
+    payment_methods:
+    - APP
+    networks:
+    - network_id: MOBIE
+  - name: CEME Cartão
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-04-21"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: false
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.13
+      vazio: 0.1285
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE

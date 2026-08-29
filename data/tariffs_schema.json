@@ -410,6 +410,12 @@
           "title": "Name",
           "type": "string"
         },
+        "publish": {
+          "default": true,
+          "description": "Whether this plan should be published and included in compilation",
+          "title": "Publish",
+          "type": "boolean"
+        },
         "country_code": {
           "anyOf": [
             {
@@ -602,6 +608,12 @@
         "name": {
           "title": "Name",
           "type": "string"
+        },
+        "publish": {
+          "default": true,
+          "description": "Whether this provider should be published and included in compilation",
+          "title": "Publish",
+          "type": "boolean"
         },
         "url": {
           "anyOf": [

@@ -1,0 +1,51 @@
+providers:
+- name: Mobismart
+  url: https://mobismart.pt/pedir-cartao/
+  updated_at: "2024-12-30"
+  plans:
+  - name: CEME Active
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2023-01-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: false
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.25
+      vazio: 0.2
+    months: 12
+    notes:
+    - language: pt
+      text: Plano Active (12 meses)
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE
+  - name: CEME Pré-Pago
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2023-01-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: false
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.3
+      vazio: 0.25
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE

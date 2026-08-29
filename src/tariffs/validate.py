@@ -12,7 +12,11 @@ from .regulated_fees import RegulatedFeesDocument, TariffSchedule, TimeRestricti
 
 def _cross_validate_tariff_doc(doc: TariffDocument, file_path: str):
     for prov in doc.providers:
+        if not getattr(prov, "publish", True):
+            continue
         for plan in prov.plans:
+            if not getattr(plan, "publish", True):
+                continue
             if not plan.is_byoe:
                 if not plan.networks:
                     raise ValueError(f"Plan '{plan.name}' in '{file_path}' must define at least one network.")

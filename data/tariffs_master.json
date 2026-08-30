@@ -16,7 +16,11 @@
           "networks": [
             {
               "network_id": "MOBIE",
-              "cashback": 0.2,
+              "discount": {
+                "percentage": 0.2,
+                "cashback": true,
+                "applies_to": "TOTAL"
+              },
               "excluded_cpos": [
                 "ATLA"
               ],
@@ -35,7 +39,11 @@
             },
             {
               "network_id": "ATLA",
-              "cashback": 0.5,
+              "discount": {
+                "percentage": 0.5,
+                "cashback": true,
+                "applies_to": "TOTAL"
+              },
               "tariffs": [
                 {
                   "unit": "energy",
@@ -3631,6 +3639,10 @@
             {
               "language": "pt",
               "text": "Cliente Casa (-20%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer (-20%)"
             }
           ],
           "byoe": {
@@ -3684,6 +3696,10 @@
             {
               "language": "pt",
               "text": "Cliente Casa (-20%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer (-20%)"
             }
           ],
           "byoe": {
@@ -3737,6 +3753,10 @@
             {
               "language": "pt",
               "text": "Cliente Casa (-20%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer (-20%)"
             }
           ],
           "byoe": {
@@ -3790,6 +3810,10 @@
             {
               "language": "pt",
               "text": "Cliente Casa (-20%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer (-20%)"
             }
           ],
           "byoe": {
@@ -3882,6 +3906,10 @@
             {
               "language": "pt",
               "text": "Cliente Casa (-20%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer (-20%)"
             }
           ],
           "byoe": {
@@ -3974,6 +4002,10 @@
             {
               "language": "pt",
               "text": "Cliente Casa (-20%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer (-20%)"
             }
           ],
           "byoe": {
@@ -4067,6 +4099,10 @@
             {
               "language": "pt",
               "text": "Cliente Casa + Associado UVE (-30%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer + UVE Member (-30%)"
             }
           ],
           "byoe": {
@@ -4121,6 +4157,10 @@
             {
               "language": "pt",
               "text": "Cliente Casa + Associado UVE (-30%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer + UVE Member (-30%)"
             }
           ],
           "byoe": {
@@ -4175,6 +4215,10 @@
             {
               "language": "pt",
               "text": "Cliente Casa + Associado UVE (-30%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer + UVE Member (-30%)"
             }
           ],
           "byoe": {
@@ -4229,6 +4273,10 @@
             {
               "language": "pt",
               "text": "Cliente Casa + Associado UVE (-30%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer + UVE Member (-30%)"
             }
           ],
           "byoe": {
@@ -4322,6 +4370,10 @@
             {
               "language": "pt",
               "text": "Cliente Casa + Associado UVE (-30%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer + UVE Member (-30%)"
             }
           ],
           "byoe": {
@@ -4415,6 +4467,10 @@
             {
               "language": "pt",
               "text": "Cliente Casa + Associado UVE (-30%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer + UVE Member (-30%)"
             }
           ],
           "byoe": {
@@ -4507,6 +4563,10 @@
             {
               "language": "pt",
               "text": "Associado UVE (-10%)"
+            },
+            {
+              "language": "en",
+              "text": "UVE Member (-10%)"
             }
           ],
           "byoe": {
@@ -4560,6 +4620,10 @@
             {
               "language": "pt",
               "text": "Associado UVE (-10%)"
+            },
+            {
+              "language": "en",
+              "text": "UVE Member (-10%)"
             }
           ],
           "byoe": {
@@ -4613,6 +4677,10 @@
             {
               "language": "pt",
               "text": "Associado UVE (-10%)"
+            },
+            {
+              "language": "en",
+              "text": "UVE Member (-10%)"
             }
           ],
           "byoe": {
@@ -4666,6 +4734,10 @@
             {
               "language": "pt",
               "text": "Associado UVE (-10%)"
+            },
+            {
+              "language": "en",
+              "text": "UVE Member (-10%)"
             }
           ],
           "byoe": {
@@ -4758,6 +4830,10 @@
             {
               "language": "pt",
               "text": "Associado UVE (-10%)"
+            },
+            {
+              "language": "en",
+              "text": "UVE Member (-10%)"
             }
           ],
           "byoe": {
@@ -4850,6 +4926,10 @@
             {
               "language": "pt",
               "text": "Associado UVE (-10%)"
+            },
+            {
+              "language": "en",
+              "text": "UVE Member (-10%)"
             }
           ],
           "byoe": {
@@ -10003,18 +10083,26 @@
           ]
         },
         {
-          "name": "CEME App + OPC (Diário)",
+          "name": "CEME App (Diário)",
           "publish": true,
           "country_code": "PT",
           "payment_methods": [
+            "RFID_CARD",
             "APP"
           ],
           "includes_vat": false,
           "vat": 0.23,
+          "contract_conditions": [
+            "LOYALTY_PROGRAM"
+          ],
           "notes": [
             {
               "language": "pt",
-              "text": "Postos Galp (-20%)"
+              "text": "App Galp Mundo (-8%)"
+            },
+            {
+              "language": "en",
+              "text": "Galp Mundo App (-8%)"
             }
           ],
           "byoe": {
@@ -10027,15 +10115,72 @@
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": true,
-            "vazio": 0.1563,
-            "fora_vazio": 0.2106
+            "vazio": 0.1954,
+            "fora_vazio": 0.2632
           },
           "networks": [
             {
               "network_id": "MOBIE",
-              "included_cpos": [
+              "excluded_cpos": [
                 "GLPP"
               ],
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1798,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "22:00",
+                      "end_time": "08:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.2421,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "08:00",
+                      "end_time": "22:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "GLPP",
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -10094,18 +10239,26 @@
           ]
         },
         {
-          "name": "CEME App + OPC (Diário)",
+          "name": "CEME App (Diário)",
           "publish": true,
           "country_code": "PT::RAA",
           "payment_methods": [
+            "RFID_CARD",
             "APP"
           ],
           "includes_vat": false,
           "vat": 0.16,
+          "contract_conditions": [
+            "LOYALTY_PROGRAM"
+          ],
           "notes": [
             {
               "language": "pt",
-              "text": "Postos Galp (-20%)"
+              "text": "App Galp Mundo (-8%)"
+            },
+            {
+              "language": "en",
+              "text": "Galp Mundo App (-8%)"
             }
           ],
           "byoe": {
@@ -10118,15 +10271,72 @@
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": true,
-            "vazio": 0.1563,
-            "fora_vazio": 0.2106
+            "vazio": 0.1954,
+            "fora_vazio": 0.2632
           },
           "networks": [
             {
               "network_id": "MOBIE",
-              "included_cpos": [
+              "excluded_cpos": [
                 "GLPP"
               ],
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1798,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "22:00",
+                      "end_time": "08:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.2421,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "08:00",
+                      "end_time": "22:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "GLPP",
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -10185,18 +10395,26 @@
           ]
         },
         {
-          "name": "CEME App + OPC (Diário)",
+          "name": "CEME App (Diário)",
           "publish": true,
           "country_code": "PT::RAM",
           "payment_methods": [
+            "RFID_CARD",
             "APP"
           ],
           "includes_vat": false,
           "vat": 0.22,
+          "contract_conditions": [
+            "LOYALTY_PROGRAM"
+          ],
           "notes": [
             {
               "language": "pt",
-              "text": "Postos Galp (-20%)"
+              "text": "App Galp Mundo (-8%)"
+            },
+            {
+              "language": "en",
+              "text": "Galp Mundo App (-8%)"
             }
           ],
           "byoe": {
@@ -10209,15 +10427,72 @@
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": true,
-            "vazio": 0.1563,
-            "fora_vazio": 0.2106
+            "vazio": 0.1954,
+            "fora_vazio": 0.2632
           },
           "networks": [
             {
               "network_id": "MOBIE",
-              "included_cpos": [
+              "excluded_cpos": [
                 "GLPP"
               ],
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1798,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "09:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.2421,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "09:00",
+                      "end_time": "23:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "GLPP",
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -10276,18 +10551,26 @@
           ]
         },
         {
-          "name": "CEME App + OPC (Semanal)",
+          "name": "CEME App (Semanal)",
           "publish": true,
           "country_code": "PT",
           "payment_methods": [
+            "RFID_CARD",
             "APP"
           ],
           "includes_vat": false,
           "vat": 0.23,
+          "contract_conditions": [
+            "LOYALTY_PROGRAM"
+          ],
           "notes": [
             {
               "language": "pt",
-              "text": "Postos Galp (-20%)"
+              "text": "App Galp Mundo (-8%)"
+            },
+            {
+              "language": "en",
+              "text": "Galp Mundo App (-8%)"
             }
           ],
           "byoe": {
@@ -10300,15 +10583,116 @@
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": true,
-            "vazio": 0.1563,
-            "fora_vazio": 0.2106
+            "vazio": 0.1954,
+            "fora_vazio": 0.2632
           },
           "networks": [
             {
               "network_id": "MOBIE",
-              "included_cpos": [
+              "excluded_cpos": [
                 "GLPP"
               ],
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1798,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "09:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "14:00",
+                      "end_time": "20:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "22:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.2421,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "09:00",
+                      "end_time": "14:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "20:00",
+                      "end_time": "22:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "GLPP",
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -10411,18 +10795,26 @@
           ]
         },
         {
-          "name": "CEME App + OPC (Semanal)",
+          "name": "CEME App (Semanal)",
           "publish": true,
           "country_code": "PT::RAA",
           "payment_methods": [
+            "RFID_CARD",
             "APP"
           ],
           "includes_vat": false,
           "vat": 0.16,
+          "contract_conditions": [
+            "LOYALTY_PROGRAM"
+          ],
           "notes": [
             {
               "language": "pt",
-              "text": "Postos Galp (-20%)"
+              "text": "App Galp Mundo (-8%)"
+            },
+            {
+              "language": "en",
+              "text": "Galp Mundo App (-8%)"
             }
           ],
           "byoe": {
@@ -10435,15 +10827,202 @@
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": true,
-            "vazio": 0.1563,
-            "fora_vazio": 0.2106
+            "vazio": 0.1954,
+            "fora_vazio": 0.2632
           },
           "networks": [
             {
               "network_id": "MOBIE",
-              "included_cpos": [
+              "excluded_cpos": [
                 "GLPP"
               ],
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1798,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.1798,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "13:30",
+                      "end_time": "18:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.2421,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.2421,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "18:00",
+                      "end_time": "23:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "GLPP",
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -10632,18 +11211,26 @@
           ]
         },
         {
-          "name": "CEME App + OPC (Semanal)",
+          "name": "CEME App (Semanal)",
           "publish": true,
           "country_code": "PT::RAM",
           "payment_methods": [
+            "RFID_CARD",
             "APP"
           ],
           "includes_vat": false,
           "vat": 0.22,
+          "contract_conditions": [
+            "LOYALTY_PROGRAM"
+          ],
           "notes": [
             {
               "language": "pt",
-              "text": "Postos Galp (-20%)"
+              "text": "App Galp Mundo (-8%)"
+            },
+            {
+              "language": "en",
+              "text": "Galp Mundo App (-8%)"
             }
           ],
           "byoe": {
@@ -10656,15 +11243,202 @@
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": true,
-            "vazio": 0.1563,
-            "fora_vazio": 0.2106
+            "vazio": 0.1954,
+            "fora_vazio": 0.2632
           },
           "networks": [
             {
               "network_id": "MOBIE",
-              "included_cpos": [
+              "excluded_cpos": [
                 "GLPP"
               ],
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1798,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.1798,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "14:00",
+                      "end_time": "18:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "22:30",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.2421,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.2421,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "11:30",
+                      "end_time": "14:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "18:00",
+                      "end_time": "22:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "GLPP",
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -10853,10 +11627,11 @@
           ]
         },
         {
-          "name": "CEME Casa + OPC (Diário)",
+          "name": "CEME Casa (Diário)",
           "publish": true,
           "country_code": "PT",
           "payment_methods": [
+            "RFID_CARD",
             "APP"
           ],
           "includes_vat": false,
@@ -10867,7 +11642,11 @@
           "notes": [
             {
               "language": "pt",
-              "text": "Postos Galp + Cliente Casa (-30%)"
+              "text": "Cliente Casa (-18%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer (-18%)"
             }
           ],
           "byoe": {
@@ -10880,15 +11659,72 @@
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": true,
-            "vazio": 0.1368,
-            "fora_vazio": 0.1842
+            "vazio": 0.1954,
+            "fora_vazio": 0.2632
           },
           "networks": [
             {
               "network_id": "MOBIE",
-              "included_cpos": [
+              "excluded_cpos": [
                 "GLPP"
               ],
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1602,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "22:00",
+                      "end_time": "08:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.2158,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "08:00",
+                      "end_time": "22:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "GLPP",
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -10947,10 +11783,11 @@
           ]
         },
         {
-          "name": "CEME Casa + OPC (Diário)",
+          "name": "CEME Casa (Diário)",
           "publish": true,
           "country_code": "PT::RAA",
           "payment_methods": [
+            "RFID_CARD",
             "APP"
           ],
           "includes_vat": false,
@@ -10961,7 +11798,11 @@
           "notes": [
             {
               "language": "pt",
-              "text": "Postos Galp + Cliente Casa (-30%)"
+              "text": "Cliente Casa (-18%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer (-18%)"
             }
           ],
           "byoe": {
@@ -10974,15 +11815,72 @@
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": true,
-            "vazio": 0.1368,
-            "fora_vazio": 0.1842
+            "vazio": 0.1954,
+            "fora_vazio": 0.2632
           },
           "networks": [
             {
               "network_id": "MOBIE",
-              "included_cpos": [
+              "excluded_cpos": [
                 "GLPP"
               ],
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1602,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "22:00",
+                      "end_time": "08:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.2158,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "08:00",
+                      "end_time": "22:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "GLPP",
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -11041,10 +11939,11 @@
           ]
         },
         {
-          "name": "CEME Casa + OPC (Diário)",
+          "name": "CEME Casa (Diário)",
           "publish": true,
           "country_code": "PT::RAM",
           "payment_methods": [
+            "RFID_CARD",
             "APP"
           ],
           "includes_vat": false,
@@ -11055,7 +11954,11 @@
           "notes": [
             {
               "language": "pt",
-              "text": "Postos Galp + Cliente Casa (-30%)"
+              "text": "Cliente Casa (-18%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer (-18%)"
             }
           ],
           "byoe": {
@@ -11068,15 +11971,72 @@
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": true,
-            "vazio": 0.1368,
-            "fora_vazio": 0.1842
+            "vazio": 0.1954,
+            "fora_vazio": 0.2632
           },
           "networks": [
             {
               "network_id": "MOBIE",
-              "included_cpos": [
+              "excluded_cpos": [
                 "GLPP"
               ],
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1602,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "09:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.2158,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "09:00",
+                      "end_time": "23:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "GLPP",
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -11135,10 +12095,11 @@
           ]
         },
         {
-          "name": "CEME Casa + OPC (Semanal)",
+          "name": "CEME Casa (Semanal)",
           "publish": true,
           "country_code": "PT",
           "payment_methods": [
+            "RFID_CARD",
             "APP"
           ],
           "includes_vat": false,
@@ -11149,7 +12110,11 @@
           "notes": [
             {
               "language": "pt",
-              "text": "Postos Galp + Cliente Casa (-30%)"
+              "text": "Cliente Casa (-18%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer (-18%)"
             }
           ],
           "byoe": {
@@ -11162,15 +12127,116 @@
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": true,
-            "vazio": 0.1368,
-            "fora_vazio": 0.1842
+            "vazio": 0.1954,
+            "fora_vazio": 0.2632
           },
           "networks": [
             {
               "network_id": "MOBIE",
-              "included_cpos": [
+              "excluded_cpos": [
                 "GLPP"
               ],
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1602,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "09:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "14:00",
+                      "end_time": "20:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "22:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.2158,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "09:00",
+                      "end_time": "14:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "20:00",
+                      "end_time": "22:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "GLPP",
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -11273,10 +12339,11 @@
           ]
         },
         {
-          "name": "CEME Casa + OPC (Semanal)",
+          "name": "CEME Casa (Semanal)",
           "publish": true,
           "country_code": "PT::RAA",
           "payment_methods": [
+            "RFID_CARD",
             "APP"
           ],
           "includes_vat": false,
@@ -11287,7 +12354,11 @@
           "notes": [
             {
               "language": "pt",
-              "text": "Postos Galp + Cliente Casa (-30%)"
+              "text": "Cliente Casa (-18%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer (-18%)"
             }
           ],
           "byoe": {
@@ -11300,15 +12371,202 @@
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": true,
-            "vazio": 0.1368,
-            "fora_vazio": 0.1842
+            "vazio": 0.1954,
+            "fora_vazio": 0.2632
           },
           "networks": [
             {
               "network_id": "MOBIE",
-              "included_cpos": [
+              "excluded_cpos": [
                 "GLPP"
               ],
+              "tariffs": [
+                {
+                  "price": 0.1088,
+                  "unit": "flat",
+                  "mobie_fee_type": "EGME"
+                },
+                {
+                  "price": 0.001,
+                  "unit": "energy",
+                  "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1602,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.1602,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "13:30",
+                      "end_time": "18:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.2158,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.2158,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "18:00",
+                      "end_time": "23:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "GLPP",
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -11497,10 +12755,11 @@
           ]
         },
         {
-          "name": "CEME Casa + OPC (Semanal)",
+          "name": "CEME Casa (Semanal)",
           "publish": true,
           "country_code": "PT::RAM",
           "payment_methods": [
+            "RFID_CARD",
             "APP"
           ],
           "includes_vat": false,
@@ -11511,7 +12770,11 @@
           "notes": [
             {
               "language": "pt",
-              "text": "Postos Galp + Cliente Casa (-30%)"
+              "text": "Cliente Casa (-18%)"
+            },
+            {
+              "language": "en",
+              "text": "Home Customer (-18%)"
             }
           ],
           "byoe": {
@@ -11524,13 +12787,13 @@
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": true,
-            "vazio": 0.1368,
-            "fora_vazio": 0.1842
+            "vazio": 0.1954,
+            "fora_vazio": 0.2632
           },
           "networks": [
             {
               "network_id": "MOBIE",
-              "included_cpos": [
+              "excluded_cpos": [
                 "GLPP"
               ],
               "tariffs": [
@@ -11545,7 +12808,7 @@
                   "mobie_fee_type": "IEC"
                 },
                 {
-                  "price": 0.1368,
+                  "price": 0.1602,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
                   "time_restrictions": [
@@ -11596,7 +12859,7 @@
                   ]
                 },
                 {
-                  "price": 0.1368,
+                  "price": 0.1602,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
                   "time_restrictions": [
@@ -11647,7 +12910,7 @@
                   ]
                 },
                 {
-                  "price": 0.1842,
+                  "price": 0.2158,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
                   "time_restrictions": [
@@ -11682,7 +12945,7 @@
                   ]
                 },
                 {
-                  "price": 0.1842,
+                  "price": 0.2158,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
                   "time_restrictions": [
@@ -11717,44 +12980,9 @@
                   ]
                 }
               ]
-            }
-          ]
-        },
-        {
-          "name": "CEME App (Diário)",
-          "publish": true,
-          "country_code": "PT",
-          "payment_methods": [
-            "RFID_CARD",
-            "APP"
-          ],
-          "includes_vat": false,
-          "vat": 0.23,
-          "contract_conditions": [
-            "LOYALTY_PROGRAM"
-          ],
-          "notes": [
+            },
             {
-              "language": "pt",
-              "text": "App Mundo (-8%)"
-            }
-          ],
-          "byoe": {
-            "start_date": "2026-01-01",
-            "cycle": "diario",
-            "schedule": "2H",
-            "includes_vat": false,
-            "includes_tar": true,
-            "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
-            "renewable_energy": true,
-            "vazio": 0.1462,
-            "fora_vazio": 0.2032
-          },
-          "networks": [
-            {
-              "network_id": "MOBIE",
+              "network_id": "GLPP",
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -11767,419 +12995,7 @@
                   "mobie_fee_type": "IEC"
                 },
                 {
-                  "price": 0.1462,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "22:00",
-                      "end_time": "08:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.2032,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "08:00",
-                      "end_time": "22:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "CEME App (Diário)",
-          "publish": true,
-          "country_code": "PT::RAA",
-          "payment_methods": [
-            "RFID_CARD",
-            "APP"
-          ],
-          "includes_vat": false,
-          "vat": 0.16,
-          "contract_conditions": [
-            "LOYALTY_PROGRAM"
-          ],
-          "notes": [
-            {
-              "language": "pt",
-              "text": "App Mundo (-8%)"
-            }
-          ],
-          "byoe": {
-            "start_date": "2026-01-01",
-            "cycle": "diario",
-            "schedule": "2H",
-            "includes_vat": false,
-            "includes_tar": true,
-            "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
-            "renewable_energy": true,
-            "vazio": 0.1462,
-            "fora_vazio": 0.2032
-          },
-          "networks": [
-            {
-              "network_id": "MOBIE",
-              "tariffs": [
-                {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
-                },
-                {
-                  "price": 0.001,
-                  "unit": "energy",
-                  "mobie_fee_type": "IEC"
-                },
-                {
-                  "price": 0.1462,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "22:00",
-                      "end_time": "08:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.2032,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "08:00",
-                      "end_time": "22:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "CEME App (Diário)",
-          "publish": true,
-          "country_code": "PT::RAM",
-          "payment_methods": [
-            "RFID_CARD",
-            "APP"
-          ],
-          "includes_vat": false,
-          "vat": 0.22,
-          "contract_conditions": [
-            "LOYALTY_PROGRAM"
-          ],
-          "notes": [
-            {
-              "language": "pt",
-              "text": "App Mundo (-8%)"
-            }
-          ],
-          "byoe": {
-            "start_date": "2026-01-01",
-            "cycle": "diario",
-            "schedule": "2H",
-            "includes_vat": false,
-            "includes_tar": true,
-            "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
-            "renewable_energy": true,
-            "vazio": 0.1462,
-            "fora_vazio": 0.2032
-          },
-          "networks": [
-            {
-              "network_id": "MOBIE",
-              "tariffs": [
-                {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
-                },
-                {
-                  "price": 0.001,
-                  "unit": "energy",
-                  "mobie_fee_type": "IEC"
-                },
-                {
-                  "price": 0.1462,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "23:00",
-                      "end_time": "09:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.2032,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "09:00",
-                      "end_time": "23:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "CEME App (Semanal)",
-          "publish": true,
-          "country_code": "PT",
-          "payment_methods": [
-            "RFID_CARD",
-            "APP"
-          ],
-          "includes_vat": false,
-          "vat": 0.23,
-          "contract_conditions": [
-            "LOYALTY_PROGRAM"
-          ],
-          "notes": [
-            {
-              "language": "pt",
-              "text": "App Mundo (-8%)"
-            }
-          ],
-          "byoe": {
-            "start_date": "2026-01-01",
-            "cycle": "semanal",
-            "schedule": "2H",
-            "includes_vat": false,
-            "includes_tar": true,
-            "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
-            "renewable_energy": true,
-            "vazio": 0.1462,
-            "fora_vazio": 0.2032
-          },
-          "networks": [
-            {
-              "network_id": "MOBIE",
-              "tariffs": [
-                {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
-                },
-                {
-                  "price": 0.001,
-                  "unit": "energy",
-                  "mobie_fee_type": "IEC"
-                },
-                {
-                  "price": 0.1462,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "07:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "09:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "14:00",
-                      "end_time": "20:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "22:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.2032,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "07:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "09:00",
-                      "end_time": "14:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "20:00",
-                      "end_time": "22:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "CEME App (Semanal)",
-          "publish": true,
-          "country_code": "PT::RAA",
-          "payment_methods": [
-            "RFID_CARD",
-            "APP"
-          ],
-          "includes_vat": false,
-          "vat": 0.16,
-          "contract_conditions": [
-            "LOYALTY_PROGRAM"
-          ],
-          "notes": [
-            {
-              "language": "pt",
-              "text": "App Mundo (-8%)"
-            }
-          ],
-          "byoe": {
-            "start_date": "2026-01-01",
-            "cycle": "semanal",
-            "schedule": "2H",
-            "includes_vat": false,
-            "includes_tar": true,
-            "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
-            "renewable_energy": true,
-            "vazio": 0.1462,
-            "fora_vazio": 0.2032
-          },
-          "networks": [
-            {
-              "network_id": "MOBIE",
-              "tariffs": [
-                {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
-                },
-                {
-                  "price": 0.001,
-                  "unit": "energy",
-                  "mobie_fee_type": "IEC"
-                },
-                {
-                  "price": 0.1462,
+                  "price": 0.1368,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
                   "time_restrictions": [
@@ -12230,229 +13046,7 @@
                   ]
                 },
                 {
-                  "price": 0.1462,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "07:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "11:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "13:30",
-                      "end_time": "18:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "23:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.2032,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "07:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.2032,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "07:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "13:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "18:00",
-                      "end_time": "23:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "CEME App (Semanal)",
-          "publish": true,
-          "country_code": "PT::RAM",
-          "payment_methods": [
-            "RFID_CARD",
-            "APP"
-          ],
-          "includes_vat": false,
-          "vat": 0.22,
-          "contract_conditions": [
-            "LOYALTY_PROGRAM"
-          ],
-          "notes": [
-            {
-              "language": "pt",
-              "text": "App Mundo (-8%)"
-            }
-          ],
-          "byoe": {
-            "start_date": "2026-01-01",
-            "cycle": "semanal",
-            "schedule": "2H",
-            "includes_vat": false,
-            "includes_tar": true,
-            "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
-            "renewable_energy": true,
-            "vazio": 0.1462,
-            "fora_vazio": 0.2032
-          },
-          "networks": [
-            {
-              "network_id": "MOBIE",
-              "tariffs": [
-                {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
-                },
-                {
-                  "price": 0.001,
-                  "unit": "energy",
-                  "mobie_fee_type": "IEC"
-                },
-                {
-                  "price": 0.1462,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "07:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "11:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "23:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.1462,
+                  "price": 0.1368,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
                   "time_restrictions": [
@@ -12503,7 +13097,7 @@
                   ]
                 },
                 {
-                  "price": 0.2032,
+                  "price": 0.1842,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
                   "time_restrictions": [
@@ -12538,863 +13132,7 @@
                   ]
                 },
                 {
-                  "price": 0.2032,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "07:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "14:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "18:00",
-                      "end_time": "22:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "CEME Casa (Diário)",
-          "publish": true,
-          "country_code": "PT",
-          "payment_methods": [
-            "RFID_CARD",
-            "APP"
-          ],
-          "includes_vat": false,
-          "vat": 0.23,
-          "contract_conditions": [
-            "ENERGY_AT_HOME"
-          ],
-          "notes": [
-            {
-              "language": "pt",
-              "text": "Cliente Casa (-18%)"
-            }
-          ],
-          "byoe": {
-            "start_date": "2026-01-01",
-            "cycle": "diario",
-            "schedule": "2H",
-            "includes_vat": false,
-            "includes_tar": true,
-            "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
-            "renewable_energy": true,
-            "vazio": 0.1303,
-            "fora_vazio": 0.1811
-          },
-          "networks": [
-            {
-              "network_id": "MOBIE",
-              "tariffs": [
-                {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
-                },
-                {
-                  "price": 0.001,
-                  "unit": "energy",
-                  "mobie_fee_type": "IEC"
-                },
-                {
-                  "price": 0.1303,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "22:00",
-                      "end_time": "08:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.1811,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "08:00",
-                      "end_time": "22:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "CEME Casa (Diário)",
-          "publish": true,
-          "country_code": "PT::RAA",
-          "payment_methods": [
-            "RFID_CARD",
-            "APP"
-          ],
-          "includes_vat": false,
-          "vat": 0.16,
-          "contract_conditions": [
-            "ENERGY_AT_HOME"
-          ],
-          "notes": [
-            {
-              "language": "pt",
-              "text": "Cliente Casa (-18%)"
-            }
-          ],
-          "byoe": {
-            "start_date": "2026-01-01",
-            "cycle": "diario",
-            "schedule": "2H",
-            "includes_vat": false,
-            "includes_tar": true,
-            "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
-            "renewable_energy": true,
-            "vazio": 0.1303,
-            "fora_vazio": 0.1811
-          },
-          "networks": [
-            {
-              "network_id": "MOBIE",
-              "tariffs": [
-                {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
-                },
-                {
-                  "price": 0.001,
-                  "unit": "energy",
-                  "mobie_fee_type": "IEC"
-                },
-                {
-                  "price": 0.1303,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "22:00",
-                      "end_time": "08:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.1811,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "08:00",
-                      "end_time": "22:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "CEME Casa (Diário)",
-          "publish": true,
-          "country_code": "PT::RAM",
-          "payment_methods": [
-            "RFID_CARD",
-            "APP"
-          ],
-          "includes_vat": false,
-          "vat": 0.22,
-          "contract_conditions": [
-            "ENERGY_AT_HOME"
-          ],
-          "notes": [
-            {
-              "language": "pt",
-              "text": "Cliente Casa (-18%)"
-            }
-          ],
-          "byoe": {
-            "start_date": "2026-01-01",
-            "cycle": "diario",
-            "schedule": "2H",
-            "includes_vat": false,
-            "includes_tar": true,
-            "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
-            "renewable_energy": true,
-            "vazio": 0.1303,
-            "fora_vazio": 0.1811
-          },
-          "networks": [
-            {
-              "network_id": "MOBIE",
-              "tariffs": [
-                {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
-                },
-                {
-                  "price": 0.001,
-                  "unit": "energy",
-                  "mobie_fee_type": "IEC"
-                },
-                {
-                  "price": 0.1303,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "23:00",
-                      "end_time": "09:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.1811,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "09:00",
-                      "end_time": "23:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "CEME Casa (Semanal)",
-          "publish": true,
-          "country_code": "PT",
-          "payment_methods": [
-            "RFID_CARD",
-            "APP"
-          ],
-          "includes_vat": false,
-          "vat": 0.23,
-          "contract_conditions": [
-            "ENERGY_AT_HOME"
-          ],
-          "notes": [
-            {
-              "language": "pt",
-              "text": "Cliente Casa (-18%)"
-            }
-          ],
-          "byoe": {
-            "start_date": "2026-01-01",
-            "cycle": "semanal",
-            "schedule": "2H",
-            "includes_vat": false,
-            "includes_tar": true,
-            "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
-            "renewable_energy": true,
-            "vazio": 0.1303,
-            "fora_vazio": 0.1811
-          },
-          "networks": [
-            {
-              "network_id": "MOBIE",
-              "tariffs": [
-                {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
-                },
-                {
-                  "price": 0.001,
-                  "unit": "energy",
-                  "mobie_fee_type": "IEC"
-                },
-                {
-                  "price": 0.1303,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "07:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "09:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "14:00",
-                      "end_time": "20:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "22:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.1811,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "07:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "09:00",
-                      "end_time": "14:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "20:00",
-                      "end_time": "22:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "CEME Casa (Semanal)",
-          "publish": true,
-          "country_code": "PT::RAA",
-          "payment_methods": [
-            "RFID_CARD",
-            "APP"
-          ],
-          "includes_vat": false,
-          "vat": 0.16,
-          "contract_conditions": [
-            "ENERGY_AT_HOME"
-          ],
-          "notes": [
-            {
-              "language": "pt",
-              "text": "Cliente Casa (-18%)"
-            }
-          ],
-          "byoe": {
-            "start_date": "2026-01-01",
-            "cycle": "semanal",
-            "schedule": "2H",
-            "includes_vat": false,
-            "includes_tar": true,
-            "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
-            "renewable_energy": true,
-            "vazio": 0.1303,
-            "fora_vazio": 0.1811
-          },
-          "networks": [
-            {
-              "network_id": "MOBIE",
-              "tariffs": [
-                {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
-                },
-                {
-                  "price": 0.001,
-                  "unit": "energy",
-                  "mobie_fee_type": "IEC"
-                },
-                {
-                  "price": 0.1303,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "07:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "11:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "23:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.1303,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "07:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "11:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "13:30",
-                      "end_time": "18:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "23:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.1811,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "07:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.1811,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "07:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "13:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "18:00",
-                      "end_time": "23:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "CEME Casa (Semanal)",
-          "publish": true,
-          "country_code": "PT::RAM",
-          "payment_methods": [
-            "RFID_CARD",
-            "APP"
-          ],
-          "includes_vat": false,
-          "vat": 0.22,
-          "contract_conditions": [
-            "ENERGY_AT_HOME"
-          ],
-          "notes": [
-            {
-              "language": "pt",
-              "text": "Cliente Casa (-18%)"
-            }
-          ],
-          "byoe": {
-            "start_date": "2026-01-01",
-            "cycle": "semanal",
-            "schedule": "2H",
-            "includes_vat": false,
-            "includes_tar": true,
-            "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
-            "renewable_energy": true,
-            "vazio": 0.1303,
-            "fora_vazio": 0.1811
-          },
-          "networks": [
-            {
-              "network_id": "MOBIE",
-              "tariffs": [
-                {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
-                },
-                {
-                  "price": 0.001,
-                  "unit": "energy",
-                  "mobie_fee_type": "IEC"
-                },
-                {
-                  "price": 0.1303,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "07:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "11:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "23:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.1303,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "07:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "11:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "14:00",
-                      "end_time": "18:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "22:30",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.1811,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "07:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.1811,
+                  "price": 0.1842,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
                   "time_restrictions": [
@@ -17016,6 +16754,10 @@
             {
               "language": "pt",
               "text": "Cashback App GOW  (Cashback -2c/kWh)"
+            },
+            {
+              "language": "en",
+              "text": "GOW App Cashback (Cashback -2c/kWh)"
             }
           ],
           "byoe": {
@@ -17034,6 +16776,11 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "discount": {
+                "flat": 0.02,
+                "cashback": true,
+                "applies_to": "CEME"
+              },
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -17195,6 +16942,10 @@
             {
               "language": "pt",
               "text": "Cashback App GOW  (Cashback -2c/kWh)"
+            },
+            {
+              "language": "en",
+              "text": "GOW App Cashback (Cashback -2c/kWh)"
             }
           ],
           "byoe": {
@@ -17213,6 +16964,11 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "discount": {
+                "flat": 0.02,
+                "cashback": true,
+                "applies_to": "CEME"
+              },
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -17330,6 +17086,10 @@
             {
               "language": "pt",
               "text": "Cashback App GOW  (Cashback -2c/kWh)"
+            },
+            {
+              "language": "en",
+              "text": "GOW App Cashback (Cashback -2c/kWh)"
             }
           ],
           "byoe": {
@@ -17348,6 +17108,11 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "discount": {
+                "flat": 0.02,
+                "cashback": true,
+                "applies_to": "CEME"
+              },
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -17465,6 +17230,10 @@
             {
               "language": "pt",
               "text": "App GOW + Deco (Cashback -4c/kWh)"
+            },
+            {
+              "language": "en",
+              "text": "GOW App + Deco Cashback (Cashback -4c/kWh)"
             }
           ],
           "byoe": {
@@ -17483,6 +17252,11 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "discount": {
+                "flat": 0.04,
+                "cashback": true,
+                "applies_to": "CEME"
+              },
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -17644,6 +17418,10 @@
             {
               "language": "pt",
               "text": "App GOW + Deco (Cashback -4c/kWh)"
+            },
+            {
+              "language": "en",
+              "text": "GOW App + Deco Cashback (Cashback -4c/kWh)"
             }
           ],
           "byoe": {
@@ -17662,6 +17440,11 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "discount": {
+                "flat": 0.04,
+                "cashback": true,
+                "applies_to": "CEME"
+              },
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -17779,6 +17562,10 @@
             {
               "language": "pt",
               "text": "App GOW + Deco (Cashback -4c/kWh)"
+            },
+            {
+              "language": "en",
+              "text": "GOW App + Deco Cashback (Cashback -4c/kWh)"
             }
           ],
           "byoe": {
@@ -17797,6 +17584,11 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "discount": {
+                "flat": 0.04,
+                "cashback": true,
+                "applies_to": "CEME"
+              },
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -21353,34 +21145,6 @@
                 {
                   "type": "DC",
                   "price": 0.58,
-                  "unit": "energy"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Wenea",
-      "publish": true,
-      "plans": [
-        {
-          "name": "Wenea (Confirmar App)",
-          "publish": true,
-          "country_code": "PT",
-          "payment_methods": [
-            "APP"
-          ],
-          "vat": 0.23,
-          "networks": [
-            {
-              "network_id": "MOBIE",
-              "display_name": "MOBI.E",
-              "tariffs": [
-                {
-                  "type": "DC",
-                  "price": 0.59,
                   "unit": "energy"
                 }
               ]

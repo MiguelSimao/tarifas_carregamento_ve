@@ -2,6 +2,7 @@ providers:
 - name: Wenea
   plans:
   - name: Wenea (Confirmar App)
+    publish: false
     country_code: PT
     payment_methods:
       - APP

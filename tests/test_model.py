@@ -4,11 +4,16 @@ import pytest
 import yaml
 from pydantic import ValidationError
 
+from tariffs.byoe_generator import expand_byoe_plan
 from tariffs.model import (
     AppUrl,
+    ByoeConfig,
     ContractCondition,
     DimensionType,
+    Discount,
     DisplayText,
+    MobieFeeType,
+    MobieVoltageLevel,
     Network,
     PaymentMethod,
     Plan,
@@ -18,6 +23,7 @@ from tariffs.model import (
     TariffTier,
     TimeRestriction,
 )
+from tariffs.regulated_fees import RegulatedFees, TariffSchedule
 
 
 def test_template_yaml_validates():
@@ -58,9 +64,12 @@ def test_template_yaml_validates():
         == "Desconto válido para carregamentos na rede nacional."
     )
 
-    # Locate a network to verify cashback, locations and time restrictions
+    # Locate a network to verify discount, locations and time restrictions
     mobie_network = next(n for n in plan_base.networks if n.network_id == "NetworkName")
-    assert mobie_network.cashback == 0.0
+    assert mobie_network.discount is not None
+    assert mobie_network.discount.percentage == 0.20
+    assert mobie_network.discount.cashback is False
+    assert mobie_network.discount.applies_to == MobieFeeType.CEME
     assert "LOC-00001" in mobie_network.included_locations
     assert "LOC-00002" in mobie_network.excluded_locations
 
@@ -134,14 +143,17 @@ def test_network_locations():
     assert n.excluded_locations == ["LOC-02"]
 
 
-def test_network_cashback():
-    """Test cashback field on a Network."""
+def test_network_discount():
+    """Test discount field on a Network."""
     n = Network(
         network_id="Test",
-        cashback=0.05,
+        discount=Discount(percentage=0.05, cashback=True),
         tariffs=[Tariff(price=0.5)],
     )
-    assert n.cashback == 0.05
+    assert n.discount is not None
+    assert n.discount.percentage == 0.05
+    assert n.discount.cashback is True
+    assert n.discount.effective_percentage == 0.05 / 1.05
 
 
 def test_tariff_serialization_includes_default_unit():
@@ -943,6 +955,108 @@ def test_publish_field_defaults_and_validation():
 
     provider_unpublished = Provider(name="DraftProvider", publish=False, plans=[plan_default])
     assert provider_unpublished.publish is False
+
+
+def test_discount_model_validation():
+    """Test Discount model creation and validations."""
+    # Percentage discount (default applies_to is CEME)
+    d1 = Discount(percentage=0.20)
+    assert d1.percentage == 0.20
+    assert d1.effective_percentage == 0.20
+    assert d1.flat is None
+    assert d1.cashback is False
+    assert d1.applies_to == MobieFeeType.CEME
+
+    # Flat discount with cashback=True and applies_to=MobieFeeType.TAR
+    d2 = Discount(flat=0.02, cashback=True, applies_to=MobieFeeType.TAR)
+    assert d2.flat == 0.02
+    assert d2.percentage is None
+    assert d2.cashback is True
+    assert d2.applies_to == MobieFeeType.TAR
+
+    # Cashback percentage effective rate calculation (x / (1 + x))
+    d3 = Discount(percentage=0.50, cashback=True)
+    assert d3.effective_percentage == 0.50 / 1.50
+
+    # Numeric coercion
+    n = Network(network_id="GLPP", discount=0.20, tariffs=[Tariff(price=0.5)])
+    assert n.discount is not None
+    assert n.discount.percentage == 0.20
+    assert n.discount.cashback is False
+    assert n.discount.applies_to == MobieFeeType.CEME
+
+    # Cannot specify neither
+    with pytest.raises(ValidationError):
+        Discount()
+
+    # Cannot specify both
+    with pytest.raises(ValidationError):
+        Discount(percentage=0.20, flat=0.02)
+
+
+def test_byoe_expansion_with_network_discount():
+    """Verify that network discounts are applied when expanding BYOE tariffs."""
+    regulated_fees = [
+        RegulatedFees(
+            country_code="PT",
+            effective_date="2026-01-01",
+            egme_connection=0.0,
+            iec=0.0,
+            vat=0.23,
+            tar_variants=[],
+        )
+    ]
+
+    plan = Plan(
+        name="CEME Plan",
+        country_code="PT",
+        byoe=ByoeConfig(
+            start_date="2026-01-01",
+            cycle="semanal",
+            schedule=TariffSchedule.BIHORARIO,
+            includes_tar=True,
+            includes_egme=True,
+            includes_iec=True,
+            fora_vazio=0.2632,
+            vazio=0.1954,
+        ),
+        networks=[
+            Network(network_id="MOBIE"),
+            Network(
+                network_id="GLPP",
+                discount=Discount(percentage=0.20, cashback=False, applies_to=MobieFeeType.CEME),
+            ),
+            Network(
+                network_id="ATLA",
+                discount=Discount(percentage=0.50, cashback=True),
+            ),
+        ],
+    )
+
+    expanded = expand_byoe_plan(plan, regulated_fees)
+
+    mobie_net = next(n for n in expanded.networks if n.network_id == "MOBIE")
+    glpp_net = next(n for n in expanded.networks if n.network_id == "GLPP")
+    atla_net = next(n for n in expanded.networks if n.network_id == "ATLA")
+
+    # MOBIE keeps base rates
+    mobie_prices = sorted(t.price for t in mobie_net.tariffs)
+    assert mobie_prices == [0.1954, 0.2632]
+
+    # GLPP (cashback=False): 20% discount applied to CEME energy rates, discount object cleared
+    glpp_prices = sorted(t.price for t in glpp_net.tariffs)
+    assert glpp_prices == [0.1563, 0.2106]
+    assert glpp_net.discount is None
+
+    # ATLA (cashback=True): tariffs remain undiscounted in compilation, discount object is preserved
+    atla_prices = sorted(t.price for t in atla_net.tariffs)
+    assert atla_prices == [0.1954, 0.2632]
+    assert atla_net.discount is not None
+    assert atla_net.discount.cashback is True
+    assert atla_net.discount.percentage == 0.50
+
+    assert mobie_net.discount is None
+
 
 
 

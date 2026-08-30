@@ -37,7 +37,10 @@ providers:
         networks:
         - network_id: "NetworkName" # e.g., "MOBIE"
           display_name: "Network Display Name"
-          cashback: 0.0   # Cashback percent (if applicable). Defaults to 0.0 if omitted.
+          discount:       # Optional discount configuration
+            percentage: 0.20 # Percentage discount as decimal (e.g. 0.20 for 20%), or flat: 0.02 (€/kWh)
+            cashback: false  # True if discount is refunded as cashback/app credit; False if applied directly
+            applies_to: CEME # Mobi.E fee component: CEME (default), TAR, EGME, IEC, CPO_TOTAL, CEME_TOTAL, TOTAL
           included_cpos:  # Omit or set to empty list if all CPOs in the network are included
             - "CPO001" # List of CPO IDs included in this plan (optional)
           excluded_cpos:

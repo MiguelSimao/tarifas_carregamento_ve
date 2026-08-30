@@ -9,13 +9,19 @@ providers:
     - network_id: MOBIE
       excluded_cpos:
       - ATLA
-      cashback: 0.20
+      discount:
+        percentage: 0.20
+        cashback: true
+        applies_to: TOTAL
       tariffs:
         - tiers:
           - min: 43
             price: 0.49
     - network_id: ATLA
-      cashback: 0.50
+      discount:
+        percentage: 0.50
+        cashback: true
+        applies_to: TOTAL
       tariffs:
         - tiers:
           - min: 43

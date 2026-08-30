@@ -250,6 +250,56 @@
       "title": "DimensionType",
       "type": "string"
     },
+    "Discount": {
+      "properties": {
+        "percentage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Percentage discount as a decimal (e.g. 0.20 for 20%)",
+          "title": "Percentage"
+        },
+        "flat": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Flat discount amount per kWh (e.g. 0.02 for 0.02 \u20ac/kWh)",
+          "title": "Flat"
+        },
+        "cashback": {
+          "default": false,
+          "description": "True if refunded as cashback/credit; False if applied directly to price",
+          "title": "Cashback",
+          "type": "boolean"
+        },
+        "applies_to": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MobieFeeType"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "CEME",
+          "description": "Mobi.E fee component the discount applies to (e.g. CEME, TAR, EGME, IEC). Defaults to CEME."
+        }
+      },
+      "title": "Discount",
+      "type": "object"
+    },
     "DisplayText": {
       "properties": {
         "language": {
@@ -273,7 +323,10 @@
         "CEME",
         "EGME",
         "TAR",
-        "IEC"
+        "IEC",
+        "CPO_TOTAL",
+        "CEME_TOTAL",
+        "TOTAL"
       ],
       "title": "MobieFeeType",
       "type": "string"
@@ -308,17 +361,17 @@
           "default": null,
           "title": "Display Name"
         },
-        "cashback": {
+        "discount": {
           "anyOf": [
             {
-              "type": "number"
+              "$ref": "#/$defs/Discount"
             },
             {
               "type": "null"
             }
           ],
           "default": null,
-          "title": "Cashback"
+          "description": "Discount/cashback configuration for the network"
         },
         "included_cpos": {
           "anyOf": [

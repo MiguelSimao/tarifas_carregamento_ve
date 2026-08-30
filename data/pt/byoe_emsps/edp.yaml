@@ -65,6 +65,8 @@ providers:
     notes:
     - language: pt
       text: Cliente Casa (-20%)
+    - language: en
+      text: Home Customer (-20%)
     payment_methods:
     - RFID_CARD
     - APP
@@ -92,6 +94,8 @@ providers:
     notes:
     - language: pt
       text: Cliente Casa (-20%)
+    - language: en
+      text: Home Customer (-20%)
     payment_methods:
     - RFID_CARD
     - APP
@@ -118,6 +122,8 @@ providers:
     notes:
     - language: pt
       text: Cliente Casa + Associado UVE (-30%)
+    - language: en
+      text: Home Customer + UVE Member (-30%)
     payment_methods:
     - RFID_CARD
     - APP
@@ -146,6 +152,8 @@ providers:
     notes:
     - language: pt
       text: Cliente Casa + Associado UVE (-30%)
+    - language: en
+      text: Home Customer + UVE Member (-30%)
     payment_methods:
     - RFID_CARD
     - APP
@@ -171,6 +179,8 @@ providers:
     notes:
     - language: pt
       text: Associado UVE (-10%)
+    - language: en
+      text: UVE Member (-10%)
     payment_methods:
     - RFID_CARD
     - APP
@@ -198,6 +208,8 @@ providers:
     notes:
     - language: pt
       text: Associado UVE (-10%)
+    - language: en
+      text: UVE Member (-10%)
     payment_methods:
     - RFID_CARD
     - APP

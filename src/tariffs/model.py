@@ -20,6 +20,9 @@ class MobieFeeType(str, Enum):
     EGME = "EGME"
     TAR = "TAR"
     IEC = "IEC"
+    CPO_TOTAL = "CPO_TOTAL"
+    CEME_TOTAL = "CEME_TOTAL"
+    TOTAL = "TOTAL"
 
 
 class DimensionType(str, Enum):
@@ -131,10 +134,56 @@ class Tariff(BaseModel):
         return self
 
 
+class Discount(BaseModel):
+    percentage: float | None = Field(
+        default=None,
+        description="Percentage discount as a decimal (e.g. 0.20 for 20%)",
+    )
+    flat: float | None = Field(
+        default=None,
+        description="Flat discount amount per kWh (e.g. 0.02 for 0.02 €/kWh)",
+    )
+    cashback: bool = Field(
+        default=False,
+        description="True if refunded as cashback/credit; False if applied directly to price",
+    )
+    applies_to: MobieFeeType | None = Field(
+        default=MobieFeeType.CEME,
+        description="Mobi.E fee component the discount applies to (e.g. CEME, TAR, EGME, IEC). Defaults to CEME.",
+    )
+
+    @model_validator(mode="before")
+    @classmethod
+    def parse_number_or_dict(cls, value):
+        if isinstance(value, (int, float)):
+            return {"percentage": float(value)}
+        return value
+
+    @property
+    def effective_percentage(self) -> float | None:
+        """Calculate effective percentage discount rate. For cashback, effective rate is x / (1 + x)."""
+        if self.percentage is None:
+            return None
+        if self.cashback:
+            return self.percentage / (1.0 + self.percentage)
+        return self.percentage
+
+    @model_validator(mode="after")
+    def validate_discount_values(self) -> "Discount":
+        if self.percentage is None and self.flat is None:
+            raise ValueError('Either "percentage" or "flat" must be specified for a discount.')
+        if self.percentage is not None and self.flat is not None:
+            raise ValueError('Cannot specify both "percentage" and "flat" in the same discount.')
+        return self
+
+
 class Network(BaseModel):
     network_id: str
     display_name: str | None = None
-    cashback: float | None = None
+    discount: Discount | None = Field(
+        default=None,
+        description="Discount/cashback configuration for the network",
+    )
     included_cpos: list[str] | None = None
     excluded_cpos: list[str] | None = None
     included_locations: list[str] | None = None

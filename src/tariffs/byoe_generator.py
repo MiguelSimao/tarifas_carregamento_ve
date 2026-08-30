@@ -5,6 +5,7 @@ import datetime
 from .model import (
     ByoeConfig,
     DimensionType,
+    Discount,
     MobieFeeType,
     MobieVoltageLevel,
     Network,
@@ -53,10 +54,20 @@ def _generate_tariffs_for_restriction(
     min_power: float | None = None,
     max_power: float | None = None,
     voltage_level: MobieVoltageLevel | None = None,
+    discount: Discount | None = None,
 ) -> list[Tariff]:
     cycle = byoe.cycle or TariffCycle.DIARIO
     schedule = byoe.schedule
     today_ref_date = reference_date or datetime.date.today().isoformat()
+
+    def apply_energy_discount(val: float | None) -> float | None:
+        if val is None or discount is None or discount.cashback or (discount.applies_to and discount.applies_to != MobieFeeType.CEME):
+            return val
+        if discount.percentage is not None:
+            return val * (1.0 - discount.percentage)
+        if discount.flat is not None:
+            return max(0.0, val - discount.flat)
+        return val
 
     generated_tariffs: list[Tariff] = []
 
@@ -107,6 +118,7 @@ def _generate_tariffs_for_restriction(
                 if byoe.fora_vazio is not None
                 else (byoe.cheias if byoe.cheias is not None else byoe.vazio)
             )
+        single_rate = apply_energy_discount(single_rate)
         if single_rate is not None:
             generated_tariffs.append(
                 Tariff(
@@ -124,29 +136,29 @@ def _generate_tariffs_for_restriction(
 
         if schedule == TariffSchedule.BIHORARIO:
             if byoe.vazio is not None:
-                rates_map[TariffPeriod.VAZIO] = byoe.vazio
+                rates_map[TariffPeriod.VAZIO] = apply_energy_discount(byoe.vazio)
             fora_vazio_rate = (
                 byoe.fora_vazio
                 if byoe.fora_vazio is not None
                 else byoe.cheias
             )
             if fora_vazio_rate is not None:
-                rates_map[TariffPeriod.FORA_VAZIO] = fora_vazio_rate
+                rates_map[TariffPeriod.FORA_VAZIO] = apply_energy_discount(fora_vazio_rate)
         elif schedule == TariffSchedule.TRIHORARIO:
             if byoe.vazio is not None:
-                rates_map[TariffPeriod.VAZIO] = byoe.vazio
+                rates_map[TariffPeriod.VAZIO] = apply_energy_discount(byoe.vazio)
             if byoe.cheias is not None:
-                rates_map[TariffPeriod.CHEIAS] = byoe.cheias
+                rates_map[TariffPeriod.CHEIAS] = apply_energy_discount(byoe.cheias)
             if byoe.ponta is not None:
-                rates_map[TariffPeriod.PONTA] = byoe.ponta
+                rates_map[TariffPeriod.PONTA] = apply_energy_discount(byoe.ponta)
         else:
             # Fallback / Single rate
             if byoe.vazio is not None:
-                rates_map[TariffPeriod.VAZIO] = byoe.vazio
+                rates_map[TariffPeriod.VAZIO] = apply_energy_discount(byoe.vazio)
             if byoe.fora_vazio is not None:
-                rates_map[TariffPeriod.FORA_VAZIO] = byoe.fora_vazio
+                rates_map[TariffPeriod.FORA_VAZIO] = apply_energy_discount(byoe.fora_vazio)
             elif byoe.cheias is not None:
-                rates_map[TariffPeriod.CHEIAS] = byoe.cheias
+                rates_map[TariffPeriod.CHEIAS] = apply_energy_discount(byoe.cheias)
 
         if rates_map:
             unique_rates = set(rates_map.values())
@@ -255,6 +267,19 @@ def _generate_tariffs_for_restriction(
                         )
                     )
 
+    if discount is not None and not discount.cashback and discount.applies_to != MobieFeeType.CEME:
+        for t in generated_tariffs:
+            if t.price is not None:
+                if (
+                    discount.applies_to is None
+                    or discount.applies_to in (MobieFeeType.TOTAL, MobieFeeType.CEME_TOTAL)
+                    or t.mobie_fee_type == discount.applies_to
+                ):
+                    if discount.percentage is not None:
+                        t.price = round(t.price * (1.0 - discount.percentage), 4)
+                    elif discount.flat is not None:
+                        t.price = round(max(0.0, t.price - discount.flat), 4)
+
     return generated_tariffs
 
 
@@ -329,9 +354,12 @@ def _expand_single_byoe_plan(
                         min_power=placeholder.min,
                         max_power=placeholder.max,
                         voltage_level=placeholder.mobie_voltage_level,
+                        discount=network.discount,
                     )
                 )
             network.tariffs = expanded_tariffs
+            if network.discount and not network.discount.cashback:
+                network.discount = None
         else:
             if has_byoe_rates or not network.tariffs:
                 network.tariffs = _generate_tariffs_for_restriction(
@@ -344,7 +372,10 @@ def _expand_single_byoe_plan(
                     min_power=None,
                     max_power=None,
                     voltage_level=None,
+                    discount=network.discount,
                 )
+                if network.discount and not network.discount.cashback:
+                    network.discount = None
 
     return plan
 

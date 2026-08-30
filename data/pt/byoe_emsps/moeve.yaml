@@ -3,6 +3,7 @@ providers:
   url: https://pt.cepsa.com/pt/utilizacao/produtos-servicos/carregamento-eletrico
   updated_at: "2026-04-21"
   plans:
+
   - name: CEME App GOW
     country_code: PT
     regions:
@@ -25,10 +26,17 @@ providers:
     notes:
     - language: pt
       text: Cashback App GOW  (Cashback -2c/kWh)
+    - language: en
+      text: GOW App Cashback (Cashback -2c/kWh)
     payment_methods:
     - APP
     networks:
     - network_id: MOBIE
+      discount:
+        flat: 0.02
+        cashback: true
+        applies_to: CEME
+
   - name: CEME App GOW Deco
     country_code: PT
     regions:
@@ -51,10 +59,17 @@ providers:
     notes:
     - language: pt
       text: App GOW + Deco (Cashback -4c/kWh)
+    - language: en
+      text: GOW App + Deco Cashback (Cashback -4c/kWh)
     payment_methods:
     - APP
     networks:
     - network_id: MOBIE
+      discount:
+        flat: 0.04
+        cashback: true
+        applies_to: CEME
+
   - name: CEME Cartão
     country_code: PT
     regions:

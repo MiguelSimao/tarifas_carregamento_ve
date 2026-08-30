@@ -12,6 +12,11 @@ providers:
       ios: "https://apps.apple.com/app/id123456789"
     plans:
       - name: "PlanName" # e.g., "Base"
+        display_name:
+          - language: "pt"
+            text: "Nome de Exibição"
+          - language: "en"
+            text: "Display Name"
         publish: true # Whether plan is published (default: true). If false, excluded from compilation.
         country_code: "PT" # ISO 3166-1 alpha-2 country code
         includes_vat: true # Whether VAT (IVA) is included in tariff prices

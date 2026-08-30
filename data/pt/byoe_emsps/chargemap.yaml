@@ -1,6 +1,6 @@
 providers:
 - name: Chargemap
-  publish: false
+  publish: true
   url: https://pt.chargemap.com/
   updated_at: "2025-08-17"
   plans:
@@ -32,3 +32,6 @@ providers:
     - APP
     networks:
     - network_id: MOBIE
+      discount:
+        percentage: -0.1  # negative discount is a price increase
+        applied_to: CPO_TOTAL

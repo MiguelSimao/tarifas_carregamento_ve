@@ -5,6 +5,11 @@ providers:
   plans:
 
   - name: "CEME Base"
+    display_name:
+    - language: pt
+      text: "ACP Electric CEME"
+    - language: en
+      text: "ACP Electric BYOE"
     country_code: PT
     regions:
     - PT
@@ -28,6 +33,11 @@ providers:
     - network_id: MOBIE
 
   - name: "CEME Sócio"
+    display_name:
+    - language: pt
+      text: "ACP Electric CEME Sócio"
+    - language: en
+      text: "ACP Electric BYOE Member"
     country_code: PT
     regions:
     - PT

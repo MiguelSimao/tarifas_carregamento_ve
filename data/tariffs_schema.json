@@ -294,7 +294,7 @@
             }
           ],
           "default": "CEME",
-          "description": "Mobi.E fee component the discount applies to (e.g. CEME, TAR, EGME, IEC). Defaults to CEME."
+          "description": "Mobi.E fee component the discount applies to (e.g. CEME, TAR, EGME, IEC, CPO_TOTAL, CEME_TOTAL, TOTAL). Defaults to CEME."
         }
       },
       "title": "Discount",
@@ -462,6 +462,22 @@
         "name": {
           "title": "Name",
           "type": "string"
+        },
+        "display_name": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/DisplayText"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Display name for the plan in various languages",
+          "title": "Display Name"
         },
         "publish": {
           "default": true,

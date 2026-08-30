@@ -149,7 +149,8 @@ class Discount(BaseModel):
     )
     applies_to: MobieFeeType | None = Field(
         default=MobieFeeType.CEME,
-        description="Mobi.E fee component the discount applies to (e.g. CEME, TAR, EGME, IEC). Defaults to CEME.",
+        validation_alias=AliasChoices("applies_to", "applied_to"),
+        description="Mobi.E fee component the discount applies to (e.g. CEME, TAR, EGME, IEC, CPO_TOTAL, CEME_TOTAL, TOTAL). Defaults to CEME.",
     )
 
     @model_validator(mode="before")
@@ -246,6 +247,10 @@ class ByoeConfig(BaseModel):
 
 class Plan(BaseModel):
     name: str
+    display_name: list[DisplayText] | None = Field(
+        default=None,
+        description="Display name for the plan in various languages",
+    )
     publish: bool = Field(
         default=True,
         description="Whether this plan should be published and included in compilation",
@@ -298,9 +303,9 @@ class Plan(BaseModel):
             return {} if v else None
         return v
 
-    @field_validator("notes", mode="before")
+    @field_validator("notes", "display_name", mode="before")
     @classmethod
-    def parse_notes(cls, v):
+    def parse_display_text(cls, v):
         if isinstance(v, str):
             return [{"language": "pt", "text": v}]
         if isinstance(v, dict):

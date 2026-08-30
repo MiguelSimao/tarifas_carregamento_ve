@@ -63,6 +63,11 @@ def test_template_yaml_validates():
         plan_base.notes[0].text
         == "Desconto válido para carregamentos na rede nacional."
     )
+    assert plan_base.display_name is not None
+    assert plan_base.display_name[0].language == "pt"
+    assert plan_base.display_name[0].text == "Nome de Exibição"
+    assert plan_base.display_name[1].language == "en"
+    assert plan_base.display_name[1].text == "Display Name"
 
     # Locate a network to verify discount, locations and time restrictions
     mobie_network = next(n for n in plan_base.networks if n.network_id == "NetworkName")
@@ -398,6 +403,39 @@ def test_plan_notes():
     assert len(plan_str.notes) == 1
     assert plan_str.notes[0].language == "pt"
     assert plan_str.notes[0].text == "Nota simples"
+
+
+def test_plan_display_name():
+    """Test display_name field with DisplayText objects on Plan."""
+    plan = Plan(
+        name="DisplayNamePlan",
+        display_name=[
+            DisplayText(language="pt", text="Plano Base"),
+            DisplayText(language="en", text="Base Plan"),
+        ],
+        networks=[],
+    )
+    assert len(plan.display_name) == 2
+    assert plan.display_name[0].language == "pt"
+    assert plan.display_name[0].text == "Plano Base"
+    assert plan.display_name[1].language == "en"
+    assert plan.display_name[1].text == "Base Plan"
+
+    # Test string parsing fallback
+    plan_str = Plan(name="StrDisplayNamePlan", display_name="Plano Simples", networks=[])
+    assert len(plan_str.display_name) == 1
+    assert plan_str.display_name[0].language == "pt"
+    assert plan_str.display_name[0].text == "Plano Simples"
+
+    # Test dict parsing fallback
+    plan_dict = Plan(
+        name="DictDisplayNamePlan",
+        display_name={"language": "es", "text": "Plan Base"},
+        networks=[],
+    )
+    assert len(plan_dict.display_name) == 1
+    assert plan_dict.display_name[0].language == "es"
+    assert plan_dict.display_name[0].text == "Plan Base"
 
 
 def test_schedule_field_on_plan_and_tar_variant():
@@ -1030,6 +1068,10 @@ def test_byoe_expansion_with_network_discount():
                 network_id="ATLA",
                 discount=Discount(percentage=0.50, cashback=True),
             ),
+            Network(
+                network_id="CMAP",
+                discount=Discount(percentage=-0.10, applied_to="TOTAL_OPC"),
+            ),
         ],
     )
 
@@ -1038,12 +1080,13 @@ def test_byoe_expansion_with_network_discount():
     mobie_net = next(n for n in expanded.networks if n.network_id == "MOBIE")
     glpp_net = next(n for n in expanded.networks if n.network_id == "GLPP")
     atla_net = next(n for n in expanded.networks if n.network_id == "ATLA")
+    cmap_net = next(n for n in expanded.networks if n.network_id == "CMAP")
 
     # MOBIE keeps base rates
     mobie_prices = sorted(t.price for t in mobie_net.tariffs)
     assert mobie_prices == [0.1954, 0.2632]
 
-    # GLPP (cashback=False): 20% discount applied to CEME energy rates, discount object cleared
+    # GLPP (cashback=False, applies_to=CEME): 20% discount applied to CEME energy rates, discount object cleared
     glpp_prices = sorted(t.price for t in glpp_net.tariffs)
     assert glpp_prices == [0.1563, 0.2106]
     assert glpp_net.discount is None
@@ -1054,6 +1097,13 @@ def test_byoe_expansion_with_network_discount():
     assert atla_net.discount is not None
     assert atla_net.discount.cashback is True
     assert atla_net.discount.percentage == 0.50
+
+    # CMAP (cashback=False, applied_to=TOTAL_OPC): OPC is not included in BYOE compilation, discount object preserved
+    cmap_prices = sorted(t.price for t in cmap_net.tariffs)
+    assert cmap_prices == [0.1954, 0.2632]
+    assert cmap_net.discount is not None
+    assert cmap_net.discount.percentage == -0.10
+    assert cmap_net.discount.applies_to == MobieFeeType.CPO_TOTAL
 
     assert mobie_net.discount is None
 

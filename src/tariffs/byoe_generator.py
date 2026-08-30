@@ -61,7 +61,12 @@ def _generate_tariffs_for_restriction(
     today_ref_date = reference_date or datetime.date.today().isoformat()
 
     def apply_energy_discount(val: float | None) -> float | None:
-        if val is None or discount is None or discount.cashback or (discount.applies_to and discount.applies_to != MobieFeeType.CEME):
+        if (
+            val is None
+            or discount is None
+            or discount.cashback
+            or (discount.applies_to and discount.applies_to not in (MobieFeeType.CEME, MobieFeeType.CEME_TOTAL))
+        ):
             return val
         if discount.percentage is not None:
             return val * (1.0 - discount.percentage)
@@ -267,20 +272,45 @@ def _generate_tariffs_for_restriction(
                         )
                     )
 
-    if discount is not None and not discount.cashback and discount.applies_to != MobieFeeType.CEME:
+    if (
+        discount is not None
+        and not discount.cashback
+        and discount.applies_to in (MobieFeeType.EGME, MobieFeeType.TAR, MobieFeeType.IEC, MobieFeeType.CEME_TOTAL)
+    ):
         for t in generated_tariffs:
             if t.price is not None:
-                if (
-                    discount.applies_to is None
-                    or discount.applies_to in (MobieFeeType.TOTAL, MobieFeeType.CEME_TOTAL)
-                    or t.mobie_fee_type == discount.applies_to
-                ):
+                if discount.applies_to == MobieFeeType.CEME_TOTAL and t.mobie_fee_type != MobieFeeType.CEME:
+                    if discount.percentage is not None:
+                        t.price = round(t.price * (1.0 - discount.percentage), 4)
+                    elif discount.flat is not None:
+                        t.price = round(max(0.0, t.price - discount.flat), 4)
+                elif t.mobie_fee_type == discount.applies_to:
                     if discount.percentage is not None:
                         t.price = round(t.price * (1.0 - discount.percentage), 4)
                     elif discount.flat is not None:
                         t.price = round(max(0.0, t.price - discount.flat), 4)
 
     return generated_tariffs
+
+
+def is_discount_applied_in_byoe(discount: Discount | None) -> bool:
+    """Determine whether a discount is applied into the compiled BYOE tariffs.
+
+    Discounts are applied during BYOE compilation if:
+    1. It is not a cashback discount (cashback=False).
+    2. It applies to fee components generated in BYOE compilation
+       (CEME, EGME, TAR, IEC, CEME_TOTAL).
+    """
+    if discount is None or discount.cashback:
+        return False
+    applies = discount.applies_to or MobieFeeType.CEME
+    return applies in (
+        MobieFeeType.CEME,
+        MobieFeeType.EGME,
+        MobieFeeType.TAR,
+        MobieFeeType.IEC,
+        MobieFeeType.CEME_TOTAL,
+    )
 
 
 def _expand_single_byoe_plan(
@@ -358,7 +388,7 @@ def _expand_single_byoe_plan(
                     )
                 )
             network.tariffs = expanded_tariffs
-            if network.discount and not network.discount.cashback:
+            if is_discount_applied_in_byoe(network.discount):
                 network.discount = None
         else:
             if has_byoe_rates or not network.tariffs:
@@ -374,7 +404,7 @@ def _expand_single_byoe_plan(
                     voltage_level=None,
                     discount=network.discount,
                 )
-                if network.discount and not network.discount.cashback:
+                if is_discount_applied_in_byoe(network.discount):
                     network.discount = None
 
     return plan

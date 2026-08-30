@@ -232,10 +232,7 @@
         "PARTNERSHIP",
         "APP_ACTIVATION",
         "CARD_ACTIVATION",
-        "DIRECT_DEBIT",
-        "ELECTRONIC_INVOICE",
-        "LOYALTY_PROGRAM",
-        "EV_OWNERSHIP"
+        "LOYALTY_PROGRAM"
       ],
       "title": "ContractCondition",
       "type": "string"

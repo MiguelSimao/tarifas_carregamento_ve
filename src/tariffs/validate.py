@@ -32,32 +32,62 @@ def _cross_validate_tariff_doc(doc: TariffDocument, file_path: str):
                     )
                 has_network_tariffs = any(len(net.tariffs) > 0 for net in plan.networks)
                 if not has_network_tariffs and plan.byoe:
-                    if plan.byoe.schedule == TariffSchedule.SIMPLES:
-                        if (
-                            plan.byoe.all_day is None
-                            and plan.byoe.vazio is None
-                            and plan.byoe.cheias is None
-                            and plan.byoe.fora_vazio is None
-                        ):
-                            raise ValueError(
-                                f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '1H' requires 'all_day' rate in 'byoe:' block."
-                            )
-                    elif plan.byoe.schedule == TariffSchedule.BIHORARIO:
-                        if plan.byoe.vazio is None or (
-                            plan.byoe.fora_vazio is None and plan.byoe.cheias is None
-                        ):
-                            raise ValueError(
-                                f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '2H' requires 'vazio' and 'cheias' (or 'fora_vazio') rates in 'byoe:' block."
-                            )
-                    elif plan.byoe.schedule == TariffSchedule.TRIHORARIO:
-                        if (
-                            plan.byoe.vazio is None
-                            or plan.byoe.cheias is None
-                            or plan.byoe.ponta is None
-                        ):
-                            raise ValueError(
-                                f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '3H' requires 'vazio', 'cheias', and 'ponta' rates in 'byoe:' block."
-                            )
+                    if plan.byoe.rates_by_voltage:
+                        for v_lvl, v_rates in plan.byoe.rates_by_voltage.items():
+                            v_name = getattr(v_lvl, "value", str(v_lvl))
+                            if plan.byoe.schedule == TariffSchedule.SIMPLES:
+                                if (
+                                    v_rates.all_day is None
+                                    and v_rates.vazio is None
+                                    and v_rates.cheias is None
+                                    and v_rates.fora_vazio is None
+                                ):
+                                    raise ValueError(
+                                        f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '1H' requires 'all_day' rate in 'byoe:' rates for voltage level '{v_name}'."
+                                    )
+                            elif plan.byoe.schedule == TariffSchedule.BIHORARIO:
+                                if v_rates.vazio is None or (
+                                    v_rates.fora_vazio is None and v_rates.cheias is None
+                                ):
+                                    raise ValueError(
+                                        f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '2H' requires 'vazio' and 'cheias' (or 'fora_vazio') rates in 'byoe:' rates for voltage level '{v_name}'."
+                                    )
+                            elif plan.byoe.schedule == TariffSchedule.TRIHORARIO:
+                                if (
+                                    v_rates.vazio is None
+                                    or v_rates.cheias is None
+                                    or v_rates.ponta is None
+                                ):
+                                    raise ValueError(
+                                        f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '3H' requires 'vazio', 'cheias', and 'ponta' rates in 'byoe:' rates for voltage level '{v_name}'."
+                                    )
+                    else:
+                        if plan.byoe.schedule == TariffSchedule.SIMPLES:
+                            if (
+                                plan.byoe.all_day is None
+                                and plan.byoe.vazio is None
+                                and plan.byoe.cheias is None
+                                and plan.byoe.fora_vazio is None
+                            ):
+                                raise ValueError(
+                                    f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '1H' requires 'all_day' rate in 'byoe:' block."
+                                )
+                        elif plan.byoe.schedule == TariffSchedule.BIHORARIO:
+                            if plan.byoe.vazio is None or (
+                                plan.byoe.fora_vazio is None and plan.byoe.cheias is None
+                            ):
+                                raise ValueError(
+                                    f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '2H' requires 'vazio' and 'cheias' (or 'fora_vazio') rates in 'byoe:' block."
+                                )
+                        elif plan.byoe.schedule == TariffSchedule.TRIHORARIO:
+                            if (
+                                plan.byoe.vazio is None
+                                or plan.byoe.cheias is None
+                                or plan.byoe.ponta is None
+                            ):
+                                raise ValueError(
+                                    f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '3H' requires 'vazio', 'cheias', and 'ponta' rates in 'byoe:' block."
+                                )
 
 
 def _validate_file(file_path: str) -> bool:

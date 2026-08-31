@@ -13,14 +13,19 @@ providers:
     byoe:
       start_date: "2026-04-21"
       schedule: 2H
-      includes_egme: false
+      includes_egme: true
       includes_iec: false
-      includes_tar: false
+      includes_tar: true
       renewable_energy: false
-      activation_fee: 0.0
+      activation_fee: 0.08  # egme charged is not correct
       cycle: diario
-      fora_vazio: 0.11
-      vazio: 0.1085
+      rates:
+        BT:
+          fora_vazio: 0.32
+          vazio: 0.24
+        MT:
+          fora_vazio: 0.27
+          vazio: 0.22
     contract_conditions:
     - LOYALTY_PROGRAM
     notes:
@@ -46,14 +51,19 @@ providers:
     byoe:
       start_date: "2026-04-21"
       schedule: 2H
-      includes_egme: false
+      includes_egme: true
       includes_iec: false
-      includes_tar: false
+      includes_tar: true
       renewable_energy: false
-      activation_fee: 0.0
+      activation_fee: 0.08  # egme charged is not correct
       cycle: diario
-      fora_vazio: 0.09
-      vazio: 0.0885
+      rates:
+        BT:
+          fora_vazio: 0.32
+          vazio: 0.24
+        MT:
+          fora_vazio: 0.27
+          vazio: 0.22
     contract_conditions:
     - PARTNERSHIP
     notes:
@@ -79,14 +89,19 @@ providers:
     byoe:
       start_date: "2026-04-21"
       schedule: 2H
-      includes_egme: false
+      includes_egme: true
       includes_iec: false
-      includes_tar: false
+      includes_tar: true
       renewable_energy: false
-      activation_fee: 0.0
+      activation_fee: 0.08  # egme charged is not correct
       cycle: diario
-      fora_vazio: 0.13
-      vazio: 0.1285
+      rates:
+        BT:
+          fora_vazio: 0.32
+          vazio: 0.24
+        MT:
+          fora_vazio: 0.27
+          vazio: 0.22
     payment_methods:
     - RFID_CARD
     networks:

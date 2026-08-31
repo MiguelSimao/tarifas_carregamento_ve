@@ -1070,7 +1070,7 @@ def test_byoe_expansion_with_network_discount():
             ),
             Network(
                 network_id="CMAP",
-                discount=Discount(percentage=-0.10, applied_to="TOTAL_OPC"),
+                discount=Discount(percentage=-0.10, applied_to=MobieFeeType.CPO_TOTAL),
             ),
         ],
     )
@@ -1108,6 +1108,260 @@ def test_byoe_expansion_with_network_discount():
     assert mobie_net.discount is None
 
 
+def test_byoe_rates_by_voltage_validation():
+    """Test validation and normalization of rates_by_voltage in ByoeConfig."""
+    from tariffs.model import ByoeConfig, ByoeVoltageRates, MobieVoltageLevel, TariffSchedule
+
+    # Test initialization with 'rates' alias and string keys
+    byoe = ByoeConfig(
+        schedule=TariffSchedule.BIHORARIO,
+        rates={
+            "bt": {"cheias": 0.32, "vazio": 0.24},
+            "mt": {"fora_vazio": 0.27, "vazio": 0.22},
+        },
+    )
+    assert byoe.rates_by_voltage is not None
+    assert byoe.rates is not None
+    assert MobieVoltageLevel.BT in byoe.rates_by_voltage
+    assert MobieVoltageLevel.MT in byoe.rates_by_voltage
+    assert byoe.has_rates is True
+
+    # 2H normalization: cheias should be mapped to fora_vazio
+    bt_rates = byoe.rates_by_voltage[MobieVoltageLevel.BT]
+    assert bt_rates.fora_vazio == 0.32
+    assert bt_rates.cheias is None
+    assert bt_rates.vazio == 0.24
+
+    # Test 2H rejects 'ponta' rate
+    with pytest.raises(ValidationError, match="does not support 'ponta' rate"):
+        ByoeConfig(
+            schedule=TariffSchedule.BIHORARIO,
+            rates={
+                "BT": {"ponta": 0.40, "vazio": 0.20},
+            },
+        )
+
+    # Test 1H normalizes single rate
+    byoe_1h = ByoeConfig(
+        schedule=TariffSchedule.SIMPLES,
+        rates_by_voltage={
+            MobieVoltageLevel.BT: ByoeVoltageRates(fora_vazio=0.25),
+        },
+    )
+    assert byoe_1h.rates_by_voltage[MobieVoltageLevel.BT].all_day == 0.25
+    assert byoe_1h.rates_by_voltage[MobieVoltageLevel.BT].fora_vazio is None
 
 
+def test_byoe_rates_by_voltage_mutual_exclusivity():
+    """Test that top-level rates and rates_by_voltage cannot be provided together."""
+    from tariffs.model import ByoeConfig, TariffSchedule
 
+    with pytest.raises(ValidationError, match="Cannot specify both top-level rates and 'rates_by_voltage'"):
+        ByoeConfig(
+            schedule=TariffSchedule.BIHORARIO,
+            vazio=0.15,
+            rates={
+                "BT": {"fora_vazio": 0.32, "vazio": 0.24},
+            },
+        )
+
+
+def test_byoe_expansion_with_voltage_level_split_and_includes_tar():
+    """Test BYOE plan expansion with rates split by voltage level and TAR included."""
+    from tariffs.model import ByoeConfig, MobieFeeType, MobieVoltageLevel, Network, Plan
+    from tariffs.regulated_fees import RegulatedFees, TarPeriodRate, TarVariant
+
+    reg_fees = [
+        RegulatedFees(
+            country_code="PT",
+            effective_date="2026-01-01",
+            egme_connection=0.1088,
+            iec=0.0010,
+            vat=0.23,
+            tar_variants=[
+                TarVariant(
+                    voltage_level="BT",
+                    schedule="2H",
+                    rates=[
+                        TarPeriodRate(period="cheias", rate=0.1192),
+                        TarPeriodRate(period="vazio", rate=0.0266),
+                    ],
+                ),
+                TarVariant(
+                    voltage_level="MT",
+                    schedule="2H",
+                    rates=[
+                        TarPeriodRate(period="cheias", rate=0.0812),
+                        TarPeriodRate(period="vazio", rate=0.0157),
+                    ],
+                ),
+            ],
+        )
+    ]
+
+    moeve_plan = Plan(
+        name="Moeve CEME Cartão",
+        country_code="PT",
+        byoe=ByoeConfig(
+            start_date="2026-04-21",
+            schedule="2H",
+            cycle="diario",
+            includes_egme=False,
+            includes_iec=False,
+            includes_tar=True,  # TAR included in rates
+            rates={
+                "BT": {"fora_vazio": 0.32, "vazio": 0.24},
+                "MT": {"fora_vazio": 0.27, "vazio": 0.22},
+            },
+        ),
+        networks=[Network(network_id="MOBIE")],
+    )
+
+    expanded = expand_byoe_plan(moeve_plan, reg_fees)
+    tariffs = expanded.networks[0].tariffs
+
+    # Regulated fees generated (EGME and IEC because includes_egme=False, includes_iec=False)
+    egme_tariffs = [t for t in tariffs if t.mobie_fee_type == MobieFeeType.EGME]
+    assert len(egme_tariffs) == 1
+    assert egme_tariffs[0].price == 0.1088
+
+    iec_tariffs = [t for t in tariffs if t.mobie_fee_type == MobieFeeType.IEC]
+    assert len(iec_tariffs) == 1
+    assert iec_tariffs[0].price == 0.0010
+
+    # No TAR tariffs because includes_tar=True
+    tar_tariffs = [t for t in tariffs if t.mobie_fee_type == MobieFeeType.TAR]
+    assert len(tar_tariffs) == 0
+
+    # CEME tariffs generated for both BT and MT
+    ceme_tariffs = [t for t in tariffs if t.mobie_fee_type == MobieFeeType.CEME]
+    assert len(ceme_tariffs) == 4  # 2 for BT (vazio, fora_vazio), 2 for MT (vazio, fora_vazio)
+
+    bt_ceme = [t for t in ceme_tariffs if t.mobie_voltage_level == MobieVoltageLevel.BT]
+    mt_ceme = [t for t in ceme_tariffs if t.mobie_voltage_level == MobieVoltageLevel.MT]
+
+    assert len(bt_ceme) == 2
+    assert sorted(t.price for t in bt_ceme) == [0.24, 0.32]
+
+    assert len(mt_ceme) == 2
+    assert sorted(t.price for t in mt_ceme) == [0.22, 0.27]
+
+
+def test_byoe_expansion_with_voltage_level_split_without_tar():
+    """Test BYOE plan expansion with rates split by voltage level and TAR NOT included."""
+    from tariffs.model import ByoeConfig, MobieFeeType, MobieVoltageLevel, Network, Plan
+    from tariffs.regulated_fees import RegulatedFees, TarPeriodRate, TarVariant
+
+    reg_fees = [
+        RegulatedFees(
+            country_code="PT",
+            effective_date="2026-01-01",
+            egme_connection=0.0,
+            iec=0.0,
+            vat=0.23,
+            tar_variants=[
+                TarVariant(
+                    voltage_level="BT",
+                    schedule="2H",
+                    rates=[
+                        TarPeriodRate(period="cheias", rate=0.1192),
+                        TarPeriodRate(period="vazio", rate=0.0266),
+                    ],
+                ),
+                TarVariant(
+                    voltage_level="MT",
+                    schedule="2H",
+                    rates=[
+                        TarPeriodRate(period="cheias", rate=0.0812),
+                        TarPeriodRate(period="vazio", rate=0.0157),
+                    ],
+                ),
+            ],
+        )
+    ]
+
+    plan = Plan(
+        name="Plan Split",
+        country_code="PT",
+        byoe=ByoeConfig(
+            start_date="2026-01-01",
+            schedule="2H",
+            cycle="diario",
+            includes_egme=True,
+            includes_iec=True,
+            includes_tar=False,  # TAR not included
+            rates={
+                "BT": {"fora_vazio": 0.20, "vazio": 0.15},
+                "MT": {"fora_vazio": 0.18, "vazio": 0.13},
+            },
+        ),
+        networks=[Network(network_id="MOBIE")],
+    )
+
+    expanded = expand_byoe_plan(plan, reg_fees)
+    tariffs = expanded.networks[0].tariffs
+
+    # TAR tariffs generated for both BT and MT
+    tar_tariffs = [t for t in tariffs if t.mobie_fee_type == MobieFeeType.TAR]
+    assert len(tar_tariffs) == 4
+    bt_tar = [t for t in tar_tariffs if t.mobie_voltage_level == MobieVoltageLevel.BT]
+    mt_tar = [t for t in tar_tariffs if t.mobie_voltage_level == MobieVoltageLevel.MT]
+    assert sorted(t.price for t in bt_tar) == [0.0266, 0.1192]
+    assert sorted(t.price for t in mt_tar) == [0.0157, 0.0812]
+
+    # CEME tariffs generated for both BT and MT
+    ceme_tariffs = [t for t in tariffs if t.mobie_fee_type == MobieFeeType.CEME]
+    assert len(ceme_tariffs) == 4
+    bt_ceme = [t for t in ceme_tariffs if t.mobie_voltage_level == MobieVoltageLevel.BT]
+    mt_ceme = [t for t in ceme_tariffs if t.mobie_voltage_level == MobieVoltageLevel.MT]
+    assert sorted(t.price for t in bt_ceme) == [0.15, 0.20]
+    assert sorted(t.price for t in mt_ceme) == [0.13, 0.18]
+
+
+def test_byoe_expansion_with_voltage_level_placeholder():
+    """Test BYOE plan expansion when placeholders have mobie_voltage_level specified."""
+    from tariffs.model import ByoeConfig, MobieFeeType, MobieVoltageLevel, Network, Plan, Tariff
+    from tariffs.regulated_fees import RegulatedFees, TarPeriodRate, TarVariant
+
+    reg_fees = [
+        RegulatedFees(
+            country_code="PT",
+            effective_date="2026-01-01",
+            egme_connection=0.0,
+            iec=0.0,
+            vat=0.23,
+            tar_variants=[],
+        )
+    ]
+
+    plan = Plan(
+        name="Plan With Placeholder",
+        country_code="PT",
+        byoe=ByoeConfig(
+            start_date="2026-01-01",
+            schedule="2H",
+            cycle="diario",
+            includes_egme=True,
+            includes_iec=True,
+            includes_tar=True,
+            rates={
+                "BT": {"fora_vazio": 0.32, "vazio": 0.24},
+                "MT": {"fora_vazio": 0.27, "vazio": 0.22},
+            },
+        ),
+        networks=[
+            Network(
+                network_id="MOBIE",
+                tariffs=[
+                    Tariff(byoe=True, mobie_voltage_level=MobieVoltageLevel.BT),
+                ],
+            )
+        ],
+    )
+
+    expanded = expand_byoe_plan(plan, reg_fees)
+    tariffs = expanded.networks[0].tariffs
+
+    # Only BT tariffs should be generated for this placeholder
+    assert all(t.mobie_voltage_level == MobieVoltageLevel.BT for t in tariffs)
+    assert sorted(t.price for t in tariffs) == [0.24, 0.32]

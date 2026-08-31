@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from enum import Enum
 from typing import Literal
 
@@ -189,6 +191,39 @@ class Network(BaseModel):
     tariffs: list[Tariff] = Field(default_factory=list)
 
 
+class ByoeVoltageRates(BaseModel):
+    all_day: float | None = None
+    vazio: float | None = None
+    cheias: float | None = None
+    fora_vazio: float | None = None
+    ponta: float | None = None
+
+
+def _normalize_tou_rates(schedule: TariffSchedule | None, obj: ByoeVoltageRates | "ByoeConfig") -> None:
+    if schedule == TariffSchedule.BIHORARIO:
+        if obj.ponta is not None:
+            raise ValueError("Schedule '2H' does not support 'ponta' rate.")
+        if obj.cheias is not None:
+            if obj.fora_vazio is None:
+                obj.fora_vazio = obj.cheias
+            obj.cheias = None
+    elif schedule == TariffSchedule.SIMPLES:
+        if obj.ponta is not None:
+            raise ValueError("Schedule '1H' does not support 'ponta' rate.")
+        if obj.vazio is not None and obj.cheias is not None and obj.vazio != obj.cheias:
+            raise ValueError("Schedule '1H' requires a single rate (use 'all_day').")
+        if obj.all_day is None:
+            if obj.fora_vazio is not None:
+                obj.all_day = obj.fora_vazio
+            elif obj.cheias is not None:
+                obj.all_day = obj.cheias
+            elif obj.vazio is not None:
+                obj.all_day = obj.vazio
+        obj.cheias = None
+        obj.vazio = None
+        obj.fora_vazio = None
+
+
 class ByoeConfig(BaseModel):
     start_date: str | None = None
     cycle: Literal["diario", "semanal"] | None = None
@@ -208,37 +243,65 @@ class ByoeConfig(BaseModel):
     opc_commission_pct: float | None = None
     renewable_energy: bool | None = None
 
-    # TOU / single rate prices
+    # TOU / single rate prices (global across voltage levels)
     all_day: float | None = None
     vazio: float | None = None
     cheias: float | None = None
     fora_vazio: float | None = None
     ponta: float | None = None
 
+    # TOU / single rate prices split by voltage level (e.g. BT, MT)
+    rates_by_voltage: dict[MobieVoltageLevel, ByoeVoltageRates] | None = Field(
+        default=None,
+        validation_alias=AliasChoices("rates_by_voltage", "rates"),
+        description="Energy rates split by voltage level (e.g. BT, MT)",
+    )
+
+    @property
+    def rates(self) -> dict[MobieVoltageLevel, ByoeVoltageRates] | None:
+        return self.rates_by_voltage
+
+    @property
+    def has_rates(self) -> bool:
+        return (
+            self.all_day is not None
+            or self.vazio is not None
+            or self.cheias is not None
+            or self.fora_vazio is not None
+            or self.ponta is not None
+            or bool(self.rates_by_voltage)
+        )
+
+    @field_validator("rates_by_voltage", mode="before")
+    @classmethod
+    def parse_rates_by_voltage(cls, v):
+        if isinstance(v, dict):
+            return {
+                (k.upper() if isinstance(k, str) else k): val
+                for k, val in v.items()
+            }
+        return v
+
     @model_validator(mode="after")
     def validate_byoe_rates(self) -> "ByoeConfig":
-        if self.schedule == TariffSchedule.BIHORARIO:
-            if self.ponta is not None:
-                raise ValueError("Schedule '2H' does not support 'ponta' rate.")
-            if self.cheias is not None:
-                if self.fora_vazio is None:
-                    self.fora_vazio = self.cheias
-                self.cheias = None
-        elif self.schedule == TariffSchedule.SIMPLES:
-            if self.ponta is not None:
-                raise ValueError("Schedule '1H' does not support 'ponta' rate.")
-            if self.vazio is not None and self.cheias is not None and self.vazio != self.cheias:
-                raise ValueError("Schedule '1H' requires a single rate (use 'all_day').")
-            if self.all_day is None:
-                if self.fora_vazio is not None:
-                    self.all_day = self.fora_vazio
-                elif self.cheias is not None:
-                    self.all_day = self.cheias
-                elif self.vazio is not None:
-                    self.all_day = self.vazio
-            self.cheias = None
-            self.vazio = None
-            self.fora_vazio = None
+        has_flat_rates = (
+            self.all_day is not None
+            or self.vazio is not None
+            or self.cheias is not None
+            or self.fora_vazio is not None
+            or self.ponta is not None
+        )
+        if self.rates_by_voltage and has_flat_rates:
+            raise ValueError(
+                "Cannot specify both top-level rates and 'rates_by_voltage'/'rates' in ByoeConfig."
+            )
+
+        if self.rates_by_voltage:
+            for rate_item in self.rates_by_voltage.values():
+                _normalize_tou_rates(self.schedule, rate_item)
+        else:
+            _normalize_tou_rates(self.schedule, self)
+
         return self
 
 

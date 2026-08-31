@@ -16825,13 +16825,21 @@
             "cycle": "diario",
             "schedule": "2H",
             "includes_vat": false,
-            "includes_tar": false,
+            "includes_tar": true,
             "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
+            "includes_egme": true,
+            "activation_fee": 0.08,
             "renewable_energy": false,
-            "vazio": 0.1085,
-            "fora_vazio": 0.11
+            "rates_by_voltage": {
+              "BT": {
+                "vazio": 0.24,
+                "fora_vazio": 0.32
+              },
+              "MT": {
+                "vazio": 0.22,
+                "fora_vazio": 0.27
+              }
+            }
           },
           "networks": [
             {
@@ -16843,9 +16851,8 @@
               },
               "tariffs": [
                 {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
+                  "price": 0.08,
+                  "unit": "flat"
                 },
                 {
                   "price": 0.001,
@@ -16853,9 +16860,10 @@
                   "mobie_fee_type": "IEC"
                 },
                 {
-                  "price": 0.1085,
+                  "price": 0.24,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
@@ -16874,74 +16882,9 @@
                   ]
                 },
                 {
-                  "price": 0.11,
+                  "price": 0.32,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "08:00",
-                      "end_time": "22:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.0812,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "MT",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "08:00",
-                      "end_time": "22:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.0157,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "MT",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "22:00",
-                      "end_time": "08:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.1192,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
@@ -16961,15 +16904,37 @@
                   ]
                 },
                 {
-                  "price": 0.0266,
+                  "price": 0.22,
                   "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "BT",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
                       "start_time": "22:00",
                       "end_time": "08:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.27,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "08:00",
+                      "end_time": "22:00",
                       "days_of_week": [
                         1,
                         2,
@@ -17013,13 +16978,21 @@
             "cycle": "diario",
             "schedule": "2H",
             "includes_vat": false,
-            "includes_tar": false,
+            "includes_tar": true,
             "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
+            "includes_egme": true,
+            "activation_fee": 0.08,
             "renewable_energy": false,
-            "vazio": 0.1085,
-            "fora_vazio": 0.11
+            "rates_by_voltage": {
+              "BT": {
+                "vazio": 0.24,
+                "fora_vazio": 0.32
+              },
+              "MT": {
+                "vazio": 0.22,
+                "fora_vazio": 0.27
+              }
+            }
           },
           "networks": [
             {
@@ -17031,9 +17004,8 @@
               },
               "tariffs": [
                 {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
+                  "price": 0.08,
+                  "unit": "flat"
                 },
                 {
                   "price": 0.001,
@@ -17041,9 +17013,10 @@
                   "mobie_fee_type": "IEC"
                 },
                 {
-                  "price": 0.1085,
+                  "price": 0.24,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
@@ -17062,30 +17035,9 @@
                   ]
                 },
                 {
-                  "price": 0.11,
+                  "price": 0.32,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "08:00",
-                      "end_time": "22:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.108,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
@@ -17105,15 +17057,37 @@
                   ]
                 },
                 {
-                  "price": 0.0905,
+                  "price": 0.22,
                   "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "BT",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
                       "start_time": "22:00",
                       "end_time": "08:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.27,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "08:00",
+                      "end_time": "22:00",
                       "days_of_week": [
                         1,
                         2,
@@ -17157,13 +17131,21 @@
             "cycle": "diario",
             "schedule": "2H",
             "includes_vat": false,
-            "includes_tar": false,
+            "includes_tar": true,
             "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
+            "includes_egme": true,
+            "activation_fee": 0.08,
             "renewable_energy": false,
-            "vazio": 0.1085,
-            "fora_vazio": 0.11
+            "rates_by_voltage": {
+              "BT": {
+                "vazio": 0.24,
+                "fora_vazio": 0.32
+              },
+              "MT": {
+                "vazio": 0.22,
+                "fora_vazio": 0.27
+              }
+            }
           },
           "networks": [
             {
@@ -17175,9 +17157,8 @@
               },
               "tariffs": [
                 {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
+                  "price": 0.08,
+                  "unit": "flat"
                 },
                 {
                   "price": 0.001,
@@ -17185,9 +17166,10 @@
                   "mobie_fee_type": "IEC"
                 },
                 {
-                  "price": 0.1085,
+                  "price": 0.24,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
@@ -17206,30 +17188,9 @@
                   ]
                 },
                 {
-                  "price": 0.11,
+                  "price": 0.32,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "09:00",
-                      "end_time": "23:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.108,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
@@ -17249,15 +17210,37 @@
                   ]
                 },
                 {
-                  "price": 0.0905,
+                  "price": 0.22,
                   "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "BT",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
                       "start_time": "23:00",
                       "end_time": "09:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.27,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "09:00",
+                      "end_time": "23:00",
                       "days_of_week": [
                         1,
                         2,
@@ -17301,13 +17284,21 @@
             "cycle": "diario",
             "schedule": "2H",
             "includes_vat": false,
-            "includes_tar": false,
+            "includes_tar": true,
             "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
+            "includes_egme": true,
+            "activation_fee": 0.08,
             "renewable_energy": false,
-            "vazio": 0.0885,
-            "fora_vazio": 0.09
+            "rates_by_voltage": {
+              "BT": {
+                "vazio": 0.24,
+                "fora_vazio": 0.32
+              },
+              "MT": {
+                "vazio": 0.22,
+                "fora_vazio": 0.27
+              }
+            }
           },
           "networks": [
             {
@@ -17319,9 +17310,8 @@
               },
               "tariffs": [
                 {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
+                  "price": 0.08,
+                  "unit": "flat"
                 },
                 {
                   "price": 0.001,
@@ -17329,9 +17319,10 @@
                   "mobie_fee_type": "IEC"
                 },
                 {
-                  "price": 0.0885,
+                  "price": 0.24,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
@@ -17350,74 +17341,9 @@
                   ]
                 },
                 {
-                  "price": 0.09,
+                  "price": 0.32,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "08:00",
-                      "end_time": "22:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.0812,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "MT",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "08:00",
-                      "end_time": "22:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.0157,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "MT",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "22:00",
-                      "end_time": "08:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.1192,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
@@ -17437,15 +17363,37 @@
                   ]
                 },
                 {
-                  "price": 0.0266,
+                  "price": 0.22,
                   "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "BT",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
                       "start_time": "22:00",
                       "end_time": "08:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.27,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "08:00",
+                      "end_time": "22:00",
                       "days_of_week": [
                         1,
                         2,
@@ -17489,13 +17437,21 @@
             "cycle": "diario",
             "schedule": "2H",
             "includes_vat": false,
-            "includes_tar": false,
+            "includes_tar": true,
             "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
+            "includes_egme": true,
+            "activation_fee": 0.08,
             "renewable_energy": false,
-            "vazio": 0.0885,
-            "fora_vazio": 0.09
+            "rates_by_voltage": {
+              "BT": {
+                "vazio": 0.24,
+                "fora_vazio": 0.32
+              },
+              "MT": {
+                "vazio": 0.22,
+                "fora_vazio": 0.27
+              }
+            }
           },
           "networks": [
             {
@@ -17507,9 +17463,8 @@
               },
               "tariffs": [
                 {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
+                  "price": 0.08,
+                  "unit": "flat"
                 },
                 {
                   "price": 0.001,
@@ -17517,9 +17472,10 @@
                   "mobie_fee_type": "IEC"
                 },
                 {
-                  "price": 0.0885,
+                  "price": 0.24,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
@@ -17538,30 +17494,9 @@
                   ]
                 },
                 {
-                  "price": 0.09,
+                  "price": 0.32,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "08:00",
-                      "end_time": "22:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.108,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
@@ -17581,15 +17516,37 @@
                   ]
                 },
                 {
-                  "price": 0.0905,
+                  "price": 0.22,
                   "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "BT",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
                       "start_time": "22:00",
                       "end_time": "08:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.27,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "08:00",
+                      "end_time": "22:00",
                       "days_of_week": [
                         1,
                         2,
@@ -17633,13 +17590,21 @@
             "cycle": "diario",
             "schedule": "2H",
             "includes_vat": false,
-            "includes_tar": false,
+            "includes_tar": true,
             "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
+            "includes_egme": true,
+            "activation_fee": 0.08,
             "renewable_energy": false,
-            "vazio": 0.0885,
-            "fora_vazio": 0.09
+            "rates_by_voltage": {
+              "BT": {
+                "vazio": 0.24,
+                "fora_vazio": 0.32
+              },
+              "MT": {
+                "vazio": 0.22,
+                "fora_vazio": 0.27
+              }
+            }
           },
           "networks": [
             {
@@ -17651,9 +17616,8 @@
               },
               "tariffs": [
                 {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
+                  "price": 0.08,
+                  "unit": "flat"
                 },
                 {
                   "price": 0.001,
@@ -17661,9 +17625,10 @@
                   "mobie_fee_type": "IEC"
                 },
                 {
-                  "price": 0.0885,
+                  "price": 0.24,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
@@ -17682,30 +17647,9 @@
                   ]
                 },
                 {
-                  "price": 0.09,
+                  "price": 0.32,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "09:00",
-                      "end_time": "23:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.108,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
@@ -17725,15 +17669,37 @@
                   ]
                 },
                 {
-                  "price": 0.0905,
+                  "price": 0.22,
                   "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "BT",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
                       "start_time": "23:00",
                       "end_time": "09:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.27,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "09:00",
+                      "end_time": "23:00",
                       "days_of_week": [
                         1,
                         2,
@@ -17764,22 +17730,29 @@
             "cycle": "diario",
             "schedule": "2H",
             "includes_vat": false,
-            "includes_tar": false,
+            "includes_tar": true,
             "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
+            "includes_egme": true,
+            "activation_fee": 0.08,
             "renewable_energy": false,
-            "vazio": 0.1285,
-            "fora_vazio": 0.13
+            "rates_by_voltage": {
+              "BT": {
+                "vazio": 0.24,
+                "fora_vazio": 0.32
+              },
+              "MT": {
+                "vazio": 0.22,
+                "fora_vazio": 0.27
+              }
+            }
           },
           "networks": [
             {
               "network_id": "MOBIE",
               "tariffs": [
                 {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
+                  "price": 0.08,
+                  "unit": "flat"
                 },
                 {
                   "price": 0.001,
@@ -17787,9 +17760,10 @@
                   "mobie_fee_type": "IEC"
                 },
                 {
-                  "price": 0.1285,
+                  "price": 0.24,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
@@ -17808,74 +17782,9 @@
                   ]
                 },
                 {
-                  "price": 0.13,
+                  "price": 0.32,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "08:00",
-                      "end_time": "22:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.0812,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "MT",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "08:00",
-                      "end_time": "22:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.0157,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "MT",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "22:00",
-                      "end_time": "08:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.1192,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
@@ -17895,15 +17804,37 @@
                   ]
                 },
                 {
-                  "price": 0.0266,
+                  "price": 0.22,
                   "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "BT",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
                       "start_time": "22:00",
                       "end_time": "08:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.27,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "08:00",
+                      "end_time": "22:00",
                       "days_of_week": [
                         1,
                         2,
@@ -17934,22 +17865,29 @@
             "cycle": "diario",
             "schedule": "2H",
             "includes_vat": false,
-            "includes_tar": false,
+            "includes_tar": true,
             "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
+            "includes_egme": true,
+            "activation_fee": 0.08,
             "renewable_energy": false,
-            "vazio": 0.1285,
-            "fora_vazio": 0.13
+            "rates_by_voltage": {
+              "BT": {
+                "vazio": 0.24,
+                "fora_vazio": 0.32
+              },
+              "MT": {
+                "vazio": 0.22,
+                "fora_vazio": 0.27
+              }
+            }
           },
           "networks": [
             {
               "network_id": "MOBIE",
               "tariffs": [
                 {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
+                  "price": 0.08,
+                  "unit": "flat"
                 },
                 {
                   "price": 0.001,
@@ -17957,9 +17895,10 @@
                   "mobie_fee_type": "IEC"
                 },
                 {
-                  "price": 0.1285,
+                  "price": 0.24,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
@@ -17978,30 +17917,9 @@
                   ]
                 },
                 {
-                  "price": 0.13,
+                  "price": 0.32,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "08:00",
-                      "end_time": "22:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.108,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
@@ -18021,15 +17939,37 @@
                   ]
                 },
                 {
-                  "price": 0.0905,
+                  "price": 0.22,
                   "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "BT",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
                       "start_time": "22:00",
                       "end_time": "08:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.27,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "08:00",
+                      "end_time": "22:00",
                       "days_of_week": [
                         1,
                         2,
@@ -18060,22 +18000,29 @@
             "cycle": "diario",
             "schedule": "2H",
             "includes_vat": false,
-            "includes_tar": false,
+            "includes_tar": true,
             "includes_iec": false,
-            "includes_egme": false,
-            "activation_fee": 0.0,
+            "includes_egme": true,
+            "activation_fee": 0.08,
             "renewable_energy": false,
-            "vazio": 0.1285,
-            "fora_vazio": 0.13
+            "rates_by_voltage": {
+              "BT": {
+                "vazio": 0.24,
+                "fora_vazio": 0.32
+              },
+              "MT": {
+                "vazio": 0.22,
+                "fora_vazio": 0.27
+              }
+            }
           },
           "networks": [
             {
               "network_id": "MOBIE",
               "tariffs": [
                 {
-                  "price": 0.1088,
-                  "unit": "flat",
-                  "mobie_fee_type": "EGME"
+                  "price": 0.08,
+                  "unit": "flat"
                 },
                 {
                   "price": 0.001,
@@ -18083,9 +18030,10 @@
                   "mobie_fee_type": "IEC"
                 },
                 {
-                  "price": 0.1285,
+                  "price": 0.24,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
@@ -18104,30 +18052,9 @@
                   ]
                 },
                 {
-                  "price": 0.13,
+                  "price": 0.32,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "09:00",
-                      "end_time": "23:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.108,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
                   "mobie_voltage_level": "BT",
                   "time_restrictions": [
                     {
@@ -18147,15 +18074,37 @@
                   ]
                 },
                 {
-                  "price": 0.0905,
+                  "price": 0.22,
                   "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "BT",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
                   "time_restrictions": [
                     {
                       "name": "vazio",
                       "start_time": "23:00",
                       "end_time": "09:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.27,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "mobie_voltage_level": "MT",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "09:00",
+                      "end_time": "23:00",
                       "days_of_week": [
                         1,
                         2,

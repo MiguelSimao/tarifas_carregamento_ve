@@ -1,0 +1,30 @@
+providers:
+- name: Evio
+  plans:
+  - name: EVIO BP
+    country_code: PT
+    payment_methods:
+      - APP
+    networks:
+    - network_id: FCTO
+      tariffs:
+      - type: DC
+        tiers:
+        - max: 51
+          price: 0.58
+        - min: 51
+          max: 180
+          price: 0.70
+        - min: 180
+          price: 0.74
+
+  - name: AD-HOC
+    country_code: PT
+    payment_methods:
+      - ADHOC_BANK_CARD
+    networks:
+    - network_id: EVIO
+      tariffs:
+      - type: AC
+        price: 0.49
+    

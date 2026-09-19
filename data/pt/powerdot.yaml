@@ -1,5 +1,5 @@
 providers:
-- name: DTE
+- name: Powerdot
   plans:
   - name: AD-HOC
     country_code: PT
@@ -7,7 +7,9 @@ providers:
     - ADHOC_BANK_CARD
 
     networks:
-    - network_id: DTEI
+    - network_id: HORZ
       tariffs:
+      - type: AC
+        price: 0.48
       - type: DC
-        price: 0.71
+        price: 0.68

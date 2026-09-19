@@ -5397,27 +5397,6 @@
           "vat": 0.23,
           "networks": [
             {
-              "network_id": "DTEI",
-              "tariffs": [
-                {
-                  "type": "DC",
-                  "price": 0.71,
-                  "unit": "energy"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "AD-HOC",
-          "publish": true,
-          "country_code": "PT",
-          "payment_methods": [
-            "ADHOC_BANK_CARD"
-          ],
-          "vat": 0.23,
-          "networks": [
-            {
               "network_id": "ENBL",
               "tariffs": [
                 {
@@ -7439,6 +7418,65 @@
                       ]
                     }
                   ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "EVIO BP",
+          "publish": true,
+          "country_code": "PT",
+          "payment_methods": [
+            "APP"
+          ],
+          "vat": 0.23,
+          "networks": [
+            {
+              "network_id": "FCTO",
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 51.0,
+                      "price": 0.58,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 51.0,
+                      "max": 180.0,
+                      "price": 0.7,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 180.0,
+                      "price": 0.74,
+                      "unit": "energy"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "AD-HOC",
+          "publish": true,
+          "country_code": "PT",
+          "payment_methods": [
+            "ADHOC_BANK_CARD"
+          ],
+          "vat": 0.23,
+          "networks": [
+            {
+              "network_id": "EVIO",
+              "tariffs": [
+                {
+                  "type": "AC",
+                  "price": 0.49,
+                  "unit": "energy"
                 }
               ]
             }
@@ -19905,6 +19943,33 @@
       ]
     },
     {
+      "name": "DTE",
+      "publish": true,
+      "plans": [
+        {
+          "name": "AD-HOC",
+          "publish": true,
+          "country_code": "PT",
+          "payment_methods": [
+            "ADHOC_BANK_CARD"
+          ],
+          "vat": 0.23,
+          "networks": [
+            {
+              "network_id": "DTEI",
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.71,
+                  "unit": "energy"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Electromaps",
       "publish": true,
       "plans": [
@@ -19967,13 +20032,19 @@
                   "unit": "energy",
                   "tiers": [
                     {
+                      "max": 8.0,
+                      "price": 0.41,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 8.0,
                       "max": 23.0,
                       "price": 0.42,
                       "unit": "energy"
                     },
                     {
                       "min": 23.0,
-                      "price": 0.58,
+                      "price": 0.6,
                       "unit": "energy"
                     }
                   ]
@@ -19984,18 +20055,18 @@
                   "tiers": [
                     {
                       "max": 51.0,
-                      "price": 0.58,
+                      "price": 0.6,
                       "unit": "energy"
                     },
                     {
                       "min": 51.0,
                       "max": 151.0,
-                      "price": 0.68,
+                      "price": 0.72,
                       "unit": "energy"
                     },
                     {
                       "min": 151.0,
-                      "price": 0.75,
+                      "price": 0.79,
                       "unit": "energy"
                     }
                   ]
@@ -20012,7 +20083,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.69,
+                  "price": 0.62,
                   "unit": "energy"
                 }
               ]
@@ -20037,7 +20108,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.35,
+                  "price": 0.37,
                   "unit": "energy"
                 }
               ]
@@ -20286,6 +20357,72 @@
       ]
     },
     {
+      "name": "Powerdot",
+      "publish": true,
+      "plans": [
+        {
+          "name": "AD-HOC",
+          "publish": true,
+          "country_code": "PT",
+          "payment_methods": [
+            "ADHOC_BANK_CARD"
+          ],
+          "vat": 0.23,
+          "networks": [
+            {
+              "network_id": "HORZ",
+              "tariffs": [
+                {
+                  "type": "AC",
+                  "price": 0.48,
+                  "unit": "energy"
+                },
+                {
+                  "type": "DC",
+                  "price": 0.68,
+                  "unit": "energy"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "REMO",
+      "publish": true,
+      "plans": [
+        {
+          "name": "AD-HOC",
+          "publish": true,
+          "country_code": "PT",
+          "payment_methods": [
+            "ADHOC_BANK_CARD"
+          ],
+          "vat": 0.23,
+          "networks": [
+            {
+              "network_id": "REMO",
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.67,
+                  "unit": "energy",
+                  "max": 150.0
+                },
+                {
+                  "type": "DC",
+                  "price": 0.71,
+                  "unit": "energy",
+                  "min": 150.0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Tesla",
       "publish": true,
       "plans": [
@@ -20301,85 +20438,52 @@
           "vat": 0.23,
           "networks": [
             {
-              "network_id": "TESLA",
+              "network_id": "TSLA",
               "display_name": "Matosinhos",
               "included_locations": [
-                "MATOSINHOSSUPERCHARGER-1",
-                "MATOSINHOSSUPERCHARGER-2",
-                "MATOSINHOSSUPERCHARGER-3",
-                "MATOSINHOSSUPERCHARGER-4",
-                "MATOSINHOSSUPERCHARGER-5"
+                "fe9fc57f14eb42a4aa2e14e270053cab-1",
+                "fe9fc57f14eb42a4aa2e14e270053cab-2",
+                "fe9fc57f14eb42a4aa2e14e270053cab-3",
+                "fe9fc57f14eb42a4aa2e14e270053cab-4",
+                "fe9fc57f14eb42a4aa2e14e270053cab-5"
               ],
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.4,
-                  "unit": "energy"
-                }
-              ]
-            },
-            {
-              "network_id": "TESLA",
-              "display_name": "Ribeira de Pena",
-              "included_locations": [
-                "VILAREALSUPERCHARGER-1",
-                "VILAREALSUPERCHARGER-2",
-                "VILAREALSUPERCHARGER-3"
-              ],
-              "tariffs": [
-                {
-                  "type": "DC",
-                  "price": 0.43,
-                  "unit": "energy"
-                }
-              ]
-            },
-            {
-              "network_id": "TESLA",
-              "display_name": "Guarda",
-              "included_locations": [
-                "GUARDAPTSUPERCHARGER-1",
-                "GUARDAPTSUPERCHARGER-2",
-                "GUARDAPTSUPERCHARGER-3",
-                "GUARDAPTSUPERCHARGER-4"
-              ],
-              "tariffs": [
-                {
-                  "type": "DC",
-                  "price": 0.37,
+                  "price": 0.38,
                   "unit": "energy",
                   "time_restrictions": [
                     {
                       "start_time": "00:00",
-                      "end_time": "09:00"
+                      "end_time": "04:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.51,
+                  "price": 0.31,
                   "unit": "energy",
                   "time_restrictions": [
                     {
-                      "start_time": "09:00",
-                      "end_time": "15:00"
+                      "start_time": "04:00",
+                      "end_time": "10:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.62,
+                  "price": 0.67,
                   "unit": "energy",
                   "time_restrictions": [
                     {
-                      "start_time": "15:00",
+                      "start_time": "10:00",
                       "end_time": "20:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.51,
+                  "price": 0.61,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20391,16 +20495,88 @@
               ]
             },
             {
-              "network_id": "TESLA",
-              "display_name": "Castelo Branco",
+              "network_id": "TSLA",
+              "display_name": "Ribeira de Pena",
               "included_locations": [
-                "14181-1",
-                "14181-2"
+                "85086418c731478486cce0d004445db5-1",
+                "85086418c731478486cce0d004445db5-2",
+                "85086418c731478486cce0d004445db5-3"
               ],
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.49,
+                  "price": 0.48,
+                  "unit": "energy"
+                }
+              ]
+            },
+            {
+              "network_id": "TSLA",
+              "display_name": "Guarda",
+              "included_locations": [
+                "0cf4786bf4694eaba793fdc5b01e45a5-1",
+                "0cf4786bf4694eaba793fdc5b01e45a5-2",
+                "0cf4786bf4694eaba793fdc5b01e45a5-3",
+                "0cf4786bf4694eaba793fdc5b01e45a5-4"
+              ],
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.38,
+                  "unit": "energy",
+                  "time_restrictions": [
+                    {
+                      "start_time": "00:00",
+                      "end_time": "09:00"
+                    }
+                  ]
+                },
+                {
+                  "type": "DC",
+                  "price": 0.54,
+                  "unit": "energy",
+                  "time_restrictions": [
+                    {
+                      "start_time": "09:00",
+                      "end_time": "15:00"
+                    }
+                  ]
+                },
+                {
+                  "type": "DC",
+                  "price": 0.64,
+                  "unit": "energy",
+                  "time_restrictions": [
+                    {
+                      "start_time": "15:00",
+                      "end_time": "20:00"
+                    }
+                  ]
+                },
+                {
+                  "type": "DC",
+                  "price": 0.54,
+                  "unit": "energy",
+                  "time_restrictions": [
+                    {
+                      "start_time": "20:00",
+                      "end_time": "00:00"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "TSLA",
+              "display_name": "Castelo Branco",
+              "included_locations": [
+                "24a78962ea224aa2ad717413f8a68166-1",
+                "24a78962ea224aa2ad717413f8a68166-2"
+              ],
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.56,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20411,7 +20587,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.33,
+                  "price": 0.3,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20423,24 +20599,24 @@
               ]
             },
             {
-              "network_id": "TESLA",
+              "network_id": "TSLA",
               "display_name": "Mealhada",
               "included_locations": [
-                "MEALHADASUPERCHARGER-1",
-                "MEALHADASUPERCHARGER-2",
-                "MEALHADASUPERCHARGER-3",
-                "MEALHADASUPERCHARGER-4",
-                "MEALHADASUPERCHARGER-5",
-                "MEALHADASUPERCHARGER-6",
-                "MEALHADASUPERCHARGER-7",
-                "MEALHADASUPERCHARGER-8",
-                "MEALHADASUPERCHARGER-9",
-                "MEALHADASUPERCHARGER-10"
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-1",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-2",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-3",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-4",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-5",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-6",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-7",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-8",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-9",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-10"
               ],
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.24,
+                  "price": 0.27,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20451,7 +20627,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.39,
+                  "price": 0.42,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20462,7 +20638,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.47,
+                  "price": 0.54,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20474,22 +20650,22 @@
               ]
             },
             {
-              "network_id": "TESLA",
+              "network_id": "TSLA",
               "display_name": "Fatima",
               "included_locations": [
-                "FATIMASELFSERVELOCATION-1",
-                "FATIMASELFSERVELOCATION-2",
-                "FATIMASELFSERVELOCATION-3",
-                "FATIMASELFSERVELOCATION-4",
-                "FATIMASELFSERVELOCATION-5",
-                "FATIMASELFSERVELOCATION-6",
-                "FATIMASELFSERVELOCATION-7",
-                "FATIMASELFSERVELOCATION-8"
+                "381a4acf82a34799bd23291aa7c319a6-1",
+                "381a4acf82a34799bd23291aa7c319a6-2",
+                "381a4acf82a34799bd23291aa7c319a6-3",
+                "381a4acf82a34799bd23291aa7c319a6-4",
+                "381a4acf82a34799bd23291aa7c319a6-5",
+                "381a4acf82a34799bd23291aa7c319a6-6",
+                "381a4acf82a34799bd23291aa7c319a6-7",
+                "381a4acf82a34799bd23291aa7c319a6-8"
               ],
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.25,
+                  "price": 0.29,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20500,7 +20676,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.58,
+                  "price": 0.66,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20512,17 +20688,17 @@
               ]
             },
             {
-              "network_id": "TESLA",
+              "network_id": "TSLA",
               "display_name": "Alcacer",
               "included_locations": [
-                "ALCACERDOSALSUPERCHARGER-1",
-                "ALCACERDOSALSUPERCHARGER-2",
-                "ALCACERDOSALSUPERCHARGER-3",
-                "ALCACERDOSALSUPERCHARGER-4",
-                "ALCACERDOSALSUPERCHARGER-5",
-                "ALCACERDOSALSUPERCHARGER-6",
-                "ALCACERDOSALSUPERCHARGER-7",
-                "ALCACERDOSALSUPERCHARGER-8"
+                "b798e614a4b745ba9a5f8b1dfbc009b4-1",
+                "b798e614a4b745ba9a5f8b1dfbc009b4-2",
+                "b798e614a4b745ba9a5f8b1dfbc009b4-3",
+                "b798e614a4b745ba9a5f8b1dfbc009b4-4",
+                "b798e614a4b745ba9a5f8b1dfbc009b4-5",
+                "b798e614a4b745ba9a5f8b1dfbc009b4-6",
+                "b798e614a4b745ba9a5f8b1dfbc009b4-7",
+                "b798e614a4b745ba9a5f8b1dfbc009b4-8"
               ],
               "tariffs": [
                 {
@@ -20550,13 +20726,13 @@
               ]
             },
             {
-              "network_id": "TESLA",
+              "network_id": "TSLA",
               "display_name": "Montemor o Novo",
               "included_locations": [
-                "MONTEMORONOVOSUPERCHARGER-1",
-                "MONTEMORONOVOSUPERCHARGER-2",
-                "MONTEMORONOVOSUPERCHARGER-3",
-                "MONTEMORONOVOSUPERCHARGER-4"
+                "fff4f0589075483396f5e021cb263344-1",
+                "fff4f0589075483396f5e021cb263344-2",
+                "fff4f0589075483396f5e021cb263344-3",
+                "fff4f0589075483396f5e021cb263344-4"
               ],
               "tariffs": [
                 {
@@ -20584,20 +20760,20 @@
               ]
             },
             {
-              "network_id": "TESLA",
+              "network_id": "TSLA",
               "display_name": "Loulé",
               "included_locations": [
-                "LOULESUPERCHARGER-1",
-                "LOULESUPERCHARGER-2",
-                "LOULESUPERCHARGER-3",
-                "LOULESUPERCHARGER-4",
-                "LOULESUPERCHARGER-5",
-                "LOULESUPERCHARGER-6"
+                "d9df0db678294f68be5713dbb28dbae1-1",
+                "d9df0db678294f68be5713dbb28dbae1-2",
+                "d9df0db678294f68be5713dbb28dbae1-3",
+                "d9df0db678294f68be5713dbb28dbae1-4",
+                "d9df0db678294f68be5713dbb28dbae1-5",
+                "d9df0db678294f68be5713dbb28dbae1-6"
               ],
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.34,
+                  "price": 0.35,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20608,7 +20784,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.7,
+                  "price": 0.72,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20619,7 +20795,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.77,
+                  "price": 0.8,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20630,7 +20806,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.7,
+                  "price": 0.72,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20642,7 +20818,7 @@
               ]
             },
             {
-              "network_id": "TESLA",
+              "network_id": "TSLA",
               "display_name": "Alcantarilha",
               "included_locations": [
                 "ALCANTARILHASUPERCHARGER-1",
@@ -20656,7 +20832,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.38,
+                  "price": 0.42,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20667,7 +20843,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.34,
+                  "price": 0.35,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20678,7 +20854,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.48,
+                  "price": 0.47,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20689,7 +20865,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.66,
+                  "price": 0.69,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20700,7 +20876,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.58,
+                  "price": 0.6,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20725,85 +20901,52 @@
           "vat": 0.23,
           "networks": [
             {
-              "network_id": "TESLA",
+              "network_id": "TSLA",
               "display_name": "Matosinhos",
               "included_locations": [
-                "MATOSINHOSSUPERCHARGER-1",
-                "MATOSINHOSSUPERCHARGER-2",
-                "MATOSINHOSSUPERCHARGER-3",
-                "MATOSINHOSSUPERCHARGER-4",
-                "MATOSINHOSSUPERCHARGER-5"
+                "fe9fc57f14eb42a4aa2e14e270053cab-1",
+                "fe9fc57f14eb42a4aa2e14e270053cab-2",
+                "fe9fc57f14eb42a4aa2e14e270053cab-3",
+                "fe9fc57f14eb42a4aa2e14e270053cab-4",
+                "fe9fc57f14eb42a4aa2e14e270053cab-5"
               ],
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.32,
-                  "unit": "energy"
-                }
-              ]
-            },
-            {
-              "network_id": "TESLA",
-              "display_name": "Ribeira de Pena",
-              "included_locations": [
-                "VILAREALSUPERCHARGER-1",
-                "VILAREALSUPERCHARGER-2",
-                "VILAREALSUPERCHARGER-3"
-              ],
-              "tariffs": [
-                {
-                  "type": "DC",
-                  "price": 0.34,
-                  "unit": "energy"
-                }
-              ]
-            },
-            {
-              "network_id": "TESLA",
-              "display_name": "Guarda",
-              "included_locations": [
-                "GUARDAPTSUPERCHARGER-1",
-                "GUARDAPTSUPERCHARGER-2",
-                "GUARDAPTSUPERCHARGER-3",
-                "GUARDAPTSUPERCHARGER-4"
-              ],
-              "tariffs": [
-                {
-                  "type": "DC",
-                  "price": 0.26,
+                  "price": 0.24,
                   "unit": "energy",
                   "time_restrictions": [
                     {
                       "start_time": "00:00",
-                      "end_time": "09:00"
+                      "end_time": "04:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.37,
+                  "price": 0.2,
                   "unit": "energy",
                   "time_restrictions": [
                     {
-                      "start_time": "09:00",
-                      "end_time": "15:00"
+                      "start_time": "04:00",
+                      "end_time": "10:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.44,
+                  "price": 0.42,
                   "unit": "energy",
                   "time_restrictions": [
                     {
-                      "start_time": "15:00",
+                      "start_time": "10:00",
                       "end_time": "20:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.37,
+                  "price": 0.38,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20815,16 +20958,88 @@
               ]
             },
             {
-              "network_id": "TESLA",
-              "display_name": "Castelo Branco",
+              "network_id": "TSLA",
+              "display_name": "Ribeira de Pena",
               "included_locations": [
-                "14181-1",
-                "14181-2"
+                "85086418c731478486cce0d004445db5-1",
+                "85086418c731478486cce0d004445db5-2",
+                "85086418c731478486cce0d004445db5-3"
               ],
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.35,
+                  "price": 0.36,
+                  "unit": "energy"
+                }
+              ]
+            },
+            {
+              "network_id": "TSLA",
+              "display_name": "Guarda",
+              "included_locations": [
+                "0cf4786bf4694eaba793fdc5b01e45a5-1",
+                "0cf4786bf4694eaba793fdc5b01e45a5-2",
+                "0cf4786bf4694eaba793fdc5b01e45a5-3",
+                "0cf4786bf4694eaba793fdc5b01e45a5-4"
+              ],
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.27,
+                  "unit": "energy",
+                  "time_restrictions": [
+                    {
+                      "start_time": "00:00",
+                      "end_time": "09:00"
+                    }
+                  ]
+                },
+                {
+                  "type": "DC",
+                  "price": 0.39,
+                  "unit": "energy",
+                  "time_restrictions": [
+                    {
+                      "start_time": "09:00",
+                      "end_time": "15:00"
+                    }
+                  ]
+                },
+                {
+                  "type": "DC",
+                  "price": 0.46,
+                  "unit": "energy",
+                  "time_restrictions": [
+                    {
+                      "start_time": "15:00",
+                      "end_time": "20:00"
+                    }
+                  ]
+                },
+                {
+                  "type": "DC",
+                  "price": 0.39,
+                  "unit": "energy",
+                  "time_restrictions": [
+                    {
+                      "start_time": "20:00",
+                      "end_time": "00:00"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "TSLA",
+              "display_name": "Castelo Branco",
+              "included_locations": [
+                "24a78962ea224aa2ad717413f8a68166-1",
+                "24a78962ea224aa2ad717413f8a68166-2"
+              ],
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.4,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20835,7 +21050,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.24,
+                  "price": 0.22,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20847,24 +21062,24 @@
               ]
             },
             {
-              "network_id": "TESLA",
+              "network_id": "TSLA",
               "display_name": "Mealhada",
               "included_locations": [
-                "MEALHADASUPERCHARGER-1",
-                "MEALHADASUPERCHARGER-2",
-                "MEALHADASUPERCHARGER-3",
-                "MEALHADASUPERCHARGER-4",
-                "MEALHADASUPERCHARGER-5",
-                "MEALHADASUPERCHARGER-6",
-                "MEALHADASUPERCHARGER-7",
-                "MEALHADASUPERCHARGER-8",
-                "MEALHADASUPERCHARGER-9",
-                "MEALHADASUPERCHARGER-10"
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-1",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-2",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-3",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-4",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-5",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-6",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-7",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-8",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-9",
+                "eddf8de0ea2f4d4a90d4f0e5639662a1-10"
               ],
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.18,
+                  "price": 0.19,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20886,7 +21101,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.35,
+                  "price": 0.38,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20898,22 +21113,22 @@
               ]
             },
             {
-              "network_id": "TESLA",
+              "network_id": "TSLA",
               "display_name": "Fatima",
               "included_locations": [
-                "FATIMASELFSERVELOCATION-1",
-                "FATIMASELFSERVELOCATION-2",
-                "FATIMASELFSERVELOCATION-3",
-                "FATIMASELFSERVELOCATION-4",
-                "FATIMASELFSERVELOCATION-5",
-                "FATIMASELFSERVELOCATION-6",
-                "FATIMASELFSERVELOCATION-7",
-                "FATIMASELFSERVELOCATION-8"
+                "381a4acf82a34799bd23291aa7c319a6-1",
+                "381a4acf82a34799bd23291aa7c319a6-2",
+                "381a4acf82a34799bd23291aa7c319a6-3",
+                "381a4acf82a34799bd23291aa7c319a6-4",
+                "381a4acf82a34799bd23291aa7c319a6-5",
+                "381a4acf82a34799bd23291aa7c319a6-6",
+                "381a4acf82a34799bd23291aa7c319a6-7",
+                "381a4acf82a34799bd23291aa7c319a6-8"
               ],
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.18,
+                  "price": 0.19,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20924,7 +21139,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.41,
+                  "price": 0.44,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20936,17 +21151,17 @@
               ]
             },
             {
-              "network_id": "TESLA",
+              "network_id": "TSLA",
               "display_name": "Alcacer",
               "included_locations": [
-                "ALCACERDOSALSUPERCHARGER-1",
-                "ALCACERDOSALSUPERCHARGER-2",
-                "ALCACERDOSALSUPERCHARGER-3",
-                "ALCACERDOSALSUPERCHARGER-4",
-                "ALCACERDOSALSUPERCHARGER-5",
-                "ALCACERDOSALSUPERCHARGER-6",
-                "ALCACERDOSALSUPERCHARGER-7",
-                "ALCACERDOSALSUPERCHARGER-8"
+                "b798e614a4b745ba9a5f8b1dfbc009b4-1",
+                "b798e614a4b745ba9a5f8b1dfbc009b4-2",
+                "b798e614a4b745ba9a5f8b1dfbc009b4-3",
+                "b798e614a4b745ba9a5f8b1dfbc009b4-4",
+                "b798e614a4b745ba9a5f8b1dfbc009b4-5",
+                "b798e614a4b745ba9a5f8b1dfbc009b4-6",
+                "b798e614a4b745ba9a5f8b1dfbc009b4-7",
+                "b798e614a4b745ba9a5f8b1dfbc009b4-8"
               ],
               "tariffs": [
                 {
@@ -20974,13 +21189,13 @@
               ]
             },
             {
-              "network_id": "TESLA",
+              "network_id": "TSLA",
               "display_name": "Montemor o Novo",
               "included_locations": [
-                "MONTEMORONOVOSUPERCHARGER-1",
-                "MONTEMORONOVOSUPERCHARGER-2",
-                "MONTEMORONOVOSUPERCHARGER-3",
-                "MONTEMORONOVOSUPERCHARGER-4"
+                "fff4f0589075483396f5e021cb263344-1",
+                "fff4f0589075483396f5e021cb263344-2",
+                "fff4f0589075483396f5e021cb263344-3",
+                "fff4f0589075483396f5e021cb263344-4"
               ],
               "tariffs": [
                 {
@@ -21008,20 +21223,20 @@
               ]
             },
             {
-              "network_id": "TESLA",
+              "network_id": "TSLA",
               "display_name": "Loulé",
               "included_locations": [
-                "LOULESUPERCHARGER-1",
-                "LOULESUPERCHARGER-2",
-                "LOULESUPERCHARGER-3",
-                "LOULESUPERCHARGER-4",
-                "LOULESUPERCHARGER-5",
-                "LOULESUPERCHARGER-6"
+                "d9df0db678294f68be5713dbb28dbae1-1",
+                "d9df0db678294f68be5713dbb28dbae1-2",
+                "d9df0db678294f68be5713dbb28dbae1-3",
+                "d9df0db678294f68be5713dbb28dbae1-4",
+                "d9df0db678294f68be5713dbb28dbae1-5",
+                "d9df0db678294f68be5713dbb28dbae1-6"
               ],
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.21,
+                  "price": 0.22,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21032,7 +21247,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.44,
+                  "price": 0.45,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21043,7 +21258,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.48,
+                  "price": 0.5,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21054,7 +21269,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.44,
+                  "price": 0.45,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21066,7 +21281,7 @@
               ]
             },
             {
-              "network_id": "TESLA",
+              "network_id": "TSLA",
               "display_name": "Alcantarilha",
               "included_locations": [
                 "ALCANTARILHASUPERCHARGER-1",
@@ -21080,7 +21295,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.24,
+                  "price": 0.26,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21091,7 +21306,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.21,
+                  "price": 0.22,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21102,7 +21317,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.3,
+                  "price": 0.29,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21113,7 +21328,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.41,
+                  "price": 0.43,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21124,7 +21339,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.36,
+                  "price": 0.37,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21153,7 +21368,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.58,
+                  "price": 0.69,
                   "unit": "energy"
                 }
               ]

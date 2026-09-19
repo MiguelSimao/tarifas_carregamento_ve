@@ -1,102 +1,102 @@
 _templates:
 
   tesla_matosinhos: &tesla_matosinhos
-    network_id: TESLA
+    network_id: TSLA
     display_name: Matosinhos
     included_locations:
-    - MATOSINHOSSUPERCHARGER-1
-    - MATOSINHOSSUPERCHARGER-2
-    - MATOSINHOSSUPERCHARGER-3
-    - MATOSINHOSSUPERCHARGER-4
-    - MATOSINHOSSUPERCHARGER-5
+    - fe9fc57f14eb42a4aa2e14e270053cab-1
+    - fe9fc57f14eb42a4aa2e14e270053cab-2
+    - fe9fc57f14eb42a4aa2e14e270053cab-3
+    - fe9fc57f14eb42a4aa2e14e270053cab-4
+    - fe9fc57f14eb42a4aa2e14e270053cab-5
 
   tesla_ribeira_de_pena: &tesla_ribeira_de_pena
-    network_id: TESLA
+    network_id: TSLA
     display_name: Ribeira de Pena
     included_locations:
-    - VILAREALSUPERCHARGER-1
-    - VILAREALSUPERCHARGER-2
-    - VILAREALSUPERCHARGER-3
+    - 85086418c731478486cce0d004445db5-1
+    - 85086418c731478486cce0d004445db5-2
+    - 85086418c731478486cce0d004445db5-3
 
   tesla_guarda: &tesla_guarda
-    network_id: TESLA
+    network_id: TSLA
     display_name: Guarda
     included_locations:
-    - GUARDAPTSUPERCHARGER-1
-    - GUARDAPTSUPERCHARGER-2
-    - GUARDAPTSUPERCHARGER-3
-    - GUARDAPTSUPERCHARGER-4
+    - 0cf4786bf4694eaba793fdc5b01e45a5-1
+    - 0cf4786bf4694eaba793fdc5b01e45a5-2
+    - 0cf4786bf4694eaba793fdc5b01e45a5-3
+    - 0cf4786bf4694eaba793fdc5b01e45a5-4
 
   tesla_castelo_branco: &tesla_castelo_branco
-    network_id: TESLA
+    network_id: TSLA
     display_name: Castelo Branco
     included_locations:
-    - 14181-1
-    - 14181-2
+    - 24a78962ea224aa2ad717413f8a68166-1
+    - 24a78962ea224aa2ad717413f8a68166-2
 
   tesla_mealhada: &tesla_mealhada
-    network_id: TESLA
+    network_id: TSLA
     display_name: Mealhada
     included_locations:
-    - MEALHADASUPERCHARGER-1
-    - MEALHADASUPERCHARGER-2
-    - MEALHADASUPERCHARGER-3
-    - MEALHADASUPERCHARGER-4
-    - MEALHADASUPERCHARGER-5
-    - MEALHADASUPERCHARGER-6
-    - MEALHADASUPERCHARGER-7
-    - MEALHADASUPERCHARGER-8
-    - MEALHADASUPERCHARGER-9
-    - MEALHADASUPERCHARGER-10
+    - eddf8de0ea2f4d4a90d4f0e5639662a1-1
+    - eddf8de0ea2f4d4a90d4f0e5639662a1-2
+    - eddf8de0ea2f4d4a90d4f0e5639662a1-3
+    - eddf8de0ea2f4d4a90d4f0e5639662a1-4
+    - eddf8de0ea2f4d4a90d4f0e5639662a1-5
+    - eddf8de0ea2f4d4a90d4f0e5639662a1-6
+    - eddf8de0ea2f4d4a90d4f0e5639662a1-7
+    - eddf8de0ea2f4d4a90d4f0e5639662a1-8
+    - eddf8de0ea2f4d4a90d4f0e5639662a1-9
+    - eddf8de0ea2f4d4a90d4f0e5639662a1-10
 
   tesla_fatima: &tesla_fatima
-    network_id: TESLA
+    network_id: TSLA
     display_name: Fatima
     included_locations:
-    - FATIMASELFSERVELOCATION-1
-    - FATIMASELFSERVELOCATION-2
-    - FATIMASELFSERVELOCATION-3
-    - FATIMASELFSERVELOCATION-4
-    - FATIMASELFSERVELOCATION-5
-    - FATIMASELFSERVELOCATION-6
-    - FATIMASELFSERVELOCATION-7
-    - FATIMASELFSERVELOCATION-8
+    - 381a4acf82a34799bd23291aa7c319a6-1
+    - 381a4acf82a34799bd23291aa7c319a6-2
+    - 381a4acf82a34799bd23291aa7c319a6-3
+    - 381a4acf82a34799bd23291aa7c319a6-4
+    - 381a4acf82a34799bd23291aa7c319a6-5
+    - 381a4acf82a34799bd23291aa7c319a6-6
+    - 381a4acf82a34799bd23291aa7c319a6-7
+    - 381a4acf82a34799bd23291aa7c319a6-8
 
   tesla_alcacer: &tesla_alcacer
-    network_id: TESLA
+    network_id: TSLA
     display_name: Alcacer
     included_locations:
-    - ALCACERDOSALSUPERCHARGER-1
-    - ALCACERDOSALSUPERCHARGER-2
-    - ALCACERDOSALSUPERCHARGER-3
-    - ALCACERDOSALSUPERCHARGER-4
-    - ALCACERDOSALSUPERCHARGER-5
-    - ALCACERDOSALSUPERCHARGER-6
-    - ALCACERDOSALSUPERCHARGER-7
-    - ALCACERDOSALSUPERCHARGER-8
+    - b798e614a4b745ba9a5f8b1dfbc009b4-1
+    - b798e614a4b745ba9a5f8b1dfbc009b4-2
+    - b798e614a4b745ba9a5f8b1dfbc009b4-3
+    - b798e614a4b745ba9a5f8b1dfbc009b4-4
+    - b798e614a4b745ba9a5f8b1dfbc009b4-5
+    - b798e614a4b745ba9a5f8b1dfbc009b4-6
+    - b798e614a4b745ba9a5f8b1dfbc009b4-7
+    - b798e614a4b745ba9a5f8b1dfbc009b4-8
 
   tesla_montemor_o_novo: &tesla_montemor_o_novo
-    network_id: TESLA
+    network_id: TSLA
     display_name: Montemor o Novo
     included_locations:
-    - MONTEMORONOVOSUPERCHARGER-1
-    - MONTEMORONOVOSUPERCHARGER-2
-    - MONTEMORONOVOSUPERCHARGER-3
-    - MONTEMORONOVOSUPERCHARGER-4
+    - fff4f0589075483396f5e021cb263344-1
+    - fff4f0589075483396f5e021cb263344-2
+    - fff4f0589075483396f5e021cb263344-3
+    - fff4f0589075483396f5e021cb263344-4
 
   tesla_loule: &tesla_loule
-    network_id: TESLA
+    network_id: TSLA
     display_name: Loulé
     included_locations:
-    - LOULESUPERCHARGER-1
-    - LOULESUPERCHARGER-2
-    - LOULESUPERCHARGER-3
-    - LOULESUPERCHARGER-4
-    - LOULESUPERCHARGER-5
-    - LOULESUPERCHARGER-6
+    - d9df0db678294f68be5713dbb28dbae1-1
+    - d9df0db678294f68be5713dbb28dbae1-2
+    - d9df0db678294f68be5713dbb28dbae1-3
+    - d9df0db678294f68be5713dbb28dbae1-4
+    - d9df0db678294f68be5713dbb28dbae1-5
+    - d9df0db678294f68be5713dbb28dbae1-6
 
   tesla_alcantarilha: &tesla_alcantarilha
-    network_id: TESLA
+    network_id: TSLA
     display_name: Alcantarilha
     included_locations:
     - ALCANTARILHASUPERCHARGER-1
@@ -129,6 +129,10 @@ _templates:
     time_restrictions:
     - start_time: "04:00"
       end_time: "08:00"
+  time_04_10: &time_04_10
+    time_restrictions:
+    - start_time: "04:00"
+      end_time: "10:00"
   # 08
   time_08_12: &time_08_12
     time_restrictions:
@@ -152,6 +156,10 @@ _templates:
     - start_time: "09:00"
       end_time: "18:00"
   # 10
+  time_10_20: &time_10_20
+    time_restrictions:
+    - start_time: "10:00"
+      end_time: "20:00"
   time_10_22: &time_10_22
     time_restrictions:
     - start_time: "10:00"
@@ -224,28 +232,38 @@ providers:
     - <<: *tesla_matosinhos
       tariffs:
       - type: DC
-        price: 0.40
+        price: 0.38
+        <<: *time_00_04
+      - type: DC
+        price: 0.31
+        <<: *time_04_10
+      - type: DC
+        price: 0.67
+        <<: *time_10_20
+      - type: DC
+        price: 0.61
+        <<: *time_20_00
 
     # RIBEIRA_DE_PENA NON_MEMBER
     - <<: *tesla_ribeira_de_pena
       tariffs:
       - type: DC
-        price: 0.43
+        price: 0.48
 
     # GUARDA NON_MEMBER
     - <<: *tesla_guarda
       tariffs:
       - type: DC
-        price: 0.37
+        price: 0.38
         <<: *time_00_09
       - type: DC
-        price: 0.51
+        price: 0.54
         <<: *time_09_15
       - type: DC
-        price: 0.62
+        price: 0.64
         <<: *time_15_20
       - type: DC
-        price: 0.51
+        price: 0.54
         <<: *time_20_00
 
     # CASTELO_BRANCO NON_MEMBER
@@ -253,32 +271,32 @@ providers:
       tariffs:
       - type: DC
         <<: *time_10_22
-        price: 0.49
+        price: 0.56
       - type: DC
         <<: *time_22_10
-        price: 0.33
+        price: 0.30
 
     # MEALHADA NON_MEMBER
     - <<: *tesla_mealhada
       tariffs:
       - type: DC
-        price: 0.24
+        price: 0.27
         <<: *time_22_08
       - type: DC
-        price: 0.39
+        price: 0.42
         <<: *time_08_12
       - type: DC
-        price: 0.47
+        price: 0.54
         <<: *time_12_22
 
     # FATIMA NON_MEMBER
     - <<: *tesla_fatima
       tariffs:
       - type: DC
-        price: 0.25
+        price: 0.29
         <<: *time_22_08
       - type: DC
-        price: 0.58
+        price: 0.66
         <<: *time_08_22
 
     # ALCACER NON_MEMBER
@@ -305,35 +323,35 @@ providers:
     - <<: *tesla_loule
       tariffs:
       - type: DC
-        price: 0.34
+        price: 0.35
         <<: *time_22_09
       - type: DC
-        price: 0.70
+        price: 0.72
         <<: *time_09_13
       - type: DC
-        price: 0.77
+        price: 0.80
         <<: *time_13_18
       - type: DC
-        price: 0.70
+        price: 0.72
         <<: *time_18_22
 
     # ALCANTARILHA NON_MEMBER
     - <<: *tesla_alcantarilha
       tariffs:
       - type: DC
-        price: 0.38
+        price: 0.42
         <<: *time_00_04
       - type: DC
-        price: 0.34
+        price: 0.35
         <<: *time_04_08
       - type: DC
-        price: 0.48
+        price: 0.47
         <<: *time_08_12
       - type: DC
-        price: 0.66
+        price: 0.69
         <<: *time_12_20
       - type: DC
-        price: 0.58
+        price: 0.60
         <<: *time_20_00
 
   - name: Member
@@ -347,28 +365,38 @@ providers:
     - <<: *tesla_matosinhos
       tariffs:
       - type: DC
-        price: 0.32
+        price: 0.24
+        <<: *time_00_04
+      - type: DC
+        price: 0.20
+        <<: *time_04_10
+      - type: DC
+        price: 0.42
+        <<: *time_10_20
+      - type: DC
+        price: 0.38
+        <<: *time_20_00
 
     # RIBEIRA_DE_PENA MEMBER
     - <<: *tesla_ribeira_de_pena
       tariffs:
       - type: DC
-        price: 0.34
+        price: 0.36
 
     # GUARDA MEMBER
     - <<: *tesla_guarda
       tariffs:
       - type: DC
-        price: 0.26
+        price: 0.27
         <<: *time_00_09
       - type: DC
-        price: 0.37
+        price: 0.39
         <<: *time_09_15
       - type: DC
-        price: 0.44
+        price: 0.46
         <<: *time_15_20
       - type: DC
-        price: 0.37
+        price: 0.39
         <<: *time_20_00
 
     # CASTELO_BRANCO MEMBER
@@ -376,32 +404,32 @@ providers:
       tariffs:
       - type: DC
         <<: *time_10_22
-        price: 0.35
+        price: 0.40
       - type: DC
         <<: *time_22_10
-        price: 0.24
+        price: 0.22
 
     # MEALHADA MEMBER
     - <<: *tesla_mealhada
       tariffs:
       - type: DC
-        price: 0.18
+        price: 0.19
         <<: *time_22_08
       - type: DC
         price: 0.29
         <<: *time_08_12
       - type: DC
-        price: 0.35
+        price: 0.38
         <<: *time_12_22
 
     # FATIMA MEMBER
     - <<: *tesla_fatima
       tariffs:
       - type: DC
-        price: 0.18
+        price: 0.19
         <<: *time_22_08
       - type: DC
-        price: 0.41
+        price: 0.44
         <<: *time_08_22
 
     # ALCACER MEMBER
@@ -428,35 +456,35 @@ providers:
     - <<: *tesla_loule
       tariffs:
       - type: DC
-        price: 0.21
+        price: 0.22
         <<: *time_22_09
       - type: DC
-        price: 0.44
+        price: 0.45
         <<: *time_09_13
       - type: DC
-        price: 0.48
+        price: 0.50
         <<: *time_13_18
       - type: DC
-        price: 0.44
+        price: 0.45
         <<: *time_18_22
 
     # ALCANTARILHA MEMBER
     - <<: *tesla_alcantarilha
       tariffs:
       - type: DC
-        price: 0.24
+        price: 0.26
         <<: *time_00_04
       - type: DC
-        price: 0.21
+        price: 0.22
         <<: *time_04_08
       - type: DC
-        price: 0.30
+        price: 0.29
         <<: *time_08_12
       - type: DC
-        price: 0.41
+        price: 0.43
         <<: *time_12_20
       - type: DC
-        price: 0.36
+        price: 0.37
         <<: *time_20_00
 
 
@@ -470,4 +498,4 @@ providers:
       display_name: Ionity
       tariffs:
       - type: DC
-        price: 0.58
+        price: 0.69

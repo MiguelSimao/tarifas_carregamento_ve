@@ -12,19 +12,22 @@ providers:
         price: 0.3
       - type: AC
         tiers:
-        - max: 23
+        - max: 8
+          price: 0.41
+        - min: 8
+          max: 23
           price: 0.42
         - min: 23
-          price: 0.58
+          price: 0.60
       - type: DC
         tiers:
         - max: 51
-          price: 0.58
+          price: 0.60
         - min: 51
           max: 151
-          price: 0.68
+          price: 0.72
         - min: 151
-          price: 0.75
+          price: 0.79
 
     - network_id: IONY
       tariffs:
@@ -32,7 +35,7 @@ providers:
         price: 0.3
         unit: flat
       - type: DC
-        price: 0.69
+        price: 0.62
 
   - name: Ionity Subscription
     country_code: PT
@@ -45,7 +48,7 @@ providers:
         price: 0.3
         unit: flat
       - type: DC
-        price: 0.35
+        price: 0.37
 
   - name: Powerdot Subscription
     country_code: PT

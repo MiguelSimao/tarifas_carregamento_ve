@@ -9,7 +9,7 @@ providers:
     - "PT::RAA"
     - "PT::RAM"
     byoe:
-      start_date: "2026-01-01"
+      start_date: "2026-10-01"
       cycle: semanal
       schedule: "2H"
       includes_egme: false
@@ -17,8 +17,8 @@ providers:
       includes_tar: false
       renewable_energy: false
       activation_fee: 0.0
-      cheias: 0.0976
-      vazio: 0.0976
+      cheias: 0.12
+      vazio: 0.12
     payment_methods:
     - RFID_CARD
     - APP

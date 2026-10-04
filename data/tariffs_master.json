@@ -166,7 +166,7 @@
           "includes_vat": false,
           "vat": 0.23,
           "byoe": {
-            "start_date": "2026-01-01",
+            "start_date": "2026-10-01",
             "cycle": "semanal",
             "schedule": "2H",
             "includes_vat": false,
@@ -175,8 +175,8 @@
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": false,
-            "vazio": 0.0976,
-            "fora_vazio": 0.0976
+            "vazio": 0.12,
+            "fora_vazio": 0.12
           },
           "networks": [
             {
@@ -195,7 +195,7 @@
                   "max": 43.0
                 },
                 {
-                  "price": 0.0976,
+                  "price": 0.12,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
                   "max": 43.0
@@ -395,7 +395,7 @@
           "includes_vat": false,
           "vat": 0.16,
           "byoe": {
-            "start_date": "2026-01-01",
+            "start_date": "2026-10-01",
             "cycle": "semanal",
             "schedule": "2H",
             "includes_vat": false,
@@ -404,8 +404,8 @@
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": false,
-            "vazio": 0.0976,
-            "fora_vazio": 0.0976
+            "vazio": 0.12,
+            "fora_vazio": 0.12
           },
           "networks": [
             {
@@ -424,7 +424,7 @@
                   "max": 43.0
                 },
                 {
-                  "price": 0.0976,
+                  "price": 0.12,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
                   "max": 43.0
@@ -624,7 +624,7 @@
           "includes_vat": false,
           "vat": 0.22,
           "byoe": {
-            "start_date": "2026-01-01",
+            "start_date": "2026-10-01",
             "cycle": "semanal",
             "schedule": "2H",
             "includes_vat": false,
@@ -633,8 +633,8 @@
             "includes_egme": false,
             "activation_fee": 0.0,
             "renewable_energy": false,
-            "vazio": 0.0976,
-            "fora_vazio": 0.0976
+            "vazio": 0.12,
+            "fora_vazio": 0.12
           },
           "networks": [
             {
@@ -653,7 +653,7 @@
                   "max": 43.0
                 },
                 {
-                  "price": 0.0976,
+                  "price": 0.12,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
                   "max": 43.0
@@ -3950,6 +3950,9 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "excluded_cpos": [
+                "EDPC"
+              ],
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -4046,6 +4049,9 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "excluded_cpos": [
+                "EDPC"
+              ],
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -4142,6 +4148,9 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "excluded_cpos": [
+                "EDPC"
+              ],
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -4237,6 +4246,9 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "excluded_cpos": [
+                "EDPC"
+              ],
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -4295,6 +4307,9 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "excluded_cpos": [
+                "EDPC"
+              ],
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -4353,6 +4368,9 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "excluded_cpos": [
+                "EDPC"
+              ],
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -4413,6 +4431,9 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "excluded_cpos": [
+                "EDPC"
+              ],
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -4510,6 +4531,9 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "excluded_cpos": [
+                "EDPC"
+              ],
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -4607,6 +4631,9 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "excluded_cpos": [
+                "EDPC"
+              ],
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -4701,6 +4728,9 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "excluded_cpos": [
+                "EDPC"
+              ],
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -4758,6 +4788,9 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "excluded_cpos": [
+                "EDPC"
+              ],
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -4815,6 +4848,9 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "excluded_cpos": [
+                "EDPC"
+              ],
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -4874,6 +4910,9 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "excluded_cpos": [
+                "EDPC"
+              ],
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -4970,6 +5009,9 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "excluded_cpos": [
+                "EDPC"
+              ],
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -5066,6 +5108,9 @@
           "networks": [
             {
               "network_id": "MOBIE",
+              "excluded_cpos": [
+                "EDPC"
+              ],
               "tariffs": [
                 {
                   "price": 0.1088,
@@ -5118,6 +5163,44 @@
                       ]
                     }
                   ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "EDP-UVE Flat",
+          "display_name": [
+            {
+              "language": "pt",
+              "text": "EDP/UVE Fixa"
+            },
+            {
+              "language": "en",
+              "text": "EDP/UVE Flat"
+            }
+          ],
+          "publish": true,
+          "country_code": "PT",
+          "cost": 25.0,
+          "months": 12,
+          "payment_methods": [
+            "APP"
+          ],
+          "vat": 0.23,
+          "networks": [
+            {
+              "network_id": "EDPC",
+              "tariffs": [
+                {
+                  "type": "AC",
+                  "price": 0.47,
+                  "unit": "energy"
+                },
+                {
+                  "type": "DC",
+                  "price": 0.47,
+                  "unit": "energy"
                 }
               ]
             }

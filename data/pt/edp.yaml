@@ -1,0 +1,22 @@
+providers:
+- name: EDP
+  plans:
+  - name: EDP-UVE Flat
+    display_name:
+    - language: "pt"
+      text: "EDP/UVE Fixa"
+    - language: "en"
+      text: "EDP/UVE Flat"
+    country_code: PT
+    payment_methods:
+      - APP
+    cost: 25.00
+    months: 12
+    networks:
+    - network_id: EDPC
+      tariffs:
+      - type: AC
+        price: 0.47
+      - type: DC
+        price: 0.47
+  

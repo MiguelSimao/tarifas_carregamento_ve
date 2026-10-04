@@ -101,6 +101,9 @@ providers:
     - APP
     networks:
     - network_id: MOBIE
+      excluded_cpos: 
+      - EDPC
+
   - name: CEME Casa + UVE
     country_code: PT
     regions:
@@ -129,6 +132,9 @@ providers:
     - APP
     networks:
     - network_id: MOBIE
+      excluded_cpos: 
+      - EDPC
+
   - name: CEME Casa + UVE Bi-horário
     country_code: PT
     regions:
@@ -159,6 +165,9 @@ providers:
     - APP
     networks:
     - network_id: MOBIE
+      excluded_cpos: 
+      - EDPC
+
   - name: CEME UVE
     country_code: PT
     regions:
@@ -186,6 +195,9 @@ providers:
     - APP
     networks:
     - network_id: MOBIE
+      excluded_cpos: 
+      - EDPC
+
   - name: CEME UVE Bi-horário
     country_code: PT
     regions:
@@ -215,3 +227,5 @@ providers:
     - APP
     networks:
     - network_id: MOBIE
+      excluded_cpos: 
+      - EDPC

@@ -2,7 +2,7 @@
   "metadata": {
     "source": "https://suc-tracker.eu/data/europe.json",
     "generated_at": "2026-10-02T13:02:45.599Z",
-    "extracted_at": "2026-10-04T07:19:57.011699+00:00",
+    "extracted_at": "2026-10-04T09:49:28.891440+00:00",
     "schema_version": 2,
     "country_filter": "PT",
     "total_extracted_stations": 10,

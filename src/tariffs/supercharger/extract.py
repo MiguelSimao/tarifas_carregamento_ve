@@ -1,18 +1,15 @@
-"""Extract Supercharger prices from suc-tracker.eu.
+"""Supercharger data extraction and parsing logic.
 
-Fetches data from https://suc-tracker.eu/data/europe.json (or a local file)
-and extracts structured station pricing data for both Tesla owners/members
-and non-Tesla / non-members.
+Fetches data from suc-tracker.eu (or a local file) and extracts structured
+pricing data for both Tesla members/owners and non-members.
 """
 
 from __future__ import annotations
 
-import argparse
 import datetime
 import hashlib
 import json
 import os
-import sys
 import urllib.request
 from typing import Any
 
@@ -186,10 +183,10 @@ def extract_supercharger_prices(
     country: str | None = None,
     source_ref: str | None = None,
 ) -> dict[str, Any]:
-    """Extract Supercharger prices from the parsed europe.json data.
+    """Extract Supercharger prices from the parsed europe.json or pre-extracted data.
 
     Args:
-        raw_data: Parsed dictionary from europe.json.
+        raw_data: Parsed dictionary from europe.json or already-extracted json.
         country: Optional 2-letter ISO country code filter (e.g. 'PT').
         source_ref: Optional string indicating the source URL or file.
 
@@ -198,6 +195,31 @@ def extract_supercharger_prices(
     """
     stations_raw = raw_data.get("stations", [])
     country_filter = country.strip().upper() if country else None
+
+    # Handle already extracted structure if passed as input
+    if stations_raw and "pricing" in stations_raw[0] and isinstance(stations_raw[0].get("pricing"), dict):
+        first_pricing = stations_raw[0]["pricing"]
+        if "tesla" in first_pricing and isinstance(first_pricing.get("tesla"), dict) and "rates" in (first_pricing.get("tesla") or {}):
+            extracted_stations = []
+            for s in stations_raw:
+                st_country = (s.get("country") or "").upper()
+                if country_filter and st_country != country_filter:
+                    continue
+                extracted_stations.append(s)
+
+            stations_fingerprint = compute_fingerprint(extracted_stations)
+            return {
+                "metadata": {
+                    **(raw_data.get("metadata") or {}),
+                    "source": source_ref or (raw_data.get("metadata") or {}).get("source", DEFAULT_SOURCE_URL),
+                    "extracted_at": datetime.datetime.now(datetime.UTC).isoformat(),
+                    "country_filter": country_filter,
+                    "total_extracted_stations": len(extracted_stations),
+                    "total_source_stations": len(stations_raw),
+                    "fingerprint": stations_fingerprint,
+                },
+                "stations": extracted_stations,
+            }
 
     extracted_stations = []
     for s in stations_raw:
@@ -221,98 +243,3 @@ def extract_supercharger_prices(
         },
         "stations": extracted_stations,
     }
-
-
-def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(
-        description="Extract Tesla Supercharger prices from suc-tracker.eu data."
-    )
-    parser.add_argument(
-        "--source",
-        "-s",
-        default=DEFAULT_SOURCE_URL,
-        help=f"URL or local path to europe.json (default: {DEFAULT_SOURCE_URL})",
-    )
-    parser.add_argument(
-        "--country",
-        "-c",
-        default=None,
-        help="Optional ISO 2-letter country code filter (e.g. 'PT', 'ES').",
-    )
-    parser.add_argument(
-        "--output",
-        "-o",
-        default=None,
-        help="Output path for extracted JSON (default depends on country filter).",
-    )
-    parser.add_argument(
-        "--save-raw",
-        metavar="PATH",
-        default=None,
-        help="Optional path to save the raw downloaded JSON payload.",
-    )
-    parser.add_argument(
-        "--indent",
-        type=int,
-        default=2,
-        help="JSON indentation spaces (default: 2).",
-    )
-    parser.add_argument(
-        "--quiet",
-        "-q",
-        action="store_true",
-        help="Suppress console progress output.",
-    )
-
-    args = parser.parse_args(argv)
-
-    # Determine default output file
-    if args.output:
-        output_path = args.output
-    elif args.country and args.country.upper() == "PT":
-        output_path = DEFAULT_OUTPUT_PT
-    elif args.country:
-        output_path = os.path.join("data", f"supercharger_prices_{args.country.lower()}.json")
-    else:
-        output_path = DEFAULT_OUTPUT_ALL
-
-    if not args.quiet:
-        print(f"Loading Supercharger data from: {args.source}")
-
-    raw_data = fetch_suc_data(args.source)
-
-    if args.save_raw:
-        raw_dir = os.path.dirname(args.save_raw)
-        if raw_dir:
-            os.makedirs(raw_dir, exist_ok=True)
-        with open(args.save_raw, "w", encoding="utf-8") as f:
-            json.dump(raw_data, f, indent=args.indent, ensure_ascii=False)
-        if not args.quiet:
-            print(f"Saved raw data to: {args.save_raw}")
-
-    result = extract_supercharger_prices(
-        raw_data=raw_data,
-        country=args.country,
-        source_ref=args.source,
-    )
-
-    out_dir = os.path.dirname(output_path)
-    if out_dir:
-        os.makedirs(out_dir, exist_ok=True)
-
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(result, f, indent=args.indent, ensure_ascii=False)
-
-    if not args.quiet:
-        station_count = result["metadata"]["total_extracted_stations"]
-        country_info = f" for country '{args.country.upper()}'" if args.country else ""
-        fingerprint = result["metadata"]["fingerprint"]
-        print(
-            f"Successfully extracted {station_count} Supercharger stations{country_info} into {output_path} (fingerprint: {fingerprint})"
-        )
-
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())

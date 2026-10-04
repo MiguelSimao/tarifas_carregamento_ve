@@ -1,18 +1,13 @@
 """Update Tesla Supercharger tariffs in data/pt/tesla.yaml from extracted pricing data.
 
-Uses the output of scripts/extract_supercharger_prices.py (supercharger_prices.json)
-and updates only the Non-Member and Member plans in data/pt/tesla.yaml, maintaining
-_supercharger_mapping and dynamically adding time restriction templates.
+Applies pricing data to the Non-Member and Member plans in data/pt/tesla.yaml,
+maintaining _supercharger_mapping and dynamically adding time restriction templates.
 """
 
 from __future__ import annotations
 
-import argparse
-import difflib
-import json
 import os
 import re
-import sys
 from typing import Any
 
 import yaml
@@ -20,7 +15,6 @@ import yaml
 from tariffs.compile import _cross_validate_tariff_doc
 from tariffs.model import TariffDocument
 
-DEFAULT_INPUT_PATH = os.path.join("data", "pt", "supercharger_prices.json")
 DEFAULT_TARGET_PATH = os.path.join("data", "pt", "tesla.yaml")
 
 
@@ -221,7 +215,11 @@ def generate_networks_block(
     return "\n".join(lines).rstrip()
 
 
-def update_tesla_yaml(yaml_content: str, suc_data: dict[str, Any]) -> str:
+def update_tesla_yaml(
+    yaml_content: str,
+    suc_data: dict[str, Any],
+    target_path: str = DEFAULT_TARGET_PATH,
+) -> str:
     """Update Non-Member and Member plans in tesla.yaml from extracted Supercharger data.
 
     Raises:
@@ -238,7 +236,7 @@ def update_tesla_yaml(yaml_content: str, suc_data: dict[str, Any]) -> str:
             raise UnknownSuperchargerStationError(
                 f"Unknown Supercharger station ID '{st_id}' ('{st_name}'). "
                 f"New station detected! Please add a location template to _templates: "
-                f"and register the mapping in _supercharger_mapping: inside data/pt/tesla.yaml."
+                f"and register the mapping in _supercharger_mapping: inside {target_path}."
             )
 
     # 2. Check and inject any missing time restriction templates
@@ -282,93 +280,6 @@ def update_tesla_yaml(yaml_content: str, suc_data: dict[str, Any]) -> str:
     # 6. Validate parsed document and cross-validate
     parsed_updated = yaml.safe_load(updated_content)
     doc = TariffDocument.model_validate(parsed_updated)
-    _cross_validate_tariff_doc(doc, "data/pt/tesla.yaml")
+    _cross_validate_tariff_doc(doc, target_path)
 
     return updated_content
-
-
-def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(
-        description="Update Non-Member and Member plans in data/pt/tesla.yaml from supercharger_prices.json."
-    )
-    parser.add_argument(
-        "--input",
-        "-i",
-        default=DEFAULT_INPUT_PATH,
-        help=f"Path to extracted Supercharger JSON (default: {DEFAULT_INPUT_PATH})",
-    )
-    parser.add_argument(
-        "--target",
-        "-t",
-        default=DEFAULT_TARGET_PATH,
-        help=f"Path to tesla.yaml target file (default: {DEFAULT_TARGET_PATH})",
-    )
-    parser.add_argument(
-        "--dry-run",
-        "-n",
-        action="store_true",
-        help="Validate and print diff without writing changes to target file.",
-    )
-    parser.add_argument(
-        "--quiet",
-        "-q",
-        action="store_true",
-        help="Suppress console progress output.",
-    )
-
-    args = parser.parse_args(argv)
-
-    if not os.path.exists(args.input):
-        print(f"Error: Input JSON file '{args.input}' not found.", file=sys.stderr)
-        return 1
-
-    if not os.path.exists(args.target):
-        print(f"Error: Target YAML file '{args.target}' not found.", file=sys.stderr)
-        return 1
-
-    with open(args.input, "r", encoding="utf-8") as f:
-        suc_data = json.load(f)
-
-    with open(args.target, "r", encoding="utf-8") as f:
-        original_yaml = f.read()
-
-    try:
-        updated_yaml = update_tesla_yaml(original_yaml, suc_data)
-    except UnknownSuperchargerStationError as e:
-        print(f"[ERROR] {e}", file=sys.stderr)
-        return 2
-    except Exception as e:  # noqa: BLE001
-        print(f"[ERROR] Failed to update {args.target}: {e}", file=sys.stderr)
-        return 1
-
-    if original_yaml == updated_yaml:
-        if not args.quiet:
-            print("No changes needed. Tariffs are already up-to-date.")
-        return 0
-
-    if args.dry_run:
-        diff = difflib.unified_diff(
-            original_yaml.splitlines(keepends=True),
-            updated_yaml.splitlines(keepends=True),
-            fromfile=f"a/{args.target}",
-            tofile=f"b/{args.target}",
-        )
-        print("".join(diff))
-        if not args.quiet:
-            print("\nDry-run completed successfully. No files were written.")
-        return 0
-
-    with open(args.target, "w", encoding="utf-8") as f:
-        f.write(updated_yaml)
-
-    if not args.quiet:
-        station_count = len(suc_data.get("stations", []))
-        print(
-            f"Successfully updated Member and Non-Member plans in {args.target} for {station_count} stations."
-        )
-
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())

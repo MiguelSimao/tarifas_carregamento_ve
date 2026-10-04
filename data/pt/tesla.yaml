@@ -374,6 +374,7 @@ providers:
         <<: *time_20_00
 
 
+
   - name: Member
     display_name:
     - language: "pt"
@@ -508,6 +509,7 @@ providers:
       - type: DC
         price: 0.36
         <<: *time_20_00
+
 
 
 

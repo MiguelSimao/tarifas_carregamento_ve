@@ -28,9 +28,12 @@ tariffs-validate = "tariffs.validate:main"
 tariffs-compile = "tariffs.compile:main"
 tariffs-generate-schema = "tariffs.generate_schema:main"
 update-cpos = "scripts.update_cpos:fetch_cpos"
-extract-supercharger-prices = "scripts.extract_supercharger_prices:main"
-update-supercharger-tariffs = "scripts.update_supercharger_tariffs:main"
+extract-supercharger-prices = "tariffs.supercharger:main"
 
 [tool.pytest.ini_options]
 pythonpath = [".", "src"]
+
+[tool.pyright]
+include = ["src", "tests", "scripts"]
+extraPaths = ["src", "."]
 

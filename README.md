@@ -30,16 +30,23 @@ tarifas_carregamento_ve/
 ├── data/
 │   ├── tariffs_schema.json    # Schema JSON
 │   ├── tariffs_master.json    # Dataset consolidado
+│   ├── supercharger_prices.json # Extração europeia Superchargers
 │   └── pt/                    # Tarifários (Portugal) em formato YAML
 │       ├── continente.yaml
 │       ├── galp.yaml
+│       ├── supercharger_prices.json # Extração PT Superchargers
+│       ├── tesla.yaml
 │       └── ...
 ├── src/
-│   └── tarifas/
+│   └── tariffs/
 │       ├── model.py           # Modelos Pydantic
 │       ├── validate.py        # Validador de YAMLs
 │       ├── compile.py         # Compilador para data/tariffs_master.json
 │       ├── generate_schema.py # Gerador de schema JSON
+│       ├── supercharger/      # Módulo e CLI de Superchargers (Tesla)
+│       │   ├── cli.py         # Interface de linha de comandos
+│       │   ├── extract.py     # Descarregamento e extração de tarifários
+│       │   └── update.py      # Atualização declarativa de tesla.yaml
 │       └── template.yaml      # Exemplo de referência
 └── tests/                     # Conjunto de testes
 ```
@@ -76,6 +83,24 @@ uv run tariffs-generate-schema
 ```bash
 uv run pytest
 ```
+---
+
+
+## Atualização de preços para Tesla Superchargers
+
+O repositório inclui uma ferramenta CLI que obtém os tarifários mais recentes da rede Supercharger (via [suc-tracker.eu](https://suc-tracker.eu)) e atualiza automaticamente os planos `Member` e `Non-Member` no ficheiro `data/pt/tesla.yaml`.
+
+- **Atualização automática** (descarrega tarifários e atualiza `data/pt/tesla.yaml`):
+  ```bash
+  uv run extract-supercharger-prices --update
+  ```
+
+- **Pipeline completo após atualização**:
+  ```bash
+  uv run extract-supercharger-prices --update
+  uv run tariffs-validate
+  uv run tariffs-compile
+  ```
 
 ---
 

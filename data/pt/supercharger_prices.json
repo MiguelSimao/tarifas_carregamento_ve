@@ -1,0 +1,2688 @@
+{
+  "metadata": {
+    "source": "https://suc-tracker.eu/data/europe.json",
+    "generated_at": "2026-10-02T13:02:45.599Z",
+    "extracted_at": "2026-10-04T07:19:57.011699+00:00",
+    "schema_version": 2,
+    "country_filter": "PT",
+    "total_extracted_stations": 10,
+    "total_source_stations": 1784,
+    "fingerprint": "8dbbce0230e22d01f061b9b5eea6904258fda904f84333ece8bc410641b402f1"
+  },
+  "stations": [
+    {
+      "id": "alcacerdosalsupercharger",
+      "name": "Alcacer do Sal, Portugal",
+      "country": "PT",
+      "city": "Alcacer do Sal",
+      "street": "Estrada Nacional 5",
+      "postal_code": "7580",
+      "coordinates": {
+        "lat": 38.391833,
+        "lon": -8.513818
+      },
+      "timezone": "Europe/Lisbon",
+      "stall_count": 32,
+      "max_power_kw": 250,
+      "lifecycle": "active",
+      "pricing": {
+        "tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": null,
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 1080,
+              "start_time": "00:00",
+              "end_time": "18:00",
+              "end_time_raw": "18:00",
+              "price": 0.28,
+              "price_micros": 280000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1080,
+              "end_minute": 1320,
+              "start_time": "18:00",
+              "end_time": "22:00",
+              "end_time_raw": "22:00",
+              "price": 0.33,
+              "price_micros": 330000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1320,
+              "end_minute": 1440,
+              "start_time": "22:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.28,
+              "price_micros": 280000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        },
+        "non_tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": null,
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 1080,
+              "start_time": "00:00",
+              "end_time": "18:00",
+              "end_time_raw": "18:00",
+              "price": 0.38,
+              "price_micros": 380000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1080,
+              "end_minute": 1320,
+              "start_time": "18:00",
+              "end_time": "22:00",
+              "end_time_raw": "22:00",
+              "price": 0.46,
+              "price_micros": 460000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1320,
+              "end_minute": 1440,
+              "start_time": "22:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.38,
+              "price_micros": 380000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        }
+      },
+      "raw_pricing": {
+        "tesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 1080,
+              "price": 280000
+            },
+            {
+              "days": 127,
+              "start": 1080,
+              "end": 1320,
+              "price": 330000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 280000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [],
+          "previousMinutePrices": [],
+          "priceChangedAt": null
+        },
+        "nonTesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 1080,
+              "price": 380000
+            },
+            {
+              "days": 127,
+              "start": 1080,
+              "end": 1320,
+              "price": 460000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 380000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [],
+          "previousMinutePrices": [],
+          "priceChangedAt": null
+        }
+      },
+      "fingerprint": "e622de8f0a73fbe663b03f7025ae715211ad2cd3de8aecdaab37b9ab2aeafa26"
+    },
+    {
+      "id": "alcantarilhasupercharger",
+      "name": "Alcantarilha, Portugal",
+      "country": "PT",
+      "city": "Alcantarilha",
+      "street": "Amendoeira Golf Resort, Morgado da Lameira NA",
+      "postal_code": "8365",
+      "coordinates": {
+        "lat": 37.150641,
+        "lon": -8.36444
+      },
+      "timezone": "Europe/Lisbon",
+      "stall_count": 20,
+      "max_power_kw": 250,
+      "lifecycle": "active",
+      "pricing": {
+        "tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:25.002Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 240,
+              "start_time": "00:00",
+              "end_time": "04:00",
+              "end_time_raw": "04:00",
+              "price": 0.29,
+              "price_micros": 290000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 240,
+              "end_minute": 480,
+              "start_time": "04:00",
+              "end_time": "08:00",
+              "end_time_raw": "08:00",
+              "price": 0.23,
+              "price_micros": 230000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 480,
+              "end_minute": 720,
+              "start_time": "08:00",
+              "end_time": "12:00",
+              "end_time_raw": "12:00",
+              "price": 0.29,
+              "price_micros": 290000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 720,
+              "end_minute": 1200,
+              "start_time": "12:00",
+              "end_time": "20:00",
+              "end_time_raw": "20:00",
+              "price": 0.45,
+              "price_micros": 450000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1200,
+              "end_minute": 1440,
+              "start_time": "20:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.36,
+              "price_micros": 360000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        },
+        "non_tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:25.002Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 240,
+              "start_time": "00:00",
+              "end_time": "04:00",
+              "end_time_raw": "04:00",
+              "price": 0.47,
+              "price_micros": 470000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 240,
+              "end_minute": 480,
+              "start_time": "04:00",
+              "end_time": "08:00",
+              "end_time_raw": "08:00",
+              "price": 0.37,
+              "price_micros": 370000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 480,
+              "end_minute": 720,
+              "start_time": "08:00",
+              "end_time": "12:00",
+              "end_time_raw": "12:00",
+              "price": 0.47,
+              "price_micros": 470000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 720,
+              "end_minute": 1200,
+              "start_time": "12:00",
+              "end_time": "20:00",
+              "end_time_raw": "20:00",
+              "price": 0.72,
+              "price_micros": 720000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1200,
+              "end_minute": 1440,
+              "start_time": "20:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.58,
+              "price_micros": 580000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        }
+      },
+      "raw_pricing": {
+        "tesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 240,
+              "price": 290000
+            },
+            {
+              "days": 127,
+              "start": 240,
+              "end": 480,
+              "price": 230000
+            },
+            {
+              "days": 127,
+              "start": 480,
+              "end": 720,
+              "price": 290000
+            },
+            {
+              "days": 127,
+              "start": 720,
+              "end": 1200,
+              "price": 450000
+            },
+            {
+              "days": 127,
+              "start": 1200,
+              "end": 1440,
+              "price": 360000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 240,
+              "price": 260000
+            },
+            {
+              "days": 127,
+              "start": 240,
+              "end": 480,
+              "price": 220000
+            },
+            {
+              "days": 127,
+              "start": 480,
+              "end": 720,
+              "price": 290000
+            },
+            {
+              "days": 127,
+              "start": 720,
+              "end": 1200,
+              "price": 430000
+            },
+            {
+              "days": 127,
+              "start": 1200,
+              "end": 1440,
+              "price": 370000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:25.002Z"
+        },
+        "nonTesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 240,
+              "price": 470000
+            },
+            {
+              "days": 127,
+              "start": 240,
+              "end": 480,
+              "price": 370000
+            },
+            {
+              "days": 127,
+              "start": 480,
+              "end": 720,
+              "price": 470000
+            },
+            {
+              "days": 127,
+              "start": 720,
+              "end": 1200,
+              "price": 720000
+            },
+            {
+              "days": 127,
+              "start": 1200,
+              "end": 1440,
+              "price": 580000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 240,
+              "price": 420000
+            },
+            {
+              "days": 127,
+              "start": 240,
+              "end": 480,
+              "price": 350000
+            },
+            {
+              "days": 127,
+              "start": 480,
+              "end": 720,
+              "price": 470000
+            },
+            {
+              "days": 127,
+              "start": 720,
+              "end": 1200,
+              "price": 690000
+            },
+            {
+              "days": 127,
+              "start": 1200,
+              "end": 1440,
+              "price": 600000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:25.002Z"
+        }
+      },
+      "fingerprint": "a48b10631aecd56921f696046fe16965fd43639f27cd53ed9e9f5a40caa55463"
+    },
+    {
+      "id": "14181",
+      "name": "Castelo Branco, Portugal",
+      "country": "PT",
+      "city": "Castelo Branco",
+      "street": "Av. Prof. Dr. Egas Moniz RF4M+JPP",
+      "postal_code": "6000",
+      "coordinates": {
+        "lat": 39.806575,
+        "lon": -7.515687
+      },
+      "timezone": "Europe/Lisbon",
+      "stall_count": 16,
+      "max_power_kw": 250,
+      "lifecycle": "active",
+      "pricing": {
+        "tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:28.387Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 600,
+              "start_time": "00:00",
+              "end_time": "10:00",
+              "end_time_raw": "10:00",
+              "price": 0.23,
+              "price_micros": 230000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 600,
+              "end_minute": 1320,
+              "start_time": "10:00",
+              "end_time": "22:00",
+              "end_time_raw": "22:00",
+              "price": 0.42,
+              "price_micros": 420000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1320,
+              "end_minute": 1440,
+              "start_time": "22:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.23,
+              "price_micros": 230000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        },
+        "non_tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:28.387Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 600,
+              "start_time": "00:00",
+              "end_time": "10:00",
+              "end_time_raw": "10:00",
+              "price": 0.33,
+              "price_micros": 330000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 600,
+              "end_minute": 1320,
+              "start_time": "10:00",
+              "end_time": "22:00",
+              "end_time_raw": "22:00",
+              "price": 0.6,
+              "price_micros": 600000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1320,
+              "end_minute": 1440,
+              "start_time": "22:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.33,
+              "price_micros": 330000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        }
+      },
+      "raw_pricing": {
+        "tesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 600,
+              "price": 230000
+            },
+            {
+              "days": 127,
+              "start": 600,
+              "end": 1320,
+              "price": 420000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 230000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 600,
+              "price": 220000
+            },
+            {
+              "days": 127,
+              "start": 600,
+              "end": 1320,
+              "price": 400000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 220000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:28.387Z"
+        },
+        "nonTesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 600,
+              "price": 330000
+            },
+            {
+              "days": 127,
+              "start": 600,
+              "end": 1320,
+              "price": 600000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 330000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 600,
+              "price": 300000
+            },
+            {
+              "days": 127,
+              "start": 600,
+              "end": 1320,
+              "price": 560000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 300000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:28.387Z"
+        }
+      },
+      "fingerprint": "5bac66fca6aa0f3cef664ac4f37a80a0d257a727417b57ae2f8476bfb9b564a3"
+    },
+    {
+      "id": "fatimaselfservelocation",
+      "name": "Fátima, Portugal",
+      "country": "PT",
+      "city": "Fátima",
+      "street": "Estrada da Batalha 42",
+      "postal_code": "2495",
+      "coordinates": {
+        "lat": 39.635529,
+        "lon": -8.688371
+      },
+      "timezone": "Europe/Lisbon",
+      "stall_count": 32,
+      "max_power_kw": 250,
+      "lifecycle": "active",
+      "pricing": {
+        "tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:30.005Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 480,
+              "start_time": "00:00",
+              "end_time": "08:00",
+              "end_time_raw": "08:00",
+              "price": 0.2,
+              "price_micros": 200000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 480,
+              "end_minute": 1320,
+              "start_time": "08:00",
+              "end_time": "22:00",
+              "end_time_raw": "22:00",
+              "price": 0.46,
+              "price_micros": 460000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1320,
+              "end_minute": 1440,
+              "start_time": "22:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.2,
+              "price_micros": 200000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        },
+        "non_tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:30.005Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 480,
+              "start_time": "00:00",
+              "end_time": "08:00",
+              "end_time_raw": "08:00",
+              "price": 0.3,
+              "price_micros": 300000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 480,
+              "end_minute": 1320,
+              "start_time": "08:00",
+              "end_time": "22:00",
+              "end_time_raw": "22:00",
+              "price": 0.69,
+              "price_micros": 690000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1320,
+              "end_minute": 1440,
+              "start_time": "22:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.3,
+              "price_micros": 300000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        }
+      },
+      "raw_pricing": {
+        "tesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 480,
+              "price": 200000
+            },
+            {
+              "days": 127,
+              "start": 480,
+              "end": 1320,
+              "price": 460000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 200000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 480,
+              "price": 190000
+            },
+            {
+              "days": 127,
+              "start": 480,
+              "end": 1320,
+              "price": 440000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 190000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:30.005Z"
+        },
+        "nonTesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 480,
+              "price": 300000
+            },
+            {
+              "days": 127,
+              "start": 480,
+              "end": 1320,
+              "price": 690000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 300000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 480,
+              "price": 290000
+            },
+            {
+              "days": 127,
+              "start": 480,
+              "end": 1320,
+              "price": 660000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 290000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:30.005Z"
+        }
+      },
+      "fingerprint": "104728fe2353850644018e049e1881d5257ae649964cc5f158e1250bcc576f69"
+    },
+    {
+      "id": "guardaptsupercharger",
+      "name": "Guarda, Portugal",
+      "country": "PT",
+      "city": "Guarda",
+      "street": "Rua das Covas Lote Lote 34",
+      "postal_code": "6300",
+      "coordinates": {
+        "lat": 40.558946,
+        "lon": -7.230933
+      },
+      "timezone": "Europe/Lisbon",
+      "stall_count": 8,
+      "max_power_kw": 150,
+      "lifecycle": "active",
+      "pricing": {
+        "tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:31.470Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 540,
+              "start_time": "00:00",
+              "end_time": "09:00",
+              "end_time_raw": "09:00",
+              "price": 0.28,
+              "price_micros": 280000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 540,
+              "end_minute": 900,
+              "start_time": "09:00",
+              "end_time": "15:00",
+              "end_time_raw": "15:00",
+              "price": 0.41,
+              "price_micros": 410000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 900,
+              "end_minute": 1200,
+              "start_time": "15:00",
+              "end_time": "20:00",
+              "end_time_raw": "20:00",
+              "price": 0.48,
+              "price_micros": 480000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1200,
+              "end_minute": 1440,
+              "start_time": "20:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.41,
+              "price_micros": 410000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        },
+        "non_tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:31.470Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 540,
+              "start_time": "00:00",
+              "end_time": "09:00",
+              "end_time_raw": "09:00",
+              "price": 0.39,
+              "price_micros": 390000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 540,
+              "end_minute": 900,
+              "start_time": "09:00",
+              "end_time": "15:00",
+              "end_time_raw": "15:00",
+              "price": 0.56,
+              "price_micros": 560000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 900,
+              "end_minute": 1200,
+              "start_time": "15:00",
+              "end_time": "20:00",
+              "end_time_raw": "20:00",
+              "price": 0.67,
+              "price_micros": 670000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1200,
+              "end_minute": 1440,
+              "start_time": "20:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.56,
+              "price_micros": 560000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        }
+      },
+      "raw_pricing": {
+        "tesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 540,
+              "price": 280000
+            },
+            {
+              "days": 127,
+              "start": 540,
+              "end": 900,
+              "price": 410000
+            },
+            {
+              "days": 127,
+              "start": 900,
+              "end": 1200,
+              "price": 480000
+            },
+            {
+              "days": 127,
+              "start": 1200,
+              "end": 1440,
+              "price": 410000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 540,
+              "price": 270000
+            },
+            {
+              "days": 127,
+              "start": 540,
+              "end": 900,
+              "price": 390000
+            },
+            {
+              "days": 127,
+              "start": 900,
+              "end": 1200,
+              "price": 460000
+            },
+            {
+              "days": 127,
+              "start": 1200,
+              "end": 1440,
+              "price": 390000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:31.470Z"
+        },
+        "nonTesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 540,
+              "price": 390000
+            },
+            {
+              "days": 127,
+              "start": 540,
+              "end": 900,
+              "price": 560000
+            },
+            {
+              "days": 127,
+              "start": 900,
+              "end": 1200,
+              "price": 670000
+            },
+            {
+              "days": 127,
+              "start": 1200,
+              "end": 1440,
+              "price": 560000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 540,
+              "price": 380000
+            },
+            {
+              "days": 127,
+              "start": 540,
+              "end": 900,
+              "price": 540000
+            },
+            {
+              "days": 127,
+              "start": 900,
+              "end": 1200,
+              "price": 640000
+            },
+            {
+              "days": 127,
+              "start": 1200,
+              "end": 1440,
+              "price": 540000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:31.470Z"
+        }
+      },
+      "fingerprint": "73945b00b63bdf5c9215fc4b79f17c5c8f14b422c27feae0cc112a94daf3a5c7"
+    },
+    {
+      "id": "loulesupercharger",
+      "name": "Loule, Portugal",
+      "country": "PT",
+      "city": "Almancil",
+      "street": "Avenida Algarve 3",
+      "postal_code": "8135",
+      "coordinates": {
+        "lat": 37.097576,
+        "lon": -7.998008
+      },
+      "timezone": "Europe/Lisbon",
+      "stall_count": 24,
+      "max_power_kw": 250,
+      "lifecycle": "active",
+      "pricing": {
+        "tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:26.071Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 540,
+              "start_time": "00:00",
+              "end_time": "09:00",
+              "end_time_raw": "09:00",
+              "price": 0.24,
+              "price_micros": 240000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 540,
+              "end_minute": 780,
+              "start_time": "09:00",
+              "end_time": "13:00",
+              "end_time_raw": "13:00",
+              "price": 0.45,
+              "price_micros": 450000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 780,
+              "end_minute": 1080,
+              "start_time": "13:00",
+              "end_time": "18:00",
+              "end_time_raw": "18:00",
+              "price": 0.52,
+              "price_micros": 520000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1080,
+              "end_minute": 1320,
+              "start_time": "18:00",
+              "end_time": "22:00",
+              "end_time_raw": "22:00",
+              "price": 0.45,
+              "price_micros": 450000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1320,
+              "end_minute": 1440,
+              "start_time": "22:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.24,
+              "price_micros": 240000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        },
+        "non_tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:26.071Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 540,
+              "start_time": "00:00",
+              "end_time": "09:00",
+              "end_time_raw": "09:00",
+              "price": 0.39,
+              "price_micros": 390000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 540,
+              "end_minute": 780,
+              "start_time": "09:00",
+              "end_time": "13:00",
+              "end_time_raw": "13:00",
+              "price": 0.72,
+              "price_micros": 720000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 780,
+              "end_minute": 1080,
+              "start_time": "13:00",
+              "end_time": "18:00",
+              "end_time_raw": "18:00",
+              "price": 0.83,
+              "price_micros": 830000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1080,
+              "end_minute": 1320,
+              "start_time": "18:00",
+              "end_time": "22:00",
+              "end_time_raw": "22:00",
+              "price": 0.72,
+              "price_micros": 720000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1320,
+              "end_minute": 1440,
+              "start_time": "22:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.39,
+              "price_micros": 390000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        }
+      },
+      "raw_pricing": {
+        "tesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 540,
+              "price": 240000
+            },
+            {
+              "days": 127,
+              "start": 540,
+              "end": 780,
+              "price": 450000
+            },
+            {
+              "days": 127,
+              "start": 780,
+              "end": 1080,
+              "price": 520000
+            },
+            {
+              "days": 127,
+              "start": 1080,
+              "end": 1320,
+              "price": 450000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 240000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 540,
+              "price": 220000
+            },
+            {
+              "days": 127,
+              "start": 540,
+              "end": 780,
+              "price": 450000
+            },
+            {
+              "days": 127,
+              "start": 780,
+              "end": 1080,
+              "price": 500000
+            },
+            {
+              "days": 127,
+              "start": 1080,
+              "end": 1320,
+              "price": 450000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 220000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:26.071Z"
+        },
+        "nonTesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 540,
+              "price": 390000
+            },
+            {
+              "days": 127,
+              "start": 540,
+              "end": 780,
+              "price": 720000
+            },
+            {
+              "days": 127,
+              "start": 780,
+              "end": 1080,
+              "price": 830000
+            },
+            {
+              "days": 127,
+              "start": 1080,
+              "end": 1320,
+              "price": 720000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 390000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 540,
+              "price": 350000
+            },
+            {
+              "days": 127,
+              "start": 540,
+              "end": 780,
+              "price": 720000
+            },
+            {
+              "days": 127,
+              "start": 780,
+              "end": 1080,
+              "price": 800000
+            },
+            {
+              "days": 127,
+              "start": 1080,
+              "end": 1320,
+              "price": 720000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 350000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:26.071Z"
+        }
+      },
+      "fingerprint": "f13aa1bd691b623e74f8cd23e1d48d0cd65571409dce0553426b47398303902d"
+    },
+    {
+      "id": "14182",
+      "name": "Matosinhos, Portugal",
+      "country": "PT",
+      "city": "Matosinhos",
+      "street": "Av. Dr. Óscar Lopes 6856+6JX",
+      "postal_code": "4450",
+      "coordinates": {
+        "lat": 41.208117,
+        "lon": -8.688394
+      },
+      "timezone": "Europe/Lisbon",
+      "stall_count": 20,
+      "max_power_kw": 250,
+      "lifecycle": "active",
+      "pricing": {
+        "tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:33.006Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 600,
+              "start_time": "00:00",
+              "end_time": "10:00",
+              "end_time_raw": "10:00",
+              "price": 0.2,
+              "price_micros": 200000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 600,
+              "end_minute": 1200,
+              "start_time": "10:00",
+              "end_time": "20:00",
+              "end_time_raw": "20:00",
+              "price": 0.5,
+              "price_micros": 500000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1200,
+              "end_minute": 1440,
+              "start_time": "20:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.45,
+              "price_micros": 450000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        },
+        "non_tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:33.006Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 600,
+              "start_time": "00:00",
+              "end_time": "10:00",
+              "end_time_raw": "10:00",
+              "price": 0.31,
+              "price_micros": 310000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 600,
+              "end_minute": 1200,
+              "start_time": "10:00",
+              "end_time": "20:00",
+              "end_time_raw": "20:00",
+              "price": 0.79,
+              "price_micros": 790000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1200,
+              "end_minute": 1440,
+              "start_time": "20:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.71,
+              "price_micros": 710000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        }
+      },
+      "raw_pricing": {
+        "tesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 600,
+              "price": 200000
+            },
+            {
+              "days": 127,
+              "start": 600,
+              "end": 1200,
+              "price": 500000
+            },
+            {
+              "days": 127,
+              "start": 1200,
+              "end": 1440,
+              "price": 450000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 240,
+              "price": 240000
+            },
+            {
+              "days": 127,
+              "start": 240,
+              "end": 600,
+              "price": 200000
+            },
+            {
+              "days": 127,
+              "start": 600,
+              "end": 1200,
+              "price": 420000
+            },
+            {
+              "days": 127,
+              "start": 1200,
+              "end": 1440,
+              "price": 380000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:33.006Z"
+        },
+        "nonTesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 600,
+              "price": 310000
+            },
+            {
+              "days": 127,
+              "start": 600,
+              "end": 1200,
+              "price": 790000
+            },
+            {
+              "days": 127,
+              "start": 1200,
+              "end": 1440,
+              "price": 710000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 240,
+              "price": 380000
+            },
+            {
+              "days": 127,
+              "start": 240,
+              "end": 600,
+              "price": 310000
+            },
+            {
+              "days": 127,
+              "start": 600,
+              "end": 1200,
+              "price": 670000
+            },
+            {
+              "days": 127,
+              "start": 1200,
+              "end": 1440,
+              "price": 610000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:33.006Z"
+        }
+      },
+      "fingerprint": "ff7b2c1e6676e1d73584ab1d318e3902865a9f7e320ada87f26a05f26d77ca01"
+    },
+    {
+      "id": "Mealhadasupercharger",
+      "name": "Mealhada, Portugal - R. São Domingos",
+      "country": "PT",
+      "city": "Mealhada",
+      "street": "R. São Domingos 20",
+      "postal_code": "3050",
+      "coordinates": {
+        "lat": 40.373017,
+        "lon": -8.47964
+      },
+      "timezone": "Europe/Lisbon",
+      "stall_count": 40,
+      "max_power_kw": 250,
+      "lifecycle": "active",
+      "pricing": {
+        "tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:35.578Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 480,
+              "start_time": "00:00",
+              "end_time": "08:00",
+              "end_time_raw": "08:00",
+              "price": 0.19,
+              "price_micros": 190000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 480,
+              "end_minute": 720,
+              "start_time": "08:00",
+              "end_time": "12:00",
+              "end_time_raw": "12:00",
+              "price": 0.29,
+              "price_micros": 290000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 720,
+              "end_minute": 1320,
+              "start_time": "12:00",
+              "end_time": "22:00",
+              "end_time_raw": "22:00",
+              "price": 0.41,
+              "price_micros": 410000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1320,
+              "end_minute": 1440,
+              "start_time": "22:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.19,
+              "price_micros": 190000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        },
+        "non_tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:35.578Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 480,
+              "start_time": "00:00",
+              "end_time": "08:00",
+              "end_time_raw": "08:00",
+              "price": 0.27,
+              "price_micros": 270000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 480,
+              "end_minute": 720,
+              "start_time": "08:00",
+              "end_time": "12:00",
+              "end_time_raw": "12:00",
+              "price": 0.41,
+              "price_micros": 410000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 720,
+              "end_minute": 1320,
+              "start_time": "12:00",
+              "end_time": "22:00",
+              "end_time_raw": "22:00",
+              "price": 0.58,
+              "price_micros": 580000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1320,
+              "end_minute": 1440,
+              "start_time": "22:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.27,
+              "price_micros": 270000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        }
+      },
+      "raw_pricing": {
+        "tesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 480,
+              "price": 190000
+            },
+            {
+              "days": 127,
+              "start": 480,
+              "end": 720,
+              "price": 290000
+            },
+            {
+              "days": 127,
+              "start": 720,
+              "end": 1320,
+              "price": 410000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 190000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 480,
+              "price": 190000
+            },
+            {
+              "days": 127,
+              "start": 480,
+              "end": 720,
+              "price": 290000
+            },
+            {
+              "days": 127,
+              "start": 720,
+              "end": 1320,
+              "price": 380000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 190000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:35.578Z"
+        },
+        "nonTesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 480,
+              "price": 270000
+            },
+            {
+              "days": 127,
+              "start": 480,
+              "end": 720,
+              "price": 410000
+            },
+            {
+              "days": 127,
+              "start": 720,
+              "end": 1320,
+              "price": 580000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 270000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 480,
+              "price": 270000
+            },
+            {
+              "days": 127,
+              "start": 480,
+              "end": 720,
+              "price": 420000
+            },
+            {
+              "days": 127,
+              "start": 720,
+              "end": 1320,
+              "price": 540000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 270000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:35.578Z"
+        }
+      },
+      "fingerprint": "f69aa0b3a52398b391c34392ab05e22426337993e15d19b191705e9299bcdb87"
+    },
+    {
+      "id": "montemoronovosupercharger",
+      "name": "Montemor-o-Novo, Portugal",
+      "country": "PT",
+      "city": "Montemor-o-Novo",
+      "street": "Estrada Nacional, Herdade das Valadas 4",
+      "postal_code": "7050",
+      "coordinates": {
+        "lat": 38.64555,
+        "lon": -8.247815
+      },
+      "timezone": "Europe/Lisbon",
+      "stall_count": 8,
+      "max_power_kw": 150,
+      "lifecycle": "active",
+      "pricing": {
+        "tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": null,
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 1080,
+              "start_time": "00:00",
+              "end_time": "18:00",
+              "end_time_raw": "18:00",
+              "price": 0.28,
+              "price_micros": 280000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1080,
+              "end_minute": 1320,
+              "start_time": "18:00",
+              "end_time": "22:00",
+              "end_time_raw": "22:00",
+              "price": 0.33,
+              "price_micros": 330000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1320,
+              "end_minute": 1440,
+              "start_time": "22:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.28,
+              "price_micros": 280000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        },
+        "non_tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": null,
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 1080,
+              "start_time": "00:00",
+              "end_time": "18:00",
+              "end_time_raw": "18:00",
+              "price": 0.4,
+              "price_micros": 400000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1080,
+              "end_minute": 1320,
+              "start_time": "18:00",
+              "end_time": "22:00",
+              "end_time_raw": "22:00",
+              "price": 0.47,
+              "price_micros": 470000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "start_minute": 1320,
+              "end_minute": 1440,
+              "start_time": "22:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.4,
+              "price_micros": 400000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        }
+      },
+      "raw_pricing": {
+        "tesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 1080,
+              "price": 280000
+            },
+            {
+              "days": 127,
+              "start": 1080,
+              "end": 1320,
+              "price": 330000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 280000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [],
+          "previousMinutePrices": [],
+          "priceChangedAt": null
+        },
+        "nonTesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 1080,
+              "price": 400000
+            },
+            {
+              "days": 127,
+              "start": 1080,
+              "end": 1320,
+              "price": 470000
+            },
+            {
+              "days": 127,
+              "start": 1320,
+              "end": 1440,
+              "price": 400000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [],
+          "previousMinutePrices": [],
+          "priceChangedAt": null
+        }
+      },
+      "fingerprint": "77605eabcf569cd80d585f4d14c8c5cc01d72e4b4a16254508063643249b1bae"
+    },
+    {
+      "id": "vilarealsupercharger",
+      "name": "Ribeira de Pena, Portugal",
+      "country": "PT",
+      "city": "Ribeira de Pena",
+      "street": "Rua do Complexo Turístico de Lamelas 2",
+      "postal_code": "4870",
+      "coordinates": {
+        "lat": 41.503395,
+        "lon": -7.800991
+      },
+      "timezone": "Europe/Lisbon",
+      "stall_count": 12,
+      "max_power_kw": 250,
+      "lifecycle": "active",
+      "pricing": {
+        "tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:42.331Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 1440,
+              "start_time": "00:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.38,
+              "price_micros": 380000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        },
+        "non_tesla": {
+          "status": "available",
+          "currency": "EUR",
+          "pricing_unit": "kwh",
+          "price_changed_at": "2026-09-24T19:37:42.331Z",
+          "rates": [
+            {
+              "start_minute": 0,
+              "end_minute": 1440,
+              "start_time": "00:00",
+              "end_time": "00:00",
+              "end_time_raw": "24:00",
+              "price": 0.51,
+              "price_micros": 510000,
+              "days": 127,
+              "days_of_week": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "minute_rates": []
+        }
+      },
+      "raw_pricing": {
+        "tesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 1440,
+              "price": 380000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 1440,
+              "price": 360000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:42.331Z"
+        },
+        "nonTesla": {
+          "currency": "EUR",
+          "pricingStatus": "available",
+          "prices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 1440,
+              "price": 510000
+            }
+          ],
+          "pricingUnit": "kwh",
+          "minutePrices": [],
+          "previousPrices": [
+            {
+              "days": 127,
+              "start": 0,
+              "end": 1440,
+              "price": 480000
+            }
+          ],
+          "previousMinutePrices": [],
+          "priceChangedAt": "2026-09-24T19:37:42.331Z"
+        }
+      },
+      "fingerprint": "89bbff2cfffc8179545a7ac9a456a3fec15072e99529a0687a601bd740fe03da"
+    }
+  ]
+}

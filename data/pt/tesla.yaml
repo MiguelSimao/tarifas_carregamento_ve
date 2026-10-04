@@ -1,3 +1,15 @@
+_supercharger_mapping:
+  "14182": tesla_matosinhos
+  "vilarealsupercharger": tesla_ribeira_de_pena
+  "guardaptsupercharger": tesla_guarda
+  "14181": tesla_castelo_branco
+  "Mealhadasupercharger": tesla_mealhada
+  "fatimaselfservelocation": tesla_fatima
+  "alcacerdosalsupercharger": tesla_alcacer
+  "montemoronovosupercharger": tesla_montemor_o_novo
+  "loulesupercharger": tesla_loule
+  "alcantarilhasupercharger": tesla_alcantarilha
+
 _templates:
 
   tesla_matosinhos: &tesla_matosinhos
@@ -216,11 +228,21 @@ _templates:
       end_time: "18:00"
 
 
+  time_00_10: &time_00_10
+    time_restrictions:
+    - start_time: "00:00"
+      end_time: "10:00"
+
 providers:
 
 - name: Tesla
   plans:
   - name: Non-Member
+    display_name:
+    - language: "pt"
+      text: "Não Membro"
+    - language: "en"
+      text: "Non-Member"
     country_code: PT
     payment_methods:
       - ADHOC_BANK_CARD
@@ -232,49 +254,46 @@ providers:
     - <<: *tesla_matosinhos
       tariffs:
       - type: DC
-        price: 0.38
-        <<: *time_00_04
-      - type: DC
         price: 0.31
-        <<: *time_04_10
+        <<: *time_00_10
       - type: DC
-        price: 0.67
+        price: 0.79
         <<: *time_10_20
       - type: DC
-        price: 0.61
+        price: 0.71
         <<: *time_20_00
 
     # RIBEIRA_DE_PENA NON_MEMBER
     - <<: *tesla_ribeira_de_pena
       tariffs:
       - type: DC
-        price: 0.48
+        price: 0.51
 
     # GUARDA NON_MEMBER
     - <<: *tesla_guarda
       tariffs:
       - type: DC
-        price: 0.38
+        price: 0.39
         <<: *time_00_09
       - type: DC
-        price: 0.54
+        price: 0.56
         <<: *time_09_15
       - type: DC
-        price: 0.64
+        price: 0.67
         <<: *time_15_20
       - type: DC
-        price: 0.54
+        price: 0.56
         <<: *time_20_00
 
     # CASTELO_BRANCO NON_MEMBER
     - <<: *tesla_castelo_branco
       tariffs:
       - type: DC
-        <<: *time_10_22
-        price: 0.56
-      - type: DC
+        price: 0.33
         <<: *time_22_10
-        price: 0.30
+      - type: DC
+        price: 0.60
+        <<: *time_10_22
 
     # MEALHADA NON_MEMBER
     - <<: *tesla_mealhada
@@ -283,20 +302,20 @@ providers:
         price: 0.27
         <<: *time_22_08
       - type: DC
-        price: 0.42
+        price: 0.41
         <<: *time_08_12
       - type: DC
-        price: 0.54
+        price: 0.58
         <<: *time_12_22
 
     # FATIMA NON_MEMBER
     - <<: *tesla_fatima
       tariffs:
       - type: DC
-        price: 0.29
+        price: 0.30
         <<: *time_22_08
       - type: DC
-        price: 0.66
+        price: 0.69
         <<: *time_08_22
 
     # ALCACER NON_MEMBER
@@ -313,23 +332,23 @@ providers:
     - <<: *tesla_montemor_o_novo
       tariffs:
       - type: DC
-        <<: *time_22_18
         price: 0.40
+        <<: *time_22_18
       - type: DC
-        <<: *time_18_22
         price: 0.47
+        <<: *time_18_22
 
     # LOULÉ NON_MEMBER
     - <<: *tesla_loule
       tariffs:
       - type: DC
-        price: 0.35
+        price: 0.39
         <<: *time_22_09
       - type: DC
         price: 0.72
         <<: *time_09_13
       - type: DC
-        price: 0.80
+        price: 0.83
         <<: *time_13_18
       - type: DC
         price: 0.72
@@ -339,22 +358,28 @@ providers:
     - <<: *tesla_alcantarilha
       tariffs:
       - type: DC
-        price: 0.42
+        price: 0.47
         <<: *time_00_04
       - type: DC
-        price: 0.35
+        price: 0.37
         <<: *time_04_08
       - type: DC
         price: 0.47
         <<: *time_08_12
       - type: DC
-        price: 0.69
+        price: 0.72
         <<: *time_12_20
       - type: DC
-        price: 0.60
+        price: 0.58
         <<: *time_20_00
 
+
   - name: Member
+    display_name:
+    - language: "pt"
+      text: "Membro"
+    - language: "en"
+      text: "Member"
     cost: 12.0
     months: 1
     country_code: PT
@@ -365,49 +390,46 @@ providers:
     - <<: *tesla_matosinhos
       tariffs:
       - type: DC
-        price: 0.24
-        <<: *time_00_04
-      - type: DC
         price: 0.20
-        <<: *time_04_10
+        <<: *time_00_10
       - type: DC
-        price: 0.42
+        price: 0.50
         <<: *time_10_20
       - type: DC
-        price: 0.38
+        price: 0.45
         <<: *time_20_00
 
     # RIBEIRA_DE_PENA MEMBER
     - <<: *tesla_ribeira_de_pena
       tariffs:
       - type: DC
-        price: 0.36
+        price: 0.38
 
     # GUARDA MEMBER
     - <<: *tesla_guarda
       tariffs:
       - type: DC
-        price: 0.27
+        price: 0.28
         <<: *time_00_09
       - type: DC
-        price: 0.39
+        price: 0.41
         <<: *time_09_15
       - type: DC
-        price: 0.46
+        price: 0.48
         <<: *time_15_20
       - type: DC
-        price: 0.39
+        price: 0.41
         <<: *time_20_00
 
     # CASTELO_BRANCO MEMBER
     - <<: *tesla_castelo_branco
       tariffs:
       - type: DC
-        <<: *time_10_22
-        price: 0.40
-      - type: DC
+        price: 0.23
         <<: *time_22_10
-        price: 0.22
+      - type: DC
+        price: 0.42
+        <<: *time_10_22
 
     # MEALHADA MEMBER
     - <<: *tesla_mealhada
@@ -419,17 +441,17 @@ providers:
         price: 0.29
         <<: *time_08_12
       - type: DC
-        price: 0.38
+        price: 0.41
         <<: *time_12_22
 
     # FATIMA MEMBER
     - <<: *tesla_fatima
       tariffs:
       - type: DC
-        price: 0.19
+        price: 0.20
         <<: *time_22_08
       - type: DC
-        price: 0.44
+        price: 0.46
         <<: *time_08_22
 
     # ALCACER MEMBER
@@ -446,23 +468,23 @@ providers:
     - <<: *tesla_montemor_o_novo
       tariffs:
       - type: DC
-        <<: *time_22_18
         price: 0.28
+        <<: *time_22_18
       - type: DC
-        <<: *time_18_22
         price: 0.33
+        <<: *time_18_22
 
     # LOULÉ MEMBER
     - <<: *tesla_loule
       tariffs:
       - type: DC
-        price: 0.22
+        price: 0.24
         <<: *time_22_09
       - type: DC
         price: 0.45
         <<: *time_09_13
       - type: DC
-        price: 0.50
+        price: 0.52
         <<: *time_13_18
       - type: DC
         price: 0.45
@@ -472,20 +494,21 @@ providers:
     - <<: *tesla_alcantarilha
       tariffs:
       - type: DC
-        price: 0.26
+        price: 0.29
         <<: *time_00_04
       - type: DC
-        price: 0.22
+        price: 0.23
         <<: *time_04_08
       - type: DC
         price: 0.29
         <<: *time_08_12
       - type: DC
-        price: 0.43
+        price: 0.45
         <<: *time_12_20
       - type: DC
-        price: 0.37
+        price: 0.36
         <<: *time_20_00
+
 
 
   - name: MultiPass

@@ -5,6 +5,36 @@ providers:
     country_code: PT
     payment_methods:
       - APP
+      - RFID_CARD
+    networks:
+    - network_id: MOBIE
+      excluded_cpos:
+      - ATLA
+      discount:
+        percentage: 0.10
+        cashback: true
+        applies_to: TOTAL
+      tariffs:
+        - tiers:
+          - min: 43
+            price: 0.55
+    - network_id: ATLA
+      discount:
+        percentage: 0.25
+        cashback: true
+        applies_to: TOTAL
+      tariffs:
+        - tiers:
+          - min: 43
+            price: 0.55
+
+  - name: Atlante GO
+    country_code: PT
+    payment_methods:
+      - APP
+      - RFID_CARD
+    cost: 7.99
+    months: 1
     networks:
     - network_id: MOBIE
       excluded_cpos:

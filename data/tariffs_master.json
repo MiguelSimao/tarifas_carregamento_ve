@@ -20495,22 +20495,253 @@
     {
       "name": "Ionity",
       "publish": true,
+      "updated_at": "2026-10-25",
       "plans": [
         {
-          "name": "AD-HOC",
+          "name": "IONITY Direct",
           "publish": true,
           "country_code": "PT",
           "payment_methods": [
+            "ADHOC",
             "ADHOC_BANK_CARD"
           ],
           "vat": 0.23,
           "networks": [
             {
               "network_id": "IONY",
+              "excluded_locations": [
+                "ADV-00017",
+                "ADV-00018",
+                "ETZ-00025",
+                "ETZ-00026",
+                "LRA-00115",
+                "LRA-00116",
+                "CTB-00037",
+                "CTB-00038",
+                "BCL-00027",
+                "BCL-00028"
+              ],
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.62,
+                  "price": 0.63,
+                  "unit": "energy"
+                }
+              ]
+            },
+            {
+              "network_id": "IONY",
+              "included_locations": [
+                "ADV-00017",
+                "ADV-00018",
+                "ETZ-00025",
+                "ETZ-00026",
+                "LRA-00115",
+                "LRA-00116",
+                "CTB-00037",
+                "CTB-00038",
+                "BCL-00027",
+                "BCL-00028"
+              ],
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.68,
+                  "unit": "energy"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "IONITY App",
+          "publish": true,
+          "country_code": "PT",
+          "payment_methods": [
+            "APP"
+          ],
+          "vat": 0.23,
+          "networks": [
+            {
+              "network_id": "IONY",
+              "excluded_locations": [
+                "ADV-00017",
+                "ADV-00018",
+                "ETZ-00025",
+                "ETZ-00026",
+                "LRA-00115",
+                "LRA-00116",
+                "CTB-00037",
+                "CTB-00038",
+                "BCL-00027",
+                "BCL-00028"
+              ],
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.59,
+                  "unit": "energy"
+                }
+              ]
+            },
+            {
+              "network_id": "IONY",
+              "included_locations": [
+                "ADV-00017",
+                "ADV-00018",
+                "ETZ-00025",
+                "ETZ-00026",
+                "LRA-00115",
+                "LRA-00116",
+                "CTB-00037",
+                "CTB-00038",
+                "BCL-00027",
+                "BCL-00028"
+              ],
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.64,
+                  "unit": "energy"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "IONITY Power",
+          "publish": true,
+          "country_code": "PT",
+          "cost": 11.99,
+          "months": 1,
+          "payment_methods": [
+            "APP"
+          ],
+          "vat": 0.23,
+          "networks": [
+            {
+              "network_id": "IONY",
+              "excluded_locations": [
+                "ADV-00017",
+                "ADV-00018",
+                "ETZ-00025",
+                "ETZ-00026",
+                "LRA-00115",
+                "LRA-00116",
+                "CTB-00037",
+                "CTB-00038",
+                "BCL-00027",
+                "BCL-00028"
+              ],
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.37,
+                  "unit": "energy"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "IONITY Motion",
+          "publish": true,
+          "country_code": "PT",
+          "cost": 5.99,
+          "months": 1,
+          "payment_methods": [
+            "APP"
+          ],
+          "vat": 0.23,
+          "networks": [
+            {
+              "network_id": "IONY",
+              "excluded_locations": [
+                "ADV-00017",
+                "ADV-00018",
+                "ETZ-00025",
+                "ETZ-00026",
+                "LRA-00115",
+                "LRA-00116",
+                "CTB-00037",
+                "CTB-00038",
+                "BCL-00027",
+                "BCL-00028"
+              ],
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.44,
+                  "unit": "energy"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "IONITY Power 365",
+          "publish": true,
+          "country_code": "PT",
+          "cost": 119.9,
+          "months": 12,
+          "payment_methods": [
+            "APP"
+          ],
+          "vat": 0.23,
+          "networks": [
+            {
+              "network_id": "IONY",
+              "excluded_locations": [
+                "ADV-00017",
+                "ADV-00018",
+                "ETZ-00025",
+                "ETZ-00026",
+                "LRA-00115",
+                "LRA-00116",
+                "CTB-00037",
+                "CTB-00038",
+                "BCL-00027",
+                "BCL-00028"
+              ],
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.38,
+                  "unit": "energy"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "IONITY Motion 365",
+          "publish": true,
+          "country_code": "PT",
+          "cost": 59.99,
+          "months": 12,
+          "payment_methods": [
+            "APP"
+          ],
+          "vat": 0.23,
+          "networks": [
+            {
+              "network_id": "IONY",
+              "excluded_locations": [
+                "ADV-00017",
+                "ADV-00018",
+                "ETZ-00025",
+                "ETZ-00026",
+                "LRA-00115",
+                "LRA-00116",
+                "CTB-00037",
+                "CTB-00038",
+                "BCL-00027",
+                "BCL-00028"
+              ],
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.46,
                   "unit": "energy"
                 }
               ]

@@ -3,6 +3,7 @@ import json
 from tariffs.supercharger import (
     DEFAULT_OUTPUT_ALL,
     DEFAULT_OUTPUT_PT,
+    DEFAULT_USER_AGENT,
     compute_fingerprint,
     decode_days_bitmask,
     extract_pricing_tier,
@@ -21,6 +22,7 @@ def test_supercharger_exports():
     assert callable(extract_supercharger_prices)
     assert DEFAULT_OUTPUT_ALL.endswith("supercharger_prices.json")
     assert DEFAULT_OUTPUT_PT.endswith("supercharger_prices.json")
+    assert "Mozilla/5.0" in DEFAULT_USER_AGENT
 
 
 def test_main_cli_extract_only(tmp_path):

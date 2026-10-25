@@ -99,7 +99,7 @@ def main(argv: list[str] | None = None) -> int:
     elif country and country.upper() == "PT":
         output_path = DEFAULT_OUTPUT_PT
     elif country:
-        output_path = os.path.join("data", f"supercharger_prices_{country.lower()}.json")
+        output_path = os.path.join("data", "raw", country.lower(), "supercharger_prices.json")
     else:
         output_path = DEFAULT_OUTPUT_ALL
 

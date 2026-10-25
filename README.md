@@ -30,11 +30,10 @@ tarifas_carregamento_ve/
 ├── data/
 │   ├── tariffs_schema.json    # Schema JSON
 │   ├── tariffs_master.json    # Dataset consolidado
-│   ├── supercharger_prices.json # Extração europeia Superchargers
+│   ├── raw/                   # Extrações brutas / intermédias (ignorado no git)
 │   └── pt/                    # Tarifários (Portugal) em formato YAML
 │       ├── continente.yaml
 │       ├── galp.yaml
-│       ├── supercharger_prices.json # Extração PT Superchargers
 │       ├── tesla.yaml
 │       └── ...
 ├── src/

@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT AND CC-BY-4.0" }
 dependencies = [
+    "cryptography>=42.0.0",
     "pydantic>=2.0.0",
     "pyyaml>=6.0",
 ]

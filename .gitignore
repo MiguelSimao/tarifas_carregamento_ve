@@ -17,3 +17,7 @@ htmlcov/
 # Tooling caches
 .ruff_cache/
 .mypy_cache/
+
+# Raw and intermediate extracted data
+data/raw/
+

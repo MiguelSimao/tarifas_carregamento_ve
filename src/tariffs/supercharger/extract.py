@@ -7,15 +7,26 @@ pricing data for both Tesla members/owners and non-members.
 from __future__ import annotations
 
 import datetime
+import gzip
 import hashlib
 import json
 import os
+import re
+import urllib.parse
 import urllib.request
 from typing import Any
 
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+
 DEFAULT_SOURCE_URL = "https://suc-tracker.eu/data/europe.json"
-DEFAULT_OUTPUT_ALL = os.path.join("data", "supercharger_prices.json")
-DEFAULT_OUTPUT_PT = os.path.join("data", "pt", "supercharger_prices.json")
+DEFAULT_OUTPUT_ALL = os.path.join("data", "raw", "supercharger_prices.json")
+DEFAULT_OUTPUT_PT = os.path.join("data", "raw", "pt", "supercharger_prices.json")
+DEFAULT_KEY_HEX = "87d6c9c325a495fd4c41c53a18a26a39d1462eb57df969b2d8881f0944233a56"
+DEFAULT_USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/131.0.0.0 Safari/537.36"
+)
 
 
 def minutes_to_hhmm(minutes: int, wrap_midnight: bool = True) -> str:
@@ -161,21 +172,114 @@ def extract_station(station: dict[str, Any]) -> dict[str, Any]:
     return station_data
 
 
-def fetch_suc_data(source: str) -> dict[str, Any]:
+def fetch_dynamic_key(
+    base_url: str = "https://suc-tracker.eu",
+    user_agent: str = DEFAULT_USER_AGENT,
+) -> str | None:
+    """Fetch the latest encryption key dynamically from suc-tracker.eu web assets."""
+    try:
+        req = urllib.request.Request(
+            base_url,
+            headers={
+                "User-Agent": user_agent,
+            },
+        )
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            html = resp.read().decode("utf-8", errors="ignore")
+
+        script_srcs = re.findall(r'<script[^>]+src=["\']([^"\']+)["\']', html)
+        for src in script_srcs:
+            full_url = urllib.parse.urljoin(base_url, src)
+            req_js = urllib.request.Request(
+                full_url,
+                headers={
+                    "User-Agent": user_agent,
+                },
+            )
+            with urllib.request.urlopen(req_js, timeout=15) as r:
+                js = r.read().decode("utf-8", errors="ignore")
+
+            m = re.search(r'([0-9a-fA-F]{64})[`\'"][^;]*\bci\s*=\s*29', js)
+            if m:
+                return m.group(1)
+            if "AES-GCM" in js:
+                hexes = re.findall(r'[`\'"]([0-9a-fA-F]{64})[`\'"]', js)
+                if hexes:
+                    return hexes[0]
+    except Exception:  # noqa: BLE001
+        return None
+    return None
+
+
+def decrypt_suc_payload(payload: bytes, key_hex: str = DEFAULT_KEY_HEX) -> bytes:
+    """Decrypt an encrypted SUC tracker binary payload using AES-256-GCM.
+
+    Payload format:
+    - Byte 0: version byte (expected: 1)
+    - Bytes 1..13: 12-byte IV / nonce
+    - Bytes 13..29: 16-byte authentication tag
+    - Bytes 29..end: ciphertext
+    The decrypted data is a gzip-compressed stream.
+    """
+    if len(payload) <= 29:
+        raise ValueError("Encrypted dataset payload is truncated or too short")
+    if payload[0] != 1:
+        raise ValueError(f"Unsupported encrypted dataset version: {payload[0]}")
+
+    nonce = payload[1:13]
+    tag = payload[13:29]
+    ciphertext = payload[29:]
+    data_to_decrypt = ciphertext + tag
+
+    try:
+        aesgcm = AESGCM(bytes.fromhex(key_hex))
+        decrypted_compressed = aesgcm.decrypt(nonce, data_to_decrypt, None)
+    except Exception:
+        # Fall back to dynamically fetching key if default key fails
+        dyn_key = fetch_dynamic_key()
+        if dyn_key and dyn_key.lower() != key_hex.lower():
+            aesgcm = AESGCM(bytes.fromhex(dyn_key))
+            decrypted_compressed = aesgcm.decrypt(nonce, data_to_decrypt, None)
+        else:
+            raise
+
+    return gzip.decompress(decrypted_compressed)
+
+
+def decode_suc_payload(payload: bytes, key_hex: str = DEFAULT_KEY_HEX) -> dict[str, Any]:
+    """Decode raw bytes into a dictionary, handling plain JSON, gzip, or AES-GCM encrypted payloads."""
+    stripped = payload.lstrip()
+    if stripped.startswith((b"{", b"[")):
+        return json.loads(payload.decode("utf-8-sig"))
+
+    if payload.startswith(b"\x1f\x8b"):
+        decompressed = gzip.decompress(payload)
+        return json.loads(decompressed.decode("utf-8-sig"))
+
+    if len(payload) > 29 and payload[0] == 1:
+        decompressed_json = decrypt_suc_payload(payload, key_hex=key_hex)
+        return json.loads(decompressed_json.decode("utf-8-sig"))
+
+    return json.loads(payload.decode("utf-8-sig"))
+
+
+def fetch_suc_data(source: str, user_agent: str = DEFAULT_USER_AGENT) -> dict[str, Any]:
     """Load SUC tracker JSON data from URL or local file path."""
     if source.startswith(("http://", "https://")):
         req = urllib.request.Request(
             source,
             headers={
-                "User-Agent": "tarifas-carregamento-ve/1.0 (https://github.com/MiguelSimao/tarifas_carregamento_ve)"
+                "User-Agent": user_agent,
+                "Accept": "application/json, application/octet-stream, */*",
             },
         )
         with urllib.request.urlopen(req, timeout=30) as response:
-            content = response.read().decode("utf-8")
-        return json.loads(content)
+            payload = response.read()
+        return decode_suc_payload(payload)
 
-    with open(source, "r", encoding="utf-8") as f:
-        return json.load(f)
+    with open(source, "rb") as f:
+        payload = f.read()
+    return decode_suc_payload(payload)
 
 
 def extract_supercharger_prices(

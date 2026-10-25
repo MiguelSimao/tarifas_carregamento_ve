@@ -1,19 +1,25 @@
+import gzip
 import json
 import os
 
 import pytest
 import yaml
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
 from tariffs.compile import _cross_validate_tariff_doc
 from tariffs.model import TariffDocument
 from tariffs.supercharger import (
+    DEFAULT_KEY_HEX,
     UnknownSuperchargerStationError,
     compute_fingerprint,
     decode_days_bitmask,
+    decode_suc_payload,
+    decrypt_suc_payload,
     detect_missing_time_templates,
     extract_pricing_tier,
     extract_station_mapping,
     extract_supercharger_prices,
+    fetch_dynamic_key,
     format_time_template_name,
     inject_time_templates,
     minutes_to_hhmm,
@@ -295,7 +301,9 @@ providers:
 
 def test_full_update_roundtrip_with_real_data():
     tesla_yaml_path = os.path.join("data", "pt", "tesla.yaml")
-    suc_prices_path = os.path.join("data", "pt", "supercharger_prices.json")
+    suc_prices_path = os.path.join("data", "raw", "pt", "supercharger_prices.json")
+    if not os.path.exists(suc_prices_path):
+        suc_prices_path = os.path.join("tests", "fixtures", "supercharger_prices_pt.json")
 
     with open(tesla_yaml_path, "r", encoding="utf-8") as f:
         original_yaml = f.read()
@@ -328,3 +336,74 @@ def test_full_update_roundtrip_with_real_data():
     assert len(non_member.networks) == 10
     assert len(member.networks) == 10
     assert len(multipass.networks) == 1
+
+
+def test_decode_suc_payload_plain_json():
+    payload = b'{"stations": [{"id": "1", "name": "Station A"}]}'
+    result = decode_suc_payload(payload)
+    assert "stations" in result
+    assert result["stations"][0]["name"] == "Station A"
+
+
+def test_decode_suc_payload_gzip():
+    data = {"stations": [{"id": "2", "name": "Station B"}]}
+    compressed = gzip.compress(json.dumps(data).encode("utf-8"))
+    result = decode_suc_payload(compressed)
+    assert result["stations"][0]["name"] == "Station B"
+
+
+def test_decode_suc_payload_encrypted():
+    data = {"stations": [{"id": "3", "name": "Encrypted Station"}]}
+    compressed = gzip.compress(json.dumps(data).encode("utf-8"))
+
+    key_bytes = bytes.fromhex(DEFAULT_KEY_HEX)
+    nonce = os.urandom(12)
+    aesgcm = AESGCM(key_bytes)
+    # AESGCM.encrypt produces ciphertext + 16-byte tag
+    ct_with_tag = aesgcm.encrypt(nonce, compressed, None)
+    ciphertext = ct_with_tag[:-16]
+    tag = ct_with_tag[-16:]
+
+    # Format: [version: 1 byte][nonce: 12 bytes][tag: 16 bytes][ciphertext]
+    encrypted_payload = bytes([1]) + nonce + tag + ciphertext
+
+    result = decode_suc_payload(encrypted_payload)
+    assert result["stations"][0]["name"] == "Encrypted Station"
+
+
+def test_decrypt_suc_payload_errors():
+    with pytest.raises(ValueError, match="truncated or too short"):
+        decrypt_suc_payload(b"\x01" * 20)
+
+    with pytest.raises(ValueError, match="Unsupported encrypted dataset version"):
+        decrypt_suc_payload(b"\x02" + b"\x00" * 30)
+
+
+def test_fetch_dynamic_key_mock(monkeypatch):
+    class MockResp:
+        def __init__(self, data: bytes):
+            self.data = data
+
+        def read(self):
+            return self.data
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            pass
+
+    test_key = "11223344556677889900aabbccddeeff11223344556677889900aabbccddeeff"
+    html_mock = b'<html><script src="/assets/index-test.js"></script></html>'
+    js_mock = f'var oi="{test_key}",si=16,ci=29;'.encode()
+
+    def mock_urlopen(req, timeout=10):
+        url = req.full_url if hasattr(req, "full_url") else str(req)
+        if "index-test.js" in url:
+            return MockResp(js_mock)
+        return MockResp(html_mock)
+
+    monkeypatch.setattr("urllib.request.urlopen", mock_urlopen)
+    found_key = fetch_dynamic_key("https://fake-suc-tracker.eu")
+    assert found_key == test_key
+

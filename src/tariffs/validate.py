@@ -7,6 +7,87 @@ import yaml
 from pydantic import ValidationError
 
 from .model import TariffDocument
+from .regulated_fees import RegulatedFeesDocument, TariffSchedule, TimeRestrictionsDocument
+
+
+def _cross_validate_tariff_doc(doc: TariffDocument, file_path: str):
+    for prov in doc.providers:
+        if not getattr(prov, "publish", True):
+            continue
+        for plan in prov.plans:
+            if not getattr(plan, "publish", True):
+                continue
+            if not plan.is_byoe:
+                if not plan.networks:
+                    raise ValueError(f"Plan '{plan.name}' in '{file_path}' must define at least one network.")
+                for net in plan.networks:
+                    if not net.tariffs:
+                        raise ValueError(
+                            f"Network '{net.network_id}' in plan '{plan.name}' ({file_path}) must define at least one tariff."
+                        )
+            else:
+                if not plan.networks:
+                    raise ValueError(
+                        f"BYOE Plan '{plan.name}' in '{file_path}' must define at least one network (e.g. MOBIE)."
+                    )
+                has_network_tariffs = any(len(net.tariffs) > 0 for net in plan.networks)
+                if not has_network_tariffs and plan.byoe:
+                    if plan.byoe.rates_by_voltage:
+                        for v_lvl, v_rates in plan.byoe.rates_by_voltage.items():
+                            v_name = getattr(v_lvl, "value", str(v_lvl))
+                            if plan.byoe.schedule == TariffSchedule.SIMPLES:
+                                if (
+                                    v_rates.all_day is None
+                                    and v_rates.vazio is None
+                                    and v_rates.cheias is None
+                                    and v_rates.fora_vazio is None
+                                ):
+                                    raise ValueError(
+                                        f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '1H' requires 'all_day' rate in 'byoe:' rates for voltage level '{v_name}'."
+                                    )
+                            elif plan.byoe.schedule == TariffSchedule.BIHORARIO:
+                                if v_rates.vazio is None or (
+                                    v_rates.fora_vazio is None and v_rates.cheias is None
+                                ):
+                                    raise ValueError(
+                                        f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '2H' requires 'vazio' and 'cheias' (or 'fora_vazio') rates in 'byoe:' rates for voltage level '{v_name}'."
+                                    )
+                            elif plan.byoe.schedule == TariffSchedule.TRIHORARIO:
+                                if (
+                                    v_rates.vazio is None
+                                    or v_rates.cheias is None
+                                    or v_rates.ponta is None
+                                ):
+                                    raise ValueError(
+                                        f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '3H' requires 'vazio', 'cheias', and 'ponta' rates in 'byoe:' rates for voltage level '{v_name}'."
+                                    )
+                    else:
+                        if plan.byoe.schedule == TariffSchedule.SIMPLES:
+                            if (
+                                plan.byoe.all_day is None
+                                and plan.byoe.vazio is None
+                                and plan.byoe.cheias is None
+                                and plan.byoe.fora_vazio is None
+                            ):
+                                raise ValueError(
+                                    f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '1H' requires 'all_day' rate in 'byoe:' block."
+                                )
+                        elif plan.byoe.schedule == TariffSchedule.BIHORARIO:
+                            if plan.byoe.vazio is None or (
+                                plan.byoe.fora_vazio is None and plan.byoe.cheias is None
+                            ):
+                                raise ValueError(
+                                    f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '2H' requires 'vazio' and 'cheias' (or 'fora_vazio') rates in 'byoe:' block."
+                                )
+                        elif plan.byoe.schedule == TariffSchedule.TRIHORARIO:
+                            if (
+                                plan.byoe.vazio is None
+                                or plan.byoe.cheias is None
+                                or plan.byoe.ponta is None
+                            ):
+                                raise ValueError(
+                                    f"BYOE Plan '{plan.name}' in '{file_path}' with schedule '3H' requires 'vazio', 'cheias', and 'ponta' rates in 'byoe:' block."
+                                )
 
 
 def _validate_file(file_path: str) -> bool:
@@ -14,8 +95,17 @@ def _validate_file(file_path: str) -> bool:
         with open(file_path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f)
 
-        # Load and validate using Pydantic
-        TariffDocument.model_validate(data)
+        if not isinstance(data, dict):
+            print(f"[ERROR] {file_path}: YAML content must be a dictionary")
+            return False
+
+        if "regulated_fees" in data:
+            RegulatedFeesDocument.model_validate(data)
+        elif "time_restrictions_definitions" in data or "time_restrictions" in data:
+            TimeRestrictionsDocument.model_validate(data)
+        else:
+            doc = TariffDocument.model_validate(data)
+            _cross_validate_tariff_doc(doc, file_path)
 
         print(f"[OK] {file_path}: Valid")
         return True

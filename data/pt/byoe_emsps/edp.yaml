@@ -1,0 +1,231 @@
+providers:
+- name: EDP
+  url: https://www.edp.pt/particulares/servicos/mobilidade-eletrica/carregar-fora-de-casa/
+  updated_at: "2026-08-08"
+  plans:
+  - name: CEME
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-07-01"
+      schedule: 1H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      all_day: 0.2678
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+  - name: CEME Bi-horário
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-07-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.2826
+      vazio: 0.1927
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+  - name: CEME Casa
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-07-01"
+      schedule: 1H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      all_day: 0.2142
+    contract_conditions:
+    - ENERGY_AT_HOME
+    notes:
+    - language: pt
+      text: Cliente Casa (-20%)
+    - language: en
+      text: Home Customer (-20%)
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+  - name: CEME Casa Bi-horário
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-07-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.2261
+      vazio: 0.1542
+    contract_conditions:
+    - ENERGY_AT_HOME
+    notes:
+    - language: pt
+      text: Cliente Casa (-20%)
+    - language: en
+      text: Home Customer (-20%)
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+      excluded_cpos: 
+      - EDPC
+
+  - name: CEME Casa + UVE
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-07-01"
+      schedule: 1H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      all_day: 0.1875
+    contract_conditions:
+    - ENERGY_AT_HOME
+    - PARTNERSHIP
+    notes:
+    - language: pt
+      text: Cliente Casa + Associado UVE (-30%)
+    - language: en
+      text: Home Customer + UVE Member (-30%)
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+      excluded_cpos: 
+      - EDPC
+
+  - name: CEME Casa + UVE Bi-horário
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-07-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.1978
+      vazio: 0.1349
+    contract_conditions:
+    - ENERGY_AT_HOME
+    - PARTNERSHIP
+    notes:
+    - language: pt
+      text: Cliente Casa + Associado UVE (-30%)
+    - language: en
+      text: Home Customer + UVE Member (-30%)
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+      excluded_cpos: 
+      - EDPC
+
+  - name: CEME UVE
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-07-01"
+      schedule: 1H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      all_day: 0.241
+    contract_conditions:
+    - PARTNERSHIP
+    notes:
+    - language: pt
+      text: Associado UVE (-10%)
+    - language: en
+      text: UVE Member (-10%)
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+      excluded_cpos: 
+      - EDPC
+
+  - name: CEME UVE Bi-horário
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-07-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.2543
+      vazio: 0.1734
+    contract_conditions:
+    - PARTNERSHIP
+    notes:
+    - language: pt
+      text: Associado UVE (-10%)
+    - language: en
+      text: UVE Member (-10%)
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+      excluded_cpos: 
+      - EDPC

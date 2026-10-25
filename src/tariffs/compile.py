@@ -1,11 +1,15 @@
 import argparse
+import datetime
 import glob
 import os
 import sys
 
 import yaml
 
-from .model import TariffDocument
+from .byoe_generator import expand_byoe_plans, find_matching_regulated_fees
+from .model import Plan, Provider, TariffDocument
+from .regulated_fees import RegulatedFeesDocument, TimeRestrictionsDocument
+from .validate import _cross_validate_tariff_doc
 
 DEFAULT_OUTPUT_PATH = os.path.join("data", "tariffs_master.json")
 
@@ -48,7 +52,9 @@ def main():
         print("No YAML files found to compile.")
         sys.exit(1)
 
-    master_providers = []
+    raw_providers = []
+    master_regulated_fees = []
+    master_time_restrictions = []
     errors = False
 
     for file_path in files:
@@ -56,9 +62,20 @@ def main():
             with open(file_path, "r", encoding="utf-8") as f:
                 data = yaml.safe_load(f)
 
-            # Load and validate using Pydantic model
-            doc = TariffDocument.model_validate(data)
-            master_providers.extend(doc.providers)
+            if not isinstance(data, dict):
+                raise ValueError("YAML content must be a dictionary")
+
+            if "regulated_fees" in data:
+                fees_doc = RegulatedFeesDocument.model_validate(data)
+                master_regulated_fees.extend(fees_doc.regulated_fees)
+            elif "time_restrictions_definitions" in data or "time_restrictions" in data:
+                tr_doc = TimeRestrictionsDocument.model_validate(data)
+                master_time_restrictions.extend(tr_doc.time_restrictions_definitions)
+            else:
+                doc = TariffDocument.model_validate(data)
+                _cross_validate_tariff_doc(doc, file_path)
+                for prov in doc.providers:
+                    raw_providers.append((file_path, prov))
 
             print(f"[OK] Read {file_path}")
         except Exception as e:
@@ -69,8 +86,114 @@ def main():
         print("\nCompilation aborted due to validation or parsing errors.")
         sys.exit(1)
 
+    # Merge providers by name across files and check for metadata conflicts
+    merged_providers_dict = {}
+    provider_sources = {}
+
+    for file_path, prov in raw_providers:
+        name = prov.name
+        published_plans = [p for p in prov.plans if p.publish]
+
+        if name not in merged_providers_dict:
+            merged_providers_dict[name] = Provider(
+                name=prov.name,
+                publish=prov.publish,
+                url=prov.url,
+                app_url=prov.app_url,
+                updated_at=prov.updated_at,
+                plans=published_plans,
+            )
+            provider_sources[name] = [file_path]
+        else:
+            existing = merged_providers_dict[name]
+            sources = provider_sources[name]
+
+            if not prov.publish:
+                existing.publish = False
+
+            # Check url conflict
+            if prov.url is not None:
+                if existing.url is not None and existing.url != prov.url:
+                    print(
+                        f"[ERROR] Conflict for provider '{name}': field 'url' differs "
+                        f"between '{sources[0]}' ({existing.url}) and '{file_path}' ({prov.url})"
+                    )
+                    errors = True
+                elif existing.url is None:
+                    existing.url = prov.url
+
+            # Check app_url conflict
+            if prov.app_url is not None:
+                if existing.app_url is not None and existing.app_url != prov.app_url:
+                    print(
+                        f"[ERROR] Conflict for provider '{name}': field 'app_url' differs "
+                        f"between '{sources[0]}' ({existing.app_url}) and '{file_path}' ({prov.app_url})"
+                    )
+                    errors = True
+                elif existing.app_url is None:
+                    existing.app_url = prov.app_url
+
+            # Check updated_at conflict
+            if prov.updated_at is not None:
+                if (
+                    existing.updated_at is not None
+                    and existing.updated_at != prov.updated_at
+                ):
+                    print(
+                        f"[ERROR] Conflict for provider '{name}': field 'updated_at' differs "
+                        f"between '{sources[0]}' ({existing.updated_at}) and '{file_path}' ({prov.updated_at})"
+                    )
+                    errors = True
+                elif existing.updated_at is None:
+                    existing.updated_at = prov.updated_at
+
+            existing.plans.extend(published_plans)
+            sources.append(file_path)
+
+    if errors:
+        print("\nCompilation aborted due to metadata conflicts across provider files.")
+        sys.exit(1)
+
+    master_providers = [
+        prov for prov in merged_providers_dict.values()
+        if prov.publish and len(prov.plans) > 0
+    ]
+
+    # Expand BYOE plans using master regulated fees and time restrictions
+    compile_today = datetime.date.today().isoformat()
+    for prov in master_providers:
+        expanded_plans: list[Plan] = []
+        for plan in prov.plans:
+            if not plan.publish:
+                continue
+            if plan.is_byoe and master_regulated_fees:
+                regional_plans = expand_byoe_plans(
+                    plan,
+                    master_regulated_fees,
+                    time_restrictions_list=master_time_restrictions if master_time_restrictions else None,
+                    reference_date=compile_today,
+                )
+                expanded_plans.extend(regional_plans)
+            else:
+                if plan.vat is None and master_regulated_fees and plan.country_code:
+                    rf = find_matching_regulated_fees(
+                        master_regulated_fees,
+                        country_code=plan.country_code,
+                        effective_date=compile_today,
+                    )
+                    if rf and rf.vat is not None:
+                        plan.vat = rf.vat
+                expanded_plans.append(plan)
+        prov.plans = expanded_plans
+
+    # Exclude any provider that ended up with no plans after expansion
+    master_providers = [prov for prov in master_providers if prov.plans]
+
     # Create the master document
-    master_doc = TariffDocument(providers=master_providers)
+    master_doc = TariffDocument(
+        providers=master_providers,
+        regulated_fees=master_regulated_fees if master_regulated_fees else None,
+    )
 
     # Ensure output directory exists
     output_dir = os.path.dirname(os.path.abspath(args.output))

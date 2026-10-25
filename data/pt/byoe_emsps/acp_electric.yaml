@@ -1,0 +1,68 @@
+providers:
+- name: ACP Electric
+  url: https://www.acp.pt/eletricos/app-e-cartao-acp-electric/para-socios-e-nao-socios
+  updated_at: "2026-08-08"
+  plans:
+
+  - name: "CEME Base"
+    display_name:
+    - language: pt
+      text: "ACP Electric CEME"
+    - language: en
+      text: "ACP Electric BYOE"
+    country_code: PT
+    regions:
+    - PT
+    - "PT::RAA"
+    - "PT::RAM"
+    byoe:
+      start_date: "2026-07-01"
+      cycle: diario
+      schedule: "2H"
+      includes_egme: true
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: true
+      activation_fee: 0.15
+      cheias: 0.1690
+      vazio: 0.1690
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+
+  - name: "CEME Sócio"
+    display_name:
+    - language: pt
+      text: "ACP Electric CEME Sócio"
+    - language: en
+      text: "ACP Electric BYOE Member"
+    country_code: PT
+    regions:
+    - PT
+    - "PT::RAA"
+    - "PT::RAM"
+    byoe:
+      start_date: "2026-07-01"
+      cycle: diario
+      schedule: "2H"
+      includes_egme: true
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: true
+      activation_fee: 0.15
+      cheias: 0.1506
+      vazio: 0.1506
+    contract_conditions:
+    - PARTNERSHIP
+    cost: 4.90
+    months: 1
+    notes:
+    - language: pt
+      text: Associado ACP
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE

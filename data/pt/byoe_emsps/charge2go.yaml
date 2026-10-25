@@ -1,0 +1,47 @@
+providers:
+- name: Charge2Go
+  url: https://charge2go.pt/tarifarios/
+  updated_at: "2024-12-30"
+  plans:
+  - name: CEME (Diário)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2024-04-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: false
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.1697
+      vazio: 0.1697
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE
+  - name: CEME (Semanal)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2024-04-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: false
+      activation_fee: 0.0
+      cycle: semanal
+      fora_vazio: 0.1697
+      vazio: 0.1697
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE

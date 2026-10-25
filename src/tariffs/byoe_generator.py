@@ -1,0 +1,523 @@
+"""BYOE (Bring Your Own Electricity / CEME) tariff generator."""
+
+import datetime
+
+from .model import (
+    ByoeConfig,
+    ByoeVoltageRates,
+    DimensionType,
+    Discount,
+    MobieFeeType,
+    MobieVoltageLevel,
+    Network,
+    Plan,
+    Tariff,
+)
+from .regulated_fees import (
+    RegulatedFees,
+    TariffCycle,
+    TariffCycleSchedule,
+    TariffPeriod,
+    TariffSchedule,
+)
+from .time_restrictions import resolve_all_time_restrictions
+
+
+def find_matching_regulated_fees(
+    regulated_fees_list: list[RegulatedFees],
+    country_code: str | None = "PT",
+    effective_date: str | None = None,
+) -> RegulatedFees | None:
+    """Find the most applicable RegulatedFees matching country code and date."""
+    target_country = (country_code or "PT").upper()
+    matching_country = [rf for rf in regulated_fees_list if rf.country_code.upper() == target_country]
+    if not matching_country:
+        return None
+
+    if effective_date is not None:
+        valid_fees = [rf for rf in matching_country if rf.effective_date <= effective_date]
+        if valid_fees:
+            valid_fees.sort(key=lambda rf: rf.effective_date, reverse=True)
+            return valid_fees[0]
+
+    # Fallback to the latest effective_date for that country
+    matching_country.sort(key=lambda rf: rf.effective_date, reverse=True)
+    return matching_country[0]
+
+
+def _generate_ceme_tariffs_for_rates(
+    rates: ByoeVoltageRates | ByoeConfig,
+    schedule: TariffSchedule | None,
+    cycle: TariffCycle,
+    time_restrictions_list: list[TariffCycleSchedule] | None,
+    reference_date: str,
+    country_code: str | None,
+    power_type: str | None,
+    min_power: float | None,
+    max_power: float | None,
+    voltage_level: MobieVoltageLevel | None,
+    apply_energy_discount,
+) -> list[Tariff]:
+    generated_tariffs: list[Tariff] = []
+    if schedule == TariffSchedule.SIMPLES:
+        single_rate = rates.all_day
+        if single_rate is None:
+            single_rate = (
+                rates.fora_vazio
+                if rates.fora_vazio is not None
+                else (rates.cheias if rates.cheias is not None else rates.vazio)
+            )
+        single_rate = apply_energy_discount(single_rate)
+        if single_rate is not None:
+            generated_tariffs.append(
+                Tariff(
+                    type=power_type,
+                    min=min_power,
+                    max=max_power,
+                    mobie_voltage_level=voltage_level,
+                    price=round(single_rate, 4),
+                    unit=DimensionType.ENERGY,
+                    mobie_fee_type=MobieFeeType.CEME,
+                )
+            )
+    else:
+        rates_map: dict[TariffPeriod, float] = {}
+
+        if schedule == TariffSchedule.BIHORARIO:
+            if rates.vazio is not None:
+                rates_map[TariffPeriod.VAZIO] = apply_energy_discount(rates.vazio)
+            fora_vazio_rate = (
+                rates.fora_vazio
+                if rates.fora_vazio is not None
+                else rates.cheias
+            )
+            if fora_vazio_rate is not None:
+                rates_map[TariffPeriod.FORA_VAZIO] = apply_energy_discount(fora_vazio_rate)
+        elif schedule == TariffSchedule.TRIHORARIO:
+            if rates.vazio is not None:
+                rates_map[TariffPeriod.VAZIO] = apply_energy_discount(rates.vazio)
+            if rates.cheias is not None:
+                rates_map[TariffPeriod.CHEIAS] = apply_energy_discount(rates.cheias)
+            if rates.ponta is not None:
+                rates_map[TariffPeriod.PONTA] = apply_energy_discount(rates.ponta)
+        else:
+            # Fallback / Single rate
+            if rates.vazio is not None:
+                rates_map[TariffPeriod.VAZIO] = apply_energy_discount(rates.vazio)
+            if rates.fora_vazio is not None:
+                rates_map[TariffPeriod.FORA_VAZIO] = apply_energy_discount(rates.fora_vazio)
+            elif rates.cheias is not None:
+                rates_map[TariffPeriod.CHEIAS] = apply_energy_discount(rates.cheias)
+
+        if rates_map:
+            unique_rates = set(rates_map.values())
+            if len(unique_rates) == 1:
+                rate = next(iter(unique_rates))
+                generated_tariffs.append(
+                    Tariff(
+                        type=power_type,
+                        min=min_power,
+                        max=max_power,
+                        mobie_voltage_level=voltage_level,
+                        price=round(rate, 4),
+                        unit=DimensionType.ENERGY,
+                        mobie_fee_type=MobieFeeType.CEME,
+                    )
+                )
+            else:
+                for period, rate in rates_map.items():
+                    restrs_list = resolve_all_time_restrictions(
+                        period=period,
+                        cycle=cycle,
+                        schedule=schedule or TariffSchedule.BIHORARIO,
+                        definitions=time_restrictions_list,
+                        country_code=country_code,
+                        effective_date=reference_date,
+                    )
+                    if restrs_list:
+                        for restrs in restrs_list:
+                            generated_tariffs.append(
+                                Tariff(
+                                    type=power_type,
+                                    min=min_power,
+                                    max=max_power,
+                                    mobie_voltage_level=voltage_level,
+                                    price=round(rate, 4),
+                                    unit=DimensionType.ENERGY,
+                                    mobie_fee_type=MobieFeeType.CEME,
+                                    time_restrictions=restrs,
+                                )
+                            )
+                    else:
+                        generated_tariffs.append(
+                            Tariff(
+                                type=power_type,
+                                min=min_power,
+                                max=max_power,
+                                mobie_voltage_level=voltage_level,
+                                price=round(rate, 4),
+                                unit=DimensionType.ENERGY,
+                                mobie_fee_type=MobieFeeType.CEME,
+                            )
+                        )
+    return generated_tariffs
+
+
+def _generate_tariffs_for_restriction(
+    byoe: ByoeConfig,
+    reg_fees: RegulatedFees,
+    time_restrictions_list: list[TariffCycleSchedule] | None = None,
+    reference_date: str | None = None,
+    country_code: str | None = "PT",
+    power_type: str | None = None,
+    min_power: float | None = None,
+    max_power: float | None = None,
+    voltage_level: MobieVoltageLevel | None = None,
+    discount: Discount | None = None,
+) -> list[Tariff]:
+    cycle = byoe.cycle or TariffCycle.DIARIO
+    schedule = byoe.schedule
+    today_ref_date = reference_date or datetime.date.today().isoformat()
+
+    def apply_energy_discount(val: float | None) -> float | None:
+        if (
+            val is None
+            or discount is None
+            or discount.cashback
+            or (discount.applies_to and discount.applies_to not in (MobieFeeType.CEME, MobieFeeType.CEME_TOTAL))
+        ):
+            return val
+        if discount.percentage is not None:
+            return val * (1.0 - discount.percentage)
+        if discount.flat is not None:
+            return max(0.0, val - discount.flat)
+        return val
+
+    generated_tariffs: list[Tariff] = []
+
+    # 1. Flat activation fee (if specified)
+    if byoe.activation_fee is not None and round(byoe.activation_fee, 4) > 0:
+        generated_tariffs.append(
+            Tariff(
+                type=power_type,
+                min=min_power,
+                max=max_power,
+                price=round(byoe.activation_fee, 4),
+                unit=DimensionType.FLAT,
+            )
+        )
+
+    # 2. EGME connection fee (flat) from regulated fees (if not included in BYOE plan)
+    if not byoe.includes_egme and round(reg_fees.egme_connection, 4) > 0:
+        generated_tariffs.append(
+            Tariff(
+                type=power_type,
+                min=min_power,
+                max=max_power,
+                price=round(reg_fees.egme_connection, 4),
+                unit=DimensionType.FLAT,
+                mobie_fee_type=MobieFeeType.EGME,
+            )
+        )
+
+    # 3. IEC regulated energy tax from regulated fees (if not included in BYOE plan)
+    if not byoe.includes_iec and round(reg_fees.iec, 4) > 0:
+        generated_tariffs.append(
+            Tariff(
+                type=power_type,
+                min=min_power,
+                max=max_power,
+                price=round(reg_fees.iec, 4),
+                unit=DimensionType.ENERGY,
+                mobie_fee_type=MobieFeeType.IEC,
+            )
+        )
+
+    # 4. CEME energy rates
+    if byoe.rates_by_voltage:
+        if voltage_level is not None:
+            if voltage_level in byoe.rates_by_voltage:
+                generated_tariffs.extend(
+                    _generate_ceme_tariffs_for_rates(
+                        rates=byoe.rates_by_voltage[voltage_level],
+                        schedule=schedule,
+                        cycle=cycle,
+                        time_restrictions_list=time_restrictions_list,
+                        reference_date=today_ref_date,
+                        country_code=country_code,
+                        power_type=power_type,
+                        min_power=min_power,
+                        max_power=max_power,
+                        voltage_level=voltage_level,
+                        apply_energy_discount=apply_energy_discount,
+                    )
+                )
+        else:
+            for v_lvl, v_rates in byoe.rates_by_voltage.items():
+                generated_tariffs.extend(
+                    _generate_ceme_tariffs_for_rates(
+                        rates=v_rates,
+                        schedule=schedule,
+                        cycle=cycle,
+                        time_restrictions_list=time_restrictions_list,
+                        reference_date=today_ref_date,
+                        country_code=country_code,
+                        power_type=power_type,
+                        min_power=min_power,
+                        max_power=max_power,
+                        voltage_level=v_lvl,
+                        apply_energy_discount=apply_energy_discount,
+                    )
+                )
+    else:
+        generated_tariffs.extend(
+            _generate_ceme_tariffs_for_rates(
+                rates=byoe,
+                schedule=schedule,
+                cycle=cycle,
+                time_restrictions_list=time_restrictions_list,
+                reference_date=today_ref_date,
+                country_code=country_code,
+                power_type=power_type,
+                min_power=min_power,
+                max_power=max_power,
+                voltage_level=voltage_level,
+                apply_energy_discount=apply_energy_discount,
+            )
+        )
+
+    # 5. TAR regulated energy fees (if not included in BYOE plan)
+    if not byoe.includes_tar:
+        for variant in reg_fees.tar_variants:
+            if schedule is not None and variant.schedule is not None and variant.schedule != schedule:
+                continue
+            if byoe.cycle is not None and variant.cycle is not None and variant.cycle != byoe.cycle:
+                continue
+
+            v_level = MobieVoltageLevel(variant.voltage_level)
+
+            # Filter by voltage_level if specified
+            if voltage_level is not None and v_level != voltage_level:
+                continue
+
+            for rate_item in variant.rates:
+                period = rate_item.period
+                if schedule == TariffSchedule.BIHORARIO and period == TariffPeriod.CHEIAS:
+                    period = TariffPeriod.FORA_VAZIO
+
+                restrs_list = resolve_all_time_restrictions(
+                    period=period,
+                    cycle=cycle,
+                    schedule=schedule or variant.schedule or TariffSchedule.BIHORARIO,
+                    definitions=time_restrictions_list,
+                    country_code=country_code,
+                    effective_date=today_ref_date,
+                )
+
+                if restrs_list:
+                    for restrs in restrs_list:
+                        generated_tariffs.append(
+                            Tariff(
+                                type=power_type,
+                                min=min_power,
+                                max=max_power,
+                                price=round(rate_item.rate, 4),
+                                unit=DimensionType.ENERGY,
+                                mobie_fee_type=MobieFeeType.TAR,
+                                mobie_voltage_level=v_level,
+                                time_restrictions=restrs,
+                            )
+                        )
+                else:
+                    generated_tariffs.append(
+                        Tariff(
+                            type=power_type,
+                            min=min_power,
+                            max=max_power,
+                            price=round(rate_item.rate, 4),
+                            unit=DimensionType.ENERGY,
+                            mobie_fee_type=MobieFeeType.TAR,
+                            mobie_voltage_level=v_level,
+                        )
+                    )
+
+    if (
+        discount is not None
+        and not discount.cashback
+        and discount.applies_to in (MobieFeeType.EGME, MobieFeeType.TAR, MobieFeeType.IEC, MobieFeeType.CEME_TOTAL)
+    ):
+        for t in generated_tariffs:
+            if t.price is not None:
+                if discount.applies_to == MobieFeeType.CEME_TOTAL and t.mobie_fee_type != MobieFeeType.CEME:
+                    if discount.percentage is not None:
+                        t.price = round(t.price * (1.0 - discount.percentage), 4)
+                    elif discount.flat is not None:
+                        t.price = round(max(0.0, t.price - discount.flat), 4)
+                elif t.mobie_fee_type == discount.applies_to:
+                    if discount.percentage is not None:
+                        t.price = round(t.price * (1.0 - discount.percentage), 4)
+                    elif discount.flat is not None:
+                        t.price = round(max(0.0, t.price - discount.flat), 4)
+
+    return generated_tariffs
+
+
+def is_discount_applied_in_byoe(discount: Discount | None) -> bool:
+    """Determine whether a discount is applied into the compiled BYOE tariffs.
+
+    Discounts are applied during BYOE compilation if:
+    1. It is not a cashback discount (cashback=False).
+    2. It applies to fee components generated in BYOE compilation
+       (CEME, EGME, TAR, IEC, CEME_TOTAL).
+    """
+    if discount is None or discount.cashback:
+        return False
+    applies = discount.applies_to or MobieFeeType.CEME
+    return applies in (
+        MobieFeeType.CEME,
+        MobieFeeType.EGME,
+        MobieFeeType.TAR,
+        MobieFeeType.IEC,
+        MobieFeeType.CEME_TOTAL,
+    )
+
+
+def _expand_single_byoe_plan(
+    plan: Plan,
+    regulated_fees_list: list[RegulatedFees],
+    time_restrictions_list: list[TariffCycleSchedule] | None = None,
+    reference_date: str | None = None,
+    country_code: str | None = None,
+) -> Plan:
+    """Expand tariffs for a single BYOE plan for a specific country/region."""
+    if not plan.is_byoe or not plan.byoe:
+        return plan
+
+    target_country = country_code or plan.country_code or "PT"
+    today_ref_date = reference_date or datetime.date.today().isoformat()
+
+    # Check if BYOE rates are provided or tariffs need generating
+    has_byoe_rates = (
+        plan.byoe.has_rates
+        or plan.byoe.activation_fee is not None
+    )
+
+    has_placeholders = any(
+        t.is_byoe_placeholder
+        for n in plan.networks
+        for t in n.tariffs
+    )
+
+    # If no rates provided, no placeholders, and network already has concrete tariffs, don't overwrite
+    has_existing_tariffs = any(len(n.tariffs) > 0 for n in plan.networks)
+    if not has_byoe_rates and not has_placeholders and has_existing_tariffs:
+        return plan
+
+    reg_fees = find_matching_regulated_fees(
+        regulated_fees_list,
+        country_code=target_country,
+        effective_date=today_ref_date,
+    )
+    if not reg_fees:
+        raise ValueError(
+            f"No regulated fees found for country '{target_country}' "
+            f"and date '{today_ref_date}' for BYOE plan '{plan.name}'"
+        )
+
+    # Associate regional VAT and includes_vat if not explicitly provided on the plan
+    if plan.vat is None and reg_fees.vat is not None:
+        plan.vat = reg_fees.vat
+    if plan.includes_vat is None and plan.byoe and plan.byoe.includes_vat is not None:
+        plan.includes_vat = plan.byoe.includes_vat
+
+    if not plan.networks:
+        plan.networks = [Network(network_id="MOBIE")]
+
+    for network in plan.networks:
+        placeholders = [t for t in network.tariffs if t.is_byoe_placeholder]
+        if placeholders:
+            expanded_tariffs: list[Tariff] = []
+            for placeholder in placeholders:
+                expanded_tariffs.extend(
+                    _generate_tariffs_for_restriction(
+                        byoe=plan.byoe,
+                        reg_fees=reg_fees,
+                        time_restrictions_list=time_restrictions_list,
+                        reference_date=today_ref_date,
+                        country_code=target_country,
+                        power_type=placeholder.type,
+                        min_power=placeholder.min,
+                        max_power=placeholder.max,
+                        voltage_level=placeholder.mobie_voltage_level,
+                        discount=network.discount,
+                    )
+                )
+            network.tariffs = expanded_tariffs
+            if is_discount_applied_in_byoe(network.discount):
+                network.discount = None
+        else:
+            if has_byoe_rates or not network.tariffs:
+                network.tariffs = _generate_tariffs_for_restriction(
+                    byoe=plan.byoe,
+                    reg_fees=reg_fees,
+                    time_restrictions_list=time_restrictions_list,
+                    reference_date=today_ref_date,
+                    country_code=target_country,
+                    power_type=None,
+                    min_power=None,
+                    max_power=None,
+                    voltage_level=None,
+                    discount=network.discount,
+                )
+                if is_discount_applied_in_byoe(network.discount):
+                    network.discount = None
+
+    return plan
+
+
+def expand_byoe_plans(
+    plan: Plan,
+    regulated_fees_list: list[RegulatedFees],
+    time_restrictions_list: list[TariffCycleSchedule] | None = None,
+    reference_date: str | None = None,
+) -> list[Plan]:
+    """Expand a BYOE plan into one or more regional plans (if regions are specified)
+    by calculating network tariffs from BYOE rates, regional regulated fees, and regional time restrictions.
+    """
+    if not plan.is_byoe or not plan.byoe:
+        return [plan]
+
+    target_regions = plan.regions or [plan.country_code or "PT"]
+    expanded_plans: list[Plan] = []
+
+    for region in target_regions:
+        regional_plan = plan.model_copy(deep=True)
+        regional_plan.country_code = region
+        regional_plan.regions = None
+        _expand_single_byoe_plan(
+            plan=regional_plan,
+            regulated_fees_list=regulated_fees_list,
+            time_restrictions_list=time_restrictions_list,
+            reference_date=reference_date,
+            country_code=region,
+        )
+        expanded_plans.append(regional_plan)
+
+    return expanded_plans
+
+
+def expand_byoe_plan(
+    plan: Plan,
+    regulated_fees_list: list[RegulatedFees],
+    time_restrictions_list: list[TariffCycleSchedule] | None = None,
+    reference_date: str | None = None,
+) -> Plan:
+    """Expand a single BYOE plan (or first region if multiple regions specified)."""
+    return expand_byoe_plans(
+        plan=plan,
+        regulated_fees_list=regulated_fees_list,
+        time_restrictions_list=time_restrictions_list,
+        reference_date=reference_date,
+    )[0]
+
+

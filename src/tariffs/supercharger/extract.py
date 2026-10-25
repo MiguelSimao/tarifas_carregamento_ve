@@ -1,0 +1,349 @@
+"""Supercharger data extraction and parsing logic.
+
+Fetches data from suc-tracker.eu (or a local file) and extracts structured
+pricing data for both Tesla members/owners and non-members.
+"""
+
+from __future__ import annotations
+
+import datetime
+import gzip
+import hashlib
+import json
+import os
+import re
+import urllib.parse
+import urllib.request
+from typing import Any
+
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+
+DEFAULT_SOURCE_URL = "https://suc-tracker.eu/data/europe.json"
+DEFAULT_OUTPUT_ALL = os.path.join("data", "raw", "supercharger_prices.json")
+DEFAULT_OUTPUT_PT = os.path.join("data", "raw", "pt", "supercharger_prices.json")
+DEFAULT_KEY_HEX = "87d6c9c325a495fd4c41c53a18a26a39d1462eb57df969b2d8881f0944233a56"
+DEFAULT_USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/131.0.0.0 Safari/537.36"
+)
+
+
+def minutes_to_hhmm(minutes: int, wrap_midnight: bool = True) -> str:
+    """Convert minutes from midnight (0..1440) to HH:MM format.
+
+    Args:
+        minutes: Minute of the day (0 to 1440).
+        wrap_midnight: If True, 1440 is represented as "00:00". If False, "24:00".
+    """
+    if minutes == 1440 and wrap_midnight:
+        return "00:00"
+    hours = minutes // 60
+    mins = minutes % 60
+    return f"{hours:02d}:{mins:02d}"
+
+
+def decode_days_bitmask(days_bitmask: int) -> list[int]:
+    """Decode a 7-bit days bitmask to a list of weekday numbers (1=Monday .. 7=Sunday).
+
+    127 (1111111b) represents all 7 days of the week [1, 2, 3, 4, 5, 6, 7].
+    """
+    days: list[int] = []
+    for bit_index in range(7):
+        if (days_bitmask >> bit_index) & 1:
+            days.append(bit_index + 1)
+    return days
+
+
+def parse_price_intervals(raw_prices: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Parse raw per-kWh price intervals into a clean structure."""
+    intervals = []
+    for item in raw_prices:
+        start_min = item.get("start", 0)
+        end_min = item.get("end", 1440)
+        raw_price = item.get("price", 0)
+        days = item.get("days", 127)
+
+        intervals.append(
+            {
+                "start_minute": start_min,
+                "end_minute": end_min,
+                "start_time": minutes_to_hhmm(start_min, wrap_midnight=False),
+                "end_time": minutes_to_hhmm(end_min, wrap_midnight=True),
+                "end_time_raw": minutes_to_hhmm(end_min, wrap_midnight=False),
+                "price": round(raw_price / 1_000_000, 4),
+                "price_micros": raw_price,
+                "days": days,
+                "days_of_week": decode_days_bitmask(days),
+            }
+        )
+    return intervals
+
+
+def parse_minute_prices(raw_minute_prices: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Parse raw per-minute price schedules and power tiers."""
+    schedules = []
+    for item in raw_minute_prices:
+        start_min = item.get("start", 0)
+        end_min = item.get("end", 1440)
+        days = item.get("days", 127)
+        tiers = []
+        for tier in item.get("tiers", []):
+            raw_price = tier.get("price", 0)
+            tiers.append(
+                {
+                    "min_power_kw": tier.get("minPowerKw"),
+                    "max_power_kw": tier.get("maxPowerKw"),
+                    "price_per_minute": round(raw_price / 1_000_000, 4),
+                    "price_micros": raw_price,
+                }
+            )
+
+        schedules.append(
+            {
+                "start_minute": start_min,
+                "end_minute": end_min,
+                "start_time": minutes_to_hhmm(start_min, wrap_midnight=False),
+                "end_time": minutes_to_hhmm(end_min, wrap_midnight=True),
+                "days": days,
+                "days_of_week": decode_days_bitmask(days),
+                "tiers": tiers,
+            }
+        )
+    return schedules
+
+
+def extract_pricing_tier(tier_data: dict[str, Any] | None) -> dict[str, Any] | None:
+    """Extract pricing details for a single pricing tier (tesla or nonTesla)."""
+    if not tier_data:
+        return None
+
+    status = tier_data.get("pricingStatus")
+    currency = tier_data.get("currency")
+    pricing_unit = tier_data.get("pricingUnit", "kwh")
+    price_changed_at = tier_data.get("priceChangedAt")
+
+    rates = parse_price_intervals(tier_data.get("prices", []))
+    minute_rates = parse_minute_prices(tier_data.get("minutePrices", []))
+
+    return {
+        "status": status,
+        "currency": currency,
+        "pricing_unit": pricing_unit,
+        "price_changed_at": price_changed_at,
+        "rates": rates,
+        "minute_rates": minute_rates,
+    }
+
+
+def compute_fingerprint(data: Any) -> str:
+    """Compute a deterministic SHA-256 fingerprint hash for arbitrary data."""
+    serialized = json.dumps(data, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
+
+
+def extract_station(station: dict[str, Any]) -> dict[str, Any]:
+    """Extract station identity and pricing from raw station dictionary."""
+    address_info = station.get("address") or {}
+    pricing_info = station.get("pricing") or {}
+
+    station_data = {
+        "id": station.get("id"),
+        "name": station.get("name"),
+        "country": station.get("country"),
+        "city": address_info.get("city"),
+        "street": address_info.get("street"),
+        "postal_code": address_info.get("postalCode"),
+        "coordinates": {
+            "lat": station.get("lat"),
+            "lon": station.get("lon"),
+        },
+        "timezone": station.get("timezone"),
+        "stall_count": station.get("stallCount"),
+        "max_power_kw": station.get("maxPowerKw"),
+        "lifecycle": station.get("lifecycle"),
+        "pricing": {
+            "tesla": extract_pricing_tier(pricing_info.get("tesla")),
+            "non_tesla": extract_pricing_tier(pricing_info.get("nonTesla")),
+        },
+        "raw_pricing": pricing_info,
+    }
+    station_data["fingerprint"] = compute_fingerprint(station_data)
+    return station_data
+
+
+def fetch_dynamic_key(
+    base_url: str = "https://suc-tracker.eu",
+    user_agent: str = DEFAULT_USER_AGENT,
+) -> str | None:
+    """Fetch the latest encryption key dynamically from suc-tracker.eu web assets."""
+    try:
+        req = urllib.request.Request(
+            base_url,
+            headers={
+                "User-Agent": user_agent,
+            },
+        )
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            html = resp.read().decode("utf-8", errors="ignore")
+
+        script_srcs = re.findall(r'<script[^>]+src=["\']([^"\']+)["\']', html)
+        for src in script_srcs:
+            full_url = urllib.parse.urljoin(base_url, src)
+            req_js = urllib.request.Request(
+                full_url,
+                headers={
+                    "User-Agent": user_agent,
+                },
+            )
+            with urllib.request.urlopen(req_js, timeout=15) as r:
+                js = r.read().decode("utf-8", errors="ignore")
+
+            m = re.search(r'([0-9a-fA-F]{64})[`\'"][^;]*\bci\s*=\s*29', js)
+            if m:
+                return m.group(1)
+            if "AES-GCM" in js:
+                hexes = re.findall(r'[`\'"]([0-9a-fA-F]{64})[`\'"]', js)
+                if hexes:
+                    return hexes[0]
+    except Exception:  # noqa: BLE001
+        return None
+    return None
+
+
+def decrypt_suc_payload(payload: bytes, key_hex: str = DEFAULT_KEY_HEX) -> bytes:
+    """Decrypt an encrypted SUC tracker binary payload using AES-256-GCM.
+
+    Payload format:
+    - Byte 0: version byte (expected: 1)
+    - Bytes 1..13: 12-byte IV / nonce
+    - Bytes 13..29: 16-byte authentication tag
+    - Bytes 29..end: ciphertext
+    The decrypted data is a gzip-compressed stream.
+    """
+    if len(payload) <= 29:
+        raise ValueError("Encrypted dataset payload is truncated or too short")
+    if payload[0] != 1:
+        raise ValueError(f"Unsupported encrypted dataset version: {payload[0]}")
+
+    nonce = payload[1:13]
+    tag = payload[13:29]
+    ciphertext = payload[29:]
+    data_to_decrypt = ciphertext + tag
+
+    try:
+        aesgcm = AESGCM(bytes.fromhex(key_hex))
+        decrypted_compressed = aesgcm.decrypt(nonce, data_to_decrypt, None)
+    except Exception:
+        # Fall back to dynamically fetching key if default key fails
+        dyn_key = fetch_dynamic_key()
+        if dyn_key and dyn_key.lower() != key_hex.lower():
+            aesgcm = AESGCM(bytes.fromhex(dyn_key))
+            decrypted_compressed = aesgcm.decrypt(nonce, data_to_decrypt, None)
+        else:
+            raise
+
+    return gzip.decompress(decrypted_compressed)
+
+
+def decode_suc_payload(payload: bytes, key_hex: str = DEFAULT_KEY_HEX) -> dict[str, Any]:
+    """Decode raw bytes into a dictionary, handling plain JSON, gzip, or AES-GCM encrypted payloads."""
+    stripped = payload.lstrip()
+    if stripped.startswith((b"{", b"[")):
+        return json.loads(payload.decode("utf-8-sig"))
+
+    if payload.startswith(b"\x1f\x8b"):
+        decompressed = gzip.decompress(payload)
+        return json.loads(decompressed.decode("utf-8-sig"))
+
+    if len(payload) > 29 and payload[0] == 1:
+        decompressed_json = decrypt_suc_payload(payload, key_hex=key_hex)
+        return json.loads(decompressed_json.decode("utf-8-sig"))
+
+    return json.loads(payload.decode("utf-8-sig"))
+
+
+def fetch_suc_data(source: str, user_agent: str = DEFAULT_USER_AGENT) -> dict[str, Any]:
+    """Load SUC tracker JSON data from URL or local file path."""
+    if source.startswith(("http://", "https://")):
+        req = urllib.request.Request(
+            source,
+            headers={
+                "User-Agent": user_agent,
+                "Accept": "application/json, application/octet-stream, */*",
+            },
+        )
+        with urllib.request.urlopen(req, timeout=30) as response:
+            payload = response.read()
+        return decode_suc_payload(payload)
+
+    with open(source, "rb") as f:
+        payload = f.read()
+    return decode_suc_payload(payload)
+
+
+def extract_supercharger_prices(
+    raw_data: dict[str, Any],
+    country: str | None = None,
+    source_ref: str | None = None,
+) -> dict[str, Any]:
+    """Extract Supercharger prices from the parsed europe.json or pre-extracted data.
+
+    Args:
+        raw_data: Parsed dictionary from europe.json or already-extracted json.
+        country: Optional 2-letter ISO country code filter (e.g. 'PT').
+        source_ref: Optional string indicating the source URL or file.
+
+    Returns:
+        Structured dictionary containing extracted stations and metadata.
+    """
+    stations_raw = raw_data.get("stations", [])
+    country_filter = country.strip().upper() if country else None
+
+    # Handle already extracted structure if passed as input
+    if stations_raw and "pricing" in stations_raw[0] and isinstance(stations_raw[0].get("pricing"), dict):
+        first_pricing = stations_raw[0]["pricing"]
+        if "tesla" in first_pricing and isinstance(first_pricing.get("tesla"), dict) and "rates" in (first_pricing.get("tesla") or {}):
+            extracted_stations = []
+            for s in stations_raw:
+                st_country = (s.get("country") or "").upper()
+                if country_filter and st_country != country_filter:
+                    continue
+                extracted_stations.append(s)
+
+            stations_fingerprint = compute_fingerprint(extracted_stations)
+            return {
+                "metadata": {
+                    **(raw_data.get("metadata") or {}),
+                    "source": source_ref or (raw_data.get("metadata") or {}).get("source", DEFAULT_SOURCE_URL),
+                    "extracted_at": datetime.datetime.now(datetime.UTC).isoformat(),
+                    "country_filter": country_filter,
+                    "total_extracted_stations": len(extracted_stations),
+                    "total_source_stations": len(stations_raw),
+                    "fingerprint": stations_fingerprint,
+                },
+                "stations": extracted_stations,
+            }
+
+    extracted_stations = []
+    for s in stations_raw:
+        st_country = (s.get("country") or "").upper()
+        if country_filter and st_country != country_filter:
+            continue
+        extracted_stations.append(extract_station(s))
+
+    stations_fingerprint = compute_fingerprint(extracted_stations)
+
+    return {
+        "metadata": {
+            "source": source_ref or DEFAULT_SOURCE_URL,
+            "generated_at": raw_data.get("generatedAt"),
+            "extracted_at": datetime.datetime.now(datetime.UTC).isoformat(),
+            "schema_version": raw_data.get("schemaVersion"),
+            "country_filter": country_filter,
+            "total_extracted_stations": len(extracted_stations),
+            "total_source_stations": len(stations_raw),
+            "fingerprint": stations_fingerprint,
+        },
+        "stations": extracted_stations,
+    }

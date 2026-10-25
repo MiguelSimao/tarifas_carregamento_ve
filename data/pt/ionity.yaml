@@ -1,0 +1,108 @@
+
+_templates:
+  highway_locations: &highway_locations
+    - ADV-00017
+    - ADV-00018
+    - ETZ-00025
+    - ETZ-00026
+    - LRA-00115
+    - LRA-00116
+    - CTB-00037
+    - CTB-00038
+    - BCL-00027
+    - BCL-00028
+
+providers:
+
+- name: Ionity
+  updated_at: "2026-10-25"
+
+  plans:
+  - name: IONITY Direct
+    country_code: PT
+    payment_methods:
+    - ADHOC
+    - ADHOC_BANK_CARD
+
+    networks:
+    - network_id: IONY
+      excluded_locations: *highway_locations
+      tariffs:
+      - type: DC
+        price: 0.63
+
+    - network_id: IONY
+      included_locations: *highway_locations
+      tariffs:
+      - type: DC
+        price: 0.68
+
+  - name: IONITY App
+    country_code: PT
+    payment_methods:
+    - APP
+
+    networks:
+    - network_id: IONY
+      excluded_locations: *highway_locations
+      tariffs:
+      - type: DC
+        price: 0.59
+
+    - network_id: IONY
+      included_locations: *highway_locations
+      tariffs:
+      - type: DC
+        price: 0.64
+
+  - name: IONITY Power
+    country_code: PT
+    payment_methods:
+    - APP
+    cost: 11.99
+    months: 1
+    networks:
+    - network_id: IONY
+      excluded_locations: *highway_locations
+      tariffs:
+      - type: DC
+        price: 0.37
+
+  - name: IONITY Motion
+    country_code: PT
+    payment_methods:
+    - APP
+    cost: 5.99
+    months: 1
+    networks:
+    - network_id: IONY
+      excluded_locations: *highway_locations
+      tariffs:
+      - type: DC
+        price: 0.44
+
+  - name: IONITY Power 365
+    country_code: PT
+    payment_methods:
+    - APP
+    cost: 119.90
+    months: 12
+    networks:
+    - network_id: IONY
+      excluded_locations: *highway_locations
+      tariffs:
+      - type: DC
+        price: 0.38
+
+  - name: IONITY Motion 365
+    country_code: PT
+    payment_methods:
+    - APP
+    cost: 59.99
+    months: 12
+    networks:
+    - network_id: IONY
+      excluded_locations: *highway_locations
+      tariffs:
+      - type: DC
+        price: 0.46

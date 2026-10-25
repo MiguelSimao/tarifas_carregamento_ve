@@ -1,0 +1,27 @@
+providers:
+- name: Zunder
+  url: https://www.zunder.com/pt-pt/
+  updated_at: "2025-08-06"
+  plans:
+  - name: CEME
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2025-08-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: false
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.1945
+      vazio: 0.1667
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE

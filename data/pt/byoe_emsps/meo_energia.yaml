@@ -1,0 +1,75 @@
+providers:
+- name: MEO Energia
+  url: https://www.meoenergia.pt/mobilidade-eletrica
+  updated_at: "2026-08-24"
+  plans:
+  - name: CEME M4e/M5e
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-01-01"
+      schedule: 1H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      all_day: 0.225
+    notes:
+    - language: pt
+      text: Cliente M4e/M5e
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+  - name: CEME M2e/M3e
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-01-01"
+      schedule: 1H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      all_day: 0.25
+    notes:
+    - language: pt
+      text: Cliente M2e/M3e
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+  - name: CEME Colaboradores
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-01-01"
+      schedule: 1H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      all_day: 0.195
+    contract_conditions:
+    - PARTNERSHIP
+    notes:
+    - language: pt
+      text: Colaboradores
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE

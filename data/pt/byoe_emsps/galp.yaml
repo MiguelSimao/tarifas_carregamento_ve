@@ -1,0 +1,205 @@
+providers:
+- name: Galp
+  url: https://www.galp.com/pt/pt/particulares/estrada/cartao-galpelectric-info
+  updated_at: "2026-08-08"
+  plans:
+
+  - name: CEME Base (Diário)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-01-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.2632  # reference price, discount applied on top
+      vazio: 0.1954
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE
+
+  - name: CEME Base (Semanal)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-01-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: semanal
+      fora_vazio: 0.2632  # reference price, discount applied on top
+      vazio: 0.1954
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE
+
+  - name: CEME App (Diário)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-01-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.2632  # reference price, discount applied on top
+      vazio: 0.1954
+    contract_conditions:
+    - LOYALTY_PROGRAM
+    notes:
+    - language: pt
+      text: App Galp Mundo (-8%)
+    - language: en
+      text: Galp Mundo App (-8%)
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+      discount:
+        percentage: 0.08
+        applies_to: CEME
+      excluded_cpos:
+      - GLPP
+    - network_id: GLPP
+      discount:
+        percentage: 0.20
+        applies_to: CEME
+
+  - name: CEME App (Semanal)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-01-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: semanal
+      fora_vazio: 0.2632  # reference price, discount applied on top
+      vazio: 0.1954
+    contract_conditions:
+    - LOYALTY_PROGRAM
+    notes:
+    - language: pt
+      text: App Galp Mundo (-8%)
+    - language: en
+      text: Galp Mundo App (-8%)
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+      discount:
+        percentage: 0.08
+        applies_to: CEME
+      excluded_cpos:
+      - GLPP
+    - network_id: GLPP
+      discount:
+        percentage: 0.20
+        applies_to: CEME
+
+  - name: CEME Casa (Diário)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-01-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.2632  # reference price, discount applied on top
+      vazio: 0.1954
+    contract_conditions:
+    - ENERGY_AT_HOME
+    notes:
+    - language: pt
+      text: Cliente Casa (-18%)
+    - language: en
+      text: Home Customer (-18%)
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+      discount:
+        percentage: 0.18
+        applies_to: CEME
+      excluded_cpos:
+      - GLPP
+    - network_id: GLPP
+      discount:
+        percentage: 0.30
+        applies_to: CEME
+
+  - name: CEME Casa (Semanal)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-01-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: semanal
+      fora_vazio: 0.2632  # reference price, discount applied on top
+      vazio: 0.1954
+    contract_conditions:
+    - ENERGY_AT_HOME
+    notes:
+    - language: pt
+      text: Cliente Casa (-18%)
+    - language: en
+      text: Home Customer (-18%)
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+      discount:
+        percentage: 0.18
+        applies_to: CEME
+      excluded_cpos:
+      - GLPP
+    - network_id: GLPP
+      discount:
+        percentage: 0.30
+        applies_to: CEME

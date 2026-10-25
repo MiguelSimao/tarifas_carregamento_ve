@@ -1,5 +1,5 @@
 providers:
-- name: Enable Mobility
+- name: DTE
   plans:
   - name: AD-HOC
     country_code: PT

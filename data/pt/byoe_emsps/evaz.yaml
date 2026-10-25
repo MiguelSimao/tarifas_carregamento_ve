@@ -1,0 +1,99 @@
+providers:
+- name: eVaz
+  url: https://www.evaz.energy/solutions/plans/mobility
+  updated_at: "2025-04-15"
+  plans:
+  - name: CEME Move Base (Diário)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2025-04-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.2635
+      vazio: 0.169
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE
+  - name: CEME Move Base (Semanal)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2025-04-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: semanal
+      fora_vazio: 0.2635
+      vazio: 0.169
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE
+  - name: CEME Move Volt / Home (Diário)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2025-04-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.2503
+      vazio: 0.1606
+    contract_conditions:
+    - ENERGY_AT_HOME
+    notes:
+    - language: pt
+      text: Cliente Casa ou Assinante Volt
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE
+  - name: CEME Move Volt / Home (Semanal)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2025-04-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: semanal
+      fora_vazio: 0.2503
+      vazio: 0.1606
+    contract_conditions:
+    - ENERGY_AT_HOME
+    notes:
+    - language: pt
+      text: Cliente Casa ou Assinante Volt
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE

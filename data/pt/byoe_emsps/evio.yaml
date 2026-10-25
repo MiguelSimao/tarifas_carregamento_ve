@@ -1,0 +1,27 @@
+providers:
+- name: Evio
+  url: https://ceme.go-evio.com/pt/site-ceme
+  updated_at: "2025-06-01"
+  plans:
+  - name: CEME
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2025-06-01"
+      schedule: 2H
+      includes_egme: true
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: true
+      activation_fee: 0.15
+      cycle: diario
+      fora_vazio: 0.169
+      vazio: 0.169
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE

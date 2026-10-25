@@ -1,7 +1,30 @@
+from __future__ import annotations
+
 from enum import Enum
 from typing import Literal
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import AliasChoices, BaseModel, Field, field_validator, model_validator
+
+from .regulated_fees import RegulatedFees, TariffPeriod, TariffSchedule, TimeRestriction
+
+
+class MobieVoltageLevel(str, Enum):
+    BT = "BT"
+    MT = "MT"
+    BTE = "BTE"
+    BTN = "BTN"
+    AT = "AT"
+    MAT = "MAT"
+
+
+class MobieFeeType(str, Enum):
+    CEME = "CEME"
+    EGME = "EGME"
+    TAR = "TAR"
+    IEC = "IEC"
+    CPO_TOTAL = "CPO_TOTAL"
+    CEME_TOTAL = "CEME_TOTAL"
+    TOTAL = "TOTAL"
 
 
 class DimensionType(str, Enum):
@@ -18,10 +41,36 @@ class PaymentMethod(str, Enum):
     APP = "APP"
 
 
-class TimeRestriction(BaseModel):
-    start_time: str | None = None
-    end_time: str | None = None
-    days_of_week: list[int] | None = None
+class ContractCondition(str, Enum):
+    ENERGY_AT_HOME = "ENERGY_AT_HOME"
+    PARTNERSHIP = "PARTNERSHIP"
+    APP_ACTIVATION = "APP_ACTIVATION"
+    CARD_ACTIVATION = "CARD_ACTIVATION"
+    LOYALTY_PROGRAM = "LOYALTY_PROGRAM"
+
+
+class AppType(str, Enum):
+    WEB = "web"
+    ANDROID = "android"
+    IOS = "ios"
+
+
+class AppUrl(BaseModel):
+    web: str | None = None
+    android: str | None = None
+    ios: str | None = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def parse_str_or_dict(cls, value):
+        if isinstance(value, str):
+            return {"web": value}
+        return value
+
+
+class DisplayText(BaseModel):
+    language: str
+    text: str
 
 
 class TariffTier(BaseModel):
@@ -39,6 +88,8 @@ class Tariff(BaseModel):
     type: Literal["AC", "DC"] | None = None
     price: float | None = None
     unit: DimensionType = DimensionType.ENERGY
+    mobie_fee_type: MobieFeeType | None = None
+    mobie_voltage_level: MobieVoltageLevel | None = None
     min: float | None = None
     max: float | None = None
     start_after: float | None = Field(
@@ -47,10 +98,26 @@ class Tariff(BaseModel):
     )
     tiers: list[TariffTier] | None = None
     time_restrictions: list[TimeRestriction] | None = None
+    tou_period: TariffPeriod | None = None
+    byoe: bool | None = Field(
+        default=None,
+        description="Placeholder indicator for BYOE tariff expansion",
+    )
+
+    @property
+    def is_byoe_placeholder(self) -> bool:
+        return bool(self.byoe)
+
+    @field_validator("tou_period", mode="before")
+    @classmethod
+    def parse_tou_period(cls, v):
+        if isinstance(v, str):
+            return v.lower()
+        return v
 
     @model_validator(mode="after")
     def validate_and_propagate_tariff(self) -> "Tariff":
-        if self.price is None and self.tiers is None:
+        if not self.is_byoe_placeholder and self.price is None and self.tiers is None:
             raise ValueError('Either "price" or "tiers" must be provided in a tariff')
         if self.price is not None and self.tiers is not None:
             raise ValueError('Cannot specify both "price" and "tiers" in a tariff')
@@ -66,36 +133,296 @@ class Tariff(BaseModel):
         return self
 
 
+class Discount(BaseModel):
+    percentage: float | None = Field(
+        default=None,
+        description="Percentage discount as a decimal (e.g. 0.20 for 20%)",
+    )
+    flat: float | None = Field(
+        default=None,
+        description="Flat discount amount per kWh (e.g. 0.02 for 0.02 €/kWh)",
+    )
+    cashback: bool = Field(
+        default=False,
+        description="True if refunded as cashback/credit; False if applied directly to price",
+    )
+    applies_to: MobieFeeType | None = Field(
+        default=MobieFeeType.CEME,
+        validation_alias=AliasChoices("applies_to", "applied_to"),
+        description="Mobi.E fee component the discount applies to (e.g. CEME, TAR, EGME, IEC, CPO_TOTAL, CEME_TOTAL, TOTAL). Defaults to CEME.",
+    )
+
+    @model_validator(mode="before")
+    @classmethod
+    def parse_number_or_dict(cls, value):
+        if isinstance(value, (int, float)):
+            return {"percentage": float(value)}
+        return value
+
+    @property
+    def effective_percentage(self) -> float | None:
+        """Calculate effective percentage discount rate. For cashback, effective rate is x / (1 + x)."""
+        if self.percentage is None:
+            return None
+        if self.cashback:
+            return self.percentage / (1.0 + self.percentage)
+        return self.percentage
+
+    @model_validator(mode="after")
+    def validate_discount_values(self) -> "Discount":
+        if self.percentage is None and self.flat is None:
+            raise ValueError('Either "percentage" or "flat" must be specified for a discount.')
+        if self.percentage is not None and self.flat is not None:
+            raise ValueError('Cannot specify both "percentage" and "flat" in the same discount.')
+        return self
+
+
 class Network(BaseModel):
     network_id: str
     display_name: str | None = None
-    cashback: float | None = None
+    discount: Discount | None = Field(
+        default=None,
+        description="Discount/cashback configuration for the network",
+    )
     included_cpos: list[str] | None = None
     excluded_cpos: list[str] | None = None
     included_locations: list[str] | None = None
     excluded_locations: list[str] | None = None
-    tariffs: list[Tariff]
+    tariffs: list[Tariff] = Field(default_factory=list)
+
+
+class ByoeVoltageRates(BaseModel):
+    all_day: float | None = None
+    vazio: float | None = None
+    cheias: float | None = None
+    fora_vazio: float | None = None
+    ponta: float | None = None
+
+
+def _normalize_tou_rates(schedule: TariffSchedule | None, obj: ByoeVoltageRates | "ByoeConfig") -> None:
+    if schedule == TariffSchedule.BIHORARIO:
+        if obj.ponta is not None:
+            raise ValueError("Schedule '2H' does not support 'ponta' rate.")
+        if obj.cheias is not None:
+            if obj.fora_vazio is None:
+                obj.fora_vazio = obj.cheias
+            obj.cheias = None
+    elif schedule == TariffSchedule.SIMPLES:
+        if obj.ponta is not None:
+            raise ValueError("Schedule '1H' does not support 'ponta' rate.")
+        if obj.vazio is not None and obj.cheias is not None and obj.vazio != obj.cheias:
+            raise ValueError("Schedule '1H' requires a single rate (use 'all_day').")
+        if obj.all_day is None:
+            if obj.fora_vazio is not None:
+                obj.all_day = obj.fora_vazio
+            elif obj.cheias is not None:
+                obj.all_day = obj.cheias
+            elif obj.vazio is not None:
+                obj.all_day = obj.vazio
+        obj.cheias = None
+        obj.vazio = None
+        obj.fora_vazio = None
+
+
+class ByoeConfig(BaseModel):
+    start_date: str | None = None
+    cycle: Literal["diario", "semanal"] | None = None
+    schedule: TariffSchedule | None = Field(
+        default=None,
+        description="Tariff schedule, e.g. '2H' (Bi-horário), '3H' (Tri-horário)",
+    )
+    includes_vat: bool = Field(
+        default=False,
+        validation_alias=AliasChoices("includes_vat", "vat_included"),
+        description="Whether VAT (IVA) is included in the BYOE rates",
+    )
+    includes_tar: bool | None = None
+    includes_iec: bool | None = None
+    includes_egme: bool | None = None
+    activation_fee: float | None = None
+    opc_commission_pct: float | None = None
+    renewable_energy: bool | None = None
+
+    # TOU / single rate prices (global across voltage levels)
+    all_day: float | None = None
+    vazio: float | None = None
+    cheias: float | None = None
+    fora_vazio: float | None = None
+    ponta: float | None = None
+
+    # TOU / single rate prices split by voltage level (e.g. BT, MT)
+    rates_by_voltage: dict[MobieVoltageLevel, ByoeVoltageRates] | None = Field(
+        default=None,
+        validation_alias=AliasChoices("rates_by_voltage", "rates"),
+        description="Energy rates split by voltage level (e.g. BT, MT)",
+    )
+
+    @property
+    def rates(self) -> dict[MobieVoltageLevel, ByoeVoltageRates] | None:
+        return self.rates_by_voltage
+
+    @property
+    def has_rates(self) -> bool:
+        return (
+            self.all_day is not None
+            or self.vazio is not None
+            or self.cheias is not None
+            or self.fora_vazio is not None
+            or self.ponta is not None
+            or bool(self.rates_by_voltage)
+        )
+
+    @field_validator("rates_by_voltage", mode="before")
+    @classmethod
+    def parse_rates_by_voltage(cls, v):
+        if isinstance(v, dict):
+            return {
+                (k.upper() if isinstance(k, str) else k): val
+                for k, val in v.items()
+            }
+        return v
+
+    @model_validator(mode="after")
+    def validate_byoe_rates(self) -> "ByoeConfig":
+        has_flat_rates = (
+            self.all_day is not None
+            or self.vazio is not None
+            or self.cheias is not None
+            or self.fora_vazio is not None
+            or self.ponta is not None
+        )
+        if self.rates_by_voltage and has_flat_rates:
+            raise ValueError(
+                "Cannot specify both top-level rates and 'rates_by_voltage'/'rates' in ByoeConfig."
+            )
+
+        if self.rates_by_voltage:
+            for rate_item in self.rates_by_voltage.values():
+                _normalize_tou_rates(self.schedule, rate_item)
+        else:
+            _normalize_tou_rates(self.schedule, self)
+
+        return self
 
 
 class Plan(BaseModel):
     name: str
+    display_name: list[DisplayText] | None = Field(
+        default=None,
+        description="Display name for the plan in various languages",
+    )
+    publish: bool = Field(
+        default=True,
+        description="Whether this plan should be published and included in compilation",
+    )
     country_code: str | None = None
+    regions: list[str] | None = Field(
+        default=None,
+        validation_alias=AliasChoices("regions", "applicable_regions"),
+        description="List of regional country codes where this plan is applicable (e.g. ['PT', 'PT::RAA', 'PT::RAM'])",
+    )
     start_date: str | None = None
     end_date: str | None = None
     cost: float | None = None
     months: int | None = None
     period: str | None = None
     payment_methods: list[PaymentMethod] | None = None
-    networks: list[Network]
+    includes_vat: bool | None = Field(
+        default=None,
+        validation_alias=AliasChoices("includes_vat", "vat_included"),
+        description="Whether VAT (IVA) is included in the plan prices",
+    )
+    vat: float | None = Field(
+        default=None,
+        validation_alias=AliasChoices("vat", "vat_rate"),
+        description="Applicable VAT rate for the plan and region (e.g. 0.23 for 23%, 0.16 for 16%, 0.22 for 22%)",
+    )
+    contract_conditions: list[ContractCondition] | None = Field(
+        default=None,
+        validation_alias=AliasChoices("contract_conditions", "conditions"),
+        description="Collection of contract conditions required for the plan",
+    )
+    notes: list[DisplayText] | None = Field(
+        default=None,
+        description="Collection of notes for the plan in various languages",
+    )
+    byoe: ByoeConfig | None = Field(
+        default=None,
+        description="BYOE (CEME) specifics. If omitted or null, the plan is treated as a standard plan.",
+    )
+    networks: list[Network] = Field(default_factory=list)
+
+    @property
+    def is_byoe(self) -> bool:
+        return self.byoe is not None
+
+    @field_validator("byoe", mode="before")
+    @classmethod
+    def parse_byoe(cls, v):
+        if isinstance(v, bool):
+            return {} if v else None
+        return v
+
+    @field_validator("notes", "display_name", mode="before")
+    @classmethod
+    def parse_display_text(cls, v):
+        if isinstance(v, str):
+            return [{"language": "pt", "text": v}]
+        if isinstance(v, dict):
+            return [v]
+        return v
+
+    @model_validator(mode="after")
+    def validate_plan_tariffs(self) -> "Plan":
+        if not self.is_byoe:
+            for network in self.networks or []:
+                for tariff in network.tariffs or []:
+                    if tariff.mobie_fee_type is not None:
+                        raise ValueError(
+                            f"Plan '{self.name}' is not a BYOE plan, but defines tariff with mobie_fee_type '{tariff.mobie_fee_type.value if hasattr(tariff.mobie_fee_type, 'value') else tariff.mobie_fee_type}'."
+                        )
+                    if tariff.is_byoe_placeholder:
+                        raise ValueError(
+                            f"Plan '{self.name}' is not a BYOE plan, but defines tariff with byoe placeholder."
+                        )
+        schedule = self.byoe.schedule if self.byoe else None
+        if schedule == TariffSchedule.BIHORARIO:
+            for network in self.networks or []:
+                for tariff in network.tariffs or []:
+                    if tariff.tou_period is not None:
+                        if tariff.tou_period == TariffPeriod.CHEIAS:
+                            tariff.tou_period = TariffPeriod.FORA_VAZIO
+                        elif tariff.tou_period not in (
+                            TariffPeriod.VAZIO,
+                            TariffPeriod.FORA_VAZIO,
+                        ):
+                            raise ValueError(
+                                f"Invalid tou_period '{tariff.tou_period.value}' for schedule '2H'. "
+                                f"Allowed periods are '{TariffPeriod.VAZIO.value}' and '{TariffPeriod.FORA_VAZIO.value}' "
+                                f"(or '{TariffPeriod.CHEIAS.value}' mapped to '{TariffPeriod.FORA_VAZIO.value}')."
+                            )
+        return self
 
 
 class Provider(BaseModel):
     name: str
+    publish: bool = Field(
+        default=True,
+        description="Whether this provider should be published and included in compilation",
+    )
+    url: str | None = None
+    app_url: AppUrl | None = Field(
+        default=None,
+        validation_alias=AliasChoices("app_url", "app_urls"),
+        description="Provider application URLs (web, android, ios)",
+    )
+    updated_at: str | None = None
     plans: list[Plan]
 
 
 class TariffDocument(BaseModel):
     providers: list[Provider]
+    regulated_fees: list[RegulatedFees] | None = None
 
 
 class Connector(BaseModel):

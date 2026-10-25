@@ -1,0 +1,26 @@
+providers:
+- name: Prio
+  url: https://www.prio.pt/pt/mobilidade-eletrica/informacao-faturacao-uve_427.html
+  updated_at: "2026-08-08"
+  plans:
+  - name: CEME (kWh)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-06-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.1399
+      vazio: 0.1499
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE

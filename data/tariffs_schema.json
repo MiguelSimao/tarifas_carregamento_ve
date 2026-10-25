@@ -1,5 +1,242 @@
 {
   "$defs": {
+    "AppUrl": {
+      "properties": {
+        "web": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Web"
+        },
+        "android": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Android"
+        },
+        "ios": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ios"
+        }
+      },
+      "title": "AppUrl",
+      "type": "object"
+    },
+    "ByoeConfig": {
+      "properties": {
+        "start_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start Date"
+        },
+        "cycle": {
+          "anyOf": [
+            {
+              "enum": [
+                "diario",
+                "semanal"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cycle"
+        },
+        "schedule": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TariffSchedule"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Tariff schedule, e.g. '2H' (Bi-hor\u00e1rio), '3H' (Tri-hor\u00e1rio)"
+        },
+        "includes_vat": {
+          "default": false,
+          "description": "Whether VAT (IVA) is included in the BYOE rates",
+          "title": "Includes Vat",
+          "type": "boolean"
+        },
+        "includes_tar": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Includes Tar"
+        },
+        "includes_iec": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Includes Iec"
+        },
+        "includes_egme": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Includes Egme"
+        },
+        "activation_fee": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Activation Fee"
+        },
+        "opc_commission_pct": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Opc Commission Pct"
+        },
+        "renewable_energy": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Renewable Energy"
+        },
+        "all_day": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "All Day"
+        },
+        "vazio": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vazio"
+        },
+        "cheias": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cheias"
+        },
+        "fora_vazio": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fora Vazio"
+        },
+        "ponta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ponta"
+        }
+      },
+      "title": "ByoeConfig",
+      "type": "object"
+    },
+    "ContractCondition": {
+      "enum": [
+        "ENERGY_AT_HOME",
+        "PARTNERSHIP",
+        "APP_ACTIVATION",
+        "CARD_ACTIVATION",
+        "LOYALTY_PROGRAM"
+      ],
+      "title": "ContractCondition",
+      "type": "string"
+    },
     "DimensionType": {
       "enum": [
         "energy",
@@ -8,6 +245,99 @@
         "parking"
       ],
       "title": "DimensionType",
+      "type": "string"
+    },
+    "Discount": {
+      "properties": {
+        "percentage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Percentage discount as a decimal (e.g. 0.20 for 20%)",
+          "title": "Percentage"
+        },
+        "flat": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Flat discount amount per kWh (e.g. 0.02 for 0.02 \u20ac/kWh)",
+          "title": "Flat"
+        },
+        "cashback": {
+          "default": false,
+          "description": "True if refunded as cashback/credit; False if applied directly to price",
+          "title": "Cashback",
+          "type": "boolean"
+        },
+        "applies_to": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MobieFeeType"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "CEME",
+          "description": "Mobi.E fee component the discount applies to (e.g. CEME, TAR, EGME, IEC, CPO_TOTAL, CEME_TOTAL, TOTAL). Defaults to CEME."
+        }
+      },
+      "title": "Discount",
+      "type": "object"
+    },
+    "DisplayText": {
+      "properties": {
+        "language": {
+          "title": "Language",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "language",
+        "text"
+      ],
+      "title": "DisplayText",
+      "type": "object"
+    },
+    "MobieFeeType": {
+      "enum": [
+        "CEME",
+        "EGME",
+        "TAR",
+        "IEC",
+        "CPO_TOTAL",
+        "CEME_TOTAL",
+        "TOTAL"
+      ],
+      "title": "MobieFeeType",
+      "type": "string"
+    },
+    "MobieVoltageLevel": {
+      "enum": [
+        "BT",
+        "MT",
+        "BTE",
+        "BTN",
+        "AT",
+        "MAT"
+      ],
+      "title": "MobieVoltageLevel",
       "type": "string"
     },
     "Network": {
@@ -28,17 +358,17 @@
           "default": null,
           "title": "Display Name"
         },
-        "cashback": {
+        "discount": {
           "anyOf": [
             {
-              "type": "number"
+              "$ref": "#/$defs/Discount"
             },
             {
               "type": "null"
             }
           ],
           "default": null,
-          "title": "Cashback"
+          "description": "Discount/cashback configuration for the network"
         },
         "included_cpos": {
           "anyOf": [
@@ -109,8 +439,7 @@
         }
       },
       "required": [
-        "network_id",
-        "tariffs"
+        "network_id"
       ],
       "title": "Network",
       "type": "object"
@@ -131,6 +460,28 @@
           "title": "Name",
           "type": "string"
         },
+        "display_name": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/DisplayText"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Display name for the plan in various languages",
+          "title": "Display Name"
+        },
+        "publish": {
+          "default": true,
+          "description": "Whether this plan should be published and included in compilation",
+          "title": "Publish",
+          "type": "boolean"
+        },
         "country_code": {
           "anyOf": [
             {
@@ -142,6 +493,22 @@
           ],
           "default": null,
           "title": "Country Code"
+        },
+        "regions": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "List of regional country codes where this plan is applicable (e.g. ['PT', 'PT::RAA', 'PT::RAM'])",
+          "title": "Regions"
         },
         "start_date": {
           "anyOf": [
@@ -218,6 +585,76 @@
           "default": null,
           "title": "Payment Methods"
         },
+        "includes_vat": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Whether VAT (IVA) is included in the plan prices",
+          "title": "Includes Vat"
+        },
+        "vat": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Applicable VAT rate for the plan and region (e.g. 0.23 for 23%, 0.16 for 16%, 0.22 for 22%)",
+          "title": "Vat"
+        },
+        "contract_conditions": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/ContractCondition"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Collection of contract conditions required for the plan",
+          "title": "Contract Conditions"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/DisplayText"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Collection of notes for the plan in various languages",
+          "title": "Notes"
+        },
+        "byoe": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ByoeConfig"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "BYOE (CEME) specifics. If omitted or null, the plan is treated as a standard plan."
+        },
         "networks": {
           "items": {
             "$ref": "#/$defs/Network"
@@ -227,8 +664,7 @@
         }
       },
       "required": [
-        "name",
-        "networks"
+        "name"
       ],
       "title": "Plan",
       "type": "object"
@@ -238,6 +674,48 @@
         "name": {
           "title": "Name",
           "type": "string"
+        },
+        "publish": {
+          "default": true,
+          "description": "Whether this provider should be published and included in compilation",
+          "title": "Publish",
+          "type": "boolean"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        },
+        "app_url": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AppUrl"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provider application URLs (web, android, ios)"
+        },
+        "updated_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Updated At"
         },
         "plans": {
           "items": {
@@ -252,6 +730,131 @@
         "plans"
       ],
       "title": "Provider",
+      "type": "object"
+    },
+    "RegulatedFees": {
+      "description": "A dated set of regulated fees.",
+      "properties": {
+        "country_code": {
+          "default": "PT",
+          "title": "Country Code",
+          "type": "string"
+        },
+        "effective_date": {
+          "description": "Effective start date of this regulation period (YYYY-MM-DD)",
+          "title": "Effective Date",
+          "type": "string"
+        },
+        "end_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End Date"
+        },
+        "tar_variants": {
+          "items": {
+            "$ref": "#/$defs/TarVariant"
+          },
+          "title": "Tar Variants",
+          "type": "array"
+        },
+        "iec": {
+          "title": "Iec",
+          "type": "number"
+        },
+        "egme_connection": {
+          "title": "Egme Connection",
+          "type": "number"
+        },
+        "vat": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vat"
+        }
+      },
+      "required": [
+        "effective_date",
+        "tar_variants",
+        "iec",
+        "egme_connection"
+      ],
+      "title": "RegulatedFees",
+      "type": "object"
+    },
+    "TarPeriodRate": {
+      "description": "TAR rate for one time-of-use period.",
+      "properties": {
+        "period": {
+          "$ref": "#/$defs/TariffPeriod"
+        },
+        "rate": {
+          "title": "Rate",
+          "type": "number"
+        }
+      },
+      "required": [
+        "period",
+        "rate"
+      ],
+      "title": "TarPeriodRate",
+      "type": "object"
+    },
+    "TarVariant": {
+      "description": "TAR rates for a specific voltage level, schedule (2H/3H/simples), and cycle.",
+      "properties": {
+        "voltage_level": {
+          "title": "Voltage Level",
+          "type": "string"
+        },
+        "schedule": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TariffSchedule"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Tariff schedule, e.g. '2H' (Bi-hor\u00e1rio), '3H' (Tri-hor\u00e1rio)"
+        },
+        "cycle": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TariffCycle"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "rates": {
+          "items": {
+            "$ref": "#/$defs/TarPeriodRate"
+          },
+          "title": "Rates",
+          "type": "array"
+        }
+      },
+      "required": [
+        "voltage_level",
+        "rates"
+      ],
+      "title": "TarVariant",
       "type": "object"
     },
     "Tariff": {
@@ -287,6 +890,28 @@
         "unit": {
           "$ref": "#/$defs/DimensionType",
           "default": "energy"
+        },
+        "mobie_fee_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MobieFeeType"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "mobie_voltage_level": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MobieVoltageLevel"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "min": {
           "anyOf": [
@@ -354,10 +979,61 @@
           ],
           "default": null,
           "title": "Time Restrictions"
+        },
+        "tou_period": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TariffPeriod"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "byoe": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Placeholder indicator for BYOE tariff expansion",
+          "title": "Byoe"
         }
       },
       "title": "Tariff",
       "type": "object"
+    },
+    "TariffCycle": {
+      "enum": [
+        "diario",
+        "semanal"
+      ],
+      "title": "TariffCycle",
+      "type": "string"
+    },
+    "TariffPeriod": {
+      "enum": [
+        "ponta",
+        "cheias",
+        "vazio",
+        "fora_vazio"
+      ],
+      "title": "TariffPeriod",
+      "type": "string"
+    },
+    "TariffSchedule": {
+      "enum": [
+        "1H",
+        "2H",
+        "3H"
+      ],
+      "title": "TariffSchedule",
+      "type": "string"
     },
     "TariffTier": {
       "properties": {
@@ -422,6 +1098,18 @@
     },
     "TimeRestriction": {
       "properties": {
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
         "start_time": {
           "anyOf": [
             {
@@ -473,6 +1161,21 @@
       },
       "title": "Providers",
       "type": "array"
+    },
+    "regulated_fees": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/RegulatedFees"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Regulated Fees"
     }
   },
   "required": [

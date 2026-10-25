@@ -1,0 +1,17 @@
+providers:
+- name: REMO
+  plans:
+  - name: AD-HOC
+    country_code: PT
+    payment_methods:
+    - ADHOC_BANK_CARD
+
+    networks:
+    - network_id: REMO
+      tariffs:
+      - type: DC
+        max: 150
+        price: 0.67
+      - type: DC
+        min: 150
+        price: 0.71

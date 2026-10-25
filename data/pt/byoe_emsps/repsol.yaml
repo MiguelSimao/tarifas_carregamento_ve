@@ -1,0 +1,24 @@
+providers:
+- name: Repsol
+  url: https://www.repsol.pt/particulares/estrada/mobilidade-eletrica/
+  updated_at: "2024-12-30"
+  plans:
+  - name: CEME
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2024-09-23"
+      schedule: 1H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      all_day: 0.2868
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE

@@ -1,0 +1,47 @@
+providers:
+- name: BlueCharge
+  url: https://www.bluecharge.pt/
+  updated_at: "2024-12-30"
+  plans:
+  - name: CEME (Diário)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2023-03-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.269
+      vazio: 0.249
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE
+  - name: CEME (Semanal)
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2023-03-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: semanal
+      fora_vazio: 0.269
+      vazio: 0.249
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE

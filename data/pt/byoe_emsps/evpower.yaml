@@ -1,0 +1,26 @@
+providers:
+- name: EVPower
+  url: https://signup.evpower.pt/
+  updated_at: "2024-12-30"
+  plans:
+  - name: CEME
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2024-01-01"
+      schedule: 2H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: false
+      renewable_energy: true
+      activation_fee: 0.0
+      cycle: diario
+      fora_vazio: 0.245
+      vazio: 0.175
+    payment_methods:
+    - RFID_CARD
+    networks:
+    - network_id: MOBIE

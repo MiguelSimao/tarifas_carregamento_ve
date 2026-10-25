@@ -4,9 +4,29 @@
 
 providers:
   - name: "ProviderName" # e.g., "Electroverse"
+    publish: true # Whether provider is published (default: true). If false, excluded from compilation.
+    url: "https://www.provider.com"
+    app_url:
+      web: "https://app.provider.com"
+      android: "https://play.google.com/store/apps/details?id=com.provider.app"
+      ios: "https://apps.apple.com/app/id123456789"
     plans:
       - name: "PlanName" # e.g., "Base"
+        display_name:
+          - language: "pt"
+            text: "Nome de Exibição"
+          - language: "en"
+            text: "Display Name"
+        publish: true # Whether plan is published (default: true). If false, excluded from compilation.
         country_code: "PT" # ISO 3166-1 alpha-2 country code
+        includes_vat: true # Whether VAT (IVA) is included in tariff prices
+        contract_conditions:
+          - APP_ACTIVATION
+        notes:
+          - language: "pt"
+            text: "Desconto válido para carregamentos na rede nacional."
+          - language: "en"
+            text: "Discount valid for charging in the national network."
         # Validity period
         start_date: "2024-01-01" # Date when the tariff plan starts (YYYY-MM-DD)
         end_date: "2024-12-31" # Date when the tariff plan ends (YYYY-MM-DD)
@@ -22,7 +42,10 @@ providers:
         networks:
         - network_id: "NetworkName" # e.g., "MOBIE"
           display_name: "Network Display Name"
-          cashback: 0.0   # Cashback percent (if applicable). Defaults to 0.0 if omitted.
+          discount:       # Optional discount configuration
+            percentage: 0.20 # Percentage discount as decimal (e.g. 0.20 for 20%), or flat: 0.02 (€/kWh)
+            cashback: false  # True if discount is refunded as cashback/app credit; False if applied directly
+            applies_to: CEME # Mobi.E fee component: CEME (default), TAR, EGME, IEC, CPO_TOTAL, CEME_TOTAL, TOTAL
           included_cpos:  # Omit or set to empty list if all CPOs in the network are included
             - "CPO001" # List of CPO IDs included in this plan (optional)
           excluded_cpos:
@@ -38,7 +61,8 @@ providers:
               price: 0.40 # Price amount
               unit: energy # Pricing unit. Default is 'energy' (per kWh). Other options: 'time' (per minute), 'flat' (per session), 'parking' (per minute)
               time_restrictions: # Optional time-based restrictions for this tariff
-                - start_time: "08:00" # Start time for this tariff (HH:MM, 24-hour format)
+                - name: "fora_vazio"  # Optional name or interval key
+                  start_time: "08:00" # Start time for this tariff (HH:MM, 24-hour format)
                   end_time: "20:00"   # End time for this tariff (HH:MM, 24-hour format)
                   days_of_week:       # Days of the week when this tariff applies (1=Monday, 7=Sunday)
                     - 6
@@ -101,3 +125,36 @@ providers:
               - type: DC
                 min: 120 # Starts at 120 kW
                 price: 0.35
+
+  # Example of a Bring Your Own Energy (BYOE) CEME Provider
+  - name: "ACP Electric"
+    url: "https://www.acp.pt/eletricos/app-e-cartao-acp-electric/para-socios-e-nao-socios"
+    updated_at: "2026-08-08"
+    plans:
+      - name: "2H"
+        country_code: "PT"
+        start_date: "2026-07-01"
+        byoe:
+          start_date: "2026-07-01"
+          cycle: "diario"
+          schedule: "2H"
+          includes_vat: false # Whether VAT is included in rates (default: false)
+          includes_egme: true
+          includes_iec: false
+          includes_tar: false
+          renewable_energy: true
+          activation_fee: 0.15
+          cheias: 0.1690 # or fora_vazio
+          vazio: 0.1690
+        payment_methods:
+          - RFID_CARD
+          - APP
+        networks:
+          - network_id: "MOBIE"
+            # Tariffs can be automatically generated across all power levels, or defined with placeholder
+            # entries to apply restrictions (e.g. max: 43 with byoe: true):
+            # tariffs:
+            #   - max: 43
+            #     byoe: true
+
+

@@ -1,0 +1,50 @@
+providers:
+- name: Iberdrola
+  url: https://www.iberdrola.pt/casa/mobilidade-eletrica/carregar-fora-casa
+  updated_at: "2024-12-30"
+  plans:
+  - name: CEME Base
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2025-01-01"
+      schedule: 1H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      all_day: 0.2486
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE
+  - name: CEME Casa
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2025-01-01"
+      schedule: 1H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      all_day: 0.1989
+    contract_conditions:
+    - ENERGY_AT_HOME
+    notes:
+    - language: pt
+      text: Cliente Casa (-20%)
+    payment_methods:
+    - RFID_CARD
+    - APP
+    networks:
+    - network_id: MOBIE

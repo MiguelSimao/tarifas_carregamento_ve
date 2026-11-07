@@ -20971,7 +20971,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.31,
+                  "price": 0.39,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20982,7 +20982,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.79,
+                  "price": 0.77,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20993,7 +20993,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.71,
+                  "price": 0.63,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21015,7 +21015,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.51,
+                  "price": 0.54,
                   "unit": "energy"
                 }
               ]
@@ -21032,7 +21032,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.39,
+                  "price": 0.41,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21043,7 +21043,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.56,
+                  "price": 0.6,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21054,7 +21054,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.67,
+                  "price": 0.71,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21065,7 +21065,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.56,
+                  "price": 0.6,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21126,7 +21126,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.27,
+                  "price": 0.26,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21137,7 +21137,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.41,
+                  "price": 0.42,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21148,7 +21148,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.58,
+                  "price": 0.48,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21175,7 +21175,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.3,
+                  "price": 0.31,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21186,7 +21186,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.69,
+                  "price": 0.72,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21283,45 +21283,45 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.39,
+                  "price": 0.37,
                   "unit": "energy",
                   "time_restrictions": [
                     {
-                      "start_time": "22:00",
+                      "start_time": "00:00",
+                      "end_time": "04:00"
+                    }
+                  ]
+                },
+                {
+                  "type": "DC",
+                  "price": 0.46,
+                  "unit": "energy",
+                  "time_restrictions": [
+                    {
+                      "start_time": "04:00",
                       "end_time": "09:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.72,
+                  "price": 0.73,
                   "unit": "energy",
                   "time_restrictions": [
                     {
                       "start_time": "09:00",
-                      "end_time": "13:00"
+                      "end_time": "20:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.83,
+                  "price": 0.54,
                   "unit": "energy",
                   "time_restrictions": [
                     {
-                      "start_time": "13:00",
-                      "end_time": "18:00"
-                    }
-                  ]
-                },
-                {
-                  "type": "DC",
-                  "price": 0.72,
-                  "unit": "energy",
-                  "time_restrictions": [
-                    {
-                      "start_time": "18:00",
-                      "end_time": "22:00"
+                      "start_time": "20:00",
+                      "end_time": "00:00"
                     }
                   ]
                 }
@@ -21342,29 +21342,18 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.47,
+                  "price": 0.43,
                   "unit": "energy",
                   "time_restrictions": [
                     {
                       "start_time": "00:00",
-                      "end_time": "04:00"
-                    }
-                  ]
-                },
-                {
-                  "type": "DC",
-                  "price": 0.37,
-                  "unit": "energy",
-                  "time_restrictions": [
-                    {
-                      "start_time": "04:00",
                       "end_time": "08:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.47,
+                  "price": 0.57,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21375,7 +21364,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.72,
+                  "price": 0.67,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21386,7 +21375,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.58,
+                  "price": 0.5,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21433,7 +21422,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.2,
+                  "price": 0.24,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21444,7 +21433,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.5,
+                  "price": 0.49,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21455,7 +21444,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.45,
+                  "price": 0.4,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21477,7 +21466,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.38,
+                  "price": 0.4,
                   "unit": "energy"
                 }
               ]
@@ -21494,7 +21483,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.28,
+                  "price": 0.29,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21505,7 +21494,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.41,
+                  "price": 0.43,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21516,7 +21505,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.48,
+                  "price": 0.5,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21527,7 +21516,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.41,
+                  "price": 0.43,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21548,7 +21537,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.23,
+                  "price": 0.24,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21559,7 +21548,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.42,
+                  "price": 0.44,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21588,7 +21577,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.19,
+                  "price": 0.18,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21599,7 +21588,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.29,
+                  "price": 0.3,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21610,7 +21599,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.41,
+                  "price": 0.33,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21637,7 +21626,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.2,
+                  "price": 0.21,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21648,7 +21637,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.46,
+                  "price": 0.48,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21745,45 +21734,45 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.24,
+                  "price": 0.23,
                   "unit": "energy",
                   "time_restrictions": [
                     {
-                      "start_time": "22:00",
+                      "start_time": "00:00",
+                      "end_time": "04:00"
+                    }
+                  ]
+                },
+                {
+                  "type": "DC",
+                  "price": 0.29,
+                  "unit": "energy",
+                  "time_restrictions": [
+                    {
+                      "start_time": "04:00",
                       "end_time": "09:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.45,
+                  "price": 0.46,
                   "unit": "energy",
                   "time_restrictions": [
                     {
                       "start_time": "09:00",
-                      "end_time": "13:00"
+                      "end_time": "20:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.52,
+                  "price": 0.34,
                   "unit": "energy",
                   "time_restrictions": [
                     {
-                      "start_time": "13:00",
-                      "end_time": "18:00"
-                    }
-                  ]
-                },
-                {
-                  "type": "DC",
-                  "price": 0.45,
-                  "unit": "energy",
-                  "time_restrictions": [
-                    {
-                      "start_time": "18:00",
-                      "end_time": "22:00"
+                      "start_time": "20:00",
+                      "end_time": "00:00"
                     }
                   ]
                 }
@@ -21804,29 +21793,18 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.29,
+                  "price": 0.28,
                   "unit": "energy",
                   "time_restrictions": [
                     {
                       "start_time": "00:00",
-                      "end_time": "04:00"
-                    }
-                  ]
-                },
-                {
-                  "type": "DC",
-                  "price": 0.23,
-                  "unit": "energy",
-                  "time_restrictions": [
-                    {
-                      "start_time": "04:00",
                       "end_time": "08:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.29,
+                  "price": 0.37,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21837,7 +21815,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.45,
+                  "price": 0.43,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21848,7 +21826,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.36,
+                  "price": 0.32,
                   "unit": "energy",
                   "time_restrictions": [
                     {

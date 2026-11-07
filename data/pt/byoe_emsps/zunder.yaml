@@ -1,5 +1,8 @@
 providers:
 - name: Zunder
+  app_ids:
+    android: es.easycharger.app
+
   url: https://www.zunder.com/pt-pt/
   updated_at: "2025-08-06"
   plans:

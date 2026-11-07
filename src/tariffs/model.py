@@ -68,6 +68,11 @@ class AppUrl(BaseModel):
         return value
 
 
+class AppId(BaseModel):
+    android: str | None = None
+    ios: str | None = None
+
+
 class DisplayText(BaseModel):
     language: str
     text: str
@@ -171,9 +176,13 @@ class Discount(BaseModel):
     @model_validator(mode="after")
     def validate_discount_values(self) -> "Discount":
         if self.percentage is None and self.flat is None:
-            raise ValueError('Either "percentage" or "flat" must be specified for a discount.')
+            raise ValueError(
+                'Either "percentage" or "flat" must be specified for a discount.'
+            )
         if self.percentage is not None and self.flat is not None:
-            raise ValueError('Cannot specify both "percentage" and "flat" in the same discount.')
+            raise ValueError(
+                'Cannot specify both "percentage" and "flat" in the same discount.'
+            )
         return self
 
 
@@ -199,7 +208,9 @@ class ByoeVoltageRates(BaseModel):
     ponta: float | None = None
 
 
-def _normalize_tou_rates(schedule: TariffSchedule | None, obj: ByoeVoltageRates | "ByoeConfig") -> None:
+def _normalize_tou_rates(
+    schedule: TariffSchedule | None, obj: ByoeVoltageRates | "ByoeConfig"
+) -> None:
     if schedule == TariffSchedule.BIHORARIO:
         if obj.ponta is not None:
             raise ValueError("Schedule '2H' does not support 'ponta' rate.")
@@ -277,8 +288,7 @@ class ByoeConfig(BaseModel):
     def parse_rates_by_voltage(cls, v):
         if isinstance(v, dict):
             return {
-                (k.upper() if isinstance(k, str) else k): val
-                for k, val in v.items()
+                (k.upper() if isinstance(k, str) else k): val for k, val in v.items()
             }
         return v
 
@@ -416,8 +426,41 @@ class Provider(BaseModel):
         validation_alias=AliasChoices("app_url", "app_urls"),
         description="Provider application URLs (web, android, ios)",
     )
+    app_id: AppId | None = Field(
+        default=None,
+        validation_alias=AliasChoices("app_id", "app_ids"),
+        description="Provider application IDs (android, ios)",
+    )
+    adhoc_url_whitelist: list[str] | None = None
     updated_at: str | None = None
     plans: list[Plan]
+
+    @model_validator(mode="after")
+    def autofill_app_url(self) -> "Provider":
+        if self.app_id:
+            android_url = (
+                f"https://play.google.com/store/apps/details?id={self.app_id.android}"
+                if self.app_id.android
+                else None
+            )
+            ios_url = None
+            if self.app_id.ios:
+                ios_id = (
+                    self.app_id.ios
+                    if self.app_id.ios.startswith("id")
+                    else f"id{self.app_id.ios}"
+                )
+                ios_url = f"https://apps.apple.com/app/{ios_id}"
+
+            if android_url or ios_url:
+                if self.app_url is None:
+                    self.app_url = AppUrl(android=android_url, ios=ios_url)
+                else:
+                    if self.app_url.android is None and android_url:
+                        self.app_url.android = android_url
+                    if self.app_url.ios is None and ios_url:
+                        self.app_url.ios = ios_url
+        return self
 
 
 class TariffDocument(BaseModel):

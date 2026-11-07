@@ -1,5 +1,7 @@
 providers:
 - name: ACP Electric
+  app_ids:
+    android: com.evio.acpelectric
   url: https://www.acp.pt/eletricos/app-e-cartao-acp-electric/para-socios-e-nao-socios
   updated_at: "2026-08-08"
   plans:

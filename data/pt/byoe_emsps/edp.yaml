@@ -1,5 +1,7 @@
 providers:
 - name: EDP
+  app_id:
+    android: wit.edp.edpmobile
   url: https://www.edp.pt/particulares/servicos/mobilidade-eletrica/carregar-fora-de-casa/
   updated_at: "2026-08-08"
   plans:

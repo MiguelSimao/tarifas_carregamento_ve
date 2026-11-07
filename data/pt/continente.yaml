@@ -1,5 +1,8 @@
 providers:
 - name: Continente
+  app_id:
+    android: pt.continente.ContinenteTelemovel
+
   plans:
   - name: Base
     country_code: PT

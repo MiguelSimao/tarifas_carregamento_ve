@@ -1,5 +1,7 @@
 providers:
 - name: Prio
+  app_ids:
+    android: com.prio.appelectric
   country_code: PT
   payment_methods:
     - ADHOC_BANK_CARD

@@ -100,6 +100,8 @@ def main():
                 publish=prov.publish,
                 url=prov.url,
                 app_url=prov.app_url,
+                app_id=prov.app_id,
+                adhoc_url_whitelist=prov.adhoc_url_whitelist,
                 updated_at=prov.updated_at,
                 plans=published_plans,
             )
@@ -132,6 +134,31 @@ def main():
                     errors = True
                 elif existing.app_url is None:
                     existing.app_url = prov.app_url
+
+            # Check app_id conflict
+            if prov.app_id is not None:
+                if existing.app_id is not None and existing.app_id != prov.app_id:
+                    print(
+                        f"[ERROR] Conflict for provider '{name}': field 'app_id' differs "
+                        f"between '{sources[0]}' ({existing.app_id}) and '{file_path}' ({prov.app_id})"
+                    )
+                    errors = True
+                elif existing.app_id is None:
+                    existing.app_id = prov.app_id
+
+            # Check adhoc_url_whitelist conflict
+            if prov.adhoc_url_whitelist is not None:
+                if (
+                    existing.adhoc_url_whitelist is not None
+                    and existing.adhoc_url_whitelist != prov.adhoc_url_whitelist
+                ):
+                    print(
+                        f"[ERROR] Conflict for provider '{name}': field 'adhoc_url_whitelist' differs "
+                        f"between '{sources[0]}' ({existing.adhoc_url_whitelist}) and '{file_path}' ({prov.adhoc_url_whitelist})"
+                    )
+                    errors = True
+                elif existing.adhoc_url_whitelist is None:
+                    existing.adhoc_url_whitelist = prov.adhoc_url_whitelist
 
             # Check updated_at conflict
             if prov.updated_at is not None:

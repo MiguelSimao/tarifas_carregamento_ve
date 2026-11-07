@@ -16,6 +16,8 @@ providers:
 
 - name: Ionity
   updated_at: "2026-10-25"
+  app_id:
+    android: com.cleevio.ionity.android.app
 
   plans:
   - name: IONITY Direct

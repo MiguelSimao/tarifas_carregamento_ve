@@ -1,5 +1,8 @@
 providers:
 - name: Electromaps
+  app_url:
+  app_id:
+    android: com.enredats.electromaps
   plans:
   - name: Base
     country_code: PT

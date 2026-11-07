@@ -1,5 +1,7 @@
 providers:
 - name: Wenea
+  app_ids:
+    android: es.wenea.app.client
   plans:
   - name: Wenea (Confirmar App)
     publish: false

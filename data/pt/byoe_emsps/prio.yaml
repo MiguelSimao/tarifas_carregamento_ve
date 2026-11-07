@@ -1,5 +1,8 @@
 providers:
 - name: Prio
+  app_ids:
+    android: com.prio.appelectric
+
   url: https://www.prio.pt/pt/mobilidade-eletrica/informacao-faturacao-uve_427.html
   updated_at: "2026-08-08"
   plans:

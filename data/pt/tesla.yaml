@@ -236,6 +236,8 @@ _templates:
 providers:
 
 - name: Tesla
+  app_ids:
+    android: com.teslamotors.tesla
   plans:
   - name: Non-Member
     display_name:

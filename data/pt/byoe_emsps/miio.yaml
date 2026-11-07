@@ -1,5 +1,8 @@
 providers:
 - name: Miio
+  app_id:
+    android: com.muvext.miio
+
   url: https://www.miio.com/pt/prices/charging
   updated_at: "2026-05-03"
   plans:

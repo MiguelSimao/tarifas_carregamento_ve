@@ -1,5 +1,9 @@
 providers:
 - name: Electroverse
+  app_url:
+  app_id:
+    android: energy.octopus.electricjuice
+
   plans:
   - name: Base
     country_code: PT

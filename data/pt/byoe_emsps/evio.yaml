@@ -1,5 +1,8 @@
 providers:
 - name: Evio
+  app_id:
+    android: com.evio.evio
+
   url: https://ceme.go-evio.com/pt/site-ceme
   updated_at: "2025-06-01"
   plans:

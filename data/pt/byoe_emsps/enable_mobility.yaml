@@ -1,5 +1,8 @@
 providers:
 - name: Enable Mobility
+  app_id:
+    android: com.enablemobility.mobile.myenable
+
   url: https://www.enable-mobility.com/
   updated_at: "2026-08-08"
   plans:

@@ -1,5 +1,7 @@
 providers:
 - name: EDP
+  app_id:
+    android: wit.edp.edpmobile
   plans:
   - name: EDP-UVE Flat
     display_name:

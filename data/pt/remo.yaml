@@ -1,5 +1,7 @@
 providers:
 - name: REMO
+  app_ids:
+    android: com.remomobility.app
   plans:
   - name: AD-HOC
     country_code: PT

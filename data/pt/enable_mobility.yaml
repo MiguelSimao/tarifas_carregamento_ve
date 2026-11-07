@@ -1,5 +1,8 @@
 providers:
 - name: Enable Mobility
+  app_id:
+    android: com.enablemobility.mobile.myenable
+
   plans:
   - name: AD-HOC
     country_code: PT

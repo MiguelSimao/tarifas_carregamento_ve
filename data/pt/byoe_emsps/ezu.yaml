@@ -1,5 +1,8 @@
 providers:
 - name: EZU / AB Energia
+  app_id:
+    android: pt.alvesbandeira.mobieapp
+
   url: https://www.ezu.pt/ceme
   updated_at: "2026-08-08"
   plans:

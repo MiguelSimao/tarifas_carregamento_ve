@@ -354,6 +354,61 @@ def test_provider_app_url():
     assert prov_str.app_url.ios is None
 
 
+def test_provider_app_url_autofill_from_app_id():
+    """Test auto-filling app_url when app_id is provided and app_url is missing."""
+    # 1. Only app_id (android), app_url missing
+    prov = Provider.model_validate({
+        "name": "TestAndroid",
+        "app_id": {"android": "com.test.app"},
+        "plans": [],
+    })
+    assert prov.app_url is not None
+    assert prov.app_url.android == "https://play.google.com/store/apps/details?id=com.test.app"
+    assert prov.app_url.ios is None
+    assert prov.app_url.web is None
+
+    # 2. app_ids alias with iOS numeric
+    prov_ios = Provider.model_validate({
+        "name": "TestIOS",
+        "app_ids": {"ios": "123456789"},
+        "plans": [],
+    })
+    assert prov_ios.app_url is not None
+    assert prov_ios.app_url.ios == "https://apps.apple.com/app/id123456789"
+    assert prov_ios.app_url.android is None
+
+    # 3. iOS id already starting with 'id'
+    prov_ios_id = Provider.model_validate({
+        "name": "TestIOSId",
+        "app_id": {"ios": "id987654321"},
+        "plans": [],
+    })
+    assert prov_ios_id.app_url.ios == "https://apps.apple.com/app/id987654321"
+
+    # 4. Existing app_url.web preserved while android is auto-filled
+    prov_mixed = Provider.model_validate({
+        "name": "TestMixed",
+        "app_url": "https://web.app",
+        "app_id": {"android": "com.test.app"},
+        "plans": [],
+    })
+    assert prov_mixed.app_url.web == "https://web.app"
+    assert prov_mixed.app_url.android == "https://play.google.com/store/apps/details?id=com.test.app"
+
+    # 5. Existing app_url.android is NOT overwritten
+    prov_override = Provider.model_validate({
+        "name": "TestOverride",
+        "app_url": {"android": "https://custom.store/app"},
+        "app_id": {"android": "com.test.app"},
+        "plans": [],
+    })
+    assert prov_override.app_url.android == "https://custom.store/app"
+
+    # 6. Neither app_url nor app_id
+    prov_none = Provider(name="TestNone", plans=[])
+    assert prov_none.app_url is None
+
+
 def test_plan_contract_conditions():
     """Test contract_conditions enum collection on Plan."""
     plan = Plan(

@@ -1,5 +1,8 @@
 providers:
 - name: Galp
+  app_id:
+    android: com.galp.mundogalp.release
+
   plans:
   - name: AD-HOC
     country_code: PT

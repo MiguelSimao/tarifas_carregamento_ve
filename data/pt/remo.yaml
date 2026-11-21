@@ -1,5 +1,19 @@
+_remo_tariffs: &_remo_tariffs
+  - type: DC
+    max: 51
+    price: 0.65
+  - type: DC
+    min: 51
+    max: 150
+    price: 0.67
+  - type: DC
+    min: 150
+    price: 0.71
+
 providers:
 - name: REMO
+  app_ids:
+    android: com.remomobility.app
   plans:
   - name: AD-HOC
     country_code: PT
@@ -8,10 +22,6 @@ providers:
 
     networks:
     - network_id: REMO
-      tariffs:
-      - type: DC
-        max: 150
-        price: 0.67
-      - type: DC
-        min: 150
-        price: 0.71
+      tariffs: *_remo_tariffs
+    - network_id: MOTA
+      tariffs: *_remo_tariffs

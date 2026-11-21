@@ -1,5 +1,7 @@
 providers:
 - name: Chargemap
+  app_ids:
+    android: com.chargemap_beta.android
   publish: false   # clients are not applying the 10% additonal price increase
   url: https://pt.chargemap.com/
   updated_at: "2025-08-17"

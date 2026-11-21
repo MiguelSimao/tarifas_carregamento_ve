@@ -1,5 +1,8 @@
 providers:
 - name: Via Verde
+  app_ids:
+    android: pt.viaverde.clientes
+
   url: https://www.viaverde.pt/particulares/via-verde/onde-e-como-usar/via-verde-electric
   updated_at: "2024-12-30"
   plans:

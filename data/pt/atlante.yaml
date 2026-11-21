@@ -1,5 +1,8 @@
 providers:
 - name: Atlante
+  app_ids:
+    android: com.atlante.charging
+
   plans:
   - name: Base
     country_code: PT

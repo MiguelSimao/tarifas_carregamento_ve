@@ -67,6 +67,12 @@ def test_compilation_output(tmp_path):
     )
     assert not any("tou_period" in t for t in first_byoe_tariffs)
 
+    # Verify app_id and auto-filled app_url are included in compilation output
+    providers_with_app_id = [p for p in data["providers"] if p.get("app_id")]
+    assert len(providers_with_app_id) > 0
+    assert any(p.get("app_id", {}).get("android") for p in providers_with_app_id)
+    assert any(p.get("app_url", {}).get("android") for p in providers_with_app_id)
+
 
 def test_provider_merging_and_conflict_detection(tmp_path):
     """Test merging plans for the same provider across files and conflict detection."""
@@ -85,6 +91,7 @@ def test_provider_merging_and_conflict_detection(tmp_path):
                     {
                         "name": "SharedProvider",
                         "url": "https://example.com",
+                        "app_id": {"android": "com.shared.app"},
                         "plans": [
                             {
                                 "name": "PlanA",
@@ -144,6 +151,10 @@ def test_provider_merging_and_conflict_detection(tmp_path):
     plan_names = [p["name"] for p in shared["plans"]]
     assert "PlanA" in plan_names
     assert "PlanB" in plan_names
+    assert shared.get("app_id") == {"android": "com.shared.app"}
+    assert shared.get("app_url") == {
+        "android": "https://play.google.com/store/apps/details?id=com.shared.app"
+    }
 
     # Now test conflict in provider metadata url
     file3 = dir_path / "provider3.yaml"

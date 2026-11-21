@@ -1,5 +1,8 @@
 providers:
 - name: Evio
+  app_id:
+    android: com.evio.evio
+
   plans:
   - name: EVIO BP
     country_code: PT

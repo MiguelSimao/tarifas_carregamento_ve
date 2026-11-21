@@ -3,6 +3,12 @@
     {
       "name": "Atlante",
       "publish": true,
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=com.atlante.charging"
+      },
+      "app_id": {
+        "android": "com.atlante.charging"
+      },
       "updated_at": "2026-01-03",
       "plans": [
         {
@@ -450,15 +456,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
+                      "start_time": "18:00",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -487,15 +493,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "13:30",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
+                      "start_time": "19:30",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -525,15 +531,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "13:30",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
@@ -578,15 +584,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "13:30",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
@@ -679,16 +685,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "14:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
+                      "start_time": "18:00",
+                      "end_time": "22:30",
                       "days_of_week": [
                         6
                       ]
@@ -716,71 +722,18 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "14:00",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
-                      "end_time": "22:30",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
                       "days_of_week": [
                         6
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.0905,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "BT",
-                  "max": 43.0,
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "07:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "11:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "23:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        7
                       ]
                     }
                   ]
@@ -837,6 +790,59 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "price": 0.0905,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "max": 43.0,
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -848,6 +854,12 @@
       "name": "ACP Electric",
       "publish": true,
       "url": "https://www.acp.pt/eletricos/app-e-cartao-acp-electric/para-socios-e-nao-socios",
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=com.evio.acpelectric"
+      },
+      "app_id": {
+        "android": "com.evio.acpelectric"
+      },
       "updated_at": "2026-08-08",
       "plans": [
         {
@@ -2001,15 +2013,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "13:30",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
@@ -2052,15 +2064,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "13:30",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
@@ -2102,15 +2114,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
+                      "start_time": "18:00",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -2137,15 +2149,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "13:30",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
+                      "start_time": "19:30",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -2213,22 +2225,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "14:00",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "23:00",
+                      "start_time": "22:30",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -2264,22 +2276,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:00",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "22:30",
+                      "start_time": "23:00",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -2314,16 +2326,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "14:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
+                      "start_time": "18:00",
+                      "end_time": "22:30",
                       "days_of_week": [
                         6
                       ]
@@ -2349,16 +2361,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "14:00",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
-                      "end_time": "22:30",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
                       "days_of_week": [
                         6
                       ]
@@ -2970,15 +2982,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
+                      "start_time": "18:00",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -3006,15 +3018,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "13:30",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
+                      "start_time": "19:30",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -3043,15 +3055,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "13:30",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
@@ -3095,15 +3107,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "13:30",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
@@ -3191,16 +3203,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "14:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
+                      "start_time": "18:00",
+                      "end_time": "22:30",
                       "days_of_week": [
                         6
                       ]
@@ -3227,70 +3239,18 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "14:00",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
-                      "end_time": "22:30",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
                       "days_of_week": [
                         6
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.0905,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "BT",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "07:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "11:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "23:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        7
                       ]
                     }
                   ]
@@ -3346,6 +3306,58 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "price": 0.0905,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -3357,6 +3369,12 @@
       "name": "EDP",
       "publish": true,
       "url": "https://www.edp.pt/particulares/servicos/mobilidade-eletrica/carregar-fora-de-casa/",
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=wit.edp.edpmobile"
+      },
+      "app_id": {
+        "android": "wit.edp.edpmobile"
+      },
       "updated_at": "2026-08-08",
       "plans": [
         {
@@ -4212,6 +4230,8 @@
           "name": "CEME Casa + UVE",
           "publish": true,
           "country_code": "PT",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4273,6 +4293,8 @@
           "name": "CEME Casa + UVE",
           "publish": true,
           "country_code": "PT::RAA",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4334,6 +4356,8 @@
           "name": "CEME Casa + UVE",
           "publish": true,
           "country_code": "PT::RAM",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4395,6 +4419,8 @@
           "name": "CEME Casa + UVE Bi-horário",
           "publish": true,
           "country_code": "PT",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4495,6 +4521,8 @@
           "name": "CEME Casa + UVE Bi-horário",
           "publish": true,
           "country_code": "PT::RAA",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4595,6 +4623,8 @@
           "name": "CEME Casa + UVE Bi-horário",
           "publish": true,
           "country_code": "PT::RAM",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4695,6 +4725,8 @@
           "name": "CEME UVE",
           "publish": true,
           "country_code": "PT",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4755,6 +4787,8 @@
           "name": "CEME UVE",
           "publish": true,
           "country_code": "PT::RAA",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4815,6 +4849,8 @@
           "name": "CEME UVE",
           "publish": true,
           "country_code": "PT::RAM",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4875,6 +4911,8 @@
           "name": "CEME UVE Bi-horário",
           "publish": true,
           "country_code": "PT",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4974,6 +5012,8 @@
           "name": "CEME UVE Bi-horário",
           "publish": true,
           "country_code": "PT::RAA",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -5073,6 +5113,8 @@
           "name": "CEME UVE Bi-horário",
           "publish": true,
           "country_code": "PT::RAM",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -5212,6 +5254,12 @@
       "name": "Enable Mobility",
       "publish": true,
       "url": "https://www.enable-mobility.com/",
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=com.enablemobility.mobile.myenable"
+      },
+      "app_id": {
+        "android": "com.enablemobility.mobile.myenable"
+      },
       "updated_at": "2026-08-08",
       "plans": [
         {
@@ -6027,15 +6075,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "13:30",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
@@ -6078,15 +6126,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "13:30",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
@@ -6128,15 +6176,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
+                      "start_time": "18:00",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -6163,15 +6211,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "13:30",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
+                      "start_time": "19:30",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -6239,22 +6287,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "14:00",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "23:00",
+                      "start_time": "22:30",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -6290,22 +6338,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:00",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "22:30",
+                      "start_time": "23:00",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -6340,16 +6388,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "14:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
+                      "start_time": "18:00",
+                      "end_time": "22:30",
                       "days_of_week": [
                         6
                       ]
@@ -6375,16 +6423,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "14:00",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
-                      "end_time": "22:30",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
                       "days_of_week": [
                         6
                       ]
@@ -6868,15 +6916,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "13:30",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
@@ -6919,15 +6967,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "13:30",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
@@ -6969,15 +7017,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
+                      "start_time": "18:00",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -7004,15 +7052,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "13:30",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
+                      "start_time": "19:30",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -7089,22 +7137,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "14:00",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "23:00",
+                      "start_time": "22:30",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -7140,22 +7188,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:00",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "22:30",
+                      "start_time": "23:00",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -7167,41 +7215,6 @@
                       "end_time": "24:00",
                       "days_of_week": [
                         7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.2503,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "07:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
-                      "days_of_week": [
-                        6
                       ]
                     }
                   ]
@@ -7240,6 +7253,41 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "price": 0.2503,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -7251,6 +7299,12 @@
       "name": "Evio",
       "publish": true,
       "url": "https://ceme.go-evio.com/pt/site-ceme",
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=com.evio.evio"
+      },
+      "app_id": {
+        "android": "com.evio.evio"
+      },
       "updated_at": "2025-06-01",
       "plans": [
         {
@@ -8059,6 +8113,12 @@
       "name": "EZU / AB Energia",
       "publish": true,
       "url": "https://www.ezu.pt/ceme",
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=pt.alvesbandeira.mobieapp"
+      },
+      "app_id": {
+        "android": "pt.alvesbandeira.mobieapp"
+      },
       "updated_at": "2026-08-08",
       "plans": [
         {
@@ -9149,15 +9209,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "13:30",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
@@ -9200,15 +9260,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "13:30",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
@@ -9250,15 +9310,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
+                      "start_time": "18:00",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -9285,15 +9345,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "13:30",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
+                      "start_time": "19:30",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -9361,22 +9421,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "14:00",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "23:00",
+                      "start_time": "22:30",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -9412,22 +9472,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:00",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "22:30",
+                      "start_time": "23:00",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -9439,41 +9499,6 @@
                       "end_time": "24:00",
                       "days_of_week": [
                         7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.295,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "07:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
-                      "days_of_week": [
-                        6
                       ]
                     }
                   ]
@@ -9512,6 +9537,41 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "price": 0.295,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -9523,6 +9583,12 @@
       "name": "Galp",
       "publish": true,
       "url": "https://www.galp.com/pt/pt/particulares/estrada/cartao-galpelectric-info",
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=com.galp.mundogalp.release"
+      },
+      "app_id": {
+        "android": "com.galp.mundogalp.release"
+      },
       "updated_at": "2026-08-08",
       "plans": [
         {
@@ -9953,15 +10019,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "13:30",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
@@ -10004,15 +10070,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "13:30",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
@@ -10054,15 +10120,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
+                      "start_time": "18:00",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -10089,15 +10155,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "13:30",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
+                      "start_time": "19:30",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -10165,22 +10231,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "14:00",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "23:00",
+                      "start_time": "22:30",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -10216,22 +10282,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:00",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "22:30",
+                      "start_time": "23:00",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -10243,41 +10309,6 @@
                       "end_time": "24:00",
                       "days_of_week": [
                         7
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.2632,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "07:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
-                      "days_of_week": [
-                        6
                       ]
                     }
                   ]
@@ -10316,6 +10347,41 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "price": 0.2632,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "fora_vazio",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -11106,15 +11172,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "13:30",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
@@ -11157,15 +11223,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "13:30",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
@@ -11207,15 +11273,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
+                      "start_time": "18:00",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -11242,15 +11308,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "13:30",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
+                      "start_time": "19:30",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -11272,6 +11338,57 @@
                   "price": 0.001,
                   "unit": "energy",
                   "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1563,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "13:30",
+                      "end_time": "18:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
                 },
                 {
                   "price": 0.1563,
@@ -11325,14 +11442,14 @@
                   ]
                 },
                 {
-                  "price": 0.1563,
+                  "price": 0.2106,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
                   "time_restrictions": [
                     {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "07:00",
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
                       "days_of_week": [
                         1,
                         2,
@@ -11342,35 +11459,19 @@
                       ]
                     },
                     {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "11:30",
+                      "name": "fora_vazio",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
-                      "name": "vazio",
-                      "start_time": "13:30",
-                      "end_time": "18:00",
+                      "name": "fora_vazio",
+                      "start_time": "18:00",
+                      "end_time": "23:00",
                       "days_of_week": [
                         6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "23:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        7
                       ]
                     }
                   ]
@@ -11403,41 +11504,6 @@
                     {
                       "name": "fora_vazio",
                       "start_time": "19:30",
-                      "end_time": "23:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.2106,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "07:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "13:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "18:00",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -11522,22 +11588,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "14:00",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "23:00",
+                      "start_time": "22:30",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -11573,22 +11639,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:00",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "22:30",
+                      "start_time": "23:00",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -11623,16 +11689,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "14:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
+                      "start_time": "18:00",
+                      "end_time": "22:30",
                       "days_of_week": [
                         6
                       ]
@@ -11658,16 +11724,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "14:00",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
-                      "end_time": "22:30",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
                       "days_of_week": [
                         6
                       ]
@@ -11709,22 +11775,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "14:00",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "23:00",
+                      "start_time": "22:30",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -11760,22 +11826,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:00",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "22:30",
+                      "start_time": "23:00",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -11810,16 +11876,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "14:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
+                      "start_time": "18:00",
+                      "end_time": "22:30",
                       "days_of_week": [
                         6
                       ]
@@ -11845,16 +11911,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "14:00",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
-                      "end_time": "22:30",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
                       "days_of_week": [
                         6
                       ]
@@ -12650,15 +12716,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "13:30",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
@@ -12701,15 +12767,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "13:30",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
@@ -12751,15 +12817,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
+                      "start_time": "18:00",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -12786,15 +12852,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "13:30",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
+                      "start_time": "19:30",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -12816,6 +12882,57 @@
                   "price": 0.001,
                   "unit": "energy",
                   "mobie_fee_type": "IEC"
+                },
+                {
+                  "price": 0.1368,
+                  "unit": "energy",
+                  "mobie_fee_type": "CEME",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "13:30",
+                      "end_time": "18:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
                 },
                 {
                   "price": 0.1368,
@@ -12869,14 +12986,14 @@
                   ]
                 },
                 {
-                  "price": 0.1368,
+                  "price": 0.1842,
                   "unit": "energy",
                   "mobie_fee_type": "CEME",
                   "time_restrictions": [
                     {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "07:00",
+                      "name": "fora_vazio",
+                      "start_time": "07:00",
+                      "end_time": "24:00",
                       "days_of_week": [
                         1,
                         2,
@@ -12886,35 +13003,19 @@
                       ]
                     },
                     {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "11:30",
+                      "name": "fora_vazio",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
-                      "name": "vazio",
-                      "start_time": "13:30",
-                      "end_time": "18:00",
+                      "name": "fora_vazio",
+                      "start_time": "18:00",
+                      "end_time": "23:00",
                       "days_of_week": [
                         6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "23:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        7
                       ]
                     }
                   ]
@@ -12947,41 +13048,6 @@
                     {
                       "name": "fora_vazio",
                       "start_time": "19:30",
-                      "end_time": "23:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.1842,
-                  "unit": "energy",
-                  "mobie_fee_type": "CEME",
-                  "time_restrictions": [
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "07:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "13:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "fora_vazio",
-                      "start_time": "18:00",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -13066,22 +13132,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "14:00",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "23:00",
+                      "start_time": "22:30",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -13117,22 +13183,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:00",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "22:30",
+                      "start_time": "23:00",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -13167,16 +13233,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "14:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
+                      "start_time": "18:00",
+                      "end_time": "22:30",
                       "days_of_week": [
                         6
                       ]
@@ -13202,16 +13268,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "14:00",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
-                      "end_time": "22:30",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
                       "days_of_week": [
                         6
                       ]
@@ -13253,22 +13319,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "14:00",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "23:00",
+                      "start_time": "22:30",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -13304,22 +13370,22 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:00",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "22:30",
+                      "start_time": "23:00",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -13354,16 +13420,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "14:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
+                      "start_time": "18:00",
+                      "end_time": "22:30",
                       "days_of_week": [
                         6
                       ]
@@ -13389,16 +13455,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "14:00",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
-                      "end_time": "22:30",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
                       "days_of_week": [
                         6
                       ]
@@ -14498,6 +14564,12 @@
       "name": "Miio",
       "publish": true,
       "url": "https://www.miio.com/pt/prices/charging",
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=com.muvext.miio"
+      },
+      "app_id": {
+        "android": "com.muvext.miio"
+      },
       "updated_at": "2026-05-03",
       "plans": [
         {
@@ -15073,15 +15145,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
+                      "start_time": "18:00",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -15109,15 +15181,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "13:30",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
+                      "start_time": "19:30",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -15146,15 +15218,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:00",
+                      "end_time": "11:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
+                      "start_time": "13:30",
+                      "end_time": "18:00",
                       "days_of_week": [
                         6
                       ]
@@ -15198,15 +15270,15 @@
                     {
                       "name": "vazio",
                       "start_time": "00:00",
-                      "end_time": "11:30",
+                      "end_time": "11:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "vazio",
-                      "start_time": "13:30",
-                      "end_time": "18:00",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
                       "days_of_week": [
                         6
                       ]
@@ -15290,16 +15362,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "14:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
+                      "start_time": "18:00",
+                      "end_time": "22:30",
                       "days_of_week": [
                         6
                       ]
@@ -15326,70 +15398,18 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "14:00",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
-                      "end_time": "22:30",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
                       "days_of_week": [
                         6
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.0905,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "BT",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "07:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "11:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "23:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        7
                       ]
                     }
                   ]
@@ -15431,6 +15451,58 @@
                     {
                       "name": "vazio",
                       "start_time": "22:30",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.0905,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -16063,15 +16135,15 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "13:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
+                      "start_time": "18:00",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
@@ -16099,70 +16171,18 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "13:30",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
+                      "start_time": "19:30",
                       "end_time": "23:00",
                       "days_of_week": [
                         6
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.0905,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "BT",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "07:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "11:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "23:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        7
                       ]
                     }
                   ]
@@ -16218,6 +16238,58 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "price": 0.0905,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -16288,16 +16360,16 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:00",
-                      "end_time": "14:30",
+                      "start_time": "11:30",
+                      "end_time": "14:00",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "19:30",
-                      "end_time": "23:00",
+                      "start_time": "18:00",
+                      "end_time": "22:30",
                       "days_of_week": [
                         6
                       ]
@@ -16324,70 +16396,18 @@
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "11:30",
-                      "end_time": "14:00",
+                      "start_time": "11:00",
+                      "end_time": "14:30",
                       "days_of_week": [
                         6
                       ]
                     },
                     {
                       "name": "fora_vazio",
-                      "start_time": "18:00",
-                      "end_time": "22:30",
+                      "start_time": "19:30",
+                      "end_time": "23:00",
                       "days_of_week": [
                         6
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "price": 0.0905,
-                  "unit": "energy",
-                  "mobie_fee_type": "TAR",
-                  "mobie_voltage_level": "BT",
-                  "time_restrictions": [
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "07:00",
-                      "days_of_week": [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "11:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "14:30",
-                      "end_time": "19:30",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "23:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        6
-                      ]
-                    },
-                    {
-                      "name": "vazio",
-                      "start_time": "00:00",
-                      "end_time": "24:00",
-                      "days_of_week": [
-                        7
                       ]
                     }
                   ]
@@ -16429,6 +16449,58 @@
                     {
                       "name": "vazio",
                       "start_time": "22:30",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "24:00",
+                      "days_of_week": [
+                        7
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "price": 0.0905,
+                  "unit": "energy",
+                  "mobie_fee_type": "TAR",
+                  "mobie_voltage_level": "BT",
+                  "time_restrictions": [
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "07:00",
+                      "days_of_week": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "00:00",
+                      "end_time": "11:00",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "14:30",
+                      "end_time": "19:30",
+                      "days_of_week": [
+                        6
+                      ]
+                    },
+                    {
+                      "name": "vazio",
+                      "start_time": "23:00",
                       "end_time": "24:00",
                       "days_of_week": [
                         6
@@ -16975,6 +17047,12 @@
       "name": "Moeve",
       "publish": true,
       "url": "https://pt.cepsa.com/pt/utilizacao/produtos-servicos/carregamento-eletrico",
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=com.cepsa.xmartplace"
+      },
+      "app_id": {
+        "android": "com.cepsa.xmartplace"
+      },
       "updated_at": "2026-04-21",
       "plans": [
         {
@@ -18687,6 +18765,12 @@
       "name": "Prio",
       "publish": true,
       "url": "https://www.prio.pt/pt/mobilidade-eletrica/informacao-faturacao-uve_427.html",
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=com.prio.appelectric"
+      },
+      "app_id": {
+        "android": "com.prio.appelectric"
+      },
       "updated_at": "2026-08-08",
       "plans": [
         {
@@ -19270,6 +19354,12 @@
       "name": "Via Verde",
       "publish": true,
       "url": "https://www.viaverde.pt/particulares/via-verde/onde-e-como-usar/via-verde-electric",
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=pt.viaverde.clientes"
+      },
+      "app_id": {
+        "android": "pt.viaverde.clientes"
+      },
       "updated_at": "2024-12-30",
       "plans": [
         {
@@ -19589,6 +19679,12 @@
       "name": "Zunder",
       "publish": true,
       "url": "https://www.zunder.com/pt-pt/",
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=es.easycharger.app"
+      },
+      "app_id": {
+        "android": "es.easycharger.app"
+      },
       "updated_at": "2025-08-06",
       "plans": [
         {
@@ -20043,6 +20139,12 @@
     {
       "name": "Continente",
       "publish": true,
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=pt.continente.ContinenteTelemovel"
+      },
+      "app_id": {
+        "android": "pt.continente.ContinenteTelemovel"
+      },
       "plans": [
         {
           "name": "Base",
@@ -20113,6 +20215,12 @@
     {
       "name": "Electromaps",
       "publish": true,
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=com.enredats.electromaps"
+      },
+      "app_id": {
+        "android": "com.enredats.electromaps"
+      },
       "plans": [
         {
           "name": "Base",
@@ -20151,6 +20259,12 @@
     {
       "name": "Electroverse",
       "publish": true,
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=energy.octopus.electricjuice"
+      },
+      "app_id": {
+        "android": "energy.octopus.electricjuice"
+      },
       "plans": [
         {
           "name": "Base",
@@ -20161,7 +20275,10 @@
             {
               "network_id": "MOBIE",
               "excluded_cpos": [
-                "IONY"
+                "IONY",
+                "GLPP",
+                "ATLA",
+                "EMEL"
               ],
               "tariffs": [
                 {
@@ -20215,7 +20332,83 @@
               ]
             },
             {
-              "network_id": "IONY",
+              "network_id": "MOBIE",
+              "included_cpos": [
+                "GLPP"
+              ],
+              "tariffs": [
+                {
+                  "price": 0.3,
+                  "unit": "flat"
+                },
+                {
+                  "type": "AC",
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 8.0,
+                      "price": 0.41,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 8.0,
+                      "max": 23.0,
+                      "price": 0.42,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 23.0,
+                      "price": 0.6,
+                      "unit": "energy"
+                    }
+                  ]
+                },
+                {
+                  "type": "DC",
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 51.0,
+                      "price": 0.6,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 51.0,
+                      "max": 151.0,
+                      "price": 0.72,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 151.0,
+                      "price": 0.79,
+                      "unit": "energy"
+                    }
+                  ]
+                },
+                {
+                  "type": "AC",
+                  "unit": "time",
+                  "tiers": [
+                    {
+                      "min": 8.0,
+                      "max": 23.0,
+                      "price": 0.05,
+                      "unit": "time"
+                    },
+                    {
+                      "min": 23.0,
+                      "price": 0.08,
+                      "unit": "time"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "MOBIE",
+              "included_cpos": [
+                "IONY"
+              ],
               "tariffs": [
                 {
                   "type": "DC",
@@ -20240,7 +20433,10 @@
           "vat": 0.23,
           "networks": [
             {
-              "network_id": "IONY",
+              "network_id": "MOBIE",
+              "included_cpos": [
+                "IONY"
+              ],
               "tariffs": [
                 {
                   "type": "DC",
@@ -20307,6 +20503,12 @@
     {
       "name": "Elli",
       "publish": true,
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=com.elli.android.emsp"
+      },
+      "app_id": {
+        "android": "com.elli.android.emsp"
+      },
       "plans": [
         {
           "name": "Base",
@@ -20495,6 +20697,12 @@
     {
       "name": "Ionity",
       "publish": true,
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=com.cleevio.ionity.android.app"
+      },
+      "app_id": {
+        "android": "com.cleevio.ionity.android.app"
+      },
       "updated_at": "2026-10-25",
       "plans": [
         {
@@ -20546,7 +20754,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.68,
+                  "price": 0.67,
                   "unit": "energy"
                 }
               ]
@@ -20753,6 +20961,9 @@
     {
       "name": "Powerdot",
       "publish": true,
+      "adhoc_url_whitelist": [
+        "https://adhoc.pwrdt.com"
+      ],
       "plans": [
         {
           "name": "AD-HOC",
@@ -20785,6 +20996,12 @@
     {
       "name": "REMO",
       "publish": true,
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=com.remomobility.app"
+      },
+      "app_id": {
+        "android": "com.remomobility.app"
+      },
       "plans": [
         {
           "name": "AD-HOC",
@@ -20800,8 +21017,39 @@
               "tariffs": [
                 {
                   "type": "DC",
+                  "price": 0.65,
+                  "unit": "energy",
+                  "max": 51.0
+                },
+                {
+                  "type": "DC",
                   "price": 0.67,
                   "unit": "energy",
+                  "min": 51.0,
+                  "max": 150.0
+                },
+                {
+                  "type": "DC",
+                  "price": 0.71,
+                  "unit": "energy",
+                  "min": 150.0
+                }
+              ]
+            },
+            {
+              "network_id": "MOTA",
+              "tariffs": [
+                {
+                  "type": "DC",
+                  "price": 0.65,
+                  "unit": "energy",
+                  "max": 51.0
+                },
+                {
+                  "type": "DC",
+                  "price": 0.67,
+                  "unit": "energy",
+                  "min": 51.0,
                   "max": 150.0
                 },
                 {
@@ -20819,6 +21067,12 @@
     {
       "name": "Tesla",
       "publish": true,
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=com.teslamotors.tesla"
+      },
+      "app_id": {
+        "android": "com.teslamotors.tesla"
+      },
       "plans": [
         {
           "name": "Non-Member",
@@ -20854,7 +21108,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.31,
+                  "price": 0.39,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20865,7 +21119,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.79,
+                  "price": 0.77,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20876,7 +21130,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.71,
+                  "price": 0.63,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20898,7 +21152,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.51,
+                  "price": 0.54,
                   "unit": "energy"
                 }
               ]
@@ -20915,7 +21169,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.39,
+                  "price": 0.41,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20926,7 +21180,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.56,
+                  "price": 0.6,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20937,7 +21191,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.67,
+                  "price": 0.71,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -20948,7 +21202,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.56,
+                  "price": 0.6,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21009,7 +21263,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.27,
+                  "price": 0.26,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21020,7 +21274,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.41,
+                  "price": 0.42,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21031,7 +21285,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.58,
+                  "price": 0.48,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21058,7 +21312,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.3,
+                  "price": 0.31,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21069,7 +21323,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.69,
+                  "price": 0.72,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21166,45 +21420,45 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.39,
+                  "price": 0.37,
                   "unit": "energy",
                   "time_restrictions": [
                     {
-                      "start_time": "22:00",
+                      "start_time": "00:00",
+                      "end_time": "04:00"
+                    }
+                  ]
+                },
+                {
+                  "type": "DC",
+                  "price": 0.46,
+                  "unit": "energy",
+                  "time_restrictions": [
+                    {
+                      "start_time": "04:00",
                       "end_time": "09:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.72,
+                  "price": 0.73,
                   "unit": "energy",
                   "time_restrictions": [
                     {
                       "start_time": "09:00",
-                      "end_time": "13:00"
+                      "end_time": "20:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.83,
+                  "price": 0.54,
                   "unit": "energy",
                   "time_restrictions": [
                     {
-                      "start_time": "13:00",
-                      "end_time": "18:00"
-                    }
-                  ]
-                },
-                {
-                  "type": "DC",
-                  "price": 0.72,
-                  "unit": "energy",
-                  "time_restrictions": [
-                    {
-                      "start_time": "18:00",
-                      "end_time": "22:00"
+                      "start_time": "20:00",
+                      "end_time": "00:00"
                     }
                   ]
                 }
@@ -21225,29 +21479,18 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.47,
+                  "price": 0.43,
                   "unit": "energy",
                   "time_restrictions": [
                     {
                       "start_time": "00:00",
-                      "end_time": "04:00"
-                    }
-                  ]
-                },
-                {
-                  "type": "DC",
-                  "price": 0.37,
-                  "unit": "energy",
-                  "time_restrictions": [
-                    {
-                      "start_time": "04:00",
                       "end_time": "08:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.47,
+                  "price": 0.57,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21258,7 +21501,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.72,
+                  "price": 0.67,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21269,7 +21512,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.58,
+                  "price": 0.5,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21316,7 +21559,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.2,
+                  "price": 0.24,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21327,7 +21570,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.5,
+                  "price": 0.49,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21338,7 +21581,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.45,
+                  "price": 0.4,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21360,7 +21603,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.38,
+                  "price": 0.4,
                   "unit": "energy"
                 }
               ]
@@ -21377,7 +21620,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.28,
+                  "price": 0.29,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21388,7 +21631,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.41,
+                  "price": 0.43,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21399,7 +21642,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.48,
+                  "price": 0.5,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21410,7 +21653,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.41,
+                  "price": 0.43,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21431,7 +21674,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.23,
+                  "price": 0.24,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21442,7 +21685,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.42,
+                  "price": 0.44,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21471,7 +21714,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.19,
+                  "price": 0.18,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21482,7 +21725,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.29,
+                  "price": 0.3,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21493,7 +21736,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.41,
+                  "price": 0.33,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21520,7 +21763,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.2,
+                  "price": 0.21,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21531,7 +21774,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.46,
+                  "price": 0.48,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21628,45 +21871,45 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.24,
+                  "price": 0.23,
                   "unit": "energy",
                   "time_restrictions": [
                     {
-                      "start_time": "22:00",
+                      "start_time": "00:00",
+                      "end_time": "04:00"
+                    }
+                  ]
+                },
+                {
+                  "type": "DC",
+                  "price": 0.29,
+                  "unit": "energy",
+                  "time_restrictions": [
+                    {
+                      "start_time": "04:00",
                       "end_time": "09:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.45,
+                  "price": 0.46,
                   "unit": "energy",
                   "time_restrictions": [
                     {
                       "start_time": "09:00",
-                      "end_time": "13:00"
+                      "end_time": "20:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.52,
+                  "price": 0.34,
                   "unit": "energy",
                   "time_restrictions": [
                     {
-                      "start_time": "13:00",
-                      "end_time": "18:00"
-                    }
-                  ]
-                },
-                {
-                  "type": "DC",
-                  "price": 0.45,
-                  "unit": "energy",
-                  "time_restrictions": [
-                    {
-                      "start_time": "18:00",
-                      "end_time": "22:00"
+                      "start_time": "20:00",
+                      "end_time": "00:00"
                     }
                   ]
                 }
@@ -21687,29 +21930,18 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.29,
+                  "price": 0.28,
                   "unit": "energy",
                   "time_restrictions": [
                     {
                       "start_time": "00:00",
-                      "end_time": "04:00"
-                    }
-                  ]
-                },
-                {
-                  "type": "DC",
-                  "price": 0.23,
-                  "unit": "energy",
-                  "time_restrictions": [
-                    {
-                      "start_time": "04:00",
                       "end_time": "08:00"
                     }
                   ]
                 },
                 {
                   "type": "DC",
-                  "price": 0.29,
+                  "price": 0.37,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21720,7 +21952,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.45,
+                  "price": 0.43,
                   "unit": "energy",
                   "time_restrictions": [
                     {
@@ -21731,7 +21963,7 @@
                 },
                 {
                   "type": "DC",
-                  "price": 0.36,
+                  "price": 0.32,
                   "unit": "energy",
                   "time_restrictions": [
                     {

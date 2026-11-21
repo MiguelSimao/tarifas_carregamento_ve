@@ -1,5 +1,7 @@
 providers:
 - name: Powerdot
+  adhoc_url_whitelist:
+  - https://adhoc.pwrdt.com
   plans:
   - name: AD-HOC
     country_code: PT

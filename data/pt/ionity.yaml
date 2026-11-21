@@ -16,6 +16,8 @@ providers:
 
 - name: Ionity
   updated_at: "2026-10-25"
+  app_id:
+    android: com.cleevio.ionity.android.app
 
   plans:
   - name: IONITY Direct
@@ -35,7 +37,7 @@ providers:
       included_locations: *highway_locations
       tariffs:
       - type: DC
-        price: 0.68
+        price: 0.67
 
   - name: IONITY App
     country_code: PT

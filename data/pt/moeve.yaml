@@ -1,5 +1,7 @@
 providers:
 - name: Moeve
+  app_id:
+    android: com.cepsa.xmartplace
   plans:
   - name: AD-HOC
     country_code: PT

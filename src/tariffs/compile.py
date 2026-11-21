@@ -7,6 +7,7 @@ import sys
 import yaml
 
 from .byoe_generator import expand_byoe_plans, find_matching_regulated_fees
+from .legacy.compile import DEFAULT_LEGACY_CSV_OUTPUT_PATH, compile_legacy_ceme_csv
 from .model import Plan, Provider, TariffDocument
 from .regulated_fees import RegulatedFeesDocument, TimeRestrictionsDocument
 from .validate import _cross_validate_tariff_doc
@@ -30,6 +31,16 @@ def main():
         "--output",
         default=DEFAULT_OUTPUT_PATH,
         help=f"Path for the output master JSON file (default: {DEFAULT_OUTPUT_PATH})",
+    )
+    parser.add_argument(
+        "--legacy-csv-output",
+        default=DEFAULT_LEGACY_CSV_OUTPUT_PATH,
+        help=f"Path for the output legacy CEME CSV file (default: {DEFAULT_LEGACY_CSV_OUTPUT_PATH})",
+    )
+    parser.add_argument(
+        "--no-legacy-csv",
+        action="store_true",
+        help="Disable legacy CEME CSV export",
     )
     args = parser.parse_args()
 
@@ -100,6 +111,8 @@ def main():
                 publish=prov.publish,
                 url=prov.url,
                 app_url=prov.app_url,
+                app_id=prov.app_id,
+                adhoc_url_whitelist=prov.adhoc_url_whitelist,
                 updated_at=prov.updated_at,
                 plans=published_plans,
             )
@@ -133,6 +146,31 @@ def main():
                 elif existing.app_url is None:
                     existing.app_url = prov.app_url
 
+            # Check app_id conflict
+            if prov.app_id is not None:
+                if existing.app_id is not None and existing.app_id != prov.app_id:
+                    print(
+                        f"[ERROR] Conflict for provider '{name}': field 'app_id' differs "
+                        f"between '{sources[0]}' ({existing.app_id}) and '{file_path}' ({prov.app_id})"
+                    )
+                    errors = True
+                elif existing.app_id is None:
+                    existing.app_id = prov.app_id
+
+            # Check adhoc_url_whitelist conflict
+            if prov.adhoc_url_whitelist is not None:
+                if (
+                    existing.adhoc_url_whitelist is not None
+                    and existing.adhoc_url_whitelist != prov.adhoc_url_whitelist
+                ):
+                    print(
+                        f"[ERROR] Conflict for provider '{name}': field 'adhoc_url_whitelist' differs "
+                        f"between '{sources[0]}' ({existing.adhoc_url_whitelist}) and '{file_path}' ({prov.adhoc_url_whitelist})"
+                    )
+                    errors = True
+                elif existing.adhoc_url_whitelist is None:
+                    existing.adhoc_url_whitelist = prov.adhoc_url_whitelist
+
             # Check updated_at conflict
             if prov.updated_at is not None:
                 if (
@@ -159,8 +197,18 @@ def main():
         if prov.publish and len(prov.plans) > 0
     ]
 
-    # Expand BYOE plans using master regulated fees and time restrictions
     compile_today = datetime.date.today().isoformat()
+
+    # Export legacy CEME comparison CSV if requested
+    if not args.no_legacy_csv and args.legacy_csv_output:
+        compile_legacy_ceme_csv(
+            providers=master_providers,
+            regulated_fees=master_regulated_fees if master_regulated_fees else None,
+            output_path=args.legacy_csv_output,
+            reference_date=compile_today,
+        )
+
+    # Expand BYOE plans using master regulated fees and time restrictions
     for prov in master_providers:
         expanded_plans: list[Plan] = []
         for plan in prov.plans:

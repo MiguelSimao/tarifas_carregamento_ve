@@ -1,5 +1,8 @@
 providers:
 - name: Elli
+  app_url:
+  app_id:
+    android: com.elli.android.emsp
   plans:
   - name: Base
     country_code: PT

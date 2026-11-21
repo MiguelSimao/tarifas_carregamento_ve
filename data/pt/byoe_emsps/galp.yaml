@@ -1,5 +1,8 @@
 providers:
 - name: Galp
+  app_id:
+    android: com.galp.mundogalp.release
+
   url: https://www.galp.com/pt/pt/particulares/estrada/cartao-galpelectric-info
   updated_at: "2026-08-08"
   plans:

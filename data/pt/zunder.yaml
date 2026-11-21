@@ -1,5 +1,7 @@
 providers:
 - name: Zunder
+  app_ids:
+    android: es.easycharger.app
   plans:
   - name: Base
     country_code: PT

@@ -13508,7 +13508,7 @@
       "name": "Goldenergy",
       "publish": true,
       "url": "https://goldenergy.pt/mobilidade-eletrica/",
-      "updated_at": "2024-12-30",
+      "updated_at": "2026-11-21",
       "plans": [
         {
           "name": "CEME Base",
@@ -13790,6 +13790,78 @@
                   "price": 0.2222,
                   "unit": "energy",
                   "mobie_fee_type": "CEME"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Tudo Incluído",
+          "display_name": [
+            {
+              "language": "pt",
+              "text": "Tudo Incluído"
+            },
+            {
+              "language": "en",
+              "text": "All Included"
+            }
+          ],
+          "publish": true,
+          "country_code": "PT",
+          "payment_methods": [
+            "RFID_CARD"
+          ],
+          "vat": 0.23,
+          "contract_conditions": [
+            "ENERGY_AT_HOME"
+          ],
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "tariffs": [
+                {
+                  "price": 0.75,
+                  "unit": "energy"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Tudo Incluído - Casa",
+          "display_name": [
+            {
+              "language": "pt",
+              "text": "Tudo Incluído - Casa"
+            },
+            {
+              "language": "en",
+              "text": "All Included - Home"
+            }
+          ],
+          "publish": true,
+          "country_code": "PT",
+          "payment_methods": [
+            "RFID_CARD"
+          ],
+          "vat": 0.23,
+          "contract_conditions": [
+            "ENERGY_AT_HOME"
+          ],
+          "notes": [
+            {
+              "language": "en",
+              "text": "Home Customer"
+            }
+          ],
+          "networks": [
+            {
+              "network_id": "MOBIE",
+              "tariffs": [
+                {
+                  "price": 0.55,
+                  "unit": "energy"
                 }
               ]
             }

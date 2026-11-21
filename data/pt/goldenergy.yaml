@@ -1,0 +1,41 @@
+providers:
+- name: Goldenergy
+  url: https://goldenergy.pt/mobilidade-eletrica/
+  updated_at: "2026-11-21"
+  plans:
+  - name: Tudo Incluído
+    display_name:
+    - language: "pt"
+      text: Tudo Incluído
+    - language: "en"
+      text: All Included
+    country_code: PT
+    payment_methods:
+    - RFID_CARD
+    contract_conditions:
+    - ENERGY_AT_HOME
+    networks:
+    - network_id: MOBIE
+      tariffs:
+      - price: 0.75
+
+  - name: Tudo Incluído - Casa
+    display_name:
+    - language: "pt"
+      text: Tudo Incluído - Casa
+    - language: "en"
+      text: All Included - Home
+    notes:
+    - language: "pt"
+      text: "Cliente Casa"
+      language: "en"
+      text: "Home Customer"
+    country_code: PT
+    payment_methods:
+    - RFID_CARD
+    contract_conditions:
+    - ENERGY_AT_HOME
+    networks:
+    - network_id: MOBIE
+      tariffs:
+      - price: 0.55

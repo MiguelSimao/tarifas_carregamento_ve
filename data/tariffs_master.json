@@ -4230,6 +4230,8 @@
           "name": "CEME Casa + UVE",
           "publish": true,
           "country_code": "PT",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4291,6 +4293,8 @@
           "name": "CEME Casa + UVE",
           "publish": true,
           "country_code": "PT::RAA",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4352,6 +4356,8 @@
           "name": "CEME Casa + UVE",
           "publish": true,
           "country_code": "PT::RAM",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4413,6 +4419,8 @@
           "name": "CEME Casa + UVE Bi-horário",
           "publish": true,
           "country_code": "PT",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4513,6 +4521,8 @@
           "name": "CEME Casa + UVE Bi-horário",
           "publish": true,
           "country_code": "PT::RAA",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4613,6 +4623,8 @@
           "name": "CEME Casa + UVE Bi-horário",
           "publish": true,
           "country_code": "PT::RAM",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4713,6 +4725,8 @@
           "name": "CEME UVE",
           "publish": true,
           "country_code": "PT",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4773,6 +4787,8 @@
           "name": "CEME UVE",
           "publish": true,
           "country_code": "PT::RAA",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4833,6 +4849,8 @@
           "name": "CEME UVE",
           "publish": true,
           "country_code": "PT::RAM",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4893,6 +4911,8 @@
           "name": "CEME UVE Bi-horário",
           "publish": true,
           "country_code": "PT",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -4992,6 +5012,8 @@
           "name": "CEME UVE Bi-horário",
           "publish": true,
           "country_code": "PT::RAA",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -5091,6 +5113,8 @@
           "name": "CEME UVE Bi-horário",
           "publish": true,
           "country_code": "PT::RAM",
+          "cost": 25.0,
+          "months": 12,
           "payment_methods": [
             "RFID_CARD",
             "APP"
@@ -20251,7 +20275,10 @@
             {
               "network_id": "MOBIE",
               "excluded_cpos": [
-                "IONY"
+                "IONY",
+                "GLPP",
+                "ATLA",
+                "EMEL"
               ],
               "tariffs": [
                 {
@@ -20305,7 +20332,83 @@
               ]
             },
             {
-              "network_id": "IONY",
+              "network_id": "MOBIE",
+              "included_cpos": [
+                "GLPP"
+              ],
+              "tariffs": [
+                {
+                  "price": 0.3,
+                  "unit": "flat"
+                },
+                {
+                  "type": "AC",
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 8.0,
+                      "price": 0.41,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 8.0,
+                      "max": 23.0,
+                      "price": 0.42,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 23.0,
+                      "price": 0.6,
+                      "unit": "energy"
+                    }
+                  ]
+                },
+                {
+                  "type": "DC",
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 51.0,
+                      "price": 0.6,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 51.0,
+                      "max": 151.0,
+                      "price": 0.72,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 151.0,
+                      "price": 0.79,
+                      "unit": "energy"
+                    }
+                  ]
+                },
+                {
+                  "type": "AC",
+                  "unit": "time",
+                  "tiers": [
+                    {
+                      "min": 8.0,
+                      "max": 23.0,
+                      "price": 0.05,
+                      "unit": "time"
+                    },
+                    {
+                      "min": 23.0,
+                      "price": 0.08,
+                      "unit": "time"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "MOBIE",
+              "included_cpos": [
+                "IONY"
+              ],
               "tariffs": [
                 {
                   "type": "DC",
@@ -20330,7 +20433,10 @@
           "vat": 0.23,
           "networks": [
             {
-              "network_id": "IONY",
+              "network_id": "MOBIE",
+              "included_cpos": [
+                "IONY"
+              ],
               "tariffs": [
                 {
                   "type": "DC",
@@ -20648,7 +20754,7 @@
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.68,
+                  "price": 0.67,
                   "unit": "energy"
                 }
               ]

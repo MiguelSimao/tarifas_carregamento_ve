@@ -7,6 +7,7 @@ import sys
 import yaml
 
 from .byoe_generator import expand_byoe_plans, find_matching_regulated_fees
+from .legacy.compile import DEFAULT_LEGACY_CSV_OUTPUT_PATH, compile_legacy_ceme_csv
 from .model import Plan, Provider, TariffDocument
 from .regulated_fees import RegulatedFeesDocument, TimeRestrictionsDocument
 from .validate import _cross_validate_tariff_doc
@@ -30,6 +31,16 @@ def main():
         "--output",
         default=DEFAULT_OUTPUT_PATH,
         help=f"Path for the output master JSON file (default: {DEFAULT_OUTPUT_PATH})",
+    )
+    parser.add_argument(
+        "--legacy-csv-output",
+        default=DEFAULT_LEGACY_CSV_OUTPUT_PATH,
+        help=f"Path for the output legacy CEME CSV file (default: {DEFAULT_LEGACY_CSV_OUTPUT_PATH})",
+    )
+    parser.add_argument(
+        "--no-legacy-csv",
+        action="store_true",
+        help="Disable legacy CEME CSV export",
     )
     args = parser.parse_args()
 
@@ -186,8 +197,18 @@ def main():
         if prov.publish and len(prov.plans) > 0
     ]
 
-    # Expand BYOE plans using master regulated fees and time restrictions
     compile_today = datetime.date.today().isoformat()
+
+    # Export legacy CEME comparison CSV if requested
+    if not args.no_legacy_csv and args.legacy_csv_output:
+        compile_legacy_ceme_csv(
+            providers=master_providers,
+            regulated_fees=master_regulated_fees if master_regulated_fees else None,
+            output_path=args.legacy_csv_output,
+            reference_date=compile_today,
+        )
+
+    # Expand BYOE plans using master regulated fees and time restrictions
     for prov in master_providers:
         expanded_plans: list[Plan] = []
         for plan in prov.plans:

@@ -1,3 +1,32 @@
+# TODO:
+# - Verify Atlante and EMEL pricing
+
+_flat_fee: &_flat_fee
+  unit: flat
+  price: 0.3
+
+_ac_tiers: &_ac_tiers
+  type: AC
+  tiers:
+  - max: 8
+    price: 0.41
+  - min: 8
+    max: 23
+    price: 0.42
+  - min: 23
+    price: 0.60
+
+_dc_tiers: &_dc_tiers
+  type: DC
+  tiers:
+  - max: 51
+    price: 0.60
+  - min: 51
+    max: 151
+    price: 0.72
+  - min: 151
+    price: 0.79
+
 providers:
 - name: Electroverse
   app_url:
@@ -11,29 +40,33 @@ providers:
     - network_id: MOBIE
       excluded_cpos:
       - IONY
+      - GLPP
+      - ATLA
+      - EMEL
       tariffs:
-      - unit: flat
-        price: 0.3
+      - *_flat_fee
+      - *_ac_tiers
+      - *_dc_tiers
+
+    - network_id: MOBIE
+      included_cpos:
+      - GLPP
+      tariffs:
+      - *_flat_fee
+      - *_ac_tiers
+      - *_dc_tiers
       - type: AC
+        unit: time
         tiers:
-        - max: 8
-          price: 0.41
         - min: 8
           max: 23
-          price: 0.42
+          price: 0.05
         - min: 23
-          price: 0.60
-      - type: DC
-        tiers:
-        - max: 51
-          price: 0.60
-        - min: 51
-          max: 151
-          price: 0.72
-        - min: 151
-          price: 0.79
+          price: 0.08
 
-    - network_id: IONY
+    - network_id: MOBIE
+      included_cpos:
+      - IONY
       tariffs:
       - type: DC
         price: 0.3
@@ -46,7 +79,9 @@ providers:
     cost: 12.0
     months: 1
     networks:
-    - network_id: IONY
+    - network_id: MOBIE
+      included_cpos:
+      - IONY
       tariffs:
       - type: DC
         price: 0.3

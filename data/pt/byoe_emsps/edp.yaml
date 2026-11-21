@@ -112,6 +112,8 @@ providers:
     - PT
     - PT::RAA
     - PT::RAM
+    cost: 25.00
+    months: 12
     byoe:
       start_date: "2026-07-01"
       schedule: 1H
@@ -143,6 +145,8 @@ providers:
     - PT
     - PT::RAA
     - PT::RAM
+    cost: 25.00
+    months: 12
     byoe:
       start_date: "2026-07-01"
       schedule: 2H
@@ -176,6 +180,8 @@ providers:
     - PT
     - PT::RAA
     - PT::RAM
+    cost: 25.00
+    months: 12
     byoe:
       start_date: "2026-07-01"
       schedule: 1H
@@ -206,6 +212,8 @@ providers:
     - PT
     - PT::RAA
     - PT::RAM
+    cost: 25.00
+    months: 12
     byoe:
       start_date: "2026-07-01"
       schedule: 2H

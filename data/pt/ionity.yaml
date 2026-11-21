@@ -37,7 +37,7 @@ providers:
       included_locations: *highway_locations
       tariffs:
       - type: DC
-        price: 0.68
+        price: 0.67
 
   - name: IONITY App
     country_code: PT

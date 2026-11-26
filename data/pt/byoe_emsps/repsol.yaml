@@ -1,7 +1,8 @@
 providers:
 - name: Repsol
-  url: https://www.repsol.pt/particulares/estrada/mobilidade-eletrica/
-  updated_at: "2024-12-30"
+  source:
+    url: https://www.repsol.pt/particulares/estrada/mobilidade-eletrica/
+    last_updated: "2024-12-30"
   plans:
   - name: CEME
     country_code: PT

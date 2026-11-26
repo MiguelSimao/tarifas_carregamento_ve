@@ -3,8 +3,9 @@ providers:
   app_id:
     android: com.cepsa.xmartplace
 
-  url: https://pt.cepsa.com/pt/utilizacao/produtos-servicos/carregamento-eletrico
-  updated_at: "2026-04-21"
+  source:
+    url: https://pt.cepsa.com/pt/utilizacao/produtos-servicos/carregamento-eletrico
+    last_updated: "2026-04-21"
   plans:
 
   - name: CEME App GOW

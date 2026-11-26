@@ -1,7 +1,8 @@
 providers:
 - name: Iberdrola
-  url: https://www.iberdrola.pt/casa/mobilidade-eletrica/carregar-fora-casa
-  updated_at: "2024-12-30"
+  source:
+    url: https://www.iberdrola.pt/casa/mobilidade-eletrica/carregar-fora-casa
+    last_updated: "2024-12-30"
   plans:
   - name: CEME Base
     country_code: PT

@@ -1,7 +1,8 @@
 providers:
 - name: FactorEnergia
-  url: https://factorenergia.pt/servicos/cartao-mobilidade-eletrica/
-  updated_at: "2026-08-08"
+  source:
+    url: https://factorenergia.pt/servicos/cartao-mobilidade-eletrica/
+    last_updated: "2026-08-08"
   plans:
   - name: CEME (Diário)
     country_code: PT

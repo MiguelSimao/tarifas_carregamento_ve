@@ -315,6 +315,40 @@ class ByoeConfig(BaseModel):
         return self
 
 
+class Source(BaseModel):
+    urls: list[str] | None = Field(
+        default=None,
+        validation_alias=AliasChoices("urls", "url"),
+        description="Direct links to the information source (not necessarily the provider URL)",
+    )
+    last_checked: str | None = Field(
+        default=None,
+        description="Last time the source was checked for changes",
+    )
+    last_updated: str | None = Field(
+        default=None,
+        description="Last time changes from the source were implemented",
+    )
+    notes: str | None = Field(
+        default=None,
+        description="General purpose notes about the source",
+    )
+
+    @field_validator("urls", mode="before")
+    @classmethod
+    def parse_urls(cls, v):
+        if isinstance(v, str):
+            return [v]
+        return v
+
+    @field_validator("last_checked", "last_updated", mode="before")
+    @classmethod
+    def parse_date_str(cls, v):
+        if v is not None and not isinstance(v, str):
+            return v.isoformat() if hasattr(v, "isoformat") else str(v)
+        return v
+
+
 class Plan(BaseModel):
     name: str
     display_name: list[DisplayText] | None = Field(
@@ -420,7 +454,10 @@ class Provider(BaseModel):
         default=True,
         description="Whether this provider should be published and included in compilation",
     )
-    url: str | None = None
+    url: str | None = Field(
+        default=None,
+        description="The provider's main URL"
+    )
     app_url: AppUrl | None = Field(
         default=None,
         validation_alias=AliasChoices("app_url", "app_urls"),
@@ -432,7 +469,15 @@ class Provider(BaseModel):
         description="Provider application IDs (android, ios)",
     )
     adhoc_url_whitelist: list[str] | None = None
-    updated_at: str | None = None
+    updated_at: str | None = Field(
+        default=None,
+        deprecated=True,
+        description="Deprecated: use Provider.source.last_updated instead",
+    )
+    source: Source | None = Field(
+        default=None,
+        description="Data source metadata for this provider",
+    )
     plans: list[Plan]
 
     @model_validator(mode="after")

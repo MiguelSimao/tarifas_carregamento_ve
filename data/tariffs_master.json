@@ -9,7 +9,9 @@
       "app_id": {
         "android": "com.atlante.charging"
       },
-      "updated_at": "2026-01-03",
+      "source": {
+        "last_updated": "2026-01-03"
+      },
       "plans": [
         {
           "name": "Base",
@@ -853,14 +855,18 @@
     {
       "name": "ACP Electric",
       "publish": true,
-      "url": "https://www.acp.pt/eletricos/app-e-cartao-acp-electric/para-socios-e-nao-socios",
       "app_url": {
         "android": "https://play.google.com/store/apps/details?id=com.evio.acpelectric"
       },
       "app_id": {
         "android": "com.evio.acpelectric"
       },
-      "updated_at": "2026-08-08",
+      "source": {
+        "urls": [
+          "https://www.acp.pt/eletricos/app-e-cartao-acp-electric/para-socios-e-nao-socios"
+        ],
+        "last_updated": "2026-08-08"
+      },
       "plans": [
         {
           "name": "CEME Base",
@@ -1582,8 +1588,12 @@
     {
       "name": "BlueCharge",
       "publish": true,
-      "url": "https://www.bluecharge.pt/",
-      "updated_at": "2024-12-30",
+      "source": {
+        "urls": [
+          "https://www.bluecharge.pt/"
+        ],
+        "last_updated": "2024-12-30"
+      },
       "plans": [
         {
           "name": "CEME (Diário)",
@@ -2386,8 +2396,12 @@
     {
       "name": "Charge2Go",
       "publish": true,
-      "url": "https://charge2go.pt/tarifarios/",
-      "updated_at": "2024-12-30",
+      "source": {
+        "urls": [
+          "https://charge2go.pt/tarifarios/"
+        ],
+        "last_updated": "2024-12-30"
+      },
       "plans": [
         {
           "name": "CEME (Diário)",
@@ -3368,14 +3382,18 @@
     {
       "name": "EDP",
       "publish": true,
-      "url": "https://www.edp.pt/particulares/servicos/mobilidade-eletrica/carregar-fora-de-casa/",
       "app_url": {
         "android": "https://play.google.com/store/apps/details?id=wit.edp.edpmobile"
       },
       "app_id": {
         "android": "wit.edp.edpmobile"
       },
-      "updated_at": "2026-08-08",
+      "source": {
+        "urls": [
+          "https://www.edp.pt/particulares/servicos/mobilidade-eletrica/carregar-fora-de-casa/"
+        ],
+        "last_updated": "2026-08-08"
+      },
       "plans": [
         {
           "name": "CEME",
@@ -5253,14 +5271,18 @@
     {
       "name": "Enable Mobility",
       "publish": true,
-      "url": "https://www.enable-mobility.com/",
       "app_url": {
         "android": "https://play.google.com/store/apps/details?id=com.enablemobility.mobile.myenable"
       },
       "app_id": {
         "android": "com.enablemobility.mobile.myenable"
       },
-      "updated_at": "2026-08-08",
+      "source": {
+        "urls": [
+          "https://www.enable-mobility.com/"
+        ],
+        "last_updated": "2026-08-08"
+      },
       "plans": [
         {
           "name": "CEME",
@@ -5644,8 +5666,12 @@
     {
       "name": "eVaz",
       "publish": true,
-      "url": "https://www.evaz.energy/solutions/plans/mobility",
-      "updated_at": "2025-04-15",
+      "source": {
+        "urls": [
+          "https://www.evaz.energy/solutions/plans/mobility"
+        ],
+        "last_updated": "2025-04-15"
+      },
       "plans": [
         {
           "name": "CEME Move Base (Diário)",
@@ -7298,14 +7324,18 @@
     {
       "name": "Evio",
       "publish": true,
-      "url": "https://ceme.go-evio.com/pt/site-ceme",
       "app_url": {
         "android": "https://play.google.com/store/apps/details?id=com.evio.evio"
       },
       "app_id": {
         "android": "com.evio.evio"
       },
-      "updated_at": "2025-06-01",
+      "source": {
+        "urls": [
+          "https://ceme.go-evio.com/pt/site-ceme"
+        ],
+        "last_updated": "2025-06-01"
+      },
       "plans": [
         {
           "name": "CEME",
@@ -7682,8 +7712,12 @@
     {
       "name": "EVPower",
       "publish": true,
-      "url": "https://signup.evpower.pt/",
-      "updated_at": "2024-12-30",
+      "source": {
+        "urls": [
+          "https://signup.evpower.pt/"
+        ],
+        "last_updated": "2024-12-30"
+      },
       "plans": [
         {
           "name": "CEME",
@@ -8112,14 +8146,18 @@
     {
       "name": "EZU / AB Energia",
       "publish": true,
-      "url": "https://www.ezu.pt/ceme",
       "app_url": {
         "android": "https://play.google.com/store/apps/details?id=pt.alvesbandeira.mobieapp"
       },
       "app_id": {
         "android": "pt.alvesbandeira.mobieapp"
       },
-      "updated_at": "2026-08-08",
+      "source": {
+        "urls": [
+          "https://www.ezu.pt/ceme"
+        ],
+        "last_updated": "2026-08-08"
+      },
       "plans": [
         {
           "name": "CEME Cartão",
@@ -8778,8 +8816,12 @@
     {
       "name": "FactorEnergia",
       "publish": true,
-      "url": "https://factorenergia.pt/servicos/cartao-mobilidade-eletrica/",
-      "updated_at": "2026-08-08",
+      "source": {
+        "urls": [
+          "https://factorenergia.pt/servicos/cartao-mobilidade-eletrica/"
+        ],
+        "last_updated": "2026-08-08"
+      },
       "plans": [
         {
           "name": "CEME (Diário)",
@@ -9582,14 +9624,18 @@
     {
       "name": "Galp",
       "publish": true,
-      "url": "https://www.galp.com/pt/pt/particulares/estrada/cartao-galpelectric-info",
       "app_url": {
         "android": "https://play.google.com/store/apps/details?id=com.galp.mundogalp.release"
       },
       "app_id": {
         "android": "com.galp.mundogalp.release"
       },
-      "updated_at": "2026-08-08",
+      "source": {
+        "urls": [
+          "https://www.galp.com/pt/pt/particulares/estrada/cartao-galpelectric-info"
+        ],
+        "last_updated": "2026-08-08"
+      },
       "plans": [
         {
           "name": "CEME Base (Diário)",
@@ -13509,6 +13555,12 @@
       "publish": true,
       "url": "https://goldenergy.pt/mobilidade-eletrica/",
       "updated_at": "2026-11-21",
+      "source": {
+        "urls": [
+          "https://goldenergy.pt/mobilidade-eletrica/"
+        ],
+        "last_updated": "2026-11-21"
+      },
       "plans": [
         {
           "name": "CEME Base",
@@ -13872,8 +13924,12 @@
     {
       "name": "Iberdrola",
       "publish": true,
-      "url": "https://www.iberdrola.pt/casa/mobilidade-eletrica/carregar-fora-casa",
-      "updated_at": "2024-12-30",
+      "source": {
+        "urls": [
+          "https://www.iberdrola.pt/casa/mobilidade-eletrica/carregar-fora-casa"
+        ],
+        "last_updated": "2024-12-30"
+      },
       "plans": [
         {
           "name": "CEME Base",
@@ -14171,8 +14227,12 @@
     {
       "name": "MEO Energia",
       "publish": true,
-      "url": "https://www.meoenergia.pt/mobilidade-eletrica",
-      "updated_at": "2026-08-24",
+      "source": {
+        "urls": [
+          "https://www.meoenergia.pt/mobilidade-eletrica"
+        ],
+        "last_updated": "2026-08-24"
+      },
       "plans": [
         {
           "name": "CEME M4e/M5e",
@@ -14635,14 +14695,18 @@
     {
       "name": "Miio",
       "publish": true,
-      "url": "https://www.miio.com/pt/prices/charging",
       "app_url": {
         "android": "https://play.google.com/store/apps/details?id=com.muvext.miio"
       },
       "app_id": {
         "android": "com.muvext.miio"
       },
-      "updated_at": "2026-05-03",
+      "source": {
+        "urls": [
+          "https://www.miio.com/pt/prices/charging"
+        ],
+        "last_updated": "2026-05-03"
+      },
       "plans": [
         {
           "name": "CEME Base (Diário)",
@@ -16597,8 +16661,12 @@
     {
       "name": "Mobismart",
       "publish": true,
-      "url": "https://mobismart.pt/pedir-cartao/",
-      "updated_at": "2024-12-30",
+      "source": {
+        "urls": [
+          "https://mobismart.pt/pedir-cartao/"
+        ],
+        "last_updated": "2024-12-30"
+      },
       "plans": [
         {
           "name": "CEME Active",
@@ -17118,14 +17186,18 @@
     {
       "name": "Moeve",
       "publish": true,
-      "url": "https://pt.cepsa.com/pt/utilizacao/produtos-servicos/carregamento-eletrico",
       "app_url": {
         "android": "https://play.google.com/store/apps/details?id=com.cepsa.xmartplace"
       },
       "app_id": {
         "android": "com.cepsa.xmartplace"
       },
-      "updated_at": "2026-04-21",
+      "source": {
+        "urls": [
+          "https://pt.cepsa.com/pt/utilizacao/produtos-servicos/carregamento-eletrico"
+        ],
+        "last_updated": "2026-04-21"
+      },
       "plans": [
         {
           "name": "CEME App GOW",
@@ -18517,8 +18589,12 @@
     {
       "name": "Okeana",
       "publish": true,
-      "url": "https://okeana.pt/",
-      "updated_at": "2024-12-30",
+      "source": {
+        "urls": [
+          "https://okeana.pt/"
+        ],
+        "last_updated": "2024-12-30"
+      },
       "plans": [
         {
           "name": "CEME",
@@ -18836,14 +18912,18 @@
     {
       "name": "Prio",
       "publish": true,
-      "url": "https://www.prio.pt/pt/mobilidade-eletrica/informacao-faturacao-uve_427.html",
       "app_url": {
         "android": "https://play.google.com/store/apps/details?id=com.prio.appelectric"
       },
       "app_id": {
         "android": "com.prio.appelectric"
       },
-      "updated_at": "2026-08-08",
+      "source": {
+        "urls": [
+          "https://www.prio.pt/pt/mobilidade-eletrica/informacao-faturacao-uve_427.html"
+        ],
+        "last_updated": "2026-08-08"
+      },
       "plans": [
         {
           "name": "CEME (kWh)",
@@ -19288,8 +19368,12 @@
     {
       "name": "Repsol",
       "publish": true,
-      "url": "https://www.repsol.pt/particulares/estrada/mobilidade-eletrica/",
-      "updated_at": "2024-12-30",
+      "source": {
+        "urls": [
+          "https://www.repsol.pt/particulares/estrada/mobilidade-eletrica/"
+        ],
+        "last_updated": "2024-12-30"
+      },
       "plans": [
         {
           "name": "CEME",
@@ -19425,14 +19509,18 @@
     {
       "name": "Via Verde",
       "publish": true,
-      "url": "https://www.viaverde.pt/particulares/via-verde/onde-e-como-usar/via-verde-electric",
       "app_url": {
         "android": "https://play.google.com/store/apps/details?id=pt.viaverde.clientes"
       },
       "app_id": {
         "android": "pt.viaverde.clientes"
       },
-      "updated_at": "2024-12-30",
+      "source": {
+        "urls": [
+          "https://www.viaverde.pt/particulares/via-verde/onde-e-como-usar/via-verde-electric"
+        ],
+        "last_updated": "2024-12-30"
+      },
       "plans": [
         {
           "name": "CEME EcoChoice",
@@ -19750,14 +19838,18 @@
     {
       "name": "Zunder",
       "publish": true,
-      "url": "https://www.zunder.com/pt-pt/",
       "app_url": {
         "android": "https://play.google.com/store/apps/details?id=es.easycharger.app"
       },
       "app_id": {
         "android": "es.easycharger.app"
       },
-      "updated_at": "2025-08-06",
+      "source": {
+        "urls": [
+          "https://www.zunder.com/pt-pt/"
+        ],
+        "last_updated": "2025-08-06"
+      },
       "plans": [
         {
           "name": "CEME",
@@ -20211,11 +20303,15 @@
     {
       "name": "Continente",
       "publish": true,
+      "url": "https://feed.continente.pt/plug-charge",
       "app_url": {
         "android": "https://play.google.com/store/apps/details?id=pt.continente.ContinenteTelemovel"
       },
       "app_id": {
         "android": "pt.continente.ContinenteTelemovel"
+      },
+      "source": {
+        "last_updated": "2026-11-26"
       },
       "plans": [
         {
@@ -20246,7 +20342,44 @@
                     },
                     {
                       "min": 121.0,
-                      "price": 0.55,
+                      "price": 0.45,
+                      "unit": "energy"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "AD-HOC",
+          "publish": true,
+          "country_code": "PT",
+          "payment_methods": [
+            "ADHOC_BANK_CARD"
+          ],
+          "vat": 0.23,
+          "networks": [
+            {
+              "network_id": "CONTINENTE",
+              "tariffs": [
+                {
+                  "type": "AC",
+                  "price": 0.4,
+                  "unit": "energy"
+                },
+                {
+                  "type": "DC",
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 121.0,
+                      "price": 0.46,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 121.0,
+                      "price": 0.5,
                       "unit": "energy"
                     }
                   ]
@@ -20331,11 +20464,16 @@
     {
       "name": "Electroverse",
       "publish": true,
+      "url": "https://electroverse.com/",
       "app_url": {
         "android": "https://play.google.com/store/apps/details?id=energy.octopus.electricjuice"
       },
       "app_id": {
         "android": "energy.octopus.electricjuice"
+      },
+      "source": {
+        "last_updated": "2026-11-26",
+        "notes": "Rules provided by João Nunes"
       },
       "plans": [
         {
@@ -20363,7 +20501,7 @@
                   "tiers": [
                     {
                       "max": 8.0,
-                      "price": 0.41,
+                      "price": 0.4,
                       "unit": "energy"
                     },
                     {
@@ -20419,7 +20557,7 @@
                   "tiers": [
                     {
                       "max": 8.0,
-                      "price": 0.41,
+                      "price": 0.4,
                       "unit": "energy"
                     },
                     {
@@ -20462,7 +20600,7 @@
                   "unit": "time",
                   "tiers": [
                     {
-                      "min": 8.0,
+                      "min": 12.0,
                       "max": 23.0,
                       "price": 0.05,
                       "unit": "time"
@@ -20479,14 +20617,123 @@
             {
               "network_id": "MOBIE",
               "included_cpos": [
-                "IONY"
+                "EMEL"
+              ],
+              "tariffs": [
+                {
+                  "price": 0.3,
+                  "unit": "flat"
+                },
+                {
+                  "type": "DC",
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 51.0,
+                      "price": 0.6,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 51.0,
+                      "max": 151.0,
+                      "price": 0.72,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 151.0,
+                      "price": 0.79,
+                      "unit": "energy"
+                    }
+                  ]
+                },
+                {
+                  "type": "AC",
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 8.0,
+                      "price": 0.4,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 8.0,
+                      "max": 12.0,
+                      "price": 0.42,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 12.0,
+                      "price": 0.6,
+                      "unit": "energy"
+                    }
+                  ]
+                },
+                {
+                  "type": "AC",
+                  "unit": "time",
+                  "tiers": [
+                    {
+                      "min": 12.0,
+                      "max": 23.0,
+                      "price": 0.25,
+                      "unit": "time"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "MOBIE",
+              "included_cpos": [
+                "ATLA"
               ],
               "tariffs": [
                 {
                   "type": "DC",
-                  "price": 0.3,
-                  "unit": "flat"
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 51.0,
+                      "price": 0.6,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 51.0,
+                      "max": 151.0,
+                      "price": 0.72,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 151.0,
+                      "price": 0.79,
+                      "unit": "energy"
+                    }
+                  ]
                 },
+                {
+                  "type": "AC",
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 22.0,
+                      "price": 0.6,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 23.0,
+                      "price": 0.6,
+                      "unit": "energy"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "network_id": "MOBIE",
+              "included_cpos": [
+                "IONY"
+              ],
+              "tariffs": [
                 {
                   "type": "DC",
                   "price": 0.62,

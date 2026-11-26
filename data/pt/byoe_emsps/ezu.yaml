@@ -3,8 +3,9 @@ providers:
   app_id:
     android: pt.alvesbandeira.mobieapp
 
-  url: https://www.ezu.pt/ceme
-  updated_at: "2026-08-08"
+  source:
+    url: https://www.ezu.pt/ceme
+    last_updated: "2026-08-08"
   plans:
   - name: CEME Cartão
     country_code: PT

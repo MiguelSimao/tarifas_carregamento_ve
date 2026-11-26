@@ -1,7 +1,8 @@
 providers:
 - name: BlueCharge
-  url: https://www.bluecharge.pt/
-  updated_at: "2024-12-30"
+  source:
+    url: https://www.bluecharge.pt/
+    last_updated: "2024-12-30"
   plans:
   - name: CEME (Diário)
     country_code: PT

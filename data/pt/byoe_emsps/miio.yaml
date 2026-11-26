@@ -3,8 +3,9 @@ providers:
   app_id:
     android: com.muvext.miio
 
-  url: https://www.miio.com/pt/prices/charging
-  updated_at: "2026-05-03"
+  source:
+    url: https://www.miio.com/pt/prices/charging
+    last_updated: "2026-05-03"
   plans:
   - name: CEME Base (Diário)
     country_code: PT

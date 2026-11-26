@@ -1,5 +1,10 @@
 providers:
 - name: Continente
+  
+  url: https://feed.continente.pt/plug-charge
+  source:
+    last_updated: 2026-11-26
+
   app_id:
     android: pt.continente.ContinenteTelemovel
 
@@ -18,4 +23,20 @@ providers:
         - max: 121
           price: 0.41
         - min: 121
-          price: 0.55
+          price: 0.45
+
+  - name: AD-HOC
+    country_code: PT
+    payment_methods:
+    - ADHOC_BANK_CARD
+    networks:
+    - network_id: CONTINENTE
+      tariffs:
+      - type: AC
+        price: 0.40
+      - type: DC
+        tiers:
+        - max: 121
+          price: 0.46
+        - min: 121
+          price: 0.50

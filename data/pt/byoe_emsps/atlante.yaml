@@ -2,7 +2,8 @@ providers:
 - name: Atlante
   app_ids:
     android: com.atlante.charging
-  updated_at: "2026-01-03"
+  source:
+    last_updated: "2026-01-03"
   plans:
   - name: "CEME"
     country_code: PT

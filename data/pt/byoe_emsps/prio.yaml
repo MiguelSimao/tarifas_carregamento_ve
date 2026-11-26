@@ -3,8 +3,9 @@ providers:
   app_ids:
     android: com.prio.appelectric
 
-  url: https://www.prio.pt/pt/mobilidade-eletrica/informacao-faturacao-uve_427.html
-  updated_at: "2026-08-08"
+  source:
+    url: https://www.prio.pt/pt/mobilidade-eletrica/informacao-faturacao-uve_427.html
+    last_updated: "2026-08-08"
   plans:
   - name: CEME (kWh)
     country_code: PT

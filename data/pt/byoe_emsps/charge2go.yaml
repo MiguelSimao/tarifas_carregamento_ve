@@ -1,7 +1,8 @@
 providers:
 - name: Charge2Go
-  url: https://charge2go.pt/tarifarios/
-  updated_at: "2024-12-30"
+  source:
+    url: https://charge2go.pt/tarifarios/
+    last_updated: "2024-12-30"
   plans:
   - name: CEME (Diário)
     country_code: PT

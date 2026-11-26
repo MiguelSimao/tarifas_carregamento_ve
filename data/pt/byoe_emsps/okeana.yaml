@@ -1,7 +1,8 @@
 providers:
 - name: Okeana
-  url: https://okeana.pt/
-  updated_at: "2024-12-30"
+  source:
+    url: https://okeana.pt/
+    last_updated: "2024-12-30"
   plans:
   - name: CEME
     country_code: PT

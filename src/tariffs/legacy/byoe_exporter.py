@@ -268,8 +268,16 @@ def export_byoe_to_csv(
             pt_notes = [n.text for n in primary_plan.notes if n.language == "pt"]
             cond_text = pt_notes[0] if pt_notes else primary_plan.notes[0].text
 
-        url = prov.url or ""
-        updated_at = prov.updated_at or ""
+        url = (
+            prov.source.urls[0]
+            if prov.source and prov.source.urls
+            else prov.url or ""
+        )
+        updated_at = (
+            prov.source.last_updated
+            if prov.source and prov.source.last_updated
+            else prov.updated_at or ""
+        )
         start_date = byoe.start_date or primary_plan.start_date or ""
         end_date = primary_plan.end_date or ""
         renewable = (

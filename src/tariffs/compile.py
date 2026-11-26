@@ -114,6 +114,7 @@ def main():
                 app_id=prov.app_id,
                 adhoc_url_whitelist=prov.adhoc_url_whitelist,
                 updated_at=prov.updated_at,
+                source=prov.source,
                 plans=published_plans,
             )
             provider_sources[name] = [file_path]
@@ -123,6 +124,9 @@ def main():
 
             if not prov.publish:
                 existing.publish = False
+
+            if prov.source is not None and existing.source is None:
+                existing.source = prov.source
 
             # Check url conflict
             if prov.url is not None:

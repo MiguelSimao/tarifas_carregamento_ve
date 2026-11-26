@@ -3,8 +3,9 @@ providers:
   app_id:
     android: com.enablemobility.mobile.myenable
 
-  url: https://www.enable-mobility.com/
-  updated_at: "2026-08-08"
+  source:
+    url: https://www.enable-mobility.com/
+    last_updated: "2026-08-08"
   plans:
   - name: CEME
     country_code: PT

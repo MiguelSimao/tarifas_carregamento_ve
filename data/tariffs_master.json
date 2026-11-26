@@ -21384,6 +21384,59 @@
       ]
     },
     {
+      "name": "Telpark",
+      "publish": true,
+      "app_url": {
+        "android": "https://play.google.com/store/apps/details?id=com.delaware.empark"
+      },
+      "app_id": {
+        "android": "com.delaware.empark"
+      },
+      "source": {
+        "last_updated": "2026-11-26"
+      },
+      "plans": [
+        {
+          "name": "Base",
+          "publish": true,
+          "country_code": "PT",
+          "end_date": "2026-12-31",
+          "payment_methods": [
+            "APP"
+          ],
+          "vat": 0.23,
+          "networks": [
+            {
+              "network_id": "EPKS",
+              "tariffs": [
+                {
+                  "type": "AC",
+                  "price": 0.59,
+                  "unit": "energy"
+                },
+                {
+                  "type": "DC",
+                  "unit": "energy",
+                  "tiers": [
+                    {
+                      "max": 61.0,
+                      "price": 0.64,
+                      "unit": "energy"
+                    },
+                    {
+                      "min": 61.0,
+                      "price": 0.69,
+                      "unit": "energy"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Tesla",
       "publish": true,
       "app_url": {

@@ -1,0 +1,53 @@
+name: Upload Master Tariffs to R2
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'data/**'
+  workflow_dispatch:
+
+env:
+  SOURCE_FILE: data/tariffs_master.json
+
+jobs:
+  upload-to-r2:
+    runs-on: ubuntu-latest
+    environment: carregar.app
+    env:
+      R2_ENDPOINT_URL: ${{ vars.R2_ENDPOINT_URL }}
+      R2_BUCKET: ${{ vars.R2_BUCKET }}
+      R2_OBJECT_KEY: ${{ vars.R2_OBJECT_KEY || 'tariffs_master.json' }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: uv sync
+
+      - name: Validate Tariff YAML Files
+        run: uv run tariffs-validate
+
+      - name: Compile Master JSON Dataset
+        run: uv run tariffs-compile -i data -o "$SOURCE_FILE"
+
+      - name: Upload Master Tariffs JSON to R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+        run: |
+          aws s3 cp "$SOURCE_FILE" "s3://$R2_BUCKET/$R2_OBJECT_KEY" \
+            --endpoint-url "$R2_ENDPOINT_URL" \
+            --content-type "application/json"

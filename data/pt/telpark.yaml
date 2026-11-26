@@ -1,0 +1,28 @@
+providers:
+- name: Telpark
+  source:
+    last_updated: 2026-11-26
+    notes: "Prices derived from app at this date."
+  
+  app_ids:
+    android: com.delaware.empark
+
+  plans:
+  - name: Base
+    country_code: PT
+    end_date: "2026-12-31"
+    payment_methods:
+      - APP
+    networks:
+    - network_id: EPKS
+      tariffs:
+      # Promotional prices until end of year (2026-12-31)
+      # Regular pricing: 0.69 AC, 0.75 DC (<=60kW), 0.79 DC (>60kW)
+      - type: AC
+        price: 0.59 # regular: 0.69
+      - type: DC
+        tiers:
+        - max: 61
+          price: 0.64 # regular: 0.75 (<=60kW)
+        - min: 61
+          price: 0.69 # regular: 0.79 (>60kW)

@@ -4,6 +4,7 @@ providers:
   url: https://feed.continente.pt/plug-charge
   source:
     last_updated: 2026-11-26
+    last_checked: "2026-11-27"
 
   app_id:
     android: pt.continente.ContinenteTelemovel

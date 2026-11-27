@@ -864,9 +864,6 @@
         "android": "com.evio.acpelectric"
       },
       "source": {
-        "urls": [
-          "https://www.acp.pt/eletricos/app-e-cartao-acp-electric/para-socios-e-nao-socios"
-        ],
         "last_checked": "2026-11-27",
         "last_updated": "2026-08-08"
       },
@@ -1592,12 +1589,8 @@
       "name": "BlueCharge",
       "publish": true,
       "source": {
-        "urls": [
-          "https://www.bluecharge.pt/"
-        ],
         "last_checked": "2026-11-27",
-        "last_updated": "2024-12-30",
-        "notes": "Não emitem novos cartões"
+        "last_updated": "2024-12-30"
       },
       "plans": [
         {
@@ -2396,9 +2389,7 @@
       "name": "Charge2Go",
       "publish": true,
       "source": {
-        "urls": [
-          "https://charge2go.pt/tarifarios/"
-        ],
+        "last_checked": "2026-11-27",
         "last_updated": "2024-12-30"
       },
       "plans": [
@@ -3389,9 +3380,6 @@
         "android": "wit.edp.edpmobile"
       },
       "source": {
-        "urls": [
-          "https://www.edp.pt/particulares/servicos/mobilidade-eletrica/carregar-fora-de-casa/"
-        ],
         "last_checked": "2026-11-27",
         "last_updated": "2026-08-08"
       },
@@ -5280,9 +5268,6 @@
         "android": "com.enablemobility.mobile.myenable"
       },
       "source": {
-        "urls": [
-          "https://www.enable-mobility.com/"
-        ],
         "last_checked": "2026-11-27",
         "last_updated": "2026-08-08"
       },
@@ -5671,9 +5656,6 @@
       "publish": true,
       "url": "https://www.evaz.energy/solutions/plans/mobility",
       "source": {
-        "urls": [
-          "https://www.evaz.energy/solutions/plans/mobility"
-        ],
         "last_checked": "2026-11-27",
         "last_updated": "2025-04-15"
       },
@@ -7337,9 +7319,6 @@
         "android": "com.evio.evio"
       },
       "source": {
-        "urls": [
-          "https://ceme.go-evio.com/pt/site-ceme"
-        ],
         "last_checked": "2026-11-27",
         "last_updated": "2025-06-01"
       },
@@ -7720,10 +7699,6 @@
       "name": "EVPower",
       "publish": true,
       "source": {
-        "urls": [
-          "https://www.evpower.pt/particulares/",
-          "https://www.evpower.pt/wp-content/uploads/2025/10/tarifario_Novembro_2025_1-1.jpg"
-        ],
         "last_checked": "2026-11-27",
         "last_updated": "2026-11-27"
       },
@@ -8327,12 +8302,8 @@
         "android": "pt.alvesbandeira.mobieapp"
       },
       "source": {
-        "urls": [
-          "https://www.ezu.pt/ceme"
-        ],
         "last_checked": "2026-11-27",
-        "last_updated": "2026-08-08",
-        "notes": "Exact CEME kWh rates require AB Energia | EZU app; CEME App promo end_date 2026-08-31 lapsed."
+        "last_updated": "2026-08-08"
       },
       "plans": [
         {
@@ -8652,10 +8623,6 @@
       "name": "FactorEnergia",
       "publish": true,
       "source": {
-        "urls": [
-          "https://www.factorenergia.pt/cartao-mobilidade-eletrica/",
-          "https://www.factorenergia.pt/wp-content/uploads/2026/05/Tabela-precos-vecard-jan-2026-novo-logo.pdf"
-        ],
         "last_checked": "2026-11-27",
         "last_updated": "2026-08-08"
       },
@@ -9468,10 +9435,6 @@
         "android": "com.galp.mundogalp.release"
       },
       "source": {
-        "urls": [
-          "https://www.galp.com/pt/pt/particulares/estrada/cartao-galpelectric-info",
-          "https://www.galp.com/pt/casa/system/files/2026-10/galp-electric-tabela-precos-descontos-1026.pdf"
-        ],
         "last_checked": "2026-11-27",
         "last_updated": "2026-11-27"
       },
@@ -13395,9 +13358,6 @@
       "url": "https://goldenergy.pt/mobilidade-eletrica/",
       "updated_at": "2026-11-21",
       "source": {
-        "urls": [
-          "https://goldenergy.pt/mobilidade-eletrica/"
-        ],
         "last_checked": "2026-11-27",
         "last_updated": "2026-11-21"
       },
@@ -13765,10 +13725,6 @@
       "name": "Iberdrola",
       "publish": true,
       "source": {
-        "urls": [
-          "https://www.iberdrola.pt/casa/mobilidade-eletrica/carregar-fora-casa",
-          "https://www.iberdrola.pt/apoio-cliente/ceme/condicoes-oferta"
-        ],
         "last_checked": "2026-11-27",
         "last_updated": "2024-12-30"
       },
@@ -14070,9 +14026,6 @@
       "name": "MEO Energia",
       "publish": true,
       "source": {
-        "urls": [
-          "https://www.meoenergia.pt/mobilidade-eletrica"
-        ],
         "last_checked": "2026-11-27",
         "last_updated": "2026-08-24"
       },
@@ -14545,9 +14498,6 @@
         "android": "com.muvext.miio"
       },
       "source": {
-        "urls": [
-          "https://www.miio.com/pt/prices/charging"
-        ],
         "last_checked": "2026-11-27",
         "last_updated": "2026-05-03"
       },
@@ -16506,13 +16456,8 @@
       "name": "Mobismart",
       "publish": true,
       "source": {
-        "urls": [
-          "https://mobismart.pt/pedir-cartao/",
-          "https://mobismart.pt/precos/EVCE-Tabela-precos-CEME-energia_PT.pdf"
-        ],
         "last_checked": "2026-11-27",
-        "last_updated": "2024-12-30",
-        "notes": "Custo de ativação de 5 € no Plano Pós-Pago/Active é taxa única de adesão, não por sessão."
+        "last_updated": "2024-12-30"
       },
       "plans": [
         {
@@ -17052,9 +16997,6 @@
         "android": "com.cepsa.xmartplace"
       },
       "source": {
-        "urls": [
-          "https://pt.cepsa.com/pt/utilizacao/produtos-servicos/carregamento-eletrico"
-        ],
         "last_checked": "2026-11-27",
         "last_updated": "2026-04-21"
       },
@@ -18450,12 +18392,8 @@
       "name": "Okeana",
       "publish": true,
       "source": {
-        "urls": [
-          "https://okeana.pt/"
-        ],
         "last_checked": "2026-11-27",
-        "last_updated": "2024-12-30",
-        "notes": "kWh rate on the first page of the PDF linked from 'Mobilidade Elétrica – Condições'"
+        "last_updated": "2024-12-30"
       },
       "plans": [
         {
@@ -18781,9 +18719,6 @@
         "android": "com.prio.appelectric"
       },
       "source": {
-        "urls": [
-          "https://www.prio.pt/pt/mobilidade-eletrica/informacao-faturacao-uve_427.html"
-        ],
         "last_checked": "2026-11-27",
         "last_updated": "2026-08-08"
       },
@@ -19233,13 +19168,8 @@
       "publish": true,
       "url": "https://www.repsol.pt/particulares/estrada/mobilidade-eletrica/",
       "source": {
-        "urls": [
-          "https://www.repsol.pt/particulares/estrada/mobilidade-eletrica/precos-carregamento-eletrico/",
-          "https://www.repsol.pt/particulares/estrada/mobilidade-eletrica/"
-        ],
         "last_checked": "2026-11-27",
-        "last_updated": "2026-11-27",
-        "notes": "Cartões físicos CEME desativados desde 2025-05-12 (apenas App My Repsol). Valor da Ativação (0,1088 €/carregamento) corresponde à taxa EGME."
+        "last_updated": "2026-11-27"
       },
       "plans": [
         {
@@ -20061,9 +19991,6 @@
         "android": "pt.viaverde.clientes"
       },
       "source": {
-        "urls": [
-          "https://www.viaverde.pt/particulares/via-verde/onde-e-como-usar/via-verde-electric"
-        ],
         "last_checked": "2026-11-27",
         "last_updated": "2024-12-30"
       },
@@ -20392,13 +20319,8 @@
         "android": "es.easycharger.app"
       },
       "source": {
-        "urls": [
-          "https://www.zunder.com/pt-pt/utilizador-ve/#tarifas",
-          "https://www.zunder.com/pt-pt/"
-        ],
         "last_checked": "2026-11-27",
-        "last_updated": "2026-11-27",
-        "notes": "Website splits CEME rates by BT/MT with no flat rate published, while explicitly listing TAR, IEC (0.001 €/kWh), and EGME (0.13 €/sessão) separately under Impostos."
+        "last_updated": "2026-11-27"
       },
       "plans": [
         {
@@ -21032,6 +20954,7 @@
         "android": "pt.continente.ContinenteTelemovel"
       },
       "source": {
+        "last_checked": "2026-11-27",
         "last_updated": "2026-11-26"
       },
       "plans": [
@@ -21193,8 +21116,7 @@
         "android": "energy.octopus.electricjuice"
       },
       "source": {
-        "last_updated": "2026-11-26",
-        "notes": "Rules provided by João Nunes"
+        "last_updated": "2026-11-26"
       },
       "plans": [
         {
@@ -22114,8 +22036,7 @@
         "android": "com.delaware.empark"
       },
       "source": {
-        "last_updated": "2026-11-26",
-        "notes": "Prices derived from app at this date."
+        "last_updated": "2026-11-26"
       },
       "plans": [
         {

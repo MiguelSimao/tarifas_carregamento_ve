@@ -490,3 +490,72 @@ def test_compilation_excludes_unpublished_provider_and_empty_plans(tmp_path):
     assert "ProviderWithOnlyDraftPlans" not in prov_names
 
 
+def test_compile_source_only_exports_dates(tmp_path):
+    """Compiled JSON should only export last_updated and last_checked from source."""
+    import sys
+
+    dir_path = tmp_path / "data"
+    dir_path.mkdir()
+
+    (dir_path / "providers.yaml").write_text(
+        yaml.dump(
+            {
+                "providers": [
+                    {
+                        "name": "WithAllSourceFields",
+                        "source": {
+                            "urls": ["https://example.com/tariffs"],
+                            "last_checked": "2026-11-26",
+                            "last_updated": "2026-11-20",
+                            "notes": "Internal scraping note",
+                        },
+                        "plans": [
+                            {
+                                "name": "PlanA",
+                                "networks": [
+                                    {"network_id": "NET1", "tariffs": [{"price": 0.30}]}
+                                ],
+                            }
+                        ],
+                    },
+                    {
+                        "name": "WithOnlyUrlsAndNotes",
+                        "source": {
+                            "urls": ["https://example.com/other"],
+                            "notes": "No dates here",
+                        },
+                        "plans": [
+                            {
+                                "name": "PlanB",
+                                "networks": [
+                                    {"network_id": "NET1", "tariffs": [{"price": 0.35}]}
+                                ],
+                            }
+                        ],
+                    },
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    output_file = str(tmp_path / "output.json")
+    orig_argv = sys.argv
+    try:
+        sys.argv = ["tariffs-compile", "-i", str(dir_path), "-o", output_file, "--no-legacy-csv"]
+        compile_main()
+    finally:
+        sys.argv = orig_argv
+
+    with open(output_file, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    by_name = {p["name"]: p for p in data["providers"]}
+    assert by_name["WithAllSourceFields"]["source"] == {
+        "last_checked": "2026-11-26",
+        "last_updated": "2026-11-20",
+    }
+    assert "source" not in by_name["WithOnlyUrlsAndNotes"]
+
+
+

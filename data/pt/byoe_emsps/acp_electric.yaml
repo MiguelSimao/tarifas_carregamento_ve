@@ -1,12 +1,14 @@
 providers:
 - name: ACP Electric
+  url: https://www.acp.pt/eletricos/app-e-cartao-acp-electric/para-socios-e-nao-socios
   app_ids:
     android: com.evio.acpelectric
   source:
     url: https://www.acp.pt/eletricos/app-e-cartao-acp-electric/para-socios-e-nao-socios
     last_updated: "2026-08-08"
-  plans:
+    last_checked: "2026-11-27"
 
+  plans:
   - name: "CEME Base"
     display_name:
     - language: pt

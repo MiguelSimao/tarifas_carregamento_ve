@@ -6,6 +6,7 @@ providers:
   source:
     url: https://www.miio.com/pt/prices/charging
     last_updated: "2026-05-03"
+    last_checked: "2026-11-27"
   plans:
   - name: CEME Base (Diário)
     country_code: PT

@@ -1,8 +1,11 @@
 providers:
 - name: FactorEnergia
   source:
-    url: https://factorenergia.pt/servicos/cartao-mobilidade-eletrica/
+    urls:
+    - https://www.factorenergia.pt/cartao-mobilidade-eletrica/
+    - https://www.factorenergia.pt/wp-content/uploads/2026/05/Tabela-precos-vecard-jan-2026-novo-logo.pdf
     last_updated: "2026-08-08"
+    last_checked: "2026-11-27"
   plans:
   - name: CEME (Diário)
     country_code: PT

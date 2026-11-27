@@ -3,6 +3,7 @@ providers:
   source:
     url: https://www.meoenergia.pt/mobilidade-eletrica
     last_updated: "2026-08-24"
+    last_checked: "2026-11-27"
   plans:
   - name: CEME M4e/M5e
     country_code: PT

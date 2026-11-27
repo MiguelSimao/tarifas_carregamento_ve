@@ -1,17 +1,22 @@
 providers:
 - name: Repsol
+  url: https://www.repsol.pt/particulares/estrada/mobilidade-eletrica/
   source:
-    url: https://www.repsol.pt/particulares/estrada/mobilidade-eletrica/
-    last_updated: "2024-12-30"
+    urls:
+    - https://www.repsol.pt/particulares/estrada/mobilidade-eletrica/precos-carregamento-eletrico/
+    - https://www.repsol.pt/particulares/estrada/mobilidade-eletrica/
+    last_updated: "2026-11-27"
+    last_checked: "2026-11-27"
+    notes: "Cartões físicos CEME desativados desde 2025-05-12 (apenas App My Repsol). Valor da Ativação (0,1088 €/carregamento) corresponde à taxa EGME."
   plans:
-  - name: CEME
+  - name: CEME Motor
     country_code: PT
     regions:
     - PT
     - PT::RAA
     - PT::RAM
     byoe:
-      start_date: "2024-09-23"
+      start_date: "2026-01-01"
       schedule: 1H
       includes_egme: false
       includes_iec: false
@@ -19,7 +24,103 @@ providers:
       renewable_energy: true
       activation_fee: 0.0
       all_day: 0.2868
+    contract_conditions:
+    - LOYALTY_PROGRAM
+    notes:
+    - language: pt
+      text: Plano Motor (Registo na App)
+    - language: en
+      text: Motor Plan (App Registration)
     payment_methods:
-    - RFID_CARD
+    - APP
     networks:
     - network_id: MOBIE
+      excluded_cpos:
+      - REPS
+      discount:
+        percentage: 0.05
+        cashback: true
+        applies_to: CEME
+    - network_id: REPS
+      discount:
+        percentage: 0.10
+        cashback: true
+        applies_to: CEME
+
+  - name: CEME Motor e Luz
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-01-01"
+      schedule: 1H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      all_day: 0.2868
+    contract_conditions:
+    - ENERGY_AT_HOME
+    - LOYALTY_PROGRAM
+    notes:
+    - language: pt
+      text: Cliente Casa Eletricidade
+    - language: en
+      text: Home Electricity Customer
+    payment_methods:
+    - APP
+    networks:
+    - network_id: MOBIE
+      excluded_cpos:
+      - REPS
+      discount:
+        percentage: 0.075
+        cashback: true
+        applies_to: CEME
+    - network_id: REPS
+      discount:
+        percentage: 0.15
+        cashback: true
+        applies_to: CEME
+
+  - name: CEME Motor, Luz e Calor
+    country_code: PT
+    regions:
+    - PT
+    - PT::RAA
+    - PT::RAM
+    byoe:
+      start_date: "2026-01-01"
+      schedule: 1H
+      includes_egme: false
+      includes_iec: false
+      includes_tar: true
+      renewable_energy: true
+      activation_fee: 0.0
+      all_day: 0.2868
+    contract_conditions:
+    - ENERGY_AT_HOME
+    - LOYALTY_PROGRAM
+    notes:
+    - language: pt
+      text: Cliente Casa Eletricidade e Gás
+    - language: en
+      text: Home Electricity & Gas Customer
+    payment_methods:
+    - APP
+    networks:
+    - network_id: MOBIE
+      excluded_cpos:
+      - REPS
+      discount:
+        percentage: 0.10
+        cashback: true
+        applies_to: CEME
+    - network_id: REPS
+      discount:
+        percentage: 0.20
+        cashback: true
+        applies_to: CEME

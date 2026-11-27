@@ -1,8 +1,11 @@
 providers:
 - name: EVPower
   source:
-    url: https://signup.evpower.pt/
-    last_updated: "2024-12-30"
+    urls:
+    - https://www.evpower.pt/particulares/
+    - https://www.evpower.pt/wp-content/uploads/2025/10/tarifario_Novembro_2025_1-1.jpg
+    last_updated: "2026-11-27"
+    last_checked: "2026-11-27"
   plans:
   - name: CEME
     country_code: PT
@@ -11,7 +14,7 @@ providers:
     - PT::RAA
     - PT::RAM
     byoe:
-      start_date: "2024-01-01"
+      start_date: "2026-01-01"
       schedule: 2H
       includes_egme: false
       includes_iec: false
@@ -19,9 +22,15 @@ providers:
       renewable_energy: true
       activation_fee: 0.0
       cycle: diario
-      fora_vazio: 0.245
-      vazio: 0.175
+      rates_by_voltage:
+        BT:
+          fora_vazio: 0.1952
+          vazio: 0.1729
+        MT:
+          fora_vazio: 0.1884
+          vazio: 0.1691
     payment_methods:
     - RFID_CARD
+    - APP
     networks:
     - network_id: MOBIE

@@ -3,6 +3,7 @@ providers:
   source:
     url: https://goldenergy.pt/mobilidade-eletrica/
     last_updated: "2026-11-21"
+    last_checked: "2026-11-27"
   plans:
   - name: CEME Base
     country_code: PT

@@ -2,7 +2,9 @@ providers:
 - name: BlueCharge
   source:
     url: https://www.bluecharge.pt/
+    notes: "Não emitem novos cartões"
     last_updated: "2024-12-30"
+    last_checked: "2026-11-27"
   plans:
   - name: CEME (Diário)
     country_code: PT
@@ -13,11 +15,11 @@ providers:
     byoe:
       start_date: "2023-03-01"
       schedule: 2H
-      includes_egme: false
+      includes_egme: true
       includes_iec: false
       includes_tar: true
       renewable_energy: true
-      activation_fee: 0.0
+      activation_fee: 0.25
       cycle: diario
       fora_vazio: 0.269
       vazio: 0.249
@@ -34,11 +36,11 @@ providers:
     byoe:
       start_date: "2023-03-01"
       schedule: 2H
-      includes_egme: false
+      includes_egme: true
       includes_iec: false
       includes_tar: true
       renewable_energy: true
-      activation_fee: 0.0
+      activation_fee: 0.25
       cycle: semanal
       fora_vazio: 0.269
       vazio: 0.249

@@ -6,6 +6,7 @@ providers:
   source:
     url: https://pt.cepsa.com/pt/utilizacao/produtos-servicos/carregamento-eletrico
     last_updated: "2026-04-21"
+    last_checked: "2026-11-27"
   plans:
 
   - name: CEME App GOW

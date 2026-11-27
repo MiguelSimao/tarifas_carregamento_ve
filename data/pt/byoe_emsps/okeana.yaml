@@ -3,6 +3,8 @@ providers:
   source:
     url: https://okeana.pt/
     last_updated: "2024-12-30"
+    last_checked: "2026-11-27" 
+    notes: "kWh rate on the first page of the PDF linked from 'Mobilidade Elétrica – Condições'"
   plans:
   - name: CEME
     country_code: PT
@@ -19,8 +21,8 @@ providers:
       renewable_energy: false
       activation_fee: 0.0
       cycle: diario
-      fora_vazio: 0.25
-      vazio: 0.25
+      fora_vazio: 0.20
+      vazio: 0.20
     payment_methods:
     - RFID_CARD
     networks:

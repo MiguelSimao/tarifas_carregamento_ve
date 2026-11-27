@@ -2,6 +2,9 @@ providers:
 - name: Atlante
   app_ids:
     android: com.atlante.charging
+  
+  source:
+    last_checked: "2026-11-27"
 
   plans:
   - name: Base

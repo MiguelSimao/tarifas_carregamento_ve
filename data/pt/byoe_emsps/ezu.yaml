@@ -6,6 +6,8 @@ providers:
   source:
     url: https://www.ezu.pt/ceme
     last_updated: "2026-08-08"
+    last_checked: "2026-11-27"
+    notes: "Exact CEME kWh rates require AB Energia | EZU app; CEME App promo end_date 2026-08-31 lapsed."
   plans:
   - name: CEME Cartão
     country_code: PT
@@ -29,6 +31,7 @@ providers:
     networks:
     - network_id: MOBIE
   - name: CEME App
+    publish: false
     country_code: PT
     regions:
     - PT

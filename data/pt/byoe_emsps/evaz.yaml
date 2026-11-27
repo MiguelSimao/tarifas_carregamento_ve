@@ -1,8 +1,10 @@
 providers:
 - name: eVaz
+  url: https://www.evaz.energy/solutions/plans/mobility
   source:
     url: https://www.evaz.energy/solutions/plans/mobility
     last_updated: "2025-04-15"
+    last_checked: "2026-11-27"
   plans:
   - name: CEME Move Base (Diário)
     country_code: PT

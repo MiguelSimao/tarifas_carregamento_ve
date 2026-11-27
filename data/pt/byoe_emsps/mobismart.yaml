@@ -1,8 +1,12 @@
 providers:
 - name: Mobismart
   source:
-    url: https://mobismart.pt/pedir-cartao/
+    urls:
+    - https://mobismart.pt/pedir-cartao/
+    - https://mobismart.pt/precos/EVCE-Tabela-precos-CEME-energia_PT.pdf
     last_updated: "2024-12-30"
+    last_checked: "2026-11-27"
+    notes: "Custo de ativação de 5 € no Plano Pós-Pago/Active é taxa única de adesão, não por sessão."
   plans:
   - name: CEME Active
     country_code: PT
@@ -24,7 +28,9 @@ providers:
     months: 12
     notes:
     - language: pt
-      text: Plano Active (12 meses)
+      text: Plano Active (12 meses; custo de ativação único de 5 €)
+    - language: en
+      text: Active Plan (12 months; one-time activation fee of 5 €)
     payment_methods:
     - RFID_CARD
     networks:

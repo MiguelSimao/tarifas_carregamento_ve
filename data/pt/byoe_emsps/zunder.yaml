@@ -1,11 +1,16 @@
 providers:
 - name: Zunder
+  url: https://www.zunder.com/pt-pt/
   app_ids:
     android: es.easycharger.app
 
   source:
-    url: https://www.zunder.com/pt-pt/
-    last_updated: "2025-08-06"
+    urls:
+    - https://www.zunder.com/pt-pt/utilizador-ve/#tarifas
+    - https://www.zunder.com/pt-pt/
+    last_updated: "2026-11-27"
+    last_checked: "2026-11-27"
+    notes: "Website splits CEME rates by BT/MT with no flat rate published, while explicitly listing TAR, IEC (0.001 €/kWh), and EGME (0.13 €/sessão) separately under Impostos."
   plans:
   - name: CEME
     country_code: PT
@@ -22,10 +27,17 @@ providers:
       renewable_energy: false
       activation_fee: 0.0
       cycle: diario
-      fora_vazio: 0.1945
-      vazio: 0.1667
+      rates_by_voltage:
+        BT:
+          fora_vazio: 0.173
+          vazio: 0.200
+        MT:
+          fora_vazio: 0.220
+          vazio: 0.214
     payment_methods:
     - RFID_CARD
     - APP
     networks:
     - network_id: MOBIE
+      excluded_cpos:
+      - ZUN

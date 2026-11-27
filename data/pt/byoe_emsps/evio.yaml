@@ -1,11 +1,13 @@
 providers:
 - name: Evio
+  url: https://ceme.go-evio.com/pt/site-ceme
   app_id:
     android: com.evio.evio
 
   source:
     url: https://ceme.go-evio.com/pt/site-ceme
     last_updated: "2025-06-01"
+    last_checked: "2026-11-27"
   plans:
   - name: CEME
     country_code: PT

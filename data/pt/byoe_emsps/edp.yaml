@@ -1,10 +1,12 @@
 providers:
 - name: EDP
+  url: https://www.edp.pt/particulares/servicos/mobilidade-eletrica/carregar-fora-de-casa/
   app_id:
     android: wit.edp.edpmobile
   source:
     url: https://www.edp.pt/particulares/servicos/mobilidade-eletrica/carregar-fora-de-casa/
     last_updated: "2026-08-08"
+    last_checked: "2026-11-27"
   plans:
   - name: CEME
     country_code: PT

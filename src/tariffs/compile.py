@@ -8,7 +8,7 @@ import yaml
 
 from .byoe_generator import expand_byoe_plans, find_matching_regulated_fees
 from .legacy.compile import DEFAULT_LEGACY_CSV_OUTPUT_PATH, compile_legacy_ceme_csv
-from .model import Plan, Provider, TariffDocument
+from .model import Plan, Provider, Source, TariffDocument
 from .regulated_fees import RegulatedFeesDocument, TimeRestrictionsDocument
 from .validate import _cross_validate_tariff_doc
 
@@ -240,6 +240,17 @@ def main():
 
     # Exclude any provider that ended up with no plans after expansion
     master_providers = [prov for prov in master_providers if prov.plans]
+
+    # Strip non-date fields from provider source for JSON export
+    for prov in master_providers:
+        if prov.source is not None:
+            if prov.source.last_updated is None and prov.source.last_checked is None:
+                prov.source = None
+            else:
+                prov.source = Source(
+                    last_updated=prov.source.last_updated,
+                    last_checked=prov.source.last_checked,
+                )
 
     # Create the master document
     master_doc = TariffDocument(

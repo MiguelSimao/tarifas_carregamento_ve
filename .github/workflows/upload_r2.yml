@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: carregar.app
     env:
-      R2_ENDPOINT_URL: ${{ vars.R2_ENDPOINT_URL }}
-      R2_BUCKET: ${{ vars.R2_BUCKET }}
+      R2_ENDPOINT_URL: ${{ secrets.R2_ENDPOINT_URL }}
+      R2_BUCKET: ${{ secrets.R2_BUCKET }}
       R2_OBJECT_KEY: ${{ vars.R2_OBJECT_KEY || 'tariffs_master.json' }}
 
     steps:
@@ -44,8 +44,8 @@ jobs:
 
       - name: Upload Master Tariffs JSON to R2
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: auto
         run: |
           aws s3 cp "$SOURCE_FILE" "s3://$R2_BUCKET/$R2_OBJECT_KEY" \

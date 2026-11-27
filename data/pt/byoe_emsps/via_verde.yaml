@@ -6,6 +6,7 @@ providers:
   source:
     url: https://www.viaverde.pt/particulares/via-verde/onde-e-como-usar/via-verde-electric
     last_updated: "2024-12-30"
+    last_checked: "2026-11-27"
   plans:
   - name: CEME EcoChoice
     country_code: PT

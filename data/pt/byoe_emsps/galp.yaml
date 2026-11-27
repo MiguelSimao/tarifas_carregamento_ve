@@ -4,8 +4,11 @@ providers:
     android: com.galp.mundogalp.release
 
   source:
-    url: https://www.galp.com/pt/pt/particulares/estrada/cartao-galpelectric-info
-    last_updated: "2026-08-08"
+    urls:
+    - https://www.galp.com/pt/pt/particulares/estrada/cartao-galpelectric-info
+    - https://www.galp.com/pt/casa/system/files/2026-10/galp-electric-tabela-precos-descontos-1026.pdf
+    last_updated: "2026-11-27"
+    last_checked: "2026-11-27"
   plans:
 
   - name: CEME Base (Diário)
@@ -15,7 +18,7 @@ providers:
     - PT::RAA
     - PT::RAM
     byoe:
-      start_date: "2026-01-01"
+      start_date: "2026-10-01"
       schedule: 2H
       includes_egme: false
       includes_iec: false
@@ -23,8 +26,8 @@ providers:
       renewable_energy: true
       activation_fee: 0.0
       cycle: diario
-      fora_vazio: 0.2632  # reference price, discount applied on top
-      vazio: 0.1954
+      fora_vazio: 0.2895  # reference price, discount applied on top
+      vazio: 0.2149
     payment_methods:
     - RFID_CARD
     networks:
@@ -37,7 +40,7 @@ providers:
     - PT::RAA
     - PT::RAM
     byoe:
-      start_date: "2026-01-01"
+      start_date: "2026-10-01"
       schedule: 2H
       includes_egme: false
       includes_iec: false
@@ -45,8 +48,8 @@ providers:
       renewable_energy: true
       activation_fee: 0.0
       cycle: semanal
-      fora_vazio: 0.2632  # reference price, discount applied on top
-      vazio: 0.1954
+      fora_vazio: 0.2895  # reference price, discount applied on top
+      vazio: 0.2149
     payment_methods:
     - RFID_CARD
     networks:
@@ -59,7 +62,7 @@ providers:
     - PT::RAA
     - PT::RAM
     byoe:
-      start_date: "2026-01-01"
+      start_date: "2026-10-01"
       schedule: 2H
       includes_egme: false
       includes_iec: false
@@ -67,8 +70,8 @@ providers:
       renewable_energy: true
       activation_fee: 0.0
       cycle: diario
-      fora_vazio: 0.2632  # reference price, discount applied on top
-      vazio: 0.1954
+      fora_vazio: 0.2895  # reference price, discount applied on top
+      vazio: 0.2149
     contract_conditions:
     - LOYALTY_PROGRAM
     notes:
@@ -98,7 +101,7 @@ providers:
     - PT::RAA
     - PT::RAM
     byoe:
-      start_date: "2026-01-01"
+      start_date: "2026-10-01"
       schedule: 2H
       includes_egme: false
       includes_iec: false
@@ -106,8 +109,8 @@ providers:
       renewable_energy: true
       activation_fee: 0.0
       cycle: semanal
-      fora_vazio: 0.2632  # reference price, discount applied on top
-      vazio: 0.1954
+      fora_vazio: 0.2895  # reference price, discount applied on top
+      vazio: 0.2149
     contract_conditions:
     - LOYALTY_PROGRAM
     notes:
@@ -137,7 +140,7 @@ providers:
     - PT::RAA
     - PT::RAM
     byoe:
-      start_date: "2026-01-01"
+      start_date: "2026-10-01"
       schedule: 2H
       includes_egme: false
       includes_iec: false
@@ -145,8 +148,8 @@ providers:
       renewable_energy: true
       activation_fee: 0.0
       cycle: diario
-      fora_vazio: 0.2632  # reference price, discount applied on top
-      vazio: 0.1954
+      fora_vazio: 0.2895  # reference price, discount applied on top
+      vazio: 0.2149
     contract_conditions:
     - ENERGY_AT_HOME
     notes:
@@ -176,7 +179,7 @@ providers:
     - PT::RAA
     - PT::RAM
     byoe:
-      start_date: "2026-01-01"
+      start_date: "2026-10-01"
       schedule: 2H
       includes_egme: false
       includes_iec: false
@@ -184,8 +187,8 @@ providers:
       renewable_energy: true
       activation_fee: 0.0
       cycle: semanal
-      fora_vazio: 0.2632  # reference price, discount applied on top
-      vazio: 0.1954
+      fora_vazio: 0.2895  # reference price, discount applied on top
+      vazio: 0.2149
     contract_conditions:
     - ENERGY_AT_HOME
     notes:

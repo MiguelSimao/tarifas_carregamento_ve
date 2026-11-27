@@ -1,9 +1,13 @@
 providers:
 - name: Atlante
+  url: https://atlante.energy/pt-pt/
   app_ids:
     android: com.atlante.charging
   source:
+    url: https://atlante.energy/pt-pt/tarifas-de-energia/
     last_updated: "2026-01-03"
+    last_checked: "2026-11-27"
+
   plans:
   - name: "CEME"
     country_code: PT

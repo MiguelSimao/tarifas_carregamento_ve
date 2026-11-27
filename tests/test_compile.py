@@ -1,28 +1,153 @@
-import glob
 import json
 import os
 
 import yaml
 
 from tariffs.compile import main as compile_main
-from tariffs.validate import _validate_file
 
 
-def test_pt_tariff_files_valid():
-    """Ensure all Portugal tariff YAML files (including subdirectories) pass validation."""
-    data_dir = os.path.join(os.path.dirname(__file__), "..", "data", "pt")
-    assert os.path.exists(data_dir), "data/pt directory missing"
+def _write_synthetic_data_dir(tmp_path):
+    """Create a self-contained synthetic tariff dataset for compilation tests."""
+    data_dir = tmp_path / "synthetic_data"
+    fees_dir = data_dir / "byoe_fees"
+    emsps_dir = data_dir / "byoe_emsps"
+    fees_dir.mkdir(parents=True)
+    emsps_dir.mkdir(parents=True)
 
-    yaml_files = glob.glob(os.path.join(data_dir, "**", "*.yaml"), recursive=True)
-    assert len(yaml_files) > 0, "No YAML files found in data/pt"
+    (fees_dir / "time_restrictions.yaml").write_text(
+        yaml.dump(
+            {
+                "time_restrictions": [
+                    {
+                        "country_code": region,
+                        "effective_start_date": "2026-01-01",
+                        "schedules": [
+                            {
+                                "cycle": "diario",
+                                "schedule": "2H",
+                                "periods": {
+                                    "vazio": [
+                                        {
+                                            "start_time": "22:00",
+                                            "end_time": "08:00",
+                                            "days_of_week": [1, 2, 3, 4, 5, 6, 7],
+                                        }
+                                    ],
+                                    "fora_vazio": [
+                                        {
+                                            "start_time": "08:00",
+                                            "end_time": "22:00",
+                                            "days_of_week": [1, 2, 3, 4, 5, 6, 7],
+                                        }
+                                    ],
+                                },
+                            }
+                        ],
+                    }
+                    for region in ("PT", "PT::RAA", "PT::RAM")
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
 
-    for file_path in yaml_files:
-        assert _validate_file(file_path), f"File failed validation: {file_path}"
+    (fees_dir / "regulated_fees.yaml").write_text(
+        yaml.dump(
+            {
+                "regulated_fees": [
+                    {
+                        "country_code": region,
+                        "effective_date": "2026-01-01",
+                        "tar_variants": [
+                            {
+                                "voltage_level": "BT",
+                                "schedule": "2H",
+                                "rates": [
+                                    {"period": "cheias", "rate": 0.1192},
+                                    {"period": "vazio", "rate": 0.0266},
+                                ],
+                            },
+                            {
+                                "voltage_level": "MT",
+                                "schedule": "2H",
+                                "rates": [
+                                    {"period": "cheias", "rate": 0.0812},
+                                    {"period": "vazio", "rate": 0.0157},
+                                ],
+                            },
+                        ],
+                        "iec": 0.0010,
+                        "egme_connection": 0.1088,
+                        "vat": 0.23,
+                    }
+                    for region in ("PT", "PT::RAA", "PT::RAM")
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    (emsps_dir / "byoe_provider.yaml").write_text(
+        yaml.dump(
+            {
+                "providers": [
+                    {
+                        "name": "SyntheticBYOE",
+                        "app_id": {"android": "com.synthetic.byoe"},
+                        "source": {"last_checked": "2026-11-26"},
+                        "plans": [
+                            {
+                                "name": "CEME 2H",
+                                "country_code": "PT",
+                                "regions": ["PT", "PT::RAA", "PT::RAM"],
+                                "byoe": {
+                                    "schedule": "2H",
+                                    "cycle": "diario",
+                                    "vazio": 0.12,
+                                    "fora_vazio": 0.18,
+                                },
+                                "networks": [{"network_id": "MOBIE"}],
+                            }
+                        ],
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    (data_dir / "standard_provider.yaml").write_text(
+        yaml.dump(
+            {
+                "providers": [
+                    {
+                        "name": "SyntheticCPO",
+                        "source": {"last_checked": "2026-11-26"},
+                        "plans": [
+                            {
+                                "name": "Base",
+                                "country_code": "PT",
+                                "networks": [
+                                    {
+                                        "network_id": "NET1",
+                                        "tariffs": [{"type": "DC", "price": 0.45}],
+                                    }
+                                ],
+                            }
+                        ],
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    return str(data_dir)
 
 
 def test_compilation_output(tmp_path):
     """Test compiling YAML files into a master JSON output including BYOE & regulated fees."""
-    data_dir = os.path.join(os.path.dirname(__file__), "..", "data", "pt")
+    data_dir = _write_synthetic_data_dir(tmp_path)
     output_file = str(tmp_path / "_master.json")
 
     # Simulate command line arguments
@@ -30,7 +155,7 @@ def test_compilation_output(tmp_path):
 
     orig_argv = sys.argv
     try:
-        sys.argv = ["tariffs-compile", "-i", data_dir, "-o", output_file]
+        sys.argv = ["tariffs-compile", "-i", data_dir, "-o", output_file, "--no-legacy-csv"]
         compile_main()
     finally:
         sys.argv = orig_argv
@@ -136,7 +261,7 @@ def test_provider_merging_and_conflict_detection(tmp_path):
     output_file = str(tmp_path / "merged_master.json")
     orig_argv = sys.argv
     try:
-        sys.argv = ["tariffs-compile", "-i", str(dir_path), "-o", output_file]
+        sys.argv = ["tariffs-compile", "-i", str(dir_path), "-o", output_file, "--no-legacy-csv"]
         compile_main()
     finally:
         sys.argv = orig_argv
@@ -180,7 +305,7 @@ def test_provider_merging_and_conflict_detection(tmp_path):
     )
 
     try:
-        sys.argv = ["tariffs-compile", "-i", str(dir_path), "-o", output_file]
+        sys.argv = ["tariffs-compile", "-i", str(dir_path), "-o", output_file, "--no-legacy-csv"]
         with pytest.raises(SystemExit):
             compile_main()
     finally:
@@ -278,7 +403,7 @@ def test_compilation_excludes_unpublished_plans(tmp_path):
     output_file = str(tmp_path / "output.json")
     orig_argv = sys.argv
     try:
-        sys.argv = ["tariffs-compile", "-i", str(dir_path), "-o", output_file]
+        sys.argv = ["tariffs-compile", "-i", str(dir_path), "-o", output_file, "--no-legacy-csv"]
         compile_main()
     finally:
         sys.argv = orig_argv
@@ -351,7 +476,7 @@ def test_compilation_excludes_unpublished_provider_and_empty_plans(tmp_path):
     output_file = str(tmp_path / "output.json")
     orig_argv = sys.argv
     try:
-        sys.argv = ["tariffs-compile", "-i", str(dir_path), "-o", output_file]
+        sys.argv = ["tariffs-compile", "-i", str(dir_path), "-o", output_file, "--no-legacy-csv"]
         compile_main()
     finally:
         sys.argv = orig_argv

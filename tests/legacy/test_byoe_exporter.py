@@ -4,6 +4,8 @@ import csv
 import os
 import sys
 
+import yaml
+
 from tariffs.compile import main as compile_main
 from tariffs.legacy.byoe_exporter import (
     export_byoe_to_csv,
@@ -180,8 +182,118 @@ def test_byoe_exporter_calculations(tmp_path):
     assert ranks == ["1", "2"]
 
 
+def _write_legacy_compile_data_dir(tmp_path):
+    """Create a minimal synthetic dataset for legacy CSV compilation CLI tests."""
+    data_dir = tmp_path / "legacy_data"
+    fees_dir = data_dir / "byoe_fees"
+    emsps_dir = data_dir / "byoe_emsps"
+    fees_dir.mkdir(parents=True)
+    emsps_dir.mkdir(parents=True)
+
+    (fees_dir / "time_restrictions.yaml").write_text(
+        yaml.dump(
+            {
+                "time_restrictions": [
+                    {
+                        "country_code": "PT",
+                        "effective_start_date": "2026-01-01",
+                        "schedules": [
+                            {
+                                "cycle": "diario",
+                                "schedule": "2H",
+                                "periods": {
+                                    "vazio": [
+                                        {
+                                            "start_time": "22:00",
+                                            "end_time": "08:00",
+                                            "days_of_week": [1, 2, 3, 4, 5, 6, 7],
+                                        }
+                                    ],
+                                    "fora_vazio": [
+                                        {
+                                            "start_time": "08:00",
+                                            "end_time": "22:00",
+                                            "days_of_week": [1, 2, 3, 4, 5, 6, 7],
+                                        }
+                                    ],
+                                },
+                            }
+                        ],
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    (fees_dir / "regulated_fees.yaml").write_text(
+        yaml.dump(
+            {
+                "regulated_fees": [
+                    {
+                        "country_code": "PT",
+                        "effective_date": "2026-01-01",
+                        "tar_variants": [
+                            {
+                                "voltage_level": "BT",
+                                "schedule": "2H",
+                                "rates": [
+                                    {"period": "cheias", "rate": 0.1192},
+                                    {"period": "vazio", "rate": 0.0266},
+                                ],
+                            },
+                            {
+                                "voltage_level": "MT",
+                                "schedule": "2H",
+                                "rates": [
+                                    {"period": "cheias", "rate": 0.0812},
+                                    {"period": "vazio", "rate": 0.0157},
+                                ],
+                            },
+                        ],
+                        "iec": 0.0010,
+                        "egme_connection": 0.1088,
+                        "vat": 0.23,
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    (emsps_dir / "provider.yaml").write_text(
+        yaml.dump(
+            {
+                "providers": [
+                    {
+                        "name": "LegacyTestCEME",
+                        "source": {"last_checked": "2026-11-26"},
+                        "plans": [
+                            {
+                                "name": "CEME 2H",
+                                "country_code": "PT",
+                                "regions": ["PT"],
+                                "byoe": {
+                                    "schedule": "2H",
+                                    "cycle": "diario",
+                                    "vazio": 0.12,
+                                    "fora_vazio": 0.18,
+                                },
+                                "networks": [{"network_id": "MOBIE"}],
+                            }
+                        ],
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    return str(data_dir)
+
+
 def test_compile_legacy_csv_generation(tmp_path):
-    data_dir = os.path.join(os.path.dirname(__file__), "..", "..", "data", "pt")
+    data_dir = _write_legacy_compile_data_dir(tmp_path)
     output_json = str(tmp_path / "tariffs_master.json")
     output_csv = str(tmp_path / "tariffs_legacy_ceme_master.csv")
 
@@ -213,7 +325,7 @@ def test_compile_legacy_csv_generation(tmp_path):
 
 
 def test_compile_no_legacy_csv(tmp_path):
-    data_dir = os.path.join(os.path.dirname(__file__), "..", "..", "data", "pt")
+    data_dir = _write_legacy_compile_data_dir(tmp_path)
     output_json = str(tmp_path / "tariffs_master.json")
     output_csv = str(tmp_path / "tariffs_legacy_ceme_master.csv")
 

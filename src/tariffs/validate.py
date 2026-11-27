@@ -1,4 +1,5 @@
 import argparse
+import datetime
 import glob
 import os
 import sys
@@ -7,16 +8,84 @@ import yaml
 from pydantic import ValidationError
 
 from .model import TariffDocument
-from .regulated_fees import RegulatedFeesDocument, TariffSchedule, TimeRestrictionsDocument
+from .regulated_fees import (
+    RegulatedFeesDocument,
+    TariffSchedule,
+    TimeRestrictionsDocument,
+)
+
+STALE_CHECK_DAYS = 30
 
 
-def _cross_validate_tariff_doc(doc: TariffDocument, file_path: str):
+def _parse_iso_date(value: str) -> datetime.date:
+    """Parse an ISO 8601 date or datetime string into a date."""
+    try:
+        return datetime.date.fromisoformat(value)
+    except ValueError:
+        return datetime.datetime.fromisoformat(value).date()
+
+
+def _collect_tariff_warnings(
+    doc: TariffDocument,
+    file_path: str,
+    today: datetime.date | None = None,
+) -> list[str]:
+    """Return non-fatal validation warnings for a TariffDocument."""
+    ref_date = today or datetime.datetime.now(datetime.UTC).date()
+    warnings_list: list[str] = []
+
+    for prov in doc.providers:
+        if not getattr(prov, "publish", True):
+            continue
+
+        last_checked = prov.source.last_checked if prov.source else None
+        if not last_checked:
+            warnings_list.append(
+                f"Provider '{prov.name}' in '{file_path}' is missing 'source.last_checked'."
+            )
+            continue
+
+        try:
+            checked_date = _parse_iso_date(last_checked)
+        except ValueError:
+            warnings_list.append(
+                f"Provider '{prov.name}' in '{file_path}' has invalid 'source.last_checked' date '{last_checked}'."
+            )
+            continue
+
+        days_since_check = (ref_date - checked_date).days
+        if days_since_check > STALE_CHECK_DAYS:
+            warnings_list.append(
+                f"Provider '{prov.name}' in '{file_path}' has not been checked in over a month "
+                f"(last_checked: {last_checked}, {days_since_check} days ago)."
+            )
+
+    return warnings_list
+
+
+def _cross_validate_tariff_doc(
+    doc: TariffDocument,
+    file_path: str,
+    today: datetime.date | None = None,
+):
+    ref_date = today or datetime.datetime.now(datetime.UTC).date()
     for prov in doc.providers:
         if not getattr(prov, "publish", True):
             continue
         for plan in prov.plans:
             if not getattr(plan, "publish", True):
                 continue
+            if plan.end_date is not None:
+                try:
+                    end_dt = _parse_iso_date(plan.end_date)
+                except ValueError as exc:
+                    raise ValueError(
+                        f"Plan '{plan.name}' (provider '{prov.name}') in '{file_path}' has invalid end_date '{plan.end_date}'."
+                    ) from exc
+                if end_dt < ref_date:
+                    raise ValueError(
+                        f"Plan '{plan.name}' (provider '{prov.name}') in '{file_path}' has lapsed (end_date: {plan.end_date})."
+                    )
             if not plan.is_byoe:
                 if not plan.networks:
                     raise ValueError(f"Plan '{plan.name}' in '{file_path}' must define at least one network.")
@@ -106,6 +175,8 @@ def _validate_file(file_path: str) -> bool:
         else:
             doc = TariffDocument.model_validate(data)
             _cross_validate_tariff_doc(doc, file_path)
+            for warning in _collect_tariff_warnings(doc, file_path):
+                print(f"[WARN] {warning}")
 
         print(f"[OK] {file_path}: Valid")
         return True
